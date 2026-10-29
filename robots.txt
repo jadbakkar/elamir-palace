@@ -1,0 +1,34 @@
+# El Amir Palace — https://elamirpalace.com
+User-agent: *
+Allow: /
+Disallow: /_backup*
+Disallow: /site-a/
+Disallow: /site-b/
+Disallow: /site-c/
+Disallow: /concept-*.html
+Disallow: /i18n-test.html
+Disallow: /i18n-switcher.html-snippet.txt
+Disallow: /scripts/
+Disallow: /*.md$
+
+# Search, answer and user-triggered AI fetchers: welcome (they cite and link us)
+User-agent: OAI-SearchBot
+User-agent: ChatGPT-User
+User-agent: GPTBot
+User-agent: PerplexityBot
+User-agent: Perplexity-User
+User-agent: ClaudeBot
+User-agent: Claude-User
+User-agent: Claude-SearchBot
+User-agent: Google-Extended
+Allow: /
+Disallow: /_backup*
+Disallow: /site-a/
+Disallow: /site-b/
+Disallow: /site-c/
+Disallow: /concept-*.html
+Disallow: /i18n-test.html
+Disallow: /scripts/
+Disallow: /*.md$
+
+Sitemap: https://elamirpalace.com/sitemap.xml

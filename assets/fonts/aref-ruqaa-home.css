@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'Aref Ruqaa';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url(aref-ruqaa-home-700.woff2) format('woff2');
+  unicode-range: U+623, U+626-627, U+629, U+62f, U+644-645, U+64a, U+654;
+}

@@ -1,0 +1,127 @@
+/* =========================================================
+   El Amir Palace · polish layer (homepage + pedir.html, loads last)
+   Small-control detail: sliding language pill, burger morph,
+   press states, arrow loop, focus rings, underline pass, toast,
+   number roll, form feedback, image fade-in, page transitions.
+   Same rules as the motion layer: transform / opacity / clip-path,
+   tokens only for curves, hover motion gated to fine pointers.
+   ========================================================= */
+
+/* ---- language switch: one pill slides under the active language (polish.js sets --lx / --lw) ---- */
+.lang.has-pill{position:relative;isolation:isolate}
+.lang.has-pill::before{content:"";position:absolute;z-index:-1;top:var(--lt,3px);left:0;height:var(--lh,36px);width:var(--lw,40px);border-radius:var(--r-pill);
+  background:var(--pill-bg,#fff);transform:translateX(var(--lx,0));transition:transform 280ms var(--ease-drawer),width 280ms var(--ease-drawer),background-color var(--dur) var(--ease)}
+.lang.has-pill.no-anim::before{transition:none}
+.lang.has-pill button[aria-pressed=true]{background:transparent!important}   /* the pill paints it now (beats .hd.is-solid / pedir rules) */
+.lang button{transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease),opacity var(--dur),scale 120ms var(--ease)}
+.lang button:active{scale:.94}
+.hd.is-solid .lang,[data-i18n-page=pedir] .lang{--pill-bg:var(--ink)}
+.ov .lang{--pill-bg:#fff}
+
+/* ---- burger: bars meet in the middle, then turn into an X (and back the other way) ---- */
+.burger{transition:scale 120ms var(--ease),border-color .3s var(--ease)}
+.burger:active{scale:.92}
+.burger i{transition:translate 150ms var(--ease) 150ms,rotate 150ms var(--ease)}
+.menu-open .burger i:first-child,.menu-open .burger i:last-child{transform:none;transition:translate 150ms var(--ease),rotate 200ms var(--ease-out) 150ms}
+.menu-open .burger i:first-child{translate:0 4px;rotate:45deg}
+.menu-open .burger i:last-child{translate:0 -4px;rotate:-45deg}
+
+/* ---- reel sound/play button: icons cross-fade with a small scale, press feedback ---- */
+.snd{transition:scale 120ms var(--ease),background-color var(--dur) var(--ease)}
+.snd:active{scale:.92}
+@media (hover:hover){.snd:hover{background:rgba(20,14,12,.8)}}
+.snd .i-play,.snd .i-pause,.snd[aria-pressed=true] .i-play,.snd[aria-pressed=true] .i-pause{display:block;transform-box:fill-box;transform-origin:center;transition:opacity 160ms var(--ease-out),scale 160ms var(--ease-out)}
+.snd .i-play,.snd[aria-pressed=true] .i-pause{opacity:0;scale:.6}
+.snd[aria-pressed=true] .i-play{opacity:1;scale:1}
+
+/* ---- buttons: wine darkens while pressed; arrows loop out and back in on hover ---- */
+.btn--wine:active{background:var(--wine-3)}
+@media (hover:hover) and (pointer:fine){
+  .btn:hover svg.dir,.add--go:hover svg.dir,.more:hover svg.dir{transform:none;animation:arrowLoop 420ms var(--ease-out)}
+  [dir=rtl] .btn:hover svg.dir,[dir=rtl] .add--go:hover svg.dir,[dir=rtl] .more:hover svg.dir{transform:scaleX(-1);animation-name:arrowLoopR}
+  .add:not(.add--go):not(.is-added):hover .add-plus{rotate:90deg}
+}
+@keyframes arrowLoop{45%{transform:translateX(110%);opacity:0}46%{transform:translateX(-110%);opacity:0}100%{transform:none;opacity:1}}
+@keyframes arrowLoopR{0%{transform:scaleX(-1)}45%{transform:scaleX(-1) translateX(110%);opacity:0}46%{transform:scaleX(-1) translateX(-110%);opacity:0}100%{transform:scaleX(-1);opacity:1}}
+.add-plus{transition:background-color .3s,color .3s,rotate 300ms var(--ease-out),scale 300ms var(--ease-out)}
+
+/* ---- header PEDIR / phone PEDIR: a small bump when a dish lands in the cart (polish.js) ---- */
+@keyframes cartBump{40%{scale:1.12}}
+.is-bump{animation:cartBump 320ms var(--ease-out)}
+
+/* ---- keyboard focus: the ring grows out from the edge instead of snapping on ---- */
+:focus-visible{animation:focusIn 160ms var(--ease-out)}
+@keyframes focusIn{from{outline-offset:0;outline-color:transparent}}
+
+/* ---- "Ver la carta completa": the underline passes through on hover (out to the end, back in from the start) ---- */
+.more{border-bottom-color:transparent;background:linear-gradient(currentColor,currentColor) 0 100%/100% 1px no-repeat;background-origin:border-box;background-clip:border-box}
+@media (hover:hover) and (pointer:fine){
+  .more:hover{animation:ulPass 520ms var(--ease-out)}
+  [dir=rtl] .more:hover{animation-name:ulPassR}
+}
+@keyframes ulPass{0%{background-position:100% 100%;background-size:100% 1px}48%{background-position:100% 100%;background-size:0 1px}52%{background-position:0 100%;background-size:0 1px}100%{background-position:0 100%;background-size:100% 1px}}
+@keyframes ulPassR{0%{background-position:0 100%;background-size:100% 1px}48%{background-position:0 100%;background-size:0 1px}52%{background-position:100% 100%;background-size:0 1px}100%{background-position:100% 100%;background-size:100% 1px}}
+
+/* ---- press feedback on touch for every small control ---- */
+.nav a,.ov li a,.ft-nav a,.faq summary{transition:opacity 120ms var(--ease)}
+.nav a:active,.ov li a:active,.ft-nav a:active{opacity:.65}
+.faq summary:active{opacity:.7}
+.map-tabs button{transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease),border-color var(--dur) var(--ease),scale 120ms var(--ease)}
+.map-tabs button:active,.lhint button:active,.mesa-groups a:active{scale:.95}
+.lhint button{transition:scale 120ms var(--ease),background-color var(--dur)}
+@media (hover:none){.gcard-ph:active{transform:scale(.98);transition:transform 120ms var(--ease)}}
+
+/* ---- pedir: quantities roll (new number in, old number out; pedir.js adds the spans) ---- */
+.step b,#optQ{position:relative;display:inline-grid;overflow:hidden}
+[data-roll] .rn{display:block;animation:rollIn 200ms var(--ease-out)}
+[data-roll] .ro{position:absolute;inset:0;text-align:center;animation:rollOut 200ms var(--ease-out) forwards}
+[data-roll=down] .rn{animation-name:rollInD}
+[data-roll=down] .ro{animation-name:rollOutD}
+@keyframes rollIn{from{transform:translateY(100%);opacity:0}}
+@keyframes rollOut{to{transform:translateY(-100%);opacity:0}}
+@keyframes rollInD{from{transform:translateY(-100%);opacity:0}}
+@keyframes rollOutD{to{transform:translateY(100%);opacity:0}}
+
+/* ---- pedir: toast grows in from slightly smaller, leaves faster than it came, swipes down to dismiss (polish.js) ---- */
+.toast{scale:.96;transition:translate 150ms var(--ease-out),scale 150ms var(--ease-out),opacity 150ms var(--ease-out),visibility 0s 150ms;touch-action:none}
+.toast.show{scale:1;transition:translate 240ms var(--ease-out),scale 240ms var(--ease-out),opacity 240ms var(--ease-out)}
+.toast.is-drag{transition:none}
+
+/* ---- pedir: landing on a section (pedir.html#arroces) marks its heading for a moment ---- */
+.cat:target .cat-h{position:relative}
+.cat:target .cat-h::after{content:"";position:absolute;inset-inline:0;bottom:-8px;height:2px;border-radius:2px;background:var(--gold);transform-origin:0 50%;animation:targetLine 1.8s var(--ease-out) forwards}
+[dir=rtl] .cat:target .cat-h::after{transform-origin:100% 50%}
+.cat:target .cat-h h2{animation:targetInk 1.6s var(--ease-out)}
+@keyframes targetLine{0%{transform:scaleX(0)}35%{transform:scaleX(1);opacity:1}70%{opacity:1}100%{transform:scaleX(1);opacity:0}}
+@keyframes targetInk{0%,35%{color:var(--wine)}}
+
+/* ---- pedir: a field that blocks the order gives a short shake; its message slides in ---- */
+.f.shake input,.f.shake textarea,.f.shake select{animation:shake 320ms var(--ease-out)}
+@keyframes shake{20%{translate:-5px 0}40%{translate:5px 0}60%{translate:-3px 0}80%{translate:2px 0}}
+.f.bad .err{animation:errIn 200ms var(--ease-out)}
+@keyframes errIn{from{opacity:0;transform:translateY(-4px)}}
+
+/* ---- pedir: order sent, the check draws itself ---- */
+.done .ok-ic{animation:okPop 360ms var(--ease-out)}
+.done .ok-ic path{stroke-dasharray:21;stroke-dashoffset:21;animation:okDraw 420ms 140ms var(--ease-out) forwards}
+@keyframes okPop{from{scale:.6;opacity:0}}
+@keyframes okDraw{to{stroke-dashoffset:0}}
+
+/* ---- lazy photos fade in once decoded instead of popping (polish.js; the stone/marble box shows meanwhile) ---- */
+img.img-in{opacity:0;transition:opacity 400ms var(--ease-out)}
+img.img-in.is-in{opacity:1}
+
+/* ---- page transition between the homepage and pedir.html is the burgundy wipe in assets/v8/transition.css; named groups below stay ---- */
+@view-transition{navigation:auto}
+.brand{view-transition-name:brand}
+::view-transition-group(dish){animation-duration:420ms;animation-timing-function:var(--ease-drawer)}
+::view-transition-old(dish),::view-transition-new(dish){height:100%;object-fit:cover;overflow:hidden}
+
+/* ---- reduced motion: keep the state changes, drop the movement ---- */
+@media (prefers-reduced-motion:reduce){
+  @view-transition{navigation:none}
+  .burger i,.menu-open .burger i:first-child,.menu-open .burger i:last-child{transition:none}
+  :focus-visible,.is-bump,.f.shake input,.f.shake textarea,.f.shake select,[data-roll] .rn,[data-roll] .ro,.done .ok-ic,.cat:target .cat-h h2,.cat:target .cat-h::after{animation:none}
+  .done .ok-ic path{animation:none;stroke-dashoffset:0}
+  img.img-in{opacity:1;transition:none}
+}

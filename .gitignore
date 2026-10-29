@@ -1,0 +1,48 @@
+# Dev-only and unused material, per DEPLOY-EXCLUDE.txt
+_backup-*/
+_mockup/
+.impeccable/
+.claude/
+scripts/
+img/newest-imgs/
+*.md
+DEPLOY-EXCLUDE.txt
+SIZE-BREAKDOWN.txt
+
+# Unused images listed in DEPLOY-EXCLUDE.txt
+img/carpaccio-960.*
+img/carpaccio-1920.*
+img/crema-auyama-960.*
+img/ensalada-burrata-960.*
+img/ensalada-burrata-1920.*
+img/mero-2-salsas-960.*
+img/mero-2-salsas-1920.*
+img/oh-my-burger-960.*
+img/rigatoni-960.*
+img/rigatoni-1920.*
+img/risotto-calabaza-960.*
+img/photos/dynamite-shrimp-2-320.*
+img/photos/gratinado-pan-*
+img/photos/gratinado-risotto-*
+img/photos/helado-320.*
+img/photos/helado-640.*
+img/photos/helado-1080.*
+img/photos/hero-brochetas-*
+img/photos/reel-shawarma-loop.mp4
+img/photos/reel-shawarma-loop-poster.webp
+img/photos/risotto-pesto-mesa-*
+img/photos/shawarma-wrap-160.*
+
+# Raw originals in img/pya: pages only use the .jpg versions
+img/pya/*.CR3
+img/pya/*.cr3
+img/pya/*.png
+img/pya/*.PNG
+img/pya/*.jpeg
+img/pya/*.JPG
+img/pya/*.jpg.jpeg
+
+# OS / editor noise
+Thumbs.db
+desktop.ini
+.DS_Store

@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 600" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <radialGradient id="bg" cx="62%" cy="50%" r="75%">
+      <stop offset="0" stop-color="#8A2735"/>
+      <stop offset=".55" stop-color="#6A1B28"/>
+      <stop offset="1" stop-color="#3E0E16"/>
+    </radialGradient>
+    <pattern id="star" width="96" height="96" patternUnits="userSpaceOnUse">
+      <path d="M48 8 60 36 88 48 60 60 48 88 36 60 8 48 36 36Z" fill="none" stroke="#D9B27A" stroke-width="1.4" opacity=".16"/>
+      <circle cx="0" cy="0" r="3" fill="#D9B27A" opacity=".16"/><circle cx="96" cy="0" r="3" fill="#D9B27A" opacity=".16"/>
+      <circle cx="0" cy="96" r="3" fill="#D9B27A" opacity=".16"/><circle cx="96" cy="96" r="3" fill="#D9B27A" opacity=".16"/>
+    </pattern>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="150%"><feGaussianBlur stdDeviation="14"/></filter>
+    <filter id="sh2" x="-30%" y="-30%" width="160%" height="170%"><feGaussianBlur stdDeviation="5"/></filter>
+    <radialGradient id="fal" cx=".38" cy=".34" r=".8"><stop offset="0" stop-color="#B9803F"/><stop offset="1" stop-color="#6E4119"/></radialGradient>
+    <radialGradient id="tom" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#E4503A"/><stop offset="1" stop-color="#B02C20"/></radialGradient>
+    <radialGradient id="hum" cx=".4" cy=".35" r=".85"><stop offset="0" stop-color="#F6E3B8"/><stop offset="1" stop-color="#E5C58A"/></radialGradient>
+    <g id="leaf"><path d="M0 0C16-24 56-24 78 0 56 24 16 24 0 0Z" fill="#4F8A3A"/><path d="M4 0H72" stroke="#3A6B2A" stroke-width="2.4" stroke-linecap="round"/><path d="M0 0C16-24 56-24 78 0" fill="none" stroke="#7DB257" stroke-width="2" opacity=".6"/></g>
+    <g id="ball"><circle r="36" fill="url(#fal)"/><circle r="36" fill="none" stroke="#5A3412" stroke-width="2" opacity=".5"/>
+      <circle cx="-12" cy="-10" r="3" fill="#E9D3A0"/><circle cx="10" cy="-16" r="2.6" fill="#E9D3A0"/><circle cx="16" cy="6" r="3" fill="#6FA14A"/><circle cx="-6" cy="12" r="2.6" fill="#E9D3A0"/><circle cx="-18" cy="8" r="2.4" fill="#6FA14A"/><circle cx="4" cy="-2" r="2.4" fill="#E9D3A0"/></g>
+    <g id="pita"><path d="M0-52 46 34-46 34Z" fill="#EBC98C" stroke="#EBC98C" stroke-width="16" stroke-linejoin="round"/><path d="M0-52 46 34-46 34Z" fill="none" stroke="#C99A55" stroke-width="3" stroke-linejoin="round" opacity=".7" transform="scale(1.1)"/><path d="M-12 8q6-10 12 0M8-14q6-10 12 0M-8 24q6-10 12 0" fill="none" stroke="#B9843F" stroke-width="3" stroke-linecap="round" opacity=".55"/></g>
+    <g id="tomato"><circle r="40" fill="url(#tom)"/><circle r="31" fill="none" stroke="#F58B72" stroke-width="3" opacity=".7"/><circle r="9" fill="#F7C0A8"/>
+      <g fill="#F5D88E"><ellipse cx="0" cy="-20" rx="3.4" ry="5"/><ellipse cx="18" cy="-8" rx="3.4" ry="5" transform="rotate(70 18 -8)"/><ellipse cx="12" cy="16" rx="3.4" ry="5" transform="rotate(140 12 16)"/><ellipse cx="-14" cy="14" rx="3.4" ry="5" transform="rotate(-140 -14 14)"/><ellipse cx="-19" cy="-8" rx="3.4" ry="5" transform="rotate(-70 -19 -8)"/></g></g>
+    <g id="cuke"><circle r="30" fill="#B7CC7E"/><circle r="24" fill="#D5E4A6"/><circle r="9" fill="#EAF1C4"/><g fill="#9DB65E"><circle cx="0" cy="-15" r="2.2"/><circle cx="14" cy="6" r="2.2"/><circle cx="-14" cy="6" r="2.2"/></g></g>
+  </defs>
+
+  <rect width="1600" height="600" fill="url(#bg)"/>
+  <rect width="1600" height="600" fill="url(#star)"/>
+
+  <!-- scattered herbs on the table -->
+  <use href="#leaf" transform="translate(690 120) rotate(-25) scale(.8)" opacity=".85"/>
+  <use href="#leaf" transform="translate(720 520) rotate(30) scale(.7)" opacity=".8"/>
+  <use href="#leaf" transform="translate(1500 90) rotate(200) scale(.7)" opacity=".8"/>
+  <use href="#leaf" transform="translate(1540 540) rotate(-150) scale(.8)" opacity=".85"/>
+
+  <!-- lemon half -->
+  <g transform="translate(1290 515)"><ellipse cx="4" cy="8" rx="64" ry="58" fill="#1C0509" opacity=".35" filter="url(#sh2)"/><circle r="60" fill="#F3D66B"/><circle r="50" fill="#F9E9A0"/>
+    <g stroke="#F3D66B" stroke-width="3.2"><path d="M0 0V-48M0 0 34-34M0 0 48 0M0 0 34 34M0 0V48M0 0-34 34M0 0-48 0M0 0-34-34"/></g><circle r="6" fill="#F3D66B"/></g>
+
+  <!-- tabbouleh bowl -->
+  <g transform="translate(1385 285)"><ellipse cx="8" cy="14" rx="150" ry="146" fill="#1C0509" opacity=".4" filter="url(#sh)"/>
+    <circle r="138" fill="#F7F0E4"/><circle r="138" fill="none" stroke="#B8915A" stroke-width="5"/><circle r="112" fill="#5E8F3B"/><circle r="112" fill="none" stroke="#3F6B28" stroke-width="3"/>
+    <g fill="#79AB4D"><circle cx="-60" cy="-50" r="9"/><circle cx="-20" cy="-70" r="8"/><circle cx="30" cy="-62" r="9"/><circle cx="70" cy="-28" r="8"/><circle cx="-80" cy="0" r="9"/><circle cx="-34" cy="-20" r="7"/><circle cx="20" cy="-14" r="9"/><circle cx="60" cy="24" r="8"/><circle cx="-56" cy="50" r="9"/><circle cx="-10" cy="40" r="8"/><circle cx="30" cy="72" r="9"/><circle cx="-24" cy="84" r="7"/></g>
+    <g fill="#D94B33"><circle cx="-46" cy="-30" r="8"/><circle cx="46" cy="-44" r="7"/><circle cx="2" cy="-40" r="6"/><circle cx="64" cy="4" r="8"/><circle cx="-70" cy="30" r="7"/><circle cx="-4" cy="14" r="8"/><circle cx="38" cy="50" r="7"/><circle cx="-38" cy="70" r="6"/></g>
+    <g fill="#F2E7C6"><circle cx="-24" cy="-52" r="4"/><circle cx="14" cy="-28" r="4"/><circle cx="50" cy="-8" r="4"/><circle cx="-50" cy="12" r="4"/><circle cx="12" cy="58" r="4"/><circle cx="-22" cy="28" r="4"/></g>
+    <use href="#leaf" transform="translate(-10 -4) rotate(-40) scale(.55)"/><use href="#leaf" transform="translate(20 20) rotate(60) scale(.5)"/></g>
+
+  <!-- main plate -->
+  <g transform="translate(1000 300)"><ellipse cx="10" cy="16" rx="262" ry="256" fill="#1C0509" opacity=".45" filter="url(#sh)"/>
+    <circle r="250" fill="#F8F2E7"/><circle r="250" fill="none" stroke="#B8915A" stroke-width="6"/><circle r="226" fill="none" stroke="#E4D4B6" stroke-width="2.4"/>
+    <circle r="214" fill="#FBF7EF"/></g>
+
+  <!-- cucumber + tomato -->
+  <use href="#cuke" transform="translate(1004 152)"/><use href="#cuke" transform="translate(1048 128)" opacity=".95"/>
+  <use href="#tomato" transform="translate(850 195)"/><use href="#tomato" transform="translate(1132 410) scale(.9)"/>
+
+  <!-- pita -->
+  <use href="#pita" transform="translate(868 405) rotate(-24)"/><use href="#pita" transform="translate(955 452) rotate(14)"/>
+
+  <!-- hummus bowl -->
+  <g transform="translate(948 292)"><ellipse cx="5" cy="9" rx="108" ry="104" fill="#3B2A1A" opacity=".22" filter="url(#sh2)"/>
+    <circle r="102" fill="#FFFFFF"/><circle r="102" fill="none" stroke="#E4D4B6" stroke-width="3"/><circle r="86" fill="url(#hum)"/>
+    <path d="M-62 4a62 62 0 0 1 112-30M54 6a50 50 0 0 1-92 28M-30 38a34 34 0 0 1 14-52M8-26a22 22 0 0 1 22 26" fill="none" stroke="#DDB872" stroke-width="5" stroke-linecap="round"/>
+    <circle r="22" fill="#DDA93B" opacity=".9"/><circle cx="-6" cy="-6" r="8" fill="#F0CA6A" opacity=".8"/>
+    <g fill="#B5301F"><circle cx="-44" cy="-30" r="3.2"/><circle cx="-30" cy="-44" r="3"/><circle cx="20" cy="-48" r="3.2"/><circle cx="46" cy="-26" r="3"/><circle cx="52" cy="14" r="3.2"/><circle cx="26" cy="46" r="3"/><circle cx="-24" cy="48" r="3.2"/><circle cx="-52" cy="18" r="3"/></g>
+    <use href="#leaf" transform="translate(-58 -12) rotate(-60) scale(.42)"/><use href="#leaf" transform="translate(-10 -62) rotate(-100) scale(.4)"/><use href="#leaf" transform="translate(40 -30) rotate(-20) scale(.4)"/></g>
+
+  <!-- falafel -->
+  <use href="#ball" transform="translate(1100 238)"/><use href="#ball" transform="translate(1128 322) scale(.96)"/><use href="#ball" transform="translate(1082 392) scale(.92)"/><use href="#ball" transform="translate(1160 190) scale(.8)"/>
+
+  <!-- mint on the plate -->
+  <use href="#leaf" transform="translate(1090 330) rotate(-120) scale(.5)"/><use href="#leaf" transform="translate(900 120) rotate(-10) scale(.5)"/>
+</svg>

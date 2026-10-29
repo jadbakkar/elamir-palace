@@ -1,0 +1,290 @@
+/* =====================================================================
+   El Amir Palace - i18n.css
+   RTL (Arabic) support + language switcher.  Pairs with i18n.js.
+
+   LOAD ORDER: after the page's own CSS (so equal-specificity rules here win):
+       <link rel="stylesheet" href="i18n.css">
+
+   Arabic fonts (Amiri + IBM Plex Sans Arabic) are NOT imported here any more
+   (a render-blocking @import cost every visitor ~1 s). i18n.js injects
+   <link id="i18n-ar-fonts"> only when the page is in Arabic.
+
+   TABLE OF CONTENTS
+     0. Tokens + Arabic font pairing
+     1. Arabic typography rules (no letter-spacing, line-height, fonts)
+     2. Direction helpers (LTR islands, form fields, arrows, icons)
+     3. WRITING NEW CSS: logical-property cheat sheet
+     4. Reference overrides for the CURRENT index.html / pedir.html selectors
+        (delete a block once the redesign uses logical properties)
+     5. Language switcher component  (ES · EN · ع)
+   ===================================================================== */
+
+
+/* ---------------------------------------------------------------------
+   0. TOKENS
+   Display Arabic = Amiri (classical Naskh, elegant next to Cormorant).
+   Body Arabic    = IBM Plex Sans Arabic (clean, geometric next to Jost).
+   Fallback chain keeps working if Google Fonts is blocked.
+   --------------------------------------------------------------------- */
+:root {
+  --i18n-gold: #c9a173;
+  --i18n-gold-2: #ddb98c;
+  --i18n-gold-ink: #8a6a43;
+  --i18n-char: #232325;
+  --i18n-char-2: #2e2e31;
+  --i18n-cream: #efe6d8;
+  --i18n-ink: #262628;
+
+  --font-display-ar: "Amiri", "Noto Naskh Arabic", "Traditional Arabic", "Cormorant", serif;
+  --font-body-ar: "IBM Plex Sans Arabic", "Noto Sans Arabic", "Segoe UI", "Tahoma", "Jost", system-ui, sans-serif;
+}
+
+/* ---------------------------------------------------------------------
+   1. ARABIC TYPOGRAPHY
+   --------------------------------------------------------------------- */
+/* Body font + a taller line-height (Arabic stacks diacritics and dots). */
+body:lang(ar) {
+  font-family: var(--font-body-ar);
+  line-height: 1.8;
+}
+/* Headings / display text use the Naskh display face. Amiri sits a little
+   small next to Cormorant, so headings get a modest bump through line-height. */
+:lang(ar) :is(h1, h2, h3, h4, legend, .display, .f-display-ar) {
+  font-family: var(--font-display-ar);
+  font-weight: 700;
+  line-height: 1.35;
+}
+/* Controls inherit the Arabic body font. */
+:lang(ar) :is(button, input, select, textarea) {
+  font-family: inherit;
+}
+
+/* NEVER letter-space or upper-case Arabic: tracking breaks the joining of
+   letters. The brand's wide-tracked labels (.label, .btn, nav links...) are
+   reset here. Add class="latin" (or lang="en"/"es") to Latin-only text that
+   must keep its tracking, e.g. the EL AMIR PALACE wordmark. */
+:root:lang(ar) *:not(.latin):not([lang="en"]):not([lang="es"]) {
+  letter-spacing: 0 !important;
+  text-transform: none !important;
+}
+
+/* Upper-case helper for Latin UI labels (dictionary strings are stored in
+   natural case: "Historia", not "HISTORIA"). Arabic is untouched. */
+.i18n-uc { text-transform: uppercase; }
+:lang(ar) .i18n-uc { text-transform: none; }
+
+/* ---------------------------------------------------------------------
+   2. DIRECTION HELPERS
+   --------------------------------------------------------------------- */
+/* LTR islands inside RTL text: prices, order ids, phone numbers, e-mails,
+   quantities. Without this "$12" / "AP-1012-001" can be re-ordered by the
+   bidi algorithm. Add class="i18n-ltr" or the data-ltr attribute. */
+.i18n-ltr,
+[data-ltr] { direction: ltr; unicode-bidi: isolate; }
+[dir="rtl"] :is(.pr, .price, .tag, .num, .kv b, bdi) { unicode-bidi: isolate; }
+[dir="rtl"] :is(.pr, .price, .tag, .num) { direction: ltr; }
+
+/* Phone / e-mail / date / time inputs: the value is LTR but should hug the
+   reading-start edge (the right) in RTL. Free text fields: use dir="auto" in
+   the markup so Latin names stay LTR and Arabic names RTL. */
+[dir="rtl"] :is(input[type="tel"], input[type="email"], input[type="url"], input[type="time"], input[type="date"], .i18n-ltr-input) {
+  direction: ltr;
+  text-align: right;
+}
+[dir="rtl"] ::placeholder { text-align: start; }
+
+/* Arrows / chevrons.
+   - Text arrow in a link:  <a class="oback i18n-back"> -> ← in LTR, → in RTL
+   - Forward arrow:         <a class="i18n-next">       -> → in LTR, ← in RTL
+   - Inline SVG arrow:      add class="i18n-flip"       -> mirrored in RTL */
+.i18n-back::before { content: "\2190\00a0"; }
+.i18n-next::after { content: "\00a0\2192"; }
+[dir="rtl"] .i18n-back::before { content: "\2192\00a0"; }
+[dir="rtl"] .i18n-next::after { content: "\00a0\2190"; }
+[dir="rtl"] .i18n-flip { transform: scaleX(-1); }
+
+/* Dotted price leaders ("Hummus ........ $8"). Works in both directions
+   because it is flex: the leader fills the space between the name and the
+   price on the correct side. Reusable component: */
+.i18n-leader { display: flex; align-items: baseline; gap: 8px; }
+.i18n-leader::after {
+  content: "";
+  flex: 1;
+  min-width: 16px;
+  border-bottom: 1px dotted rgba(239, 230, 216, .3);
+  translate: 0 -5px;
+}
+
+/* ---------------------------------------------------------------------
+   3. WRITING NEW CSS: LOGICAL PROPERTIES (so RTL needs no overrides)
+   ---------------------------------------------------------------------
+     left / right              -> inset-inline-start / inset-inline-end
+     margin-left / -right      -> margin-inline-start / margin-inline-end
+     padding-left / -right     -> padding-inline-start / padding-inline-end
+     margin: 0 24px 0 0        -> margin-inline: 0 24px   (or the two longhands)
+     border-left               -> border-inline-start
+     text-align:left / right   -> text-align:start / end
+     float:left                -> float:inline-start
+     border-radius corners     -> border-start-start-radius, border-start-end-radius ...
+     width/height              -> inline-size / block-size   (optional)
+     translateX(-50%)          -> fine when centred with left:50%; for drawers use
+                                  the [dir=rtl] override below or a --dir variable:
+                                  html{--dir:1} html[dir=rtl]{--dir:-1}
+                                  transform:translateX(calc(100% * var(--dir)))
+     gradients "to right"      -> use "to right" in LTR and flip with [dir=rtl]
+                                  (mask/gradient angles are NOT mirrored automatically)
+     flex / grid order         -> mirrors automatically (row starts on the right)
+     scroll containers         -> start on the right edge automatically; scrollLeft
+                                  is NEGATIVE in RTL: use element.scrollIntoView(
+                                  {inline:"center", block:"nearest"}) instead of
+                                  scrollTo({left: offsetLeft...}).
+     justify-self:start/end    -> already logical in grid/flex
+     background-position:left  -> use "inline-start"-style: set per [dir=rtl]
+     transform:rotate / scaleX -> flip icons with .i18n-flip, not text
+   --------------------------------------------------------------------- */
+
+/* ---------------------------------------------------------------------
+   4. REFERENCE OVERRIDES FOR TODAY'S SELECTORS
+   Written against the current index.html / pedir.html class names. When the
+   redesign adopts logical properties these become dead code: delete them.
+   --------------------------------------------------------------------- */
+
+/* ---- 4a. pedir.html: cart sheet slides in from the LEFT in RTL ---- */
+@media (min-width: 1081px) {
+  [dir="rtl"] .sheet { right: auto; left: 0; transform: translateX(-100%); }
+  [dir="rtl"] .sheet.open { transform: none; }
+}
+/* (<=1080px the sheet is a bottom sheet: vertical, no change needed.) */
+
+/* ---- 4b. pedir.html: search box ---- */
+[dir="rtl"] .search input { padding: 0 40px 0 44px; }
+[dir="rtl"] .search .ic { left: auto; right: 14px; }
+[dir="rtl"] .search .clr { right: auto; left: 0; }
+@media (max-width: 720px) {
+  [dir="rtl"] .search .ic { left: auto; right: 14px; }
+  [dir="rtl"] .bar-in.searching .search input { padding: 0 40px 0 44px; }
+}
+
+/* ---- 4c. pedir.html: category chips scroll + fade edge ---- */
+/* The row starts at the RIGHT edge in RTL and the fade must be on the LEFT. */
+[dir="rtl"] .chips {
+  padding-right: 0;
+  padding-left: 28px;
+  -webkit-mask-image: linear-gradient(270deg, #000 94%, transparent);
+  mask-image: linear-gradient(270deg, #000 94%, transparent);
+}
+/* JS: replace the scrollTo({left: a.offsetLeft - ...}) maths with
+   a.scrollIntoView({inline:"center", block:"nearest", behavior:"smooth"}).
+   scrollLeft is negative in RTL, so offsetLeft-based maths scrolls the wrong way. */
+
+/* ---- 4d. pedir.html: menu rows ---- */
+[dir="rtl"] .dish .ds { padding-right: 0; padding-left: 110px; }
+@media (max-width: 720px) {
+  [dir="rtl"] .dish .ds { padding-left: 0; }
+}
+[dir="rtl"] .add .bd { right: auto; left: -4px; }
+[dir="rtl"] .pill .c { margin-right: 0; margin-left: 10px; }
+[dir="rtl"] .up button { text-align: right; }
+[dir="rtl"] .skip { left: auto; right: 12px; }
+/* The decorative Arabic title next to each category heading would just repeat
+   the (now Arabic) heading: hide it in Arabic. */
+[dir="rtl"] .cat-h .ar { display: none; }
+/* dotted leaders (.dish .nm::after) are flex-based: nothing to do. */
+
+/* ---- 4e. index.html: category list, signature dishes ---- */
+[dir="rtl"] .cats a span { text-align: left; }
+[dir="rtl"] .cats a:hover { padding-left: 0; padding-right: 8px; }
+@media (min-width: 981px) {
+  [dir="rtl"] .dish .pic { margin-left: 0; margin-right: -6vw; }
+  [dir="rtl"] .dish.rev .pic { margin: 0 0 0 -6vw; }
+  [dir="rtl"] .dish .txt { padding-right: 0; padding-left: var(--pad, 24px); }
+  [dir="rtl"] .dish.rev .txt { padding: 0 var(--pad, 24px) 0 0; }
+}
+
+/* ---------------------------------------------------------------------
+   5. LANGUAGE SWITCHER   ES · EN · ع
+   Markup: see i18n-switcher.html-snippet.txt. Buttons carry data-set-lang;
+   i18n.js wires the click and keeps aria-pressed in sync (no extra JS).
+   Brand: gold #c9a173 on charcoal #232325, cream #efe6d8.
+   Contrast: gold on charcoal = 6.6:1, charcoal on gold = 6.6:1,
+             cream on charcoal = 13:1.
+   Keyboard: native <button>s: Tab to enter, Tab/Shift+Tab to move, Enter/Space
+             to choose; gold focus ring never clipped (no clip-path here).
+   --------------------------------------------------------------------- */
+.lang-switch {
+  /* Always read "ES · EN · ع" left-to-right, even inside an RTL page, so the
+     control does not jump around when the language changes. */
+  direction: ltr;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--i18n-gold);
+  font: 500 13px/1 "Jost", system-ui, sans-serif;
+}
+.lang-switch .lang-btn {
+  display: inline-grid;
+  place-items: center;
+  min-width: 38px;
+  min-height: 38px;
+  padding: 0 8px;
+  margin: 0;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: .14em;
+  cursor: pointer;
+  transition: background-color .2s, color .2s, border-color .2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.lang-switch .lang-btn:hover { color: var(--i18n-cream); }
+.lang-switch .lang-btn:focus-visible {
+  outline: 2px solid var(--i18n-gold);
+  outline-offset: 2px;
+  color: var(--i18n-cream);
+}
+/* Active language: solid gold chip. Not colour-only: also filled + bold. */
+.lang-switch .lang-btn[aria-pressed="true"] {
+  background: var(--i18n-gold);
+  color: var(--i18n-char);
+  font-weight: 600;
+  cursor: default;
+}
+.lang-switch .lang-btn[aria-pressed="true"]:focus-visible { outline-color: var(--i18n-cream); }
+/* The Arabic option is written in Arabic ("ع" = ayn, first letter of "arabiyya"),
+   in the display Naskh face, no tracking. */
+.lang-switch .lang-btn[data-set-lang="ar"] {
+  font-family: var(--font-display-ar);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1;
+  padding-bottom: 4px;
+}
+.lang-switch .lang-sep {
+  color: var(--i18n-cream);
+  opacity: .45;
+  user-select: none;
+  font-size: 14px;
+}
+/* Touch devices: 44px targets. */
+@media (pointer: coarse) {
+  .lang-switch .lang-btn { min-width: 44px; min-height: 44px; }
+}
+/* On the cream sections (history, menu teaser, visit) use the light variant:
+   gold-ink on cream is only 4:1, so inactive options use the ink colour. */
+.lang-switch--light { color: var(--i18n-ink); }
+.lang-switch--light .lang-btn:hover { color: var(--i18n-gold-ink); }
+.lang-switch--light .lang-btn:focus-visible { outline-color: var(--i18n-ink); color: var(--i18n-ink); }
+.lang-switch--light .lang-btn[aria-pressed="true"] { background: var(--i18n-ink); color: var(--i18n-cream); }
+.lang-switch--light .lang-btn[aria-pressed="true"]:focus-visible { outline-color: var(--i18n-gold-ink); }
+.lang-switch--light .lang-sep { color: var(--i18n-ink); opacity: .4; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lang-switch .lang-btn { transition: none; }
+}
+/* Windows high-contrast / forced colors: keep the active state visible. */
+@media (forced-colors: active) {
+  .lang-switch .lang-btn[aria-pressed="true"] { border-color: Highlight; outline: 1px solid Highlight; }
+}

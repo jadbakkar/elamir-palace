@@ -1,0 +1,61 @@
+/* El Amir Palace · pedir.html decor layer, same brand vectors as the home pages (assets/v7/decor.css).
+   To revert: delete this file and its <link> in pedir.html.
+     pattern     the menu's star tessellation: 3% grey on paper, gold on the footer
+     intro       slow rosette watermark, rule-diamond-rule above the lead line, notched corners on the facts card (desktop)
+     categories  gold sparkle before each title, a diamond closing the gold rule, an ornament between categories
+     cards       notched gold corners on the featured photos when hovered
+     cart        notched corners on the desktop cart, rosette over "أهلاً" while it is empty
+     footer      gold pattern
+   Kept clean on purpose: dish rows, search bar, chips, checkout sheet. */
+
+:root{
+  --dc-gold:#be9564;
+  --dc-star:url(../../img/brand/star-pattern-mask.svg);
+  --dc-rosette:url(../../img/brand/rosette.svg);
+  --dc-orn:url(../../img/brand/ornament.svg);
+}
+
+/* ---------- pattern ---------- */
+body{background-image:url(../../img/brand/star-pattern-cream.svg);background-size:150px}
+.ft{position:relative;isolation:isolate}
+.ft::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;border-radius:inherit;background:var(--dc-gold);opacity:.09;
+  -webkit-mask:var(--dc-star) 0 0/150px repeat;mask:var(--dc-star) 0 0/150px repeat}
+
+/* ---------- notched corners (shared) ---------- */
+.facts::after,.dish.card::after,.ledger::after{content:"";position:absolute;pointer-events:none;background:var(--dc-gold);--dc-c:30px;
+  --dc-corners:url(../../img/brand/frame-corner-bold-tl.svg) top left/var(--dc-c) no-repeat,url(../../img/brand/frame-corner-bold-tr.svg) top right/var(--dc-c) no-repeat,
+    url(../../img/brand/frame-corner-bold-bl.svg) bottom left/var(--dc-c) no-repeat,url(../../img/brand/frame-corner-bold-br.svg) bottom right/var(--dc-c) no-repeat;
+  -webkit-mask:var(--dc-corners);mask:var(--dc-corners)}
+
+/* ---------- intro ---------- */
+.intro{position:relative;isolation:isolate;overflow-x:clip}
+.intro::before{content:"";position:absolute;z-index:-1;top:50%;inset-inline-end:-4%;width:clamp(180px,30vw,420px);aspect-ratio:1;translate:0 -50%;pointer-events:none;
+  background:var(--dc-gold);opacity:.08;-webkit-mask:var(--dc-rosette) center/contain no-repeat;mask:var(--dc-rosette) center/contain no-repeat}
+@media (prefers-reduced-motion:no-preference){.intro::before{animation:dc-spin 120s linear infinite}}
+@keyframes dc-spin{to{rotate:360deg}}
+@media (min-width:860px){
+  .intro .lead::before{content:"";display:block;width:clamp(150px,13vw,200px);aspect-ratio:221.6/9.4;margin-bottom:18px;background:var(--dc-gold);
+    -webkit-mask:var(--dc-orn) center/contain no-repeat;mask:var(--dc-orn) center/contain no-repeat}
+  .intro::before{inset-inline-end:auto;left:50%;translate:-50% -50%}
+  .facts{position:relative}
+  .facts::after{inset:8px;--dc-c:26px}
+}
+
+/* ---------- categories ---------- */
+.cat-h{position:relative}
+.cat-h::before{content:"";position:absolute;bottom:-4px;inset-inline-end:0;width:7px;height:7px;rotate:45deg;background:var(--dc-gold)}
+.cat-h h2::before{content:"";display:inline-block;width:.42em;height:.42em;margin-inline-end:.32em;vertical-align:.14em;background:var(--dc-gold);
+  -webkit-mask:url(../../img/brand/sparkle.svg) center/contain no-repeat;mask:url(../../img/brand/sparkle.svg) center/contain no-repeat}
+.cat+.cat{border-top:0;padding-top:0}
+.cat+.cat::before{content:"";display:block;width:clamp(150px,16vw,200px);aspect-ratio:221.6/9.4;margin:26px auto 30px;background:var(--dc-gold);opacity:.85;
+  -webkit-mask:var(--dc-orn) center/contain no-repeat;mask:var(--dc-orn) center/contain no-repeat}
+
+/* ---------- featured cards: corners over the photo on hover ---------- */
+.dish.card::after{z-index:1;top:8px;inset-inline:8px;aspect-ratio:4/2.91;--dc-c:26px;opacity:0;scale:1.06;transition:opacity .5s ease,scale .8s cubic-bezier(.16,1,.3,1)}
+@media (hover:hover){.dish.card:hover::after{opacity:1;scale:1}}
+.dish.card:focus-within::after{opacity:1;scale:1}
+
+/* ---------- cart ---------- */
+.ledger::after{inset:8px;--dc-c:28px;opacity:.85}
+.blank::before{content:"";display:block;width:30px;aspect-ratio:1;margin:0 auto 10px;background:var(--dc-gold);opacity:.75;
+  -webkit-mask:var(--dc-rosette) center/contain no-repeat;mask:var(--dc-rosette) center/contain no-repeat}

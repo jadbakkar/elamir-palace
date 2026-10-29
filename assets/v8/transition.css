@@ -1,0 +1,28 @@
+/* page-to-page transition (home <-> order): a burgundy sheet wipes up from the bottom, covers the old page,
+   the new page swaps in underneath, and the sheet keeps going off the top.
+   Cross-document view transitions where supported; a short fade (transition.js) elsewhere. */
+@view-transition{navigation:auto}
+html::after{content:"";position:fixed;inset:0;pointer-events:none;view-transition-name:wipe}
+::view-transition-group(wipe){background:#7A1F2B;animation:vt-wipe 1.15s both}
+::view-transition-image-pair(wipe),::view-transition-old(wipe),::view-transition-new(wipe){display:none}
+::view-transition-old(root){animation:vt-old .01s linear .575s both reverse}
+::view-transition-new(root){animation:vt-new .01s linear .575s both}
+@keyframes vt-wipe{
+  0%{transform:translateY(100%);animation-timing-function:cubic-bezier(.65,0,.35,1)}
+  48%{transform:translateY(0)}
+  52%{transform:translateY(0);animation-timing-function:cubic-bezier(.65,0,.35,1)}
+  100%{transform:translateY(-100%)}
+}
+@keyframes vt-old{from{opacity:0}to{opacity:1}}
+@keyframes vt-new{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:reduce){
+  ::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}
+  ::view-transition-group(wipe){display:none}
+}
+/* fallback (no view transitions): fade the page out on leave, in on arrival */
+html.pg-leaving body{opacity:0;transition:opacity .28s ease}
+@supports not selector(::view-transition){
+  body{animation:pg-in .5s ease both}
+  @keyframes pg-in{from{opacity:0}}
+}
+@media (prefers-reduced-motion:reduce){html.pg-leaving body{transition:none}body{animation:none!important}}

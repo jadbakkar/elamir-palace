@@ -1,0 +1,29 @@
+/* El Amir Palace · motion layer X (driven by motion-x.js; .mx / .mx-fine are set on <html> only when it runs).
+   To revert: delete this file + motion-x.js and their two tags in index.html, en/, ar/. */
+
+/* section-label gold rules draw outwards from the label */
+.mx .sec-label::after,.mx .sec-label::before{transform:scaleX(0);transition:transform 1.6s var(--ease-out) .15s}
+.mx .sec-label::after{transform-origin:left}
+.mx .sec-label::before{transform-origin:right}
+.mx[dir=rtl] .sec-label::after{transform-origin:right}
+.mx[dir=rtl] .sec-label::before{transform-origin:left}
+.mx .sec-label.mx-on::after,.mx .sec-label.mx-on::before{transform:none}
+
+/* tilt: JS owns the card transform (lift + 3D), CSS keeps the rest */
+.mx-fine .card{transition:none}
+.mx-fine .card:hover,.mx-fine .rcard:hover{transform:none}
+.mx-fine .rcard{transition:box-shadow .8s var(--ease-out)}
+.mx-fine .card,.mx-fine .dish > a,.mx-fine .rcard{transform-style:preserve-3d;will-change:transform}
+
+/* cursor ring (desktop only) */
+.mx-cursor{position:fixed;left:0;top:0;z-index:150;pointer-events:none;opacity:0;transition:opacity .4s ease}
+.mx-cursor.is-on{opacity:1}
+.mx-cursor i{display:block;width:56px;height:56px;margin:-28px 0 0 -28px;border-radius:50%;border:1px solid var(--wine);background:var(--wine);
+  transform:scale(.16);transition:transform .6s var(--ease-out),background-color .4s ease,border-color .4s ease}
+.mx-cursor.is-big i{transform:scale(.8);background-color:transparent}
+.mx-cursor.is-img i{transform:scale(1.5);background-color:rgba(122,31,43,.12);border-color:rgba(255,255,255,.7)}
+.mx-cursor.is-light i{border-color:var(--cream);background-color:var(--cream)}
+.mx-cursor.is-light.is-big i{background-color:transparent}
+.mx-cursor.is-down i{transform:scale(.6)}
+
+/* page-to-page transition: burgundy wipe, see assets/v8/transition.css */

@@ -1,0 +1,315 @@
+/* =====================================================================
+   El Amir Palace · pedir.html design system (loads last)
+   The single source of truth for colour, radius, shadow, spacing and type
+   on the ordering page. Older layers (v4/tokens, pedir, polish, v7) read
+   these same variable names, so they all follow this set.
+   Fonts stay the brand pair: Manrope for UI, Fraunces for headings.
+   ===================================================================== */
+:root{
+  /* colour */
+  --primary:#7A1F2B; --primary-600:#621823; --primary-800:#4A1119; --primary-50:#F8EEEC;
+  --text:#111111; --text-2:#5F5853; --text-3:#7A726C;
+  --bg:#FAF8F5; --surface:#FFFFFF; --surface-2:#F3EFEA; --surface-3:#E9E3DC;
+  --border:rgba(17,17,17,.08); --border-2:rgba(17,17,17,.16);
+  --gold:#B8915A;
+  /* radius */
+  --r-sm:12px; --r-md:16px; --r-lg:20px; --r-xl:24px; --r-full:999px;
+  /* shadow: soft, never harsh */
+  --sh-1:0 1px 2px rgba(17,17,17,.04),0 4px 14px -6px rgba(17,17,17,.10);
+  --sh-2:0 2px 6px rgba(17,17,17,.05),0 16px 36px -14px rgba(17,17,17,.18);
+  --sh-primary:0 8px 20px -8px rgba(122,31,43,.55);
+  /* spacing: 4px scale */
+  --s-1:4px; --s-2:8px; --s-3:12px; --s-4:16px; --s-5:20px; --s-6:24px; --s-8:32px; --s-10:40px; --s-12:48px;
+  /* motion */
+  --t-fast:150ms; --t-med:220ms; --ease-ui:cubic-bezier(.2,.8,.2,1);
+
+  /* the older layers' names, mapped onto the set above */
+  --paper:var(--bg); --marble:var(--surface-2); --stone:var(--surface-3); --card:var(--surface); --cream:#FFFFFF;
+  --ink:var(--text); --ink-2:var(--text-2); --ink-3:var(--text-3); --field:#9A918A;
+  --wine:var(--primary); --wine-2:var(--primary-600); --wine-3:var(--primary-800); --wine-tint:var(--primary-50); --wine-ring:rgba(122,31,43,.18);
+  --line:var(--border); --line-2:var(--border-2);
+  --r-card:var(--r-lg); --r-img:var(--r-md); --r-pill:var(--r-full);
+  --shadow-1:var(--sh-1); --shadow-2:var(--sh-2);
+  --dur:var(--t-med);
+}
+body{background-color:var(--bg);color:var(--text)}
+
+/* ---------- type: bold, large headings; clear prices ---------- */
+.intro h1,.cat-h h2,.ledger h2,.dlg-h h2,legend,.done h3{font-weight:600;letter-spacing:-.02em}
+.intro h1{font-weight:600;letter-spacing:-.03em}
+.cat-h h2{font-size:clamp(28px,4vw,40px)}
+.dlg-h h2{font-size:24px}
+legend{font-size:19px}
+:lang(ar) :is(.intro h1,.cat-h h2,.ledger h2,.dlg-h h2,legend,.done h3){letter-spacing:0}
+.pr,.dpr,.ln .p,.sum .big span:last-child,.foot .tot b{font-weight:800;letter-spacing:-.01em}
+
+/* ---------- header: sticky, clean, cart with badge ---------- */
+.hd{position:sticky;top:0;z-index:25;background:rgba(250,248,245,.9);border-bottom-color:var(--border)}
+.bar{top:var(--hd)}
+html{scroll-padding-top:calc(var(--hd) + var(--bar) + 12px)}
+.hd .hd-cart{position:relative;display:inline-grid;color:var(--text);border-color:var(--border-2);transition:background-color var(--t-fast) var(--ease-ui),transform var(--t-fast) var(--ease-ui)}
+.hd-cart svg{width:21px;height:21px}
+.hd-cart:active{transform:scale(.94)}
+.hd-badge{position:absolute;top:-4px;inset-inline-end:-4px;min-width:20px;height:20px;padding:0 5px;border-radius:var(--r-full);background:var(--primary);color:#fff;font:800 11px/20px var(--f-body);font-style:normal;text-align:center;font-variant-numeric:tabular-nums;box-shadow:0 0 0 2px var(--bg)}
+.hd-badge[hidden]{display:none}
+@media (max-width:479px){
+  .hd{gap:var(--s-2)}
+  .lang button{min-width:36px;height:40px}
+  .brand b{font-size:13px;letter-spacing:.18em}
+}
+@media (max-width:359px){.brand b{display:none}}
+@media (hover:hover){.hd .hd-cart:hover{background:var(--surface-2);color:var(--primary);border-color:var(--border-2)}}
+
+/* ---------- category tabs: sticky pills under the header ---------- */
+.bar{background:rgba(250,248,245,.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border-block-color:var(--border)}
+.chips a{background:var(--surface);border:1px solid var(--border);color:var(--text-2);transition:background-color var(--t-fast) var(--ease-ui),color var(--t-fast) var(--ease-ui),border-color var(--t-fast) var(--ease-ui),transform var(--t-fast) var(--ease-ui)}
+.chips a.on{background:var(--text);border-color:var(--text);color:#fff}
+.search input{background:var(--surface);border-color:var(--border-2)}
+@media (hover:hover){.chips a:not(.on):hover{background:var(--surface-2);border-color:var(--border-2);color:var(--text)}}
+
+/* ---------- menu rows: white cards, 1-line description, bold price, round + ---------- */
+.list{gap:var(--s-3);margin-top:var(--s-4)}
+@container (min-width:700px){.list{column-gap:var(--s-4)}}
+.dish:not(.card){padding:var(--s-4);border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);box-shadow:var(--sh-1);transition:box-shadow var(--t-med) var(--ease-ui),transform var(--t-fast) var(--ease-ui)}
+.dish:not(.card) .ds{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.dish.has-ph:not(.card){grid-template-columns:minmax(0,1fr) 112px}
+.dish.has-ph .ph{width:112px;height:112px;border-radius:var(--r-md)}
+.dish.has-ph .ctl{margin:0 -8px -8px 0}
+[dir=rtl] .dish.has-ph .ctl{margin:0 0 -8px -8px}
+.dish .pr{color:var(--text)}
+.dish-go::after{border-radius:var(--r-lg)}
+.dish:active:not(:has(.ctl:active)){transform:scale(.985)}
+@media (hover:hover){.dish:not(.card):hover{box-shadow:var(--sh-2)}}
+.cat{padding-top:var(--s-10)}
+
+/* + button → quantity stepper */
+.add{width:44px;height:44px;border:0;border-radius:var(--r-full);background:var(--primary);color:#fff;box-shadow:var(--sh-primary);transition:background-color var(--t-fast) var(--ease-ui),transform var(--t-fast) var(--ease-ui)}
+.add:active{transform:scale(.9)}
+.step{background:var(--primary);box-shadow:var(--sh-primary)}
+.pop{animation:ds-pop var(--t-med) var(--ease-ui)}
+@keyframes ds-pop{from{transform:scale(.7);opacity:.4}}
+.bump{animation:ds-bump 360ms var(--ease-ui)}
+@keyframes ds-bump{30%{transform:scale(1.3)}60%{transform:scale(.92)}}
+
+/* featured cards */
+.dish.card{border-radius:var(--r-lg);box-shadow:var(--sh-1),0 0 0 1px var(--border);transition:box-shadow var(--t-med) var(--ease-ui),transform var(--t-med) var(--ease-ui)}
+@media (hover:hover){.dish.card:hover{box-shadow:var(--sh-2);transform:translateY(-2px)}}
+
+/* ---------- loading skeletons: image placeholders shimmer until the photo paints ---------- */
+.ph,.dph,.cover picture,.chips a img{background:linear-gradient(100deg,var(--surface-3) 30%,var(--surface-2) 50%,var(--surface-3) 70%) 0 0/250% 100%;animation:ds-shimmer 1.4s linear infinite}
+@keyframes ds-shimmer{to{background-position:-150% 0}}
+
+/* ---------- empty states ---------- */
+.empty-search{margin-top:var(--s-6);padding:var(--s-10) var(--s-6);border:1px dashed var(--border-2);border-radius:var(--r-xl);background:var(--surface);font-size:15px}
+.empty-search::before{content:"";display:block;width:44px;height:44px;margin:0 auto var(--s-3);border-radius:50%;background:var(--surface-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%237A1F2B' stroke-width='1.8' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E") center no-repeat}
+.blank{padding:var(--s-10) var(--s-4)}
+
+/* ---------- desktop cart panel ---------- */
+.ledger{background:var(--surface);border-color:var(--border);border-radius:var(--r-xl);box-shadow:var(--sh-2)}
+.sum{background:var(--surface-2)}
+
+/* ---------- floating cart bar (phones) ---------- */
+.pill{min-height:58px;border-radius:var(--r-full);background:var(--primary);box-shadow:var(--sh-2),var(--sh-primary)}
+
+/* ---------- sheets: rounded top on phones, modal / drawer on desktop ---------- */
+.sheet,.optdlg{background:var(--bg);border-radius:var(--r-xl) var(--r-xl) 0 0;box-shadow:var(--sh-2)}
+.scrim{-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+@media (min-width:721px){.optdlg{border-radius:var(--r-xl)}}
+@media (min-width:1081px){.sheet{border-radius:var(--r-xl) 0 0 var(--r-xl)}[dir=rtl] .sheet{border-radius:0 var(--r-xl) var(--r-xl) 0}}
+.dlg-h{border-bottom-color:var(--border)}
+.x{border-color:var(--border-2);background:var(--surface)}
+
+/* ---------- checkout: each step is its own white card, one strong CTA ---------- */
+#form fieldset:not([hidden]){margin-top:var(--s-4);padding:var(--s-5) var(--s-4) var(--s-4);border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);box-shadow:var(--sh-1)}
+#form legend{float:left;width:100%;margin-bottom:var(--s-3)}
+#form legend+*{clear:both}
+.mob-lines{padding:var(--s-1) var(--s-4);border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface)}
+.mob-lines:empty{display:none}
+.mob-lines .ln:last-of-type{border-bottom:0}
+.seg{background:var(--surface-2)}
+.f input,.f textarea,.f select{border-color:var(--border-2);border-radius:var(--r-sm);background-color:var(--bg)}
+.pays{grid-template-columns:1fr 1fr}
+.pays label,.opts label{border-color:var(--border-2);border-radius:var(--r-md);background:var(--bg)}
+/* payment methods: each one gets its brand color + a small mark (labels are re-filled by i18n, so the mark lives in ::after) */
+.pays label{--pc:#555;--pf:#fff;--pm:"";background:var(--pc);border-color:var(--pc);color:var(--pf)}
+.pays label::before{border-color:var(--pf);background:transparent}
+.pays label::after{content:var(--pm);flex:none;margin-inline-start:auto;min-width:30px;height:30px;padding:0 6px;display:grid;place-items:center;border-radius:8px;background:rgba(255,255,255,.22);color:var(--pf);font-size:13px;font-weight:800;letter-spacing:-.02em}
+.pays label[for=p1]{--pc:#0A5BD3;--pm:"PM"}
+.pays label[for=p8]{--pc:#1F7A3A;--pm:"Bs"}
+.pays label[for=p2]{--pc:#2E8B57;--pm:"$"}
+.pays label[for=p5]{--pc:#F0B90B;--pf:#181A20;--pm:"◆"}
+.pays label[for=p6]{--pc:#7B2FF7;--pm:"Z"}
+.pays label[for=p3]{--pc:#6D1ED4;--pm:"Z"}
+.pays label[for=p4]{--pc:#37474F;--pm:"POS"}
+.pays label[for=p7]{--pc:#0D2B5C;--pm:"⇄"}
+.pays input:checked+label{background:var(--pc);border-color:var(--pc);color:var(--pf);box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--pc)}
+.pays input:checked+label::before{border:5.5px solid var(--pf)}
+#whenF{margin-top:14px}
+.when-hint{margin:8px 2px 0;font-size:13.5px;line-height:1.45;color:var(--ink-2,#5A514E)}
+.pays label:hover{border-color:var(--pc);filter:brightness(1.06)}
+.paycard{background:var(--surface-2);border-color:transparent;border-radius:var(--r-md)}
+.foot{background:var(--surface);border-top-color:var(--border);box-shadow:0 -8px 24px -16px rgba(17,17,17,.2)}
+.foot .btn,.btn-block{min-height:54px;border-radius:var(--r-full);box-shadow:var(--sh-primary);font-size:14px}
+.btn{transition:background-color var(--t-fast) var(--ease-ui),transform var(--t-fast) var(--ease-ui),box-shadow var(--t-fast) var(--ease-ui)}
+.btn:not(:disabled):active{transform:scale(.97)}
+
+/* ---------- focus: always visible ---------- */
+:is(a,button,input,select,textarea,[tabindex]):focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.pill:focus-visible,.foot .btn:focus-visible{outline-color:var(--text)}
+
+@media (prefers-reduced-motion:reduce){
+  .ph,.dph,.cover picture,.chips a img{animation:none}
+  .dish,.dish.card,.add,.btn,.chips a{transition:none}
+  .dish:active,.dish.card:hover{transform:none}
+}
+
+/* shorter sticky header on phones */
+@media (max-width:767px){:root{--hd:60px}}
+/* desktop cart panel sits below both sticky bars */
+@media (min-width:1081px){.ledger{top:calc(var(--hd) + var(--bar) + 20px);height:calc(100dvh - var(--hd) - var(--bar) - 40px)}}
+
+/* ---------- hero image (desktop): the cover becomes a wide banner, title and lead in white over it ---------- */
+@media (min-width:860px){
+  .intro{width:var(--box);margin-inline:auto;padding:var(--s-6) 0 var(--s-8)}
+  .intro::before{display:none}
+  .cover{display:block;position:relative;height:clamp(320px,34vw,460px)}
+  .cover picture{display:block;width:100%;height:100%;border-radius:var(--r-xl);overflow:hidden}
+  .cover picture img{display:block;width:100%;height:100%;object-fit:cover}
+  .cover::after{content:"";position:absolute;inset:0;border-radius:var(--r-xl);background:linear-gradient(to top,rgba(20,10,8,.78) 0%,rgba(20,10,8,.35) 45%,rgba(20,10,8,0) 75%)}
+  .logo-tile{position:absolute;z-index:1;top:var(--s-6);inset-inline-start:var(--s-6);display:grid;place-items:center;width:72px;height:72px;border-radius:var(--r-lg);background:var(--surface);box-shadow:var(--sh-2)}
+  .logo-tile img{width:42px;height:42px;filter:brightness(0) saturate(100%) invert(15%) sepia(38%) saturate(2700%) hue-rotate(330deg) brightness(88%)}
+  .intro-in{position:absolute;z-index:1;inset-inline:0;bottom:var(--s-8);width:auto;margin:0;padding-inline:clamp(28px,4vw,56px);display:block}
+  .intro h1{color:#fff;font-size:clamp(48px,5.4vw,78px)}
+  .intro .lead{color:rgba(255,255,255,.9);max-width:46ch}
+}
+
+/* ---------- photo placeholder for dishes without a real photo ---------- */
+.ph-empty{display:block;animation:none!important;background:var(--surface-2);position:relative;overflow:hidden}
+.ph-empty::before{content:"";position:absolute;inset:0;background:var(--primary);opacity:.06;-webkit-mask:url(../../img/brand/star-pattern-mask.svg) 0 0/56px repeat;mask:url(../../img/brand/star-pattern-mask.svg) 0 0/56px repeat}
+.ph-empty::after{content:"";position:absolute;inset:0;margin:auto;width:42%;aspect-ratio:1;background:var(--primary);opacity:.32;-webkit-mask:url(../../img/brand/emblem.svg) center/contain no-repeat;mask:url(../../img/brand/emblem.svg) center/contain no-repeat}
+
+/* ---------- desktop: no side cart panel; the menu is full width and the order opens as a drawer ---------- */
+@media (min-width:1081px){
+  .ledger{display:none!important}
+  .wrap{grid-template-columns:minmax(0,1fr)}
+  @container (min-width:1100px){.list{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .pill{display:flex;bottom:24px}
+  .toast{bottom:100px}
+  .sheet .mob-lines{display:block}
+}
+
+/* ---------- dish rows: tighter padding, more text, no empty photo tile ---------- */
+.dish:not(.card){padding:12px 14px}
+.dish:not(.card) .ds{-webkit-line-clamp:2;line-height:1.4}
+.dish.has-ph:not(.card){grid-template-columns:minmax(0,1fr) 96px}
+.dish.has-ph .ph{width:96px;height:96px}
+/* dishes without a photo keep the branded placeholder tile (same size), so real photos can drop in later */
+@media (min-width:860px){.dish:not(.card){padding:14px 16px}}
+
+/* narrow phones: header brand + language pill + cart must fit (Arabic made it ~8px too wide, so the page panned sideways) */
+@media (max-width:389px){.brand b{font-size:12px;letter-spacing:.1em}.brand{gap:8px}}
+.hd .brand{min-width:0}
+.cat-h{min-width:0}.cat-h h2,.cat-h *{overflow-wrap:anywhere}
+
+/* hero image (phone): taller banner (artwork keeps its on-screen size, food sits high) with the title and lead on the bottom in white */
+@media (max-width:859px){
+  .intro{position:relative;padding-bottom:14px}
+  .cover{height:clamp(280px,102vw,536px)}
+  .cover::after{content:"";position:absolute;inset:0;border-radius:24px;background:linear-gradient(to top,rgba(20,8,10,.78) 0%,rgba(20,8,10,.35) 34%,rgba(20,8,10,0) 58%)}
+  .intro-in{position:absolute;z-index:1;inset-inline:12px;bottom:26px;margin:0;padding:0 22px;display:block}
+  .intro h1{color:#fff;font-size:clamp(34px,10vw,42px);line-height:1.05}
+  html[lang=ar] .intro h1{font-size:clamp(30px,9vw,38px);line-height:1.3}
+  .intro .lead{color:rgba(255,255,255,.9);margin-top:8px;font-size:14px;line-height:1.45;max-width:34ch}
+}
+
+/* ---------- checkout in steps (v13): progress, folded optional fields, receipt upload, compact total bar ---------- */
+.ck-step[hidden],.steps[hidden],.foot [hidden],.more [hidden]{display:none!important}
+.steps{list-style:none;margin:0 0 var(--s-4,16px);padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;counter-reset:none}
+.steps li{display:flex;flex-direction:column;align-items:flex-start;gap:6px;padding-top:10px;border-top:3px solid var(--border-2,#ddd);font-size:12.5px;font-weight:700;color:var(--ink-3,#7D736E);letter-spacing:.01em;transition:border-color .25s,color .25s}
+.steps li.on{border-color:var(--wine,#7A1F2B);color:var(--wine,#7A1F2B)}
+.steps li.done{border-color:var(--wine,#7A1F2B);color:var(--ink-2,#5A514E);cursor:pointer}
+.ck-step{animation:stepIn .28s ease both}
+@keyframes stepIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.ck-step{animation:none}}
+.fold:not(.open){display:none}
+.more{display:flex;flex-wrap:wrap;gap:6px 16px;margin:2px 0 6px}
+.addlink{min-height:40px;padding:0;background:none;border:0;color:var(--wine,#7A1F2B);font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+.addlink:hover{text-decoration:underline;text-underline-offset:3px}
+.receipt{margin-top:12px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.receipt-btn{flex:1 1 auto;display:flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:10px 16px;border:1.5px dashed var(--wine,#7A1F2B);border-radius:var(--r-md,14px);background:var(--bg,#fff);color:var(--wine,#7A1F2B);font-weight:700;font-size:15px;cursor:pointer;text-align:center;transition:background .2s}
+.receipt-btn:hover{background:rgba(122,31,43,.05)}
+#fReceipt:focus-visible+.receipt-btn{outline:2px solid var(--wine,#7A1F2B);outline-offset:2px}
+.receipt.has .receipt-btn{border-style:solid;border-color:#2E8B57;color:#1F6B42;background:#F1F8F3}
+.receipt-done{margin:14px 0;padding:14px 16px;border-radius:var(--r-md,14px);background:#F1F8F3;border:1px solid #CFE6D7}
+.receipt-done p{margin:0 0 10px;font-weight:600}
+.receipt-done .btn{width:100%}
+/* bottom bar: Total (tap for breakdown) + one action */
+.foot-bar{display:flex;align-items:center;gap:10px}
+.foot-bar .btn{flex:1 1 0;min-width:0;width:auto;margin-top:0;padding-inline:14px}
+.foot-bar #stepBack{flex:0 0 52px;width:52px;padding:0;font-size:0;box-shadow:none}
+.foot-bar #stepBack::before{content:"←";font-size:20px;line-height:1}
+[dir=rtl] .foot-bar #stepBack::before{content:"→"}
+.tot-t{flex:0 0 auto;display:flex;flex-direction:column;align-items:flex-start;gap:0;padding:4px 6px 4px 0;background:none;border:0;font:inherit;color:inherit;cursor:pointer;text-align:start}
+.tot-t span{font-size:12px;font-weight:600;color:var(--ink-2,#5A514E);line-height:1.2}
+.tot-t b{font-size:20px;font-weight:800;line-height:1.2;font-variant-numeric:tabular-nums}
+.tot-t svg{position:absolute;opacity:0}
+.tot-t span::after{content:" ▾";font-size:10px}
+.tot-t[aria-expanded=true] span::after{content:" ▴"}
+.sum-x{padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid var(--border,#eee)}
+.sum-x .note-es{margin:6px 0 0;font-size:12.5px}
+.foot .warn{margin-bottom:8px}
+.foot-bar #send{letter-spacing:.02em}
+
+/* ---------- checkout accents (v13b): numbered progress, green "pay now", cream total bar, gold success ---------- */
+.steps li{flex-direction:row;align-items:center;gap:8px}
+.steps li i{flex:none;display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1.5px solid currentColor;font-style:normal;font-size:11.5px;font-weight:800;line-height:1;transition:background .25s,color .25s,border-color .25s}
+.steps li.on i{background:var(--wine,#7A1F2B);border-color:var(--wine,#7A1F2B);color:#fff}
+.steps li.done{border-color:var(--gold,#B8915A)}
+.steps li.done i{background:var(--gold,#B8915A);border-color:var(--gold,#B8915A);color:#fff;font-size:0}
+.steps li.done i::before{content:"✓";font-size:12px}
+.seg.when input#wNow:checked+label{background:#EAF6EF;color:#1F6B42;box-shadow:0 1px 3px rgba(30,26,24,.12),0 0 0 1px rgba(46,139,87,.45)}
+.sheet .foot{background:var(--cream,#F6EDE4)}
+.sheet .foot .tot-t b{color:var(--wine-3,#4A1119)}
+.done .ok-ic{background:var(--gold,#B8915A);color:#fff;box-shadow:0 8px 20px -10px rgba(184,145,90,.8)}
+/* the cart step shows its lines on desktop too ("view my order") */
+.sheet .ck-step .mob-lines{display:block}
+.tot-t{max-width:104px}
+.tot-t span{font-size:11.5px}
+@media (max-width:420px){.foot-bar #send svg{display:none}.foot-bar .btn{font-size:13px;letter-spacing:.01em}}
+
+/* order lines with a dish photo / placeholder: [photo] [name + qty] [price] */
+.ln.has-th{grid-template-columns:52px minmax(0,1fr) auto;grid-template-areas:"th n p" "th q p";row-gap:6px;column-gap:12px}
+.ln.has-th .lth{grid-area:th;width:52px;height:52px;border-radius:12px;object-fit:cover;align-self:center}
+.ln.has-th .n{grid-area:n;align-self:end}
+.ln.has-th .q{grid-area:q;justify-self:start;align-self:start}
+.ln.has-th .q button{width:34px;height:34px}
+.ln.has-th .p{grid-area:p;align-self:center}
+.dph.ph-empty{display:block;margin:6px 0 0;aspect-ratio:16/9;border-radius:18px}
+
+/* dish sheet: free-text instructions for every dish */
+.onote{margin-top:14px}
+.onote textarea{width:100%;min-height:64px;resize:vertical}
+
+/* ---------- menu cards, dressed (v14): warm paper, serif names, gold details ---------- */
+.dish:not(.card){position:relative;overflow:hidden;background:linear-gradient(180deg,#fff 0%,#FFFCF8 100%);border-color:#EEE4D6;transition:box-shadow .3s var(--ease-ui),transform .3s var(--ease-ui),border-color .3s}
+/* faint star ornament along the bottom (the emptiest part of the card), fading upward; same mask as the photo placeholder */
+.dish:not(.card)::before{content:"";position:absolute;inset-block-end:0;inset-inline-start:0;width:70%;height:56px;background:var(--gold,#B8915A);opacity:.13;-webkit-mask:url(../../img/brand/star-pattern-mask.svg) 0 100%/38px repeat,radial-gradient(130% 120% at 0 100%,#000 25%,transparent 72%);-webkit-mask-composite:source-in;mask:url(../../img/brand/star-pattern-mask.svg) 0 100%/38px repeat,radial-gradient(130% 120% at 0 100%,#000 25%,transparent 72%);mask-composite:intersect;pointer-events:none;z-index:-1}
+.dish:not(.card){isolation:isolate}
+[dir=rtl] .dish:not(.card)::before{-webkit-mask-image:url(../../img/brand/star-pattern-mask.svg),radial-gradient(130% 120% at 100% 100%,#000 25%,transparent 72%);mask-image:url(../../img/brand/star-pattern-mask.svg),radial-gradient(130% 120% at 100% 100%,#000 25%,transparent 72%)}
+.dish:not(.card) .nm{font-family:var(--f-display);font-weight:500;font-size:18px;line-height:1.25;letter-spacing:-.01em;color:var(--ink,#1F1A19)}
+.dish:not(.card) .ds{color:var(--ink-2,#5A514E);font-size:13.5px}
+/* price as a soft cream tag in wine */
+.dish:not(.card) .pr{display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;background:#F6EDE4;color:var(--wine,#7A1F2B);font-size:14px;font-weight:800;font-variant-numeric:tabular-nums;width:max-content}
+/* photo: white ring + soft drop shadow, like a plate on the table */
+.dish.has-ph:not(.card) .ph{box-shadow:0 0 0 3px #fff,0 10px 22px -12px rgba(74,17,25,.45);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.dish.has-ph:not(.card) .ph.ph-empty{box-shadow:0 0 0 3px #fff,0 6px 16px -12px rgba(74,17,25,.3)}
+/* add button: wine with a gold ring */
+.dish:not(.card) .add{box-shadow:0 0 0 3px #fff,0 6px 14px -6px rgba(122,31,43,.55)}
+/* in the order: gold edge on the left (right in Arabic) */
+.dish:not(.card):has(.step,.bd){border-color:var(--gold,#B8915A);box-shadow:inset 3px 0 0 var(--gold,#B8915A),var(--sh-1)}
+[dir=rtl] .dish:not(.card):has(.step,.bd){box-shadow:inset -3px 0 0 var(--gold,#B8915A),var(--sh-1)}
+@media (hover:hover){
+  .dish:not(.card):hover{transform:translateY(-2px);border-color:#E2CFB2;box-shadow:0 14px 30px -18px rgba(74,17,25,.35)}
+  .dish.has-ph:not(.card):hover .ph{transform:scale(1.04) rotate(-1.5deg)}
+}
+@media (prefers-reduced-motion:reduce){.dish:not(.card),.dish:not(.card) .ph{transition:none}.dish:not(.card):hover{transform:none}}

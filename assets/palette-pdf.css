@@ -1,0 +1,20 @@
+/* TEMPORARY: colour palette taken from menu.pdf, active when <html data-palette="pdf"> (see palette-toggle.js).
+   To go back to wine for good: remove the palette-pdf.css and palette-toggle.js tags from the pages. */
+:root[data-palette="pdf"]{
+  --wine:#3B3B3D;--wine-2:#2E2E30;--wine-3:#202020;
+  --primary:#3B3B3D;--primary-600:#2E2E30;--primary-800:#202020;--primary-50:#F1EBDF;
+  --gold:#BE9563;--dc-gold:#BE9563;--gold-hi:#D2AE7C;
+  --ink:#3B3B3D;--text:#3B3B3D;--ink-2:#635639;--text-2:#635639;--ink-3:#736E6F;--text-3:#736E6F;
+  --bg:#F3EEE4;--paper:#F3EEE4;--marble:#E5DBC8;--shell:#E5DBC8;--stone:#E5DBC8;--surface-2:#EFE8DB;--surface-3:#E5DBC8;
+  --blush:#E5DBC8;--cream:#E5DBC8
+}
+:root[data-palette="pdf"] .ft{background:var(--wine)}
+:root[data-palette="pdf"] .ft-grid h3,:root[data-palette="pdf"] .ft h2{color:var(--gold)}
+:root[data-palette="pdf"] .br-status.is-open::before{box-shadow:0 0 0 4px rgba(190,149,99,.25)}
+:root[data-palette="pdf"]::view-transition-group(wipe){background:#3B3B3D}
+
+/* the switch button */
+.pal-btn{position:fixed;z-index:60;inset-inline-start:16px;inset-block-end:16px;width:44px;height:44px;padding:0;border:2px solid #fff;border-radius:50%;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.28);background:linear-gradient(135deg,#7A1F2B 50%,#3B3B3D 50%);transition:transform .25s}
+.pal-btn:hover{transform:scale(1.08)}
+.pal-btn:focus-visible{outline:3px solid #BE9563;outline-offset:3px}
+@media (max-width:899px){.pal-btn{inset-block-end:calc(92px + env(safe-area-inset-bottom))}}

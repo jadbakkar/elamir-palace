@@ -1,0 +1,89 @@
+/* =========================================================
+   El Amir Palace · v4 shared foundation (homepage + pedir.html)
+   Classic restaurant site. Palette and fonts are brand commitments
+   (PRODUCT.md): paper/marble/stone, ink, wine, gold, blush.
+   ========================================================= */
+@font-face{font-family:"Instrument Serif";font-style:normal;font-weight:400;font-display:swap;src:url(../v3/fonts/instrument-serif-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Instrument Serif";font-style:italic;font-weight:400;font-display:swap;src:url(../v3/fonts/instrument-serif-italic-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:"Manrope";font-style:normal;font-weight:400 800;font-display:swap;src:url(../v3/fonts/manrope-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+
+:root{
+  /* palette */
+  --paper:#FBF8F3; --marble:#F2ECE3; --stone:#E6DDD0;
+  --ink:#1E1A18; --ink-2:#5F564F; --ink-3:#6E645B;
+  --wine:#7A1F2B; --wine-2:#5E1621; --wine-3:#4A1119;
+  --gold:#B8915A; --gold-hi:#D9B67E; --blush:#E9C9B8; --cream:#F3E6DA;
+  --line:rgba(30,26,24,.12); --line-2:rgba(30,26,24,.2); --line-w:rgba(255,255,255,.22);
+  /* type */
+  --f-display:"Instrument Serif",Georgia,serif;
+  --f-body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --t-h1:clamp(56px,8.2vw,128px);
+  --t-h2:clamp(40px,5vw,76px);
+  --t-h3:clamp(24px,2vw,30px);
+  --t-lead:clamp(17px,1.3vw,20px);
+  /* layout */
+  --pad:clamp(16px,4.5vw,72px); --max:1320px;
+  --sec:clamp(72px,10vw,144px);
+  --r-img:10px; --r-card:14px; --r-pill:999px;
+  /* motion */
+  --ease:cubic-bezier(.22,1,.36,1); --dur:200ms;
+  --ease-out:cubic-bezier(.23,1,.32,1);       /* entrances / exits */
+  --ease-in-out:cubic-bezier(.77,0,.175,1);   /* movement on screen */
+  --ease-drawer:cubic-bezier(.32,.72,0,1);    /* sheets / drawers / sliding indicators */
+  --ease-scroll:cubic-bezier(.33,1,.68,1);    /* scroll-linked reveals */
+  --shadow-1:0 1px 2px rgba(30,26,24,.06),0 8px 24px -12px rgba(30,26,24,.18);
+  --shadow-2:0 2px 4px rgba(30,26,24,.06),0 24px 48px -20px rgba(30,26,24,.28);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:84px;scrollbar-gutter:stable}
+body{background:var(--paper);color:var(--ink);font:400 17px/1.65 var(--f-body);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;overflow-x:clip;-webkit-tap-highlight-color:transparent}
+img,video,svg{display:block;max-width:100%}
+img,video{height:auto}
+a{color:inherit;text-underline-offset:.2em;text-decoration-thickness:1px}
+a,button,summary,select,label{touch-action:manipulation}
+button,input,select,textarea{font:inherit;color:inherit}
+[hidden]{display:none!important}
+::selection{background:var(--wine);color:#fff}
+:focus-visible{outline:2px solid var(--wine);outline-offset:3px;border-radius:4px}
+.on-dark :focus-visible{outline-color:#fff}
+h1,h2,h3{font-weight:400;text-wrap:balance}
+p,li,dd,figcaption{text-wrap:pretty}
+.num,.price{font-variant-numeric:tabular-nums lining-nums}
+.latin{font-family:var(--f-display)!important}
+html{scrollbar-color:var(--wine) transparent;scrollbar-width:thin}
+input,select,textarea{caret-color:var(--wine);accent-color:var(--wine)}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:fixed;top:10px;inset-inline-start:10px;z-index:200;background:var(--wine);color:#fff;padding:12px 18px;border-radius:var(--r-pill);font-weight:700;text-decoration:none;transform:translateY(-200%)}
+.skip:focus{transform:none}
+
+/* display type */
+.h1{font:400 var(--t-h1)/.92 var(--f-display);letter-spacing:-.025em}
+.h2{font:400 var(--t-h2)/.98 var(--f-display);letter-spacing:-.02em}
+.h1 em,.h2 em{font-style:italic;color:var(--wine)}
+.on-dark .h1 em,.on-dark .h2 em{color:var(--blush)}
+.lead{font-size:var(--t-lead);line-height:1.6;color:var(--ink-2);max-width:48ch}
+:lang(ar) .h1,:lang(ar) .h2{font-family:"Amiri",var(--f-display);letter-spacing:0;line-height:1.2}
+:lang(ar) .btn{letter-spacing:0}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 26px;border-radius:var(--r-pill);border:1px solid transparent;font:800 13.5px/1 var(--f-body);letter-spacing:.07em;text-transform:uppercase;text-decoration:none;cursor:pointer;white-space:nowrap;
+  transition:background-color var(--dur) var(--ease),color var(--dur) var(--ease),border-color var(--dur) var(--ease),transform 120ms var(--ease),box-shadow var(--dur) var(--ease)}
+.btn:active{transform:scale(.97)}
+.btn svg{width:18px;height:18px;flex:none;transition:transform var(--dur) var(--ease)}
+[dir=rtl] .btn svg.dir{transform:scaleX(-1)}
+.btn--wine{background:var(--wine);color:#fff}
+.btn--paper{background:var(--paper);color:var(--wine-3)}
+.btn--line{border-color:var(--line-2);color:var(--ink)}
+.btn--ghost{border-color:rgba(255,255,255,.55);color:#fff}
+.btn--sm{min-height:44px;padding:0 18px;font-size:12.5px}
+.btn[disabled],.btn[aria-disabled=true]{opacity:.45;pointer-events:none}
+@media (hover:hover){
+  .btn--wine:hover{background:var(--wine-2);box-shadow:0 10px 24px -12px rgba(122,31,43,.7)}
+  .btn--paper:hover{background:#fff}
+  .btn--line:hover{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+  .btn--ghost:hover{background:#fff;color:var(--wine-3);border-color:#fff}
+  .btn:hover svg.dir{transform:translateX(3px)}
+  [dir=rtl] .btn:hover svg.dir{transform:scaleX(-1) translateX(3px)}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}

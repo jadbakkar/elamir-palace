@@ -1,0 +1,122 @@
+/* El Amir Palace · motion layer X (loads after v7.js, reuses its GSAP / ScrollTrigger / Lenis).
+   To revert: delete this file + motion-x.css and their two tags in index.html, en/, ar/.
+     curtain      image frames unveil bottom-up while the photo settles from 1.25 to 1
+     hero out     headline lifts and fades, photo dims into the wine as the hero scrolls away
+     hero look    photo drifts a few px with the pointer (desktop)
+     rules        section-label gold rules draw outwards
+     magnetic     buttons and arrows lean toward the pointer (desktop)
+     tilt         cards tilt in 3D under the pointer, lift kept (desktop)
+     count        prices count up from 0
+     stars        review stars pop in one by one
+     footer       emblem spins in, columns rise
+     cursor       trailing ring that grows over links (desktop)
+   Nothing here runs with prefers-reduced-motion. */
+(function () {
+  "use strict";
+  var d = document, h = d.documentElement, w = window, gsap = w.gsap, ST = w.ScrollTrigger;
+  if (!gsap || !ST || w.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var fine = w.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var rtl = function () { return h.dir === "rtl"; };
+  h.classList.add("mx"); if (fine) h.classList.add("mx-fine");
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || d).querySelectorAll(s)); };
+  function onEnter(el, fn, start) { ST.create({ trigger: el, start: start || "top 88%", once: true, onEnter: fn }); }
+  function nth(el) { var li = el.closest("li"); return li && li.parentNode ? Array.prototype.indexOf.call(li.parentNode.children, li) : 0; }
+
+  /* ---- curtain: frame clips open from the bottom, photo inside settles ---- */
+  $$(".card-img, .dish-img, .intro-img, .story-photo, .vid-frame").forEach(function (f) {
+    var r = getComputedStyle(f).borderRadius || "0px", pic /* full radius: keeps the decor arch (decor.css) during the reveal */ = f.querySelector("picture, video");
+    var shut = "inset(100% 0% 0% 0% round " + r + ")", open = "inset(0% 0% 0% 0% round " + r + ")";
+    gsap.set(f, { clipPath: shut }); if (pic) gsap.set(pic, { scale: 1.25 });
+    onEnter(f, function () {
+      var fast = f.classList.contains("card-img"), dl = fast ? Math.min(nth(f), 6) * 0.06 : Math.min(nth(f), 6) * 0.12 + 0.05;
+      gsap.to(f, { clipPath: open, duration: fast ? 1.1 : 1.5, ease: fast ? "expo.out" : "expo.inOut", delay: dl, clearProps: "clipPath" });
+      if (pic) gsap.to(pic, { scale: 1, duration: fast ? 1.6 : 2.1, ease: "expo.out", delay: dl + (fast ? 0.1 : 0.25), clearProps: "transform" });
+    }, f.classList.contains("card-img") ? "top 100%" : "top 92%");
+  });
+
+  /* ---- hero: scroll-out + pointer look ---- */
+  var hero = d.querySelector(".hero");
+  if (hero) {
+    var hin = hero.querySelector(".hero-in"), hm = hero.querySelector(".hero-media");
+    gsap.timeline({ scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true } })
+      .to(hin, { y: function () { return -hero.offsetHeight * 0.22; }, opacity: 0, ease: "none" }, 0)
+      .to(hm, { opacity: 0.3, ease: "none" }, 0);
+  }
+
+  /* ---- section-label rules draw outwards ---- */
+  $$(".sec-label").forEach(function (l) { onEnter(l, function () { l.classList.add("mx-on"); }); });
+
+  /* ---- prices count up (text restored exactly afterwards) ---- */
+  $$(".amt").forEach(function (el) {
+    onEnter(el, function () {
+      var txt = el.textContent, m = txt.match(/^(\D*)(\d+)(.*)$/); if (!m) return;
+      var o = { v: 0 }; el.style.minWidth = el.offsetWidth + "px"; el.style.display = "inline-block";
+      gsap.to(o, { v: +m[2], duration: 1.8, ease: "power3.out", delay: 0.35 + Math.min(nth(el), 6) * 0.12,
+        onUpdate: function () { el.textContent = m[1] + Math.round(o.v) + m[3]; },
+        onComplete: function () { el.textContent = txt; el.style.minWidth = el.style.display = ""; } });
+    });
+  });
+
+  /* ---- review stars pop ---- */
+  $$(".rcard").forEach(function (c) {
+    var st = $$(".rc-stars svg", c); if (!st.length) return;
+    gsap.set(st, { scale: 0, rotate: -60 });
+    onEnter(c, function () {
+      gsap.to(st, { scale: 1, rotate: 0, duration: 0.7, ease: "back.out(3)", stagger: 0.07, delay: 0.45 + Math.min(nth(c), 6) * 0.12 });
+    });
+  });
+
+  /* ---- footer: emblem spins in, columns rise ---- */
+  var ft = d.querySelector(".ft");
+  if (ft) {
+    var mk = ft.querySelector(".ft-mark"), cols = $$(".ft-grid > *, .ft-bot", ft);
+    if (mk) gsap.set(mk, { scale: 0.3, rotate: -180, opacity: 0 });
+    gsap.set(cols, { y: 50, opacity: 0 });
+    onEnter(ft, function () {
+      if (mk) gsap.to(mk, { scale: 1, rotate: 0, opacity: 1, duration: 1.8, ease: "expo.out" });
+      gsap.to(cols, { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", stagger: 0.1, delay: 0.15, clearProps: "transform" });
+    }, "top 90%");
+  }
+
+  /* language switch rewrites text: make sure nothing waits hidden */
+  d.addEventListener("langchange", function () { ST.refresh(); });
+
+  if (!fine) return;
+
+  /* ---- magnetic buttons ---- */
+  $$(".btn, .arr, .find-tabs button, .hd .brand").forEach(function (b) {
+    var xTo = gsap.quickTo(b, "x", { duration: 0.7, ease: "power3.out" }), yTo = gsap.quickTo(b, "y", { duration: 0.7, ease: "power3.out" });
+    b.addEventListener("pointermove", function (e) {
+      var r = b.getBoundingClientRect(), cx = r.left + r.width / 2 - gsap.getProperty(b, "x"), cy = r.top + r.height / 2 - gsap.getProperty(b, "y");
+      xTo((e.clientX - cx) * 0.3); yTo((e.clientY - cy) * 0.35);
+    });
+    b.addEventListener("pointerleave", function () { xTo(0); yTo(0); });
+  });
+
+  /* ---- 3D tilt (keeps each card's own hover lift) ---- */
+  $$(".card, .dish > a, .rcard").forEach(function (c) {
+    var lift = c.classList.contains("card") ? -8 : c.classList.contains("rcard") ? -6 : -4;
+    gsap.set(c, { transformPerspective: 1000 });
+    var rx = gsap.quickTo(c, "rotationX", { duration: 0.8, ease: "power3.out" }), ry = gsap.quickTo(c, "rotationY", { duration: 0.8, ease: "power3.out" });
+    c.addEventListener("pointerenter", function () { gsap.to(c, { y: lift, duration: 0.9, ease: "expo.out", overwrite: "auto" }); });
+    c.addEventListener("pointermove", function (e) {
+      var r = c.getBoundingClientRect(), nx = (e.clientX - r.left) / r.width - 0.5, ny = (e.clientY - r.top) / r.height - 0.5;
+      ry(nx * 9); rx(ny * -7);
+    });
+    c.addEventListener("pointerleave", function () { rx(0); ry(0); gsap.to(c, { y: 0, duration: 0.9, ease: "expo.out", overwrite: "auto" }); });
+  });
+
+  /* ---- cursor ring ---- */
+  var cu = d.createElement("div"); cu.className = "mx-cursor"; cu.setAttribute("aria-hidden", "true"); cu.appendChild(d.createElement("i")); d.body.appendChild(cu);
+  var cx = gsap.quickTo(cu, "x", { duration: 0.45, ease: "power3.out" }), cy = gsap.quickTo(cu, "y", { duration: 0.45, ease: "power3.out" });
+  w.addEventListener("pointermove", function (e) { if (e.pointerType !== "mouse") return; cx(e.clientX); cy(e.clientY); cu.classList.add("is-on"); }, { passive: true });
+  d.addEventListener("pointerover", function (e) {
+    var t = e.target.closest ? e.target : e.target.parentNode;
+    cu.classList.toggle("is-img", !!t.closest(".card, .dish > a"));
+    cu.classList.toggle("is-big", !!t.closest("a, button, summary, [role=tab], label, input, select, textarea"));
+    cu.classList.toggle("is-light", !!t.closest(".hero, .is-wine, .ft, .hd:not(.is-solid)"));
+  });
+  d.addEventListener("pointerleave", function () { cu.classList.remove("is-on"); });
+  d.addEventListener("pointerdown", function () { cu.classList.add("is-down"); });
+  d.addEventListener("pointerup", function () { cu.classList.remove("is-down"); });
+})();

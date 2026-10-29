@@ -1,0 +1,73 @@
+/* El Amir Palace · decor layer (home pages). Every shape is a brand vector taken from the printed menu (img/brand/).
+   To revert: delete this file and its <link> in index.html, en/, ar/ (motion-x.js reads the arch radius, nothing else depends on it).
+     pattern     the menu's star tessellation: 3% grey on paper, gold on wine sections and the footer
+     rules       section-label rules end in the menu's outline diamond
+     frames      notched gold corners (menu page 7, bolder copies: frame-corner-bold-*.svg) inside the big photos, on cards when hovered, on the branch card
+     arch        the story photo becomes a palace arch with a fine inner arch line
+     ornament    rule-diamond-rule under the hero headline and the intro text
+     quotes      large gold quote mark on each review card
+     numbers     01–06 on the menu cards
+     watermark   a slow rosette behind the story text */
+
+:root{
+  --dc-gold:#be9564;
+  --dc-star:url(../../img/brand/star-pattern-mask.svg);
+  --dc-rosette:url(../../img/brand/rosette.svg);
+  --dc-orn:url(../../img/brand/ornament.svg);
+}
+
+/* ---------- pattern ---------- */
+body{background-image:url(../../img/brand/star-pattern-cream.svg);background-size:150px}
+.is-wine,.ft{position:relative;isolation:isolate}
+.is-wine::before,.ft::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:var(--dc-gold);opacity:.09;
+  -webkit-mask:var(--dc-star) 0 0/150px repeat;mask:var(--dc-star) 0 0/150px repeat;border-radius:inherit}
+
+/* ---------- section-label rules end in a diamond (outer end) ---------- */
+.sec-label::after,.sec-label::before{height:10px;background:linear-gradient(var(--hair),var(--hair)) no-repeat,url(../../img/brand/ornament-diamond.svg) no-repeat}
+.sec-label::after{background-position:left center,right center;background-size:calc(100% - 14px) 1px,10px}
+.sec-label::before{background-position:right center,left center;background-size:calc(100% - 14px) 1px,10px}
+[dir=rtl] .sec-label::after{background-position:right center,left center}
+[dir=rtl] .sec-label::before{background-position:left center,right center}
+
+/* ---------- notched frame corners ---------- */
+.vid-frame{position:relative}
+.intro-img::after,.story-photo::after,.vid-frame::after,.card-img::after,.dish-img::after,.find-card::before{content:"";position:absolute;z-index:2;pointer-events:none;
+  --dc-c:clamp(40px,4vw,60px);inset:clamp(12px,1.4vw,18px);background:var(--dc-gold);
+  /* declared here (not on :root) so each frame resolves its own --dc-c */
+  --dc-corners:url(../../img/brand/frame-corner-bold-tl.svg) top left/var(--dc-c) no-repeat,url(../../img/brand/frame-corner-bold-tr.svg) top right/var(--dc-c) no-repeat,
+    url(../../img/brand/frame-corner-bold-bl.svg) bottom left/var(--dc-c) no-repeat,url(../../img/brand/frame-corner-bold-br.svg) bottom right/var(--dc-c) no-repeat;
+  -webkit-mask:var(--dc-corners);mask:var(--dc-corners)}
+.card-img::after,.dish-img::after{--dc-c:44px;opacity:0;scale:1.06;transition:opacity .6s var(--ease-out),scale .9s var(--ease-out)}
+.card:hover .card-img::after,.card:focus-visible .card-img::after,.dish a:hover .dish-img::after,.dish a:focus-visible .dish-img::after{opacity:1;scale:1}
+.find-card::before{--dc-c:36px;inset:10px;background:var(--dc-gold);opacity:.8}
+
+/* ---------- palace arch: story photo ---------- */
+.story-photo{border-radius:50% 50% var(--r) var(--r)/38% 38% var(--r) var(--r)}
+.story-photo::after{-webkit-mask:none;mask:none;background:none;border:1px solid rgba(255,255,255,.75);border-radius:50% 50% calc(var(--r) - 6px) calc(var(--r) - 6px)/38% 38% calc(var(--r) - 6px) calc(var(--r) - 6px)}
+@media (max-width:899px){
+  .story-photo{border-radius:50% 50% var(--r) var(--r)/52% 52% var(--r) var(--r)}
+  .story-photo::after{border-radius:50% 50% calc(var(--r) - 6px) calc(var(--r) - 6px)/52% 52% calc(var(--r) - 6px) calc(var(--r) - 6px)}
+}
+
+/* ---------- ornament: rule · diamond · rule ---------- */
+.hero-l::before,.intro-t::after{content:"";display:block;width:clamp(150px,14vw,220px);aspect-ratio:221.6/9.4;margin-inline:auto;
+  -webkit-mask:var(--dc-orn) center/contain no-repeat;mask:var(--dc-orn) center/contain no-repeat}
+.hero-l::before{width:clamp(190px,17vw,280px);margin-bottom:clamp(16px,1.6vw,22px);background:var(--cream);filter:drop-shadow(0 1px 3px rgba(20,8,10,.5))}
+.intro-t::after{margin-top:clamp(36px,4vw,56px);background:var(--dc-gold)}
+
+/* ---------- review quote mark ---------- */
+.rcard{position:relative}
+.rcard::before{content:"\201C";position:absolute;top:clamp(6px,.8vw,12px);inset-inline-end:clamp(18px,2vw,28px);font:400 clamp(104px,8.5vw,136px)/1 var(--f-display);color:var(--dc-gold);opacity:.45;pointer-events:none}
+[dir=rtl] .rcard::before{content:"\201D"}
+
+/* ---------- menu card numbers ---------- */
+.cards{counter-reset:dc}
+.cards>li{counter-increment:dc}
+.card-n::before{content:counter(dc,decimal-leading-zero);display:inline-block;margin-inline-end:.7em;vertical-align:.6em;font:600 11px/1 var(--f-body);letter-spacing:.16em;color:var(--dc-gold)}
+
+/* ---------- story watermark ---------- */
+.story-tx{position:relative;isolation:isolate}
+.story-tx::before{content:"";position:absolute;z-index:-1;top:-14%;inset-inline-end:-6%;width:clamp(200px,24vw,360px);aspect-ratio:1;pointer-events:none;
+  background:var(--dc-gold);opacity:.1;-webkit-mask:var(--dc-rosette) center/contain no-repeat;mask:var(--dc-rosette) center/contain no-repeat}
+@media (prefers-reduced-motion:no-preference){.story-tx::before{animation:dc-spin 90s linear infinite}}
+@keyframes dc-spin{to{rotate:360deg}}

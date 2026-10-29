@@ -1,0 +1,70 @@
+# Netlify / Cloudflare Pages headers. Cache-Control rules never overlap (Netlify merges duplicates).
+# Files under /assets/v3/ are referenced with ?v=… (bump it in index.html when they change) -> immutable is safe.
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(self), interest-cohort=()
+  X-Frame-Options: SAMEORIGIN
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+
+# HTML: always revalidate + CSP (pages only, so menu.pdf / SVGs are untouched).
+# 'unsafe-inline' is needed by the inline head scripts and JSON-LD.
+/
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; font-src 'self' data:; img-src 'self' data: blob: https:; media-src 'self' blob:; connect-src 'self'; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'
+/en/
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; font-src 'self' data:; img-src 'self' data: blob: https:; media-src 'self' blob:; connect-src 'self'; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'
+/ar/
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; font-src 'self' data:; img-src 'self' data: blob: https:; media-src 'self' blob:; connect-src 'self'; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'
+/pedir
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; font-src 'self' data:; img-src 'self' data: blob: https:; media-src 'self' blob:; connect-src 'self'; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; font-src 'self' data:; img-src 'self' data: blob: https:; media-src 'self' blob:; connect-src 'self'; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'
+
+# Versioned / fingerprinted assets: one year, immutable
+/assets/v3/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Self-hosted fonts + their CSS (assets/fonts/): names are not versioned and the Aref Ruqaa subset files are regenerated when the Arabic dish names change -> 1 day + revalidate
+/assets/fonts/*
+  Cache-Control: public, max-age=86400, must-revalidate
+
+# Images keep their names when replaced: 7 days + revalidate
+/img/*
+  Cache-Control: public, max-age=604800, must-revalidate
+
+# v4/v7/v8 CSS, JS and fonts (referenced with ?v=): 1 day + revalidate
+/assets/v4/*
+  Cache-Control: public, max-age=86400, must-revalidate
+/assets/v7/*
+  Cache-Control: public, max-age=86400, must-revalidate
+/assets/v8/*
+  Cache-Control: public, max-age=86400, must-revalidate
+
+# Shared, unversioned scripts and styles (also used by pedir.html): short cache + revalidate
+/assets/pedir/*
+  Cache-Control: public, max-age=3600, must-revalidate
+/i18n.js
+  Cache-Control: public, max-age=3600, must-revalidate
+/i18n.css
+  Cache-Control: public, max-age=3600, must-revalidate
+/config.js
+  Cache-Control: public, max-age=300, must-revalidate
+
+# Crawl / app metadata
+/robots.txt
+  Cache-Control: public, max-age=3600
+/sitemap.xml
+  Cache-Control: public, max-age=3600
+/llms.txt
+  Cache-Control: public, max-age=3600
+  Content-Type: text/plain; charset=utf-8
+/site.webmanifest
+  Cache-Control: public, max-age=86400
+  Content-Type: application/manifest+json
+/menu.pdf
+  Cache-Control: public, max-age=86400

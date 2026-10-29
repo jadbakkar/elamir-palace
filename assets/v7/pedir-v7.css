@@ -1,0 +1,151 @@
+/* El Amir Palace · pedir.html v7 layer: palette, type and shapes only (loads after pedir.css; no logic) */
+@font-face{font-family:"Fraunces";font-style:normal;font-weight:100 900;font-display:swap;src:url(fonts/fraunces-latin.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+:root{
+  --paper:#F7F4EF; --marble:#EFE9E1; --stone:#E2D9CD; --card:#FBF9F6;
+  --ink:#1F1A19; --ink-2:#5A514E; --ink-3:#7D736E;
+  --wine:#7A1F2B; --wine-2:#621823; --wine-3:#4A1119; --gold:#B8915A;
+  --f-display:"Fraunces",Georgia,"Times New Roman",serif;
+  --r-card:20px; --r-img:16px;
+}
+body{background:var(--paper)}
+.intro h1,.cat-h h2,.ledger h2,.dlg-h h2{font-weight:340;letter-spacing:-.025em}
+.intro h1{font-weight:300;letter-spacing:-.04em}
+:lang(ar) .intro h1,:lang(ar) .cat-h h2{font-weight:400;letter-spacing:0}
+.hd{background:rgba(247,244,239,.92);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.brand b{font-family:var(--f-display);font-weight:400;letter-spacing:.24em;text-transform:uppercase;font-size:15px}
+.cat-h{border-bottom:1px solid rgba(184,145,90,.55)}
+.ledger,.sheet,.optdlg{border-radius:var(--r-card)}
+img{border-radius:inherit}
+.chips a img{border-radius:50%}
+.ft{background:var(--wine);border-radius:28px 28px 0 0}
+.btn{letter-spacing:.14em}
+
+/* page-to-page transition: burgundy wipe, see assets/v8/transition.css */
+
+/* ---------- phase 1 · app-style UI (CSS only, same markup) ---------- */
+/* compact store header on phones: the menu starts on the first screen */
+@media (max-width:859px){
+  .intro{padding:20px 0 14px}
+  .intro-in{gap:12px}
+  .intro h1{font-size:36px;line-height:1}
+  html[lang=ar] .intro h1{font-size:32px;line-height:1.3}
+  .intro .lead{margin-top:6px;font-size:14.5px;line-height:1.5}
+  .facts{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-inline:calc(-1 * var(--pad));padding:2px var(--pad);font-size:13px;line-height:1.2}
+  .facts::-webkit-scrollbar{display:none}
+  .facts li{flex:none;align-items:center;gap:7px;min-height:34px;padding:0 13px;white-space:nowrap;border:1px solid var(--line);border-radius:var(--r-pill);background:var(--card)}
+  .facts li[hidden]{display:none}
+  .facts .ico{width:15px;height:15px;margin-top:0}
+  .facts .status{gap:8px;min-height:0}
+  .facts .status::before{margin-inline:0}
+}
+
+/* menu rows: sans dish names, price under the text, photo trailing with the + on its corner */
+.dish{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"nm ctl" "ds ctl" "pr ctl";grid-template-rows:auto auto 1fr;align-items:start;gap:0 16px;padding:18px 0}
+.dish .tx,.dish .r1{display:contents}
+.dish .nm{grid-area:nm;font:600 16.5px/1.3 var(--f-body);letter-spacing:-.005em}
+.dish .ds{grid-area:ds;margin-top:3px;font-size:13.5px;line-height:1.45}
+.dish .pr{grid-area:pr;justify-self:start;margin-top:8px;font-weight:700;font-size:15px}
+.dish .ctl{grid-area:ctl;align-self:center}
+.dish.has-ph{grid-template-columns:minmax(0,1fr) 108px;grid-template-areas:"nm ph" "ds ph" "pr ph"}
+.dish.has-ph .ph{grid-area:ph;width:108px;height:108px;border-radius:16px}
+.dish.has-ph .ctl{grid-area:ph;align-self:end;justify-self:end;margin:0 -6px -6px 0}
+[dir=rtl] .dish.has-ph .ctl{margin:0 0 -6px -6px}
+html[lang=ar] .dish .nm{font-family:var(--f-ar-body);font-weight:600;font-size:16.5px;line-height:1.5}
+.add{border:0;background:var(--wine-tint);color:var(--wine)}
+.dish.has-ph .add{background:var(--card);box-shadow:0 2px 10px -2px rgba(30,26,24,.3),0 0 0 1px rgba(30,26,24,.06)}
+.dish.has-ph .step{box-shadow:0 4px 12px -4px rgba(74,17,25,.55)}
+
+/* phone cart bar clears the raised PEDIR button of the bottom nav; toast stays above it */
+@media (max-width:767px){
+  .pill{bottom:calc(var(--bnav-h) + 44px + env(safe-area-inset-bottom));min-height:56px}
+  .toast{bottom:calc(var(--bnav-h) + 112px + env(safe-area-inset-bottom))}
+}
+
+/* ---------- phase 2 · app-style ordering (reference: Dribbble food-delivery store page) ---------- */
+/* phone cover: real dish photo in a rounded card, cedar logo tile overlapping its edge */
+.cover{display:none}
+@media (max-width:859px){
+  .intro{padding-top:12px}
+  .cover{display:block;position:relative;margin-inline:12px;height:clamp(150px,44vw,230px)}
+  .cover picture,.cover picture img{display:block;width:100%;height:100%}
+  .cover picture{border-radius:24px;overflow:hidden;background:var(--stone)}
+  .cover picture img{object-fit:cover}
+  .logo-tile{position:absolute;inset-inline-start:calc(var(--pad) - 12px);bottom:-30px;display:grid;place-items:center;width:64px;height:64px;border-radius:18px;background:var(--card);box-shadow:0 8px 20px -10px rgba(30,26,24,.45),0 0 0 1px rgba(30,26,24,.06)}
+  .logo-tile img{width:38px;height:38px;filter:brightness(0) saturate(100%) invert(15%) sepia(38%) saturate(2700%) hue-rotate(330deg) brightness(88%)}
+  .intro-in{padding-top:44px}
+}
+
+/* category bar: soft filled pills, the active one in wine */
+.chips a{border-color:transparent;background:var(--marble)}
+.chips a.on{border-color:var(--wine)}
+
+/* the dish name is a button whose ::after covers the row: tap anywhere to open the dish sheet */
+.dish{position:relative}
+.dish-go{display:inline;padding:0;margin:0;border:0;background:none;font:inherit;color:inherit;text-align:start;letter-spacing:inherit;cursor:pointer}
+.dish-go::after{content:"";position:absolute;inset:0;border-radius:inherit}
+.dish-go:focus-visible{outline:none}
+.dish-go:focus-visible::after{outline:2px solid var(--wine);outline-offset:-2px;border-radius:14px}
+.dish .ctl{position:relative;z-index:1}
+
+/* filled + like the reference; the options badge turns ink so it stays visible on wine */
+.add{background:var(--wine);color:#fff}
+.add .bd{background:var(--ink)}
+.dish.has-ph .add,.card .add{background:var(--wine);box-shadow:0 0 0 3px var(--card),0 6px 14px -6px rgba(74,17,25,.6)}
+
+/* Destacados: swipeable rail of photo cards */
+.feat .cards{list-style:none;display:grid;grid-auto-flow:column;grid-auto-columns:calc((100vw - var(--pad) - 24px) / 2.5);gap:12px;margin-top:14px;margin-inline:calc(-1 * var(--pad));padding:4px var(--pad) 10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--pad);scrollbar-width:none;overscroll-behavior-x:contain}
+.feat .cards::-webkit-scrollbar{display:none}
+.dish.card{display:flex;flex-direction:column;padding:0 0 12px;border:0;border-radius:18px;background:var(--card);box-shadow:var(--shadow-1),0 0 0 1px rgba(30,26,24,.05);overflow:hidden;scroll-snap-align:start}
+.card .ph{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:0}
+.card .tx{flex:1;display:flex;flex-direction:column;padding:10px 12px 0}
+.card .nm{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.6em;font-size:15px;line-height:1.3}
+.card .pr{display:block;margin-top:auto;padding-top:8px;line-height:44px}
+[dir=rtl] .card .pr{text-align:right}
+.card .ctl{position:absolute;z-index:1;inset-inline-end:10px;bottom:12px}
+@media (min-width:860px){.feat .cards{grid-auto-columns:210px;margin-inline:0;padding-inline:2px;scroll-padding-inline:0}}
+
+/* dish sheet: photo, price, description, options; − 1 + sits next to the add button */
+.dph{margin:6px 0 0;aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:var(--stone)}
+.dph img{display:block;width:100%;height:100%;object-fit:cover}
+.dpr{margin-top:14px;font:800 20px/1.2 var(--f-body);color:var(--wine);font-variant-numeric:tabular-nums}
+[dir=rtl] .dpr{direction:ltr;text-align:right}
+.optdlg .dsc{margin-top:6px}
+.optdlg .foot{display:flex;align-items:center;gap:10px}
+.optdlg .foot .qty{flex:none;gap:2px;margin:0;padding:3px;border-radius:var(--r-pill);background:var(--marble)}
+.optdlg .foot .qty button{width:44px;height:44px;border:0;background:var(--card);box-shadow:0 1px 2px rgba(30,26,24,.12)}
+.optdlg .foot .qty b{min-width:30px;font-size:17px;font-weight:800}
+.optdlg .foot .btn{flex:1;min-width:0}
+
+/* phone cart bar: "Ver mi pedido · 2× · $18" */
+.pill{padding-inline:22px}
+.pill .lbl{order:0;flex:none}
+.pill .c{order:1;display:inline-flex;align-items:center;min-width:0;height:26px;padding:0 9px;background:rgba(255,255,255,.2);color:#fff;font-size:13px}
+.pill .c::after{content:"×"}
+.pill .s{order:2;margin-inline-start:auto}
+@media (hover:hover){.add:hover{background:var(--wine-2)}.chips a:not(.on):hover{border-color:transparent;background:var(--stone)}}
+
+/* intro facts list (open status, delivery, minimum, payment) hidden at the owner's request; markup kept because pedir.js updates it */
+.intro .facts{display:none}
+
+/* ---------- footer: structured columns (matches home) ---------- */
+.ft-in{grid-template-columns:1.5fr 1fr 1fr 1.3fr;gap:clamp(32px,4vw,64px)}
+.ft h2{font:700 11px/1.2 var(--f-body);letter-spacing:.2em;text-transform:uppercase;color:#EBD3BE;margin-bottom:18px}
+.ft h3{font:600 12px/1.2 var(--f-body);letter-spacing:.1em;color:#fff;margin-bottom:4px}
+.ft-sub{margin-top:22px}
+.ft-mark{display:block;width:56px;height:56px;margin-bottom:22px;background:var(--gold,#BE9564);-webkit-mask:url(../../img/brand/emblem.svg) center/contain no-repeat;mask:url(../../img/brand/emblem.svg) center/contain no-repeat}
+.ft-brand b{display:block;font:400 22px/1 var(--f-display);letter-spacing:.24em;text-transform:uppercase;color:#fff;margin-bottom:14px}
+.ft-brand p{color:rgba(246,237,228,.82);max-width:30ch}
+.ft-place{margin-top:6px;font-size:13px!important;color:rgba(246,237,228,.6)!important}
+.ft a{min-height:36px;text-decoration:none;color:rgba(246,237,228,.82);background:linear-gradient(currentColor,currentColor) 0 80%/0 1px no-repeat;transition:color .3s,background-size .35s}
+.ft a:hover{color:#fff;background-size:100% 1px}
+.ft-hours{display:grid;grid-template-columns:1fr auto;gap:0}
+.ft-hours dt,.ft-hours dd{padding-block:7px;border-bottom:1px solid rgba(246,237,228,.12);font-size:14px}
+.ft-hours dt{color:rgba(246,237,228,.82)}
+.ft-hours dd{color:#fff;text-align:end;white-space:nowrap}
+.ft-hours .now{color:#EBD3BE;font-weight:600}
+.ft-bot{justify-content:space-between;color:rgba(246,237,228,.65)}
+.ft-bot span{margin-inline-start:0}
+.ft-top{font:600 11px/1 var(--f-body)!important;letter-spacing:.18em;text-transform:uppercase}
+html[lang=ar] .ft h2,html[lang=ar] .ft-top{letter-spacing:0;font-size:13px!important}
+@media (max-width:1099px){.ft-in{grid-template-columns:1fr 1fr}.ft-brand{grid-column:1/-1}}
+@media (max-width:479px){.ft-in{grid-template-columns:1fr}}
