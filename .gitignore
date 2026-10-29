@@ -34,13 +34,9 @@ img/photos/risotto-pesto-mesa-*
 img/photos/shawarma-wrap-160.*
 
 # Raw originals in img/pya: pages only use the .jpg versions
-img/pya/*.CR3
 img/pya/*.cr3
 img/pya/*.png
-img/pya/*.PNG
 img/pya/*.jpeg
-img/pya/*.JPG
-img/pya/*.jpg.jpeg
 
 # OS / editor noise
 Thumbs.db
