@@ -95,6 +95,7 @@ html[lang=ar] .dish .nm{font-family:var(--f-ar-body);font-weight:600;font-size:1
 /* Destacados: swipeable rail of photo cards */
 .feat .cards{list-style:none;display:grid;grid-auto-flow:column;grid-auto-columns:calc((100vw - var(--pad) - 24px) / 2.5);gap:12px;margin-top:14px;margin-inline:calc(-1 * var(--pad));padding:4px var(--pad) 10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--pad);scrollbar-width:none;overscroll-behavior-x:contain}
 .feat .cards::-webkit-scrollbar{display:none}
+@media (hover:hover) and (pointer:fine){.feat .cards,.chips{cursor:grab}.feat .cards.drag,.chips.drag{cursor:grabbing;scroll-snap-type:none;user-select:none}.feat .cards.drag *,.chips.drag *{pointer-events:none}}
 .dish.card{display:flex;flex-direction:column;padding:0 0 12px;border:0;border-radius:18px;background:var(--card);box-shadow:var(--shadow-1),0 0 0 1px rgba(30,26,24,.05);overflow:hidden;scroll-snap-align:start}
 .card .ph{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:0}
 .card .tx{flex:1;display:flex;flex-direction:column;padding:10px 12px 0}

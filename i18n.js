@@ -951,6 +951,24 @@
   O("Papas fritas", "French fries", "بطاطا مقلية");
   O("Hummus", "Hummus", "حمص");
   O("Tabbule", "Tabbouleh", "تبولة");
+  O("Elige 2 contornos", "Choose 2 sides", "اختر طبقين جانبيين");  O("Papas bravas", "Patatas bravas", "بطاطا برافاس");
+  O("Papas rústicas", "Rustic potatoes", "بطاطا ريفية");
+  O("Puré", "Mashed potatoes", "بطاطا مهروسة");
+  O("Vegetales al vapor", "Steamed vegetables", "خضار على البخار");
+  O("Ensalada mixta", "Mixed salad", "سلطة مشكّلة");
+  O("Salsa", "Sauce", "الصلصة");
+  O("Salsa rosa", "Pink sauce", "صلصة وردية");
+  O("Sweet chili", "Sweet chili", "صلصة الفلفل الحلو");
+  O("Elige 1 extra", "Choose 1 extra", "اختر إضافة واحدة");
+  O("Elige 2 extras", "Choose 2 extras", "اختر إضافتين");
+  O("Servir aparte (fuera del pan)", "Serve on the side (not in the wrap)", "تقديمها على الجانب (خارج الخبز)");
+  O("Crema de berenjena", "Eggplant dip (mutabal)", "متبّل");
+  O("Crema de garbanzo", "Chickpea dip (hummus)", "حمص");
+  O("Crema de pimentón", "Red pepper dip (muhammara)", "محمّرة");
+  O("Falafel", "Falafel", "فلافل");
+  O("Kibbe frito", "Fried kibbe", "كبة مقلية");
+  O("Tabaquitos de uva", "Stuffed grape leaves", "ورق عنب");
+  O("Tabaquitos de repollo", "Stuffed cabbage rolls", "ملفوف محشي");
 
   /* ---- 1. Entradas Árabes ---- */
   C("Entradas Árabes", "Arabic Starters (Mezze)", "مقبلات عربية", ["Por ración", "Per portion", "سعر الحصة الواحدة"]);

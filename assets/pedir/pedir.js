@@ -271,20 +271,23 @@
 
   /* ---------- data + cart ---------- */
   const dishes = {};
-  MENU.forEach(([cat, , list]) => list.forEach(([name, price, desc, opts, extras]) => { dishes[R.dishId(cat, name)] = { name, price, cat, desc: desc || "", opts: opts || null, extras: extras || null }; }));
+  MENU.forEach(([cat, , list]) => list.forEach(([name, price, desc, opts, extras, pick]) => { dishes[R.dishId(cat, name)] = { name, price, cat, desc: desc || "", opts: opts || null, extras: extras || null, pick: pick || null }; }));
+  const APARTE = "Servir aparte (fuera del pan)";   /* included extras (shawarma especial) travel in the extras part of the key, at $0 */
   let cart = {};   /* key = dishId or dishId|opción|extra~extra|nota del cliente (Spanish) → qty */
   const parseKey = k => { const [id, opt, ex, note] = k.split("|"); return { id, opt, extras: ex ? ex.split("~") : [], note: note || "" }; };
   const cleanNote = s => String(s || "").replace(/[|~\n\r]+/g, " ").replace(/\s+/g, " ").trim().slice(0, 120);
   /* "Sin lechuga…" options (price 0) read as a list, priced extras as "+ …", the guest's note last */
   const lineFmt = (name, opt, extras, note, tx) => {
-    const free = extras.filter(n => /^Sin /.test(n)), paid = extras.filter(n => !/^Sin /.test(n));
+    const isFree = n => /^Sin /.test(n) || n === APARTE;
+    const free = extras.filter(isFree), paid = extras.filter(n => !isFree(n));
     return name + (opt ? ` (${tx(opt)})` : "") + (paid.length ? ` + ${paid.map(tx).join(" + ")}` : "") + (free.length ? ` · ${free.map(tx).join(", ")}` : "") + (note ? ` · "${note}"` : "");
   };
   const extraPrice = (d, n) => { const e = d.extras && d.extras.items.find(x => x[0] === n); return e ? e[1] : 0; };
   const unitPrice = k => { const { id, extras } = parseKey(k), d = dishes[id]; return d.price + extras.reduce((s, n) => s + extraPrice(d, n), 0); };
   const validKey = k => {
     const { id, opt, extras } = parseKey(k), d = dishes[id];
-    return !!d && (d.opts ? d.opts.choices.includes(opt) : !opt) && (!extras.length || (!!d.extras && extras.every(n => d.extras.items.some(x => x[0] === n))));
+    const known = n => (!!d.extras && d.extras.items.some(x => x[0] === n)) || (!!d.pick && (d.pick.items.includes(n) || (d.pick.aparte && n === APARTE)));
+    return !!d && (d.opts ? d.opts.choices.includes(opt) : !opt) && extras.every(known) && (!d.pick || extras.filter(n => d.pick.items.includes(n)).length === d.pick.n);
   };
   try {
     const raw = JSON.parse(localStorage.getItem("amir-cart-v2")) || {};
@@ -492,6 +495,33 @@
   const sheet = $("#sheet"), optDlg = $("#optDlg");
   const isOpen = el => el.classList.contains("open");
 
+  /* "Destacados" rail and category chips: a mouse can grab and drag them sideways (touch already swipes natively) */
+  const RAILS = ".feat .cards, .chips";
+  let rail = null;
+  doc.addEventListener("pointerdown", e => {
+    if (e.pointerType !== "mouse" || e.button !== 0) return;
+    const el = e.target.closest(RAILS); if (!el) return;
+    rail = { el, x: e.clientX, left: el.scrollLeft, moved: false };
+  });
+  doc.addEventListener("pointermove", e => {
+    if (!rail) return;
+    const dx = e.clientX - rail.x;
+    if (!rail.moved && Math.abs(dx) < 6) return;
+    if (!rail.moved) { rail.moved = true; rail.el.classList.add("drag"); }
+    rail.el.scrollLeft = rail.left - dx;
+  });
+  const railEnd = () => {
+    if (!rail) return;
+    const { el, moved } = rail; rail = null;
+    if (!moved) return;
+    el.classList.remove("drag");   /* scroll-snap comes back and settles on the nearest card */
+    /* swallow the click that ends the drag so it doesn't open a dish */
+    const eat = ev => { ev.stopPropagation(); ev.preventDefault(); };
+    doc.addEventListener("click", eat, true); setTimeout(() => doc.removeEventListener("click", eat, true), 0);
+  };
+  doc.addEventListener("pointerup", railEnd); doc.addEventListener("pointercancel", railEnd);
+  doc.addEventListener("dragstart", e => { if (e.target.closest(RAILS)) e.preventDefault(); });
+
   doc.addEventListener("click", e => {
     const b = e.target.closest("button"); if (!b) return;
     const li = b.closest(".dish");
@@ -636,12 +666,16 @@
   const optLabel = () => t("opt.add", { total: money(optUnit() * opt.qty) });
   function openOptions(id, refresh, fromAdd) {
     const d = dishes[id], T = tr(id), ph = PH[id];
-    if (!refresh) opt = { id, choice: null, extras: [], qty: 1, note: "" };
+    if (!refresh) opt = { id, choice: null, extras: [], picks: [], aparte: false, qty: 1, note: "" };
+    const full = d.pick && opt.picks.length >= d.pick.n;
     $("#optTitle").textContent = T.name;
     $("#optBody").innerHTML = `${ph ? `<figure class="dph"><img src="${R.phSrc(ph)}" alt="" width="640" height="480" decoding="async"></figure>` : `<figure class="dph ph-empty" aria-hidden="true"></figure>`}
       <p class="dpr">${money(d.price)}</p>${T.desc ? `<p class="dsc">${esc(T.desc)}</p>` : ""}
       ${d.opts ? `<fieldset><legend>${esc(I.opt(d.opts.label))} <span class="req">${esc(t("opt.required"))}</span></legend>
       <div class="opts">${d.opts.choices.map((c, i) => `<div class="oc"><input type="radio" name="optc" id="oc${i}" value="${esc(c)}"${opt.choice === c ? " checked" : ""}><label for="oc${i}">${esc(I.opt(c))}</label></div>`).join("")}</div></fieldset>` : ""}
+      ${d.pick ? `<fieldset><legend>${esc(I.opt(d.pick.label))} <span class="req">${esc(t("opt.required"))}</span></legend>
+      <div class="opts">${d.pick.items.map((n, i) => { const on = opt.picks.includes(n); return `<div class="oc"><input type="checkbox" name="optp" id="op${i}" value="${esc(n)}"${on ? " checked" : full ? " disabled" : ""}><label for="op${i}">${esc(I.opt(n))}</label></div>`; }).join("")}</div>
+      ${d.pick.aparte ? `<div class="opts"><div class="oc"><input type="checkbox" name="opta" id="opa"${opt.aparte ? " checked" : ""}><label for="opa">${esc(I.opt(APARTE))}</label></div></div>` : ""}</fieldset>` : ""}
       ${d.extras ? `<fieldset><legend>${esc(I.opt(d.extras.label))}</legend>
       <div class="opts">${d.extras.items.map(([n, p], i) => `<div class="oc"><input type="checkbox" name="optx" id="ox${i}" value="${esc(n)}"${opt.extras.includes(n) ? " checked" : ""}><label for="ox${i}">${esc(I.opt(n))}${p ? ` · +${money(p)}` : ""}</label></div>`).join("")}</div></fieldset>` : ""}
       <div class="f onote"><label for="optNote">${esc(t("px.note.label"))}</label><textarea id="optNote" rows="2" maxlength="120" dir="auto" placeholder="${esc(t("px.note.ph"))}">${esc(opt.note)}</textarea></div>
@@ -658,6 +692,14 @@
       opt.extras = $$('#optBody input[name="optx"]:checked').map(i => i.value);
       $("#optAdd").textContent = optLabel(); return;
     }
+    if (e.target.name === "optp") {
+      const boxes = $$('#optBody input[name="optp"]');
+      opt.picks = boxes.filter(i => i.checked).map(i => i.value);
+      const full = opt.picks.length >= dishes[opt.id].pick.n;
+      boxes.forEach(i => { i.disabled = full && !i.checked; i.removeAttribute("aria-invalid"); });
+      $("#optErr").textContent = ""; return;
+    }
+    if (e.target.name === "opta") { opt.aparte = e.target.checked; return; }
     if (e.target.name !== "optc") return;
     opt.choice = e.target.value; $("#optErr").textContent = ""; $$("#optBody input").forEach(i => i.removeAttribute("aria-invalid"));
   });
@@ -673,8 +715,13 @@
       $("#optErr").textContent = t("opt.pick", { label: I.opt(o.label).toLowerCase() });
       $$("#optBody input").forEach(i => i.setAttribute("aria-invalid", "true")); $("#optBody input").focus(); return;
     }
-    const note = cleanNote(opt.note);
-    const key = o || opt.extras.length || note ? [opt.id, o ? opt.choice : "", opt.extras.join("~"), note].join("|").replace(/\|+$/, "") : opt.id, qn = opt.qty;
+    const p = dishes[opt.id].pick;
+    if (p && opt.picks.length !== p.n) {
+      $("#optErr").textContent = t("opt.pick", { label: I.opt(p.label).toLowerCase() });
+      $$('#optBody input[name="optp"]').forEach(i => i.setAttribute("aria-invalid", "true")); $('#optBody input[name="optp"]').focus(); return;
+    }
+    const note = cleanNote(opt.note), ex = p ? [...opt.picks, ...(opt.aparte ? [APARTE] : []), ...opt.extras] : opt.extras;
+    const key = o || ex.length || note ? [opt.id, o ? opt.choice : "", ex.join("~"), note].join("|").replace(/\|+$/, "") : opt.id, qn = opt.qty;
     closeDlg(optDlg); change(key, qn); toast(t("cart.added", { name: lineNameUI(key) }));
   };
 

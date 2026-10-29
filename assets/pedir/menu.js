@@ -9,6 +9,12 @@
 const OPT_SH = {label:"Proteína", choices:["Pollo","Carne","Mixto"]};
 const OPT_ARROZ = {label:"Proteína", choices:["Pollo","Cordero"]};
 const OPT_BAT = {label:"Preparación", choices:["En agua","En leche"]};
+/* Shawarma especial / súper especial: el cliente elige 1 o 2 extras incluidos (6º dato del plato); aparte = puede pedirlos fuera del pan */
+const EXTRAS_SH = ["Crema de berenjena","Crema de garbanzo","Crema de pimentón","Falafel","Kibbe frito","Papas fritas","Tabbule","Tabaquitos de uva","Tabaquitos de repollo"];
+const PICK = (n, aparte) => ({label: n > 1 ? "Elige 2 extras" : "Elige 1 extra", n, items: EXTRAS_SH, aparte: !!aparte});
+/* Platos "con 2 contornos": el cliente elige sus 2 contornos (incluidos). Se asigna abajo, junto a los adicionales. */
+const CONTORNOS_2 = {label:"Elige 2 contornos", n:2, items:["Papas fritas","Papas bravas","Papas rústicas","Puré","Vegetales al vapor","Ensalada mixta","Arroz"]};
+const OPT_SALSA_TENDERS = {label:"Salsa", choices:["Salsa rosa","Sweet chili"]};
 /* Extras opcionales (5º dato del plato): el cliente marca los que quiera y se suman al precio. Precios: CONFIRMAR con el cliente. */
 const ADDON = {
   papas:["Papas fritas",6], hummus:["Hummus",8], tabbule:["Tabbule",11], camaron:["Camarón",7],
@@ -49,8 +55,8 @@ const MENU = [
   ["Bandeja árabe (3 personas)",65,"3 pinchos, 4 kibbe fritos, 8 tabaquitos, 4 falafel, makanek, kibbe crudo y horneado, tabbule, cremas"],
   ["Bandeja árabe (4 personas)",75,"4 pinchos, 6 kibbes fritos, 6 falafel, 10 tabaquitos, makanek, kibbe crudo y horneado, tabbule, cremas"]]],
  ["Shawarmas y Sándwiches","Todos los sándwiches vienen con papas fritas",[
-  ["Shawarma",8,"Proteína de tu preferencia y vegetales tradicionales",OPT_SH],["Shawarma especial",10,"Con 1 ingrediente extra (tabbule, falafel, pimentones…)",OPT_SH],
-  ["Shawarma súper especial",12,"Con 2 ingredientes extra",OPT_SH],["Shawarma abierto",10,"Servido abierto en plato con la proteína de tu preferencia y vegetales.",OPT_SH],["Shawarma especial abierto",12,"Servido abierto en plato con vegetales tradicionales y un ingrediente especial extra.",OPT_SH],["Shawarma súper especial abierto",13,"Servido abierto en plato con vegetales tradicionales y dos ingredientes especiales extra.",OPT_SH],
+  ["Shawarma",8,"Proteína de tu preferencia y vegetales tradicionales",OPT_SH],["Shawarma especial",10,"Con 1 ingrediente extra (tabbule, falafel, pimentones…)",OPT_SH,null,PICK(1,true)],
+  ["Shawarma súper especial",12,"Con 2 ingredientes extra",OPT_SH,null,PICK(2,true)],["Shawarma abierto",10,"Servido abierto en plato con la proteína de tu preferencia y vegetales.",OPT_SH],["Shawarma especial abierto",12,"Servido abierto en plato con vegetales tradicionales y un ingrediente especial extra.",OPT_SH,null,PICK(1)],["Shawarma súper especial abierto",13,"Servido abierto en plato con vegetales tradicionales y dos ingredientes especiales extra.",OPT_SH,null,PICK(2)],
   ["Sándwich de falafel",8,"Croquetas de falafel y vegetales tradicionales"],
   ["Fajita",14,"Salsa de aguacate, pimentón, cebolla, mozzarella, pollo"],["Philadelphia",15,"Salsa de aguacate, pimentón, cebolla, mozzarella, carne"],
   ["Tawook",13,"Pollo a la brasa, salsa de ajo, pepinillo, papas"],["Camarón",14,"Camarón, lechuga, pepinillo, salsa rosada"],
@@ -65,7 +71,7 @@ const MENU = [
  ["Carnes y Aves","Acompañados con 2 contornos: papas fritas, bravas, rústicas, puré, vegetales al vapor, ensalada mixta o arroz",[
   ["Pollo a la brasa El Amir",34,"Con chorizos, pimentones asados, papas, ensalada rallada y arroz especial"],
   ["Envoltini de pollo",20,"Relleno de espinaca, pimentón y mozzarella con salsa de ajo porro"],["Pollo a la brasa",17,"300 g de pechuga deshuesada"],
-  ["Pollo a la canasta",16,"Escalopines empanizados con papas"],["Tenders de pollo crispy",16,"Con salsa rosa o sweet chili y papas"],
+  ["Pollo a la canasta",16,"Escalopines empanizados con papas"],["Tenders de pollo crispy",16,"Con salsa rosa o sweet chili y papas",OPT_SALSA_TENDERS],
   ["Suprema de pollo crispy",24,"300 g en salsa blanca con camarones"],["Filet mignon",24,"Lomito con tocineta y salsa de champiñones"],
   ["Cordon bleu de lomito",23,"Lomito relleno de jamón y queso, empanizado, con salsa blanca."],["Cordon bleu de pollo",22,"Pollo relleno de jamón y queso, empanizado, con salsa blanca."],["Centro de lomito a la plancha",20,"300 g"],
   ["Pollo a la milanesa",19,"Gratinado con mozzarella, parmesano y salsa napoli"],["Pollo al champiñón",20,"Pechuga de pollo en salsa de champiñones."],["Pollo a la plancha",16,"300 g de pechuga"]]],
@@ -116,14 +122,26 @@ const EXTRAS_POR_CATEGORIA = {
 /* excepciones por plato (nombre exacto o que empiece por…) */
 const EXTRAS_POR_PLATO = [
   [/^Ensalada César/, ADD("pollo","camaron","shCarne","shPollo","tocineta")],
+  /* Plato mixto: solo pinchos extra (shish taouk / kafta / lahme) */
+  [/^Plato mixto$/, ADD("pollo","kafta","lomito")],
   /* shawarmas: sin adicionales, solo quitar ingredientes (gratis) */
   [/^Shawarma/, {label:"¿Quitamos algo?", items:[["Sin lechuga",0],["Sin tomate",0],["Sin cebolla",0],["Sin pepinillo",0],["Sin perejil",0],["Sin salsa de ajo",0]]}]
 ];
 /* Para quitarle los adicionales a un plato concreto: añade su nombre a NO_EXTRAS. */
-const NO_EXTRAS = [];
+const NO_EXTRAS = ["Plato mixto con lomito"];
+/* Lleva 2 contornos a elegir: los de "Carnes y Aves" (salvo los que ya traen su guarnición en la descripción) y los que dicen "2 contornos" */
+const CON_CONTORNOS = (cat, it) => /2 contornos/i.test(it[2] || "") || (cat === "Carnes y Aves" && !/papas|arroz/i.test(it[2] || ""));
+/* Adicionales que no se ofrecen en un plato */
+const PROTE_NOMBRES = PROTEINAS.map(k => ADDON[k][0]);
+const YA_LO_TRAE = (cat, it, n) => {
+  const t = (it[0] + " " + (it[2] || "")).toLowerCase();
+  return ((n === "Papas fritas" || n === "Arroz") && CON_CONTORNOS(cat, it))   /* ya son contornos gratis: con el mismo nombre se cobrarían */
+    || (/vegetarian|falafel/i.test(it[0]) && PROTE_NOMBRES.includes(n));          /* platos vegetarianos: sin carne ni mariscos */
+};
 MENU.forEach(([cat, , list]) => list.forEach(it => {
+  if (CON_CONTORNOS(cat, it)) it[5] = it[5] || CONTORNOS_2;
   const hit = EXTRAS_POR_PLATO.find(([re]) => re.test(it[0])), base = hit ? hit[1] : EXTRAS_POR_CATEGORIA[cat];
-  const items = base && !NO_EXTRAS.includes(it[0]) ? base.items.filter(x => x[0] !== it[0]) : [];
+  const items = base && !NO_EXTRAS.includes(it[0]) ? base.items.filter(x => x[0] !== it[0] && !YA_LO_TRAE(cat, it, x[0])) : [];
   if (items.length) { it[2] = it[2] || ""; it[3] = it[3] || null; it[4] = {label: base.label, items}; }
   else if (it[4]) it[4] = null;
 }));
@@ -140,6 +158,7 @@ const PHOTOS_OFF = {
   "ensaladas--ensalada-de-burrata": "img/ensalada-burrata-480",
   "platos-arabes-especiales--plato-de-shawarma": "img/photos/shawarma-plato-640",
   "platos-arabes-especiales--bandeja-arabe-2-personas": "img/photos/bandeja-arabe-640",
+  "platos-arabes-especiales--bandeja-arabe-3-personas": "img/pya/platos-arabes-especiales--bandeja-arabe-3-personas.jpg",
   "shawarmas-y-sandwiches--shawarma": "img/photos/shawarma-wrap-640",
   "brochetas-y-parrillas--brochetas-el-amir": "img/brochetas-el-amir-480",
   "brochetas-y-parrillas--parrilla-mixta": "img/photos/parrilla-mixta-640",
@@ -173,6 +192,10 @@ const PHOTOS_OFF = {
   "entradas-mediterraneas--berenjena-frita": "img/pya/entradas-mediterraneas--berenjena-frita.jpg",
   "entradas-mediterraneas--ceviche-de-camaron": "img/pya/entradas-mediterraneas--ceviche-de-camaron.jpg",
   "platos-arabes-especiales--fatte": "img/pya/platos-arabes-especiales--fatte.jpg",
+  "platos-arabes-especiales--fatte-de-berenjena": "img/pya/platos-arabes-especiales--fatte.jpg",
+  "platos-arabes-especiales--bandeja-arabe-4-personas": "img/pya/platos-arabes-especiales--bandeja-arabe-4-personas.jpg",
+  "entradas-arabes--sawda-djaj": "img/pya/entradas-arabes--sawda-djaj.jpg",
+  "pescados-y-mariscos--calamares-rebozados": "img/pya/pescados-y-mariscos--calamares-rebozados.jpg",
   "platos-arabes-especiales--plato-vegetariano-arabe": "img/pya/platos-arabes-especiales--plato-vegetariano-arabe.jpg",
   "brochetas-y-parrillas--parrilla-el-amir": "img/pya/brochetas-y-parrillas--parrilla-el-amir.jpg",
   "brochetas-y-parrillas--parrilla-mar-y-tierra": "img/pya/brochetas-y-parrillas--parrilla-mar-y-tierra.jpg",
@@ -190,7 +213,7 @@ const PHOTOS_OFF = {
   "entradas-arabes--kibbe-horneado": "img/pya/entradas-arabes--kibbe-horneado.jpg",
   "entradas-arabes--garbanzo-con-lomito": "img/pya/entradas-arabes--garbanzo-con-lomito.jpg",
   "ensaladas--ensalada-mixta": "img/pya/ensaladas--ensalada-mixta.jpg",
-  "ensaladas--tabbule": "img/pya/ensaladas--tabbule.jpg",
+  "ensaladas--tabbule": "img/pya/ensaladas--tabbule-2.jpg",
   "ensaladas--ensalada-de-palmitos": "img/pya/ensaladas--ensalada-de-palmitos.jpg",
   "ensaladas--ensalada-cesar": "img/pya/ensaladas--ensalada-cesar.jpg",
   "ensaladas--rugula-de-la-casa": "img/pya/ensaladas--rugula-de-la-casa.jpg",
@@ -247,6 +270,14 @@ const PHOTOS_OFF = {
   "ensaladas--yogurt-con-pepino": "img/pya/ensaladas--yogurt-con-pepino.jpg",
   "entradas-arabes--hummus": "img/pya/entradas-arabes--hummus.jpg",
   "entradas-arabes--mutabal": "img/pya/entradas-arabes--mutabal.jpg",
-  "pescados-y-mariscos--pulpo-al-grill": "img/pya/pescados-y-mariscos--pulpo-al-grill.jpg"
+  "pescados-y-mariscos--pulpo-al-grill": "img/pya/pescados-y-mariscos--pulpo-al-grill.jpg",
+  "brochetas-y-parrillas--parrilla-de-pollo": "img/pya/brochetas-y-parrillas--parrilla-de-pollo.jpg",
+  "brochetas-y-parrillas--parrilla-de-lomito": "img/pya/brochetas-y-parrillas--parrilla-de-lomito.jpg",
+  "brochetas-y-parrillas--brocheta-mixta": "img/pya/brochetas-y-parrillas--brocheta-mixta.jpg",
+  "pescados-y-mariscos--arroz-a-la-marinera": "img/pya/pescados-y-mariscos--arroz-a-la-marinera.jpg",
+  "pescados-y-mariscos--asopado-de-mariscos-2-personas": "img/pya/pescados-y-mariscos--asopado-de-mariscos.jpg",
+  "pescados-y-mariscos--calamares-al-ajillo": "img/pya/pescados-y-mariscos--calamares-al-ajillo.jpg",
+  "pescados-y-mariscos--camarones-al-ajillo": "img/pya/pescados-y-mariscos--camarones-al-ajillo.jpg",
+  "pescados-y-mariscos--mero-a-la-plancha": "img/pya/pescados-y-mariscos--mero-a-la-plancha.jpg"
 };
 const PHOTOS = PHOTOS_OFF;
