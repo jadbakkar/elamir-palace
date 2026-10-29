@@ -1,12 +1,12 @@
 # Netlify / Cloudflare Pages headers. Cache-Control rules never overlap (Netlify merges duplicates).
 # Files under /assets/v3/ are referenced with ?v=… (bump it in index.html when they change) -> immutable is safe.
+# PRE-LAUNCH: the X-Robots-Tag line below keeps the unfinished site out of search engines. REMOVE it on launch day.
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(self), interest-cohort=()
   X-Frame-Options: SAMEORIGIN
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  # PRE-LAUNCH: keep the unfinished site out of search engines. REMOVE this line on launch day.
   X-Robots-Tag: noindex, nofollow
 
 # HTML: always revalidate + CSP (pages only, so menu.pdf / SVGs are untouched).
