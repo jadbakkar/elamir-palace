@@ -144,7 +144,8 @@
       "px.loc.pin": "Tu ubicación de entrega",
       "px.branch.serves": "Te atiende: Sucursal {name}",
       "px.branch.pick": "¿En qué sucursal lo retiras?",
-      "px.branch.err": "Elige la sucursal donde retiras tu pedido."
+      "px.branch.err": "Elige la sucursal donde retiras tu pedido.",
+      "px.done.shareLoc": "Envía también tu ubicación en el chat (📎 o + → Ubicación) para que el repartidor llegue directo a tu puerta."
     },
     en: {
       "meta.pedir.title": "Menu & Delivery Orders | El Amir Palace Lechería",
@@ -199,7 +200,8 @@
       "px.loc.pin": "Your delivery location",
       "px.branch.serves": "Your order goes to our {name} branch",
       "px.branch.pick": "Which branch will you pick up from?",
-      "px.branch.err": "Choose the branch where you'll pick up your order."
+      "px.branch.err": "Choose the branch where you'll pick up your order.",
+      "px.done.shareLoc": "Also send your location in the chat (📎 or + → Location) so the rider comes straight to your door."
     },
     ar: {
       "meta.pedir.title": "القائمة وطلبات التوصيل | El Amir Palace ليتشيريا",
@@ -254,7 +256,8 @@
       "px.loc.pin": "موقع التوصيل",
       "px.branch.serves": "يتولى طلبك: فرع {name}",
       "px.branch.pick": "من أي فرع ستستلم طلبك؟",
-      "px.branch.err": "اختر الفرع الذي ستستلم منه طلبك."
+      "px.branch.err": "اختر الفرع الذي ستستلم منه طلبك.",
+      "px.done.shareLoc": "أرسل موقعك أيضاً في المحادثة (📎 أو + ← الموقع) ليصل المندوب إلى بابك مباشرة."
     }
   };
   if (I.dict) for (const l in PX) { I.dict[l] = I.dict[l] || {}; Object.assign(I.dict[l], PX[l]); }
@@ -876,8 +879,8 @@
     if (marker) { marker.remove(); marker = null; } if (ring) { ring.remove(); ring = null; }
     locMapEl.hidden = true; $("#locUse").focus();
   };
-  /* Google Maps link: the branch / rider opens the exact pin from the WhatsApp chat */
-  const locLine = () => loc ? `*Ubicación:* https://www.google.com/maps?q=${loc.lat.toFixed(6)},${loc.lng.toFixed(6)}` : "";
+  /* Google Maps link (official "api=1" form), alone on its line: the branch / rider opens the exact pin from the WhatsApp chat */
+  const locLine = () => loc ? `*Ubicación:*\nhttps://www.google.com/maps/search/?api=1&query=${loc.lat.toFixed(6)}%2C${loc.lng.toFixed(6)}` : "";
 
   try {
     const sc = JSON.parse(localStorage.getItem("amir-customer")) || {};
@@ -1024,7 +1027,7 @@
     const r = blockReason();
     if (r) { toast(r); return; }
     const id = nextOrderId(), msg = buildMessage(id), w = waUrl(msg), tt = totals();
-    order = { id, msg, url: w.url, cut: w.cut, total: tt.total, pay: form.elements.pay.value, branch: (curBranch() || {}).nombre || "" };
+    order = { id, msg, url: w.url, cut: w.cut, total: tt.total, pay: form.elements.pay.value, branch: (curBranch() || {}).nombre || "", del: isDel() };
     const win = window.open(w.url, "_blank");
     if (win) { try { win.opener = null; } catch (er) { /* ignore */ } }
     if ($("#remember").checked) {
@@ -1041,6 +1044,7 @@
       <h3 id="doneH" tabindex="-1">${t("done.title", { id: `<bdi>${esc(o.id)}</bdi>` })}</h3>
       <p>${t("done.p1", { total: tot, bs: r ? ` (≈ ${I.bs(o.total, r)})` : "" })}</p>
       ${o.branch ? `<p class="note-es">${esc(t("px.branch.serves", { name: o.branch }))}</p>` : ""}
+      ${o.del ? `<p><b>${esc(t("px.done.shareLoc"))}</b></p>` : ""}
       ${note ? `<p class="note-es">${esc(note)}</p>` : ""}
       ${o.cut ? `<p class="cut">${esc(t("done.cut"))}</p>` : ""}
       <p>${esc(t("done.notOpened"))}</p>
