@@ -4,15 +4,16 @@
 @view-transition{navigation:auto}
 /* z-index: view-transition groups paint in their elements' paint order, so the sheet must sit above the sticky header and bottom bar */
 html::after{content:"";position:fixed;inset:0;z-index:2147483647;pointer-events:none;view-transition-name:wipe}
-::view-transition-group(wipe){background:#7A1F2B;animation:vt-wipe 1.15s both}
+::view-transition-group(wipe){background:#7A1F2B;animation:vt-wipe 2.1s both}
 ::view-transition-image-pair(wipe),::view-transition-old(wipe),::view-transition-new(wipe){display:none}
-::view-transition-old(root){animation:vt-old .01s linear .575s both reverse}
-::view-transition-new(root){animation:vt-new .01s linear .575s both}
+::view-transition-old(root){animation:vt-old .01s linear 1.05s both reverse}
+::view-transition-new(root){animation:vt-new .01s linear 1.05s both}
 /* the curve is nearly even at both ends: a strong ease-in-out made the edge crawl over the bottom nav (and the header on the way out) for ~150ms, which read as the sheet stopping there */
+/* 2.1s = 0.55s up, 1s holding the screen covered (the page swaps underneath at 1.05s), 0.55s off the top */
 @keyframes vt-wipe{
   0%{transform:translateY(100%);animation-timing-function:cubic-bezier(.3,.15,.7,.85)}
-  48%{transform:translateY(0)}
-  52%{transform:translateY(0);animation-timing-function:cubic-bezier(.3,.15,.7,.85)}
+  26.19%{transform:translateY(0)}
+  73.81%{transform:translateY(0);animation-timing-function:cubic-bezier(.3,.15,.7,.85)}
   100%{transform:translateY(-100%)}
 }
 @keyframes vt-old{from{opacity:0}to{opacity:1}}
