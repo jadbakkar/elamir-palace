@@ -34,15 +34,14 @@ const CONFIG = {
   pedidoMinimo: 0,                   // <<< CAMBIAR: USD (subtotal de platos). 0 = sin mínimo
   bcv: { tasa: 0, fecha: "" },         // <<< CAMBIAR: tasa en Bs por USD (0 = oculta los Bs) y fecha "AAAA-MM-DD"
   // Formas de pago. activo: true = aparece en el pedido, false = se oculta.
-  // Si un dato sigue entre [corchetes], el cliente ve "te enviaremos los datos por WhatsApp".
-  // !!! DEMO: datos de ejemplo para mostrar al cliente. REEMPLAZAR por los reales ANTES de publicar !!!
-  pagoMovil: { activo: true, banco: "Banesco 0134", telefono: "0414-1234567", cedula: "V-12345678" }, // DEMO <<< CAMBIAR
-  efectivoBs: { activo: true },        // efectivo en bolívares (monto a tasa BCV)
+  // El cliente solo elige la forma de pago; los datos (cuenta, teléfono, correo…) se los da la sucursal por WhatsApp.
+  pagoMovil: { activo: true },
+  efectivoBs: { activo: true },        // efectivo en bolívares
   efectivo: { activo: true },          // efectivo en divisas ($)
-  binance: { activo: true, payId: "123456789" },                  // DEMO <<< CAMBIAR
-  zinli: { activo: true, correo: "pagos@elamirpalace.com" },      // DEMO <<< CAMBIAR
-  zelle: { activo: true, email: "zelle@elamirpalace.com" },       // DEMO <<< CAMBIAR
+  binance: { activo: true },
+  zinli: { activo: true },
+  zelle: { activo: true },
   puntoVenta: { activo: false },       // apagado por ahora (el cliente no lo pidió)
-  transferencia: { activo: false, banco: "[BANCO]", cuenta: "[0000-0000-00-0000000000]", titular: "[NOMBRE DEL TITULAR]", cedula: "[V-00000000 / J-000000000]" } // apagado
+  transferencia: { activo: false }     // apagado
 };
 /* ===================================================================== */

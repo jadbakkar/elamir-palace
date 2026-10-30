@@ -423,7 +423,7 @@
     $("#sheetTotal").textContent = money(tt.total);
     const sb = $("#sheetBs"); sb.hidden = !r;
     sb.textContent = r ? t("totals.bsLine", { bs: I.bs(tt.total, r), rate: I.num(r, 2, 2), date: CONFIG.bcv.fecha ? t("totals.bsDate", { date: CONFIG.bcv.fecha.split("-").reverse().join("/") }) : "" }) + (staleRate() ? t("totals.bsStale") : "") : "";
-    renderPay(); updateBlock();
+    updateBlock();
   }
   function renderLines() { const h = linesHTML(); $("#ledgerLines").innerHTML = h; $("#sheetLines").innerHTML = count() ? h : ""; }
   function save() { try { localStorage.setItem("amir-cart-v2", JSON.stringify(cart)); } catch (e) { /* ignore */ } }
@@ -741,31 +741,6 @@
     $("#locF").classList.toggle("bad", need);
     return !need;
   }
-  const kvRow = (label, v, aria) => `<div class="kv"><span>${esc(label)}</span><b>${esc(v)}</b><button type="button" class="copy" data-copy="${esc(v)}" aria-label="${esc(aria)}">${esc(t("kv.copy"))}</button></div>`;
-  function payCard(total) {
-    const pm = CONFIG.pagoMovil, r = rate(), noRate = r ? "" : " " + t("pay.mm.totalNoRate", { total: money(total) });
-    if ([pm.banco, pm.telefono, pm.cedula].some(isPh)) return `<div class="paycard"><p>${esc(t("px.mm.later"))}${noRate}</p></div>`;
-    const items = [["kv.bank", pm.banco], ["kv.phone", pm.telefono], ["kv.id", pm.cedula]];
-    if (r) items.push(["kv.amount", I.num(total * r, 2, 2)]);
-    return `<div class="paycard"><p class="pc-h">${esc(t(r ? "px.mm.titleBs" : "px.mm.title"))}</p>${items.map(([k, v]) => kvRow(t(k), v, t("kv.copyAria", { label: t(k) }))).join("")}${noRate ? `<p class="pc-n">${noRate.trim()}</p>` : ""}</div>`;
-  }
-  /* extra methods (config.js: binance / zinli / transferencia), off until activo: true; bs = amount in Bs. like Pago móvil */
-  const EXTRA = {
-    "Binance Pay": { k: "binance", cur: "USDT", rows: [["px.kv.payId", "payId"]] },
-    "Zinli": { k: "zinli", cur: "USD", rows: [["kv.email", "correo"]] },
-    "Zelle": { k: "zelle", cur: "USD", rows: [["kv.email", "email"]] },
-    "Transferencia bancaria": { k: "transferencia", bs: true, rows: [["kv.bank", "banco"], ["px.kv.account", "cuenta"], ["px.kv.holder", "titular"], ["kv.id", "cedula"]] }
-  };
-  const unset = v => !v || /^\s*\[/.test(String(v));
-  function extraCard(p, total) {
-    const x = EXTRA[p], c = CONFIG[x.k] || {}, name = t("px.nm." + x.k), r = x.bs ? rate() : 0;
-    const noRate = x.bs && !r ? " " + t("pay.mm.totalNoRate", { total: money(total) }) : "";
-    if (x.rows.some(([, f]) => unset(c[f]))) return `<div class="paycard"><p>${esc(t("px.ex.later", { name }))} ${x.bs ? noRate.trim() : t("pay.mm.totalNoRate", { total: money(total) }).replace(/\s*\(.*\)\.?$/, ".")}</p></div>`;
-    const items = x.rows.map(([l, f]) => [t(l), c[f]]);
-    if (r) items.push([t("kv.amount"), I.num(total * r, 2, 2)]);
-    else if (!x.bs) items.push([t("px.kv.amountCur", { cur: x.cur }), I.num(total, 2, 2)]);
-    return `<div class="paycard"><p class="pc-h">${esc(t(r ? "px.ex.titleBs" : "px.ex.title", { name }))}</p>${items.map(([l, v]) => kvRow(l, v, t("kv.copyAria", { label: l }))).join("")}${noRate ? `<p class="pc-n">${noRate.trim()}</p>` : ""}</div>`;
-  }
   /* hide methods switched off in config.js; if the checked one is hidden, check the first visible one */
   function setupPays() {
     const all = $$('.pays input[name="pay"]');
@@ -777,37 +752,11 @@
     if (!all.some(i => i.checked && !i.disabled)) { const f = all.find(i => !i.disabled); if (f) f.checked = true; }
   }
   setupPays();
-  /* cash in bolívares: amount at the BCV rate, or "confirmed on WhatsApp" when there is no rate */
-  const cashBs = total => { const r = rate(); return r ? t("px.cashBs.amt", { bs: I.bs(total, r) }) : t("px.cashBs.later") + " " + t("pay.mm.totalNoRate", { total: money(total) }); };
-  /* methods paid before delivery: the guest can type the payment reference (goes into the WhatsApp message) */
-  const isElec = p => p === "Pago móvil" || p === "Zelle" || !!EXTRA[p];
-  const payNow = () => (form.elements.when || {}).value !== "later";
-  /* payment receipt (photo / PDF): kept in memory, shared to the WhatsApp chat from the "done" screen */
-  let receipt = null;
-  function syncReceipt() {
-    $("#receiptLbl").textContent = receipt ? t("px.receipt.ok", { name: receipt.name }) : t("px.receipt.add");
-    $("#receiptF").classList.toggle("has", !!receipt); $("#receiptClear").hidden = !receipt;
-  }
-  $("#fReceipt").onchange = e => { receipt = e.target.files[0] || null; syncReceipt(); };
-  $("#receiptClear").onclick = () => { receipt = null; $("#fReceipt").value = ""; syncReceipt(); };
-  const paidNow = () => isElec(form.elements.pay.value) && payNow() && !!receipt;
-  function renderPay() {
-    const p = form.elements.pay.value, tt = totals(), el = isElec(p), now = payNow();
-    $("#cashF").hidden = p !== "Efectivo ($)";
-    /* electronic methods: "pay now" (details + reference, order prepared as soon as payment is confirmed) or "pay on delivery" */
-    $("#whenF").hidden = !el;
-    $("#whenHint").textContent = el ? t(now ? "px.when.nowHint" : "px.when.laterHint") : "";
-    $("#receiptF").hidden = !el || !now; syncReceipt();
-    $("#payInfo").innerHTML = el && !now ? "" : p === "Pago móvil" ? payCard(tt.total)
-      : p === "Efectivo (Bs.)" ? `<div class="paycard"><p>${cashBs(tt.total)}</p></div>`
-      : EXTRA[p] ? extraCard(p, tt.total) : "";
-  }
   form.addEventListener("change", e => {
     if (e.target.name === "type" || e.target.name === "branch") {
       syncType();
       if (e.target.name === "branch") validateBranch();
     }
-    if (e.target.name === "pay" || e.target.name === "when") renderPay();
   });
   const RULES = {
     name: v => v.trim().length >= 2 ? "" : t("err.name"),
@@ -1018,9 +967,7 @@
       lines: Object.keys(cart).map(k => ({ qty: cart[k], name: lineName(k), total: unitPrice(k) * cart[k] })),
       subtotal: tt.sub, total: tt.total,
       bsTotal: r ? I.bs(tt.total, r, "es") : "", rate: r ? I.num(r, 2, 2, "es") : "",
-      pay: F.pay.value, cash: F.cash.value, notes: F.notes.value,
-      paid: paidNow(), elec: isElec(F.pay.value),
-      payLater: isElec(F.pay.value) && !payNow()
+      pay: F.pay.value, notes: F.notes.value
     });
   }
   function waUrl(msg) {
@@ -1046,9 +993,7 @@
     const r = blockReason();
     if (r) { toast(r); return; }
     const id = nextOrderId(), msg = buildMessage(id), w = waUrl(msg), tt = totals();
-    const rc = paidNow();
-    order = { id, msg, url: w.url, cut: w.cut, total: tt.total, pay: form.elements.pay.value, branch: (curBranch() || {}).nombre || "",
-      receipt: rc, canShare: rc && !!navigator.canShare && navigator.canShare({ files: [receipt] }) };
+    order = { id, msg, url: w.url, cut: w.cut, total: tt.total, pay: form.elements.pay.value, branch: (curBranch() || {}).nombre || "" };
     const win = window.open(w.url, "_blank");
     if (win) { try { win.opener = null; } catch (er) { /* ignore */ } }
     if ($("#remember").checked) {
@@ -1058,14 +1003,7 @@
     showDone();
   });
   function showDone(refresh) {
-    const o = order, p = o.pay, r = rate(), tot = money(o.total);
-    const zelle = CONFIG.zelle.email;
-    const payHtml = p === "Pago móvil" ? payCard(o.total)
-      : p === "Zelle" ? (isPh(zelle) ? `<div class="paycard"><p>${esc(t("px.zelle.later"))}</p></div>`
-        : `<div class="paycard"><p>${t("done.zelle", { total: tot })}</p>${kvRow(t("kv.email"), zelle, t("kv.copyZelle"))}<p class="pc-n">${esc(t("done.zelleProof"))}</p></div>`)
-      : EXTRA[p] ? extraCard(p, o.total)
-      : p === "Efectivo (Bs.)" ? `<p>${cashBs(o.total)}</p>`
-      : `<p>${t(p === "Efectivo ($)" ? "done.cash" : "done.pos", { total: tot })}</p>`;
+    const o = order, r = rate(), tot = money(o.total);
     const note = t("send.spanishNote");
     const d = $("#done");
     d.innerHTML = `<div class="ok-ic" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.2 4.2L19 7"/></svg></div>
@@ -1075,19 +1013,13 @@
       ${note ? `<p class="note-es">${esc(note)}</p>` : ""}
       ${o.cut ? `<p class="cut">${esc(t("done.cut"))}</p>` : ""}
       <p>${esc(t("done.notOpened"))}</p>
-      ${o.receipt ? (o.canShare
-        ? `<div class="receipt-done"><p>${esc(t("px.receipt.doneShare"))}</p><button type="button" class="btn btn--wine" id="shareReceipt">${esc(t("px.receipt.share"))}</button></div>`
-        : `<div class="receipt-done"><p>${esc(t("px.receipt.doneManual"))}</p></div>`) : ""}
       <div class="btns"><a class="btn btn--wine" id="waLink" href="${esc(o.url)}" target="_blank" rel="noopener">${esc(t("done.openWa"))}</a>
       <button type="button" class="btn btn--line" id="copyOrder">${esc(t("done.copy"))}</button></div>
-      ${o.receipt ? "" : payHtml}
       <div class="btns"><button type="button" class="btn btn--wine" id="clearAfter">${esc(t("done.clear"))}</button><button type="button" class="btn btn--line" id="keepCart">${esc(t("done.keep"))}</button></div>`;
     form.hidden = $("#sheetFoot").hidden = true; d.hidden = false; $("#sheetTitle").textContent = t("done.sheetTitle");
     if (!refresh) $("#doneH").focus();
     $("#copyOrder").onclick = () => copyText(o.msg).then(() => toast(t("cart.orderCopied")));
-    const rs = $("#shareReceipt");
-    if (rs) rs.onclick = () => navigator.share({ files: [receipt], text: t("px.receipt.shareText", { id: o.id }) }).catch(() => {});
-    $("#clearAfter").onclick = () => { cart = {}; form.elements.cash.value = ""; $("#receiptClear").click(); $$(".dish").forEach(li => renderOne(li.dataset.id)); refreshAll(); closeDlg(sheet); toast(t("cart.clearedThanks")); };
+    $("#clearAfter").onclick = () => { cart = {}; $$(".dish").forEach(li => renderOne(li.dataset.id)); refreshAll(); closeDlg(sheet); toast(t("cart.clearedThanks")); };
     $("#keepCart").onclick = () => closeDlg(sheet);
   }
 

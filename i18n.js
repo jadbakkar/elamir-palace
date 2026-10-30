@@ -350,11 +350,6 @@
     "wa.order.total": "*TOTAL: {amount}*",
     "wa.order.totalBs": " (≈ {bs} a tasa BCV {rate})",
     "wa.order.pay": "*Pago:* {pay}",
-    "wa.order.payCash": " (paga con {cash})",
-    "wa.order.payMobile": " (envío el comprobante por aquí)",
-    "wa.order.payRef": " · *Ref:* {ref}",
-    "wa.order.payLater": " (pago al recibir)",
-    "wa.order.paid": " · *YA PAGADO* (envío el comprobante en este chat)",
     "wa.order.notes": "*Notas:* {notes}",
     "wa.clientLang": "*Idioma del cliente:* {lang}",
     "wa.res.title": "*Reserva · {name}*",
@@ -1587,7 +1582,7 @@
   /* o = { id, stamp:"dd/mm hh:mi", name, phone, type:"Delivery"|"Retiro en tienda",
            zone?:{name,eta}, addr, ref, lines:[{qty, name, total}], subtotal, fee? (only with zone), total,
            bsTotal?:"Bs. 1.234,56", rate?:"36,50", pay:"Pago móvil"|"Efectivo ($)"|"Zelle"|"Punto de venta",
-           cash?, notes?, lang?, payRef? (payment reference), elec? (paid before delivery) }
+           notes?, lang? }  Payment details are arranged on WhatsApp, so only the chosen method is sent.
      All dish names / values must be the SPANISH ones (as stored in the cart).
      Money is formatted here ("$12", "$1.50"). */
   I18N.buildOrderMessage = function (o) {
@@ -1606,10 +1601,7 @@
     L.push(E("wa.order.sep"), E("wa.order.subtotal", { amount: M(o.subtotal) }));
     if (del && o.zone && typeof o.fee === "number") L.push(E("wa.order.delivery", { zone: wx(o.zone.name), amount: M(o.fee) }));
     L.push(E("wa.order.total", { amount: M(o.total) }) + (o.bsTotal ? E("wa.order.totalBs", { bs: o.bsTotal, rate: o.rate }) : ""));
-    var payRef = o.payRef && wx(o.payRef);
-    L.push(E("wa.order.pay", { pay: o.pay }) +
-      (o.pay === E("wa.value.cash") && o.cash && wx(o.cash) ? E("wa.order.payCash", { cash: wx(o.cash) }) : "") +
-      (o.payLater ? E("wa.order.payLater") : o.paid ? E("wa.order.paid") : payRef ? E("wa.order.payRef", { ref: payRef }) : (o.elec || o.pay === E("wa.value.pagoMovil")) ? E("wa.order.payMobile") : ""));
+    L.push(E("wa.order.pay", { pay: o.pay }));
     if (o.notes && wx(o.notes)) L.push(E("wa.order.notes", { notes: wx(o.notes) }));
     return L.join("\n");
   };
