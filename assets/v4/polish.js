@@ -81,6 +81,37 @@
     el.addEventListener("pointercancel", end);
   }
 
+  /* ---------- page transitions: dish photo → its row on pedir.html ---------- */
+  var KEY = "amir-vt-dish";
+  /* house dishes whose card links to a section, not to a dish: the row the photo should land on */
+  var ROW = { "platos-arabes-especiales": "platos-arabes-especiales--bandeja-arabe-2-personas", "shawarmas-y-sandwiches": "shawarmas-y-sandwiches--shawarma" };
+  var supportsVT = "onpagereveal" in window;  function clearNames() { Array.prototype.forEach.call(doc.querySelectorAll("[data-vt]"), function (el) { el.style.viewTransitionName = ""; el.removeAttribute("data-vt"); }); }
+  function name(el) { if (el) { el.style.viewTransitionName = "dish"; el.setAttribute("data-vt", ""); } }
+  if (supportsVT) {
+    /* homepage side: remember which card was tapped and name its photo just before leaving */
+    doc.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest(".gcard a[href*='pedir.html']");
+      if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey || a.target === "_blank") return;
+      var card = a.closest(".gcard"), add = card.querySelector("[data-add]"), cat = (a.getAttribute("href").split("#")[1] || "");
+      try { sessionStorage.setItem(KEY, JSON.stringify({ id: add ? add.getAttribute("data-add") : (ROW[cat] || ""), cat: cat })); } catch (er) {}
+      clearNames(); name(card.querySelector(".gcard-ph img"));
+    });
+    addEventListener("pageshow", clearNames);
+    /* pedir side: give the matching row photo the same name, only if it is on screen after the jump */
+    addEventListener("pagereveal", function (e) {
+      var v; try { v = JSON.parse(sessionStorage.getItem(KEY) || "null"); sessionStorage.removeItem(KEY); } catch (er) {}
+      if (!v || html.getAttribute("data-i18n-page") !== "pedir" || !e.viewTransition) return;
+      e.viewTransition.ready.catch(function () {});   /* skipped (e.g. tab in the background): nothing to do */
+      var img = (v.id && doc.querySelector('.dish[data-id="' + v.id + '"] .ph')) || (v.cat && doc.querySelector("#" + CSS.escape(v.cat) + " .dish.has-ph .ph"));
+      if (!img) return;
+      var r = img.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      img.loading = "eager";
+      name(img);
+      e.viewTransition.finished.then(clearNames, clearNames);
+    });
+  }
+
   /* ---------- boot ---------- */
   function boot() {
     Array.prototype.forEach.call(doc.querySelectorAll(".lang"), pill);

@@ -20,6 +20,7 @@ img{border-radius:inherit}
 .ft{background:var(--wine);border-radius:28px 28px 0 0}
 .btn{letter-spacing:.14em}
 
+/* page-to-page transition: burgundy wipe, see assets/v8/transition.css */
 
 /* ---------- phase 1 · app-style UI (CSS only, same markup) ---------- */
 /* compact store header on phones: the menu starts on the first screen */

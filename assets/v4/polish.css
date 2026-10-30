@@ -111,8 +111,14 @@
 img.img-in{opacity:0;transition:opacity 400ms var(--ease-out)}
 img.img-in.is-in{opacity:1}
 
+/* ---- page transition between the homepage and pedir.html is the burgundy wipe in assets/v8/transition.css; named groups below stay ---- */
+@view-transition{navigation:auto}
+::view-transition-group(dish){animation-duration:420ms;animation-timing-function:var(--ease-drawer)}
+::view-transition-old(dish),::view-transition-new(dish){height:100%;object-fit:cover;overflow:hidden}
+
 /* ---- reduced motion: keep the state changes, drop the movement ---- */
 @media (prefers-reduced-motion:reduce){
+  @view-transition{navigation:none}
   .burger i,.menu-open .burger i:first-child,.menu-open .burger i:last-child{transition:none}
   :focus-visible,.is-bump,.f.shake input,.f.shake textarea,.f.shake select,[data-roll] .rn,[data-roll] .ro,.done .ok-ic,.cat:target .cat-h h2,.cat:target .cat-h::after{animation:none}
   .done .ok-ic path{animation:none;stroke-dashoffset:0}

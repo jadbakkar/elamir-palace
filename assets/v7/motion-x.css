@@ -25,3 +25,5 @@
 .mx-cursor.is-light i{border-color:var(--cream);background-color:var(--cream)}
 .mx-cursor.is-light.is-big i{background-color:transparent}
 .mx-cursor.is-down i{transform:scale(.6)}
+
+/* page-to-page transition: burgundy wipe, see assets/v8/transition.css */
