@@ -20,14 +20,9 @@
   function onEnter(el, fn, start) { ST.create({ trigger: el, start: start || "top 88%", once: true, onEnter: fn }); }
   function nth(el) { var li = el.closest("li"); return li && li.parentNode ? Array.prototype.indexOf.call(li.parentNode.children, li) : 0; }
 
-  /* ---- curtain: frame opens from the bottom, photo inside settles ----
-     A cover in the colour behind the frame shrinks away (transform only: phones composite it, whereas an animated rounded
-     clip-path is repainted every frame). Photos are fetched and decoded a screen ahead, so the reveal can start with its card;
+  /* ---- curtain: frame clips open from the bottom, photo inside settles ----
+     Photos are fetched and decoded a screen ahead, so the reveal can start with its card and never opens on an empty frame;
      if a photo is still not ready it waits for it, at most 0.3s. Frames inside a [data-reveal-group] start with that group. */
-  function bgBehind(el) {
-    for (var e = el.parentElement; e; e = e.parentElement) { var c = getComputedStyle(e).backgroundColor; if (c && c !== "transparent" && !/rgba\(.*,\s*0\)$/.test(c)) return c; }
-    return getComputedStyle(d.body).backgroundColor;
-  }
   function decode(img) {
     if (!img) return Promise.resolve();
     if (!img._dec) { if (img.loading === "lazy") img.loading = "eager"; img._dec = img.decode ? img.decode().catch(function () {}) : Promise.resolve(); }
@@ -35,16 +30,14 @@
   }
   function decoded(img, max) { return Promise.race([decode(img), new Promise(function (r) { setTimeout(r, max); })]); }
   $$(".card-img, .dish-img, .intro-img, .story-photo, .vid-frame").forEach(function (f) {
-    var pic = f.querySelector("picture, video"), img = f.querySelector("img"), veil = d.createElement("i");
-    veil.className = "mx-veil"; veil.setAttribute("aria-hidden", "true"); veil.style.background = bgBehind(f);
-    if (getComputedStyle(f).position === "static") f.style.position = "relative";
-    f.appendChild(veil); if (pic) gsap.set(pic, { scale: 1.25 });
-    var group = f.closest("[data-reveal-group]");
+    var r = getComputedStyle(f).borderRadius || "0px", pic /* full radius: keeps the decor arch (decor.css) during the reveal */ = f.querySelector("picture, video"), img = f.querySelector("img");
+    var shut = "inset(100% 0% 0% 0% round " + r + ")", open = "inset(0% 0% 0% 0% round " + r + ")", group = f.closest("[data-reveal-group]");
+    gsap.set(f, { clipPath: shut }); if (pic) gsap.set(pic, { scale: 1.25 });
     ST.create({ trigger: group || f, start: "top bottom+=100%", once: true, onEnter: function () { decode(img); } });
     onEnter(group || f, function () {
       var fast = !!group || f.classList.contains("card-img"), dl = fast ? Math.min(nth(f), 6) * 0.06 : Math.min(nth(f), 6) * 0.12 + 0.05;
       decoded(img, 300).then(function () {
-        gsap.to(veil, { scaleY: 0, duration: fast ? 1.1 : 1.5, ease: fast ? "expo.out" : "expo.inOut", delay: dl, onComplete: function () { veil.remove(); } });
+        gsap.to(f, { clipPath: open, duration: fast ? 1.1 : 1.5, ease: fast ? "expo.out" : "expo.inOut", delay: dl, clearProps: "clipPath" });
         if (pic) gsap.to(pic, { scale: 1, duration: fast ? 1.6 : 2.1, ease: "expo.out", delay: dl + (fast ? 0.1 : 0.25), clearProps: "transform" });
       });
     }, group ? "top 88%" : f.classList.contains("card-img") ? "top 100%" : "top 92%");
