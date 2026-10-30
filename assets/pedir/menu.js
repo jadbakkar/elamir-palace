@@ -110,7 +110,7 @@ const DRINK_CATS = ["Batidos y Yogurt","Bebidas","Licores y Cócteles"];
 const PRINCIPAL = ADD("papas","arroz","veg","hummus","tabbule",...PROTEINAS);
 const EXTRAS_POR_CATEGORIA = {
   "Ensaladas": ADD("pollo","camaron","shCarne","shPollo"),
-  "Platos Árabes Especiales": PRINCIPAL,
+  "Platos Árabes Especiales": ADD("pollo","lomito","kafta"),
   "Shawarmas y Sándwiches": PRINCIPAL,
   "Brochetas y Parrillas": PRINCIPAL,
   "Carnes y Aves": PRINCIPAL,
