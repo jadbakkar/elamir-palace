@@ -126,6 +126,7 @@
       "px.copied": "Copiado",
       "px.loc.label": "Tu ubicación en el mapa",
       "px.loc.err": "Marca tu ubicación: así enviamos tu pedido a la sucursal más cercana.",
+      "px.loc.req": "Obligatorio", "px.loc.need": "Marca tu ubicación",
       "px.loc.use": "Usar mi ubicación actual",
       "px.loc.map": "Marcar en el mapa",
       "px.loc.remove": "Quitar ubicación",
@@ -180,6 +181,7 @@
       "px.copied": "Copied",
       "px.loc.label": "Your location on the map",
       "px.loc.err": "Set your location so we can send your order to the nearest branch.",
+      "px.loc.req": "Required", "px.loc.need": "Set your location",
       "px.loc.use": "Use my current location",
       "px.loc.map": "Pick on the map",
       "px.loc.remove": "Remove location",
@@ -234,6 +236,7 @@
       "px.copied": "تم النسخ",
       "px.loc.label": "موقعك على الخريطة",
       "px.loc.err": "حدّد موقعك لنرسل طلبك إلى أقرب فرع.",
+      "px.loc.req": "مطلوب", "px.loc.need": "حدّد موقعك",
       "px.loc.use": "استخدم موقعي الحالي",
       "px.loc.map": "حدّد على الخريطة",
       "px.loc.remove": "إزالة الموقع",
@@ -733,6 +736,7 @@
     $("#branchF").hidden = del || !$("#branchF").dataset.on;
     if (del && isOpen(sheet)) warmMap();
     if ($("#eLoc").textContent) validateLoc();
+    syncNeedLoc();
     const bi = $("#branchInfo"); bi.textContent = del && b ? t("px.branch.serves", { name: b.nombre }) : ""; bi.hidden = !bi.textContent;
     renderTotals();
   }
@@ -786,6 +790,7 @@
   /* ---------- delivery location: Geolocation + lazy Leaflet map (never blocks the order) ---------- */
   const LEAFLET = { v: "1.9.4", js: "sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=", css: "sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" };
   const LECHERIA = [10.19, -64.69];
+  let step = 1;   /* checkout step (declared early: syncType → syncNeedLoc can run while restoring the saved pin) */
   let loc = null, locState = null, map = null, marker = null, ring = null, leafletP = null;
   const locMsg = $("#locMsg"), locMapEl = $("#locMap");
   function setLocMsg(key, vars, bad) { locState = key ? [key, vars, bad] : null; locMsg.textContent = key ? t(key, vars) : ""; locMsg.classList.toggle("bad", !!bad); }
@@ -889,7 +894,6 @@
   }
 
   /* ---------- checkout steps: 0 = the cart (edit quantities, drinks upsell), 1 delivery, 2 details, 3 payment ---------- */
-  let step = 1;
   const STEP_FIELDS = { 2: ["name", "phone"] };
   function shake(el) {
     const f = el.closest(".f"); f.classList.remove("shake"); void f.offsetWidth; f.classList.add("shake");   /* polish.css */
@@ -910,11 +914,25 @@
     $$("#steps li").forEach(li => { const g = +li.dataset.go; li.classList.toggle("on", g === n); li.classList.toggle("done", g < n); });
     $("#stepBack").hidden = n === 0;
     $("#stepNext").hidden = n === 3; $("#send").hidden = n !== 3;
+    syncNeedLoc();
     $("#sheetTitle").textContent = t(n === 0 ? "ledger.title" : "sheet.title");
     form.scrollTop = 0;
   }
+  /* delivery without a location: the box is highlighted ("Obligatorio") and Continue becomes "Marca tu ubicación",
+     which asks for the GPS position (or opens the map if GPS already failed) instead of showing an error */
+  function syncNeedLoc() {
+    const need = isDel() && !loc, b = $("#stepNext"), ask = need && step === 1, [go, set] = b.querySelectorAll("span");
+    $("#locF").classList.toggle("need", need);
+    b.classList.toggle("need-loc", ask); b.querySelector(".pin").toggleAttribute("hidden", !ask);   /* SVG has no .hidden property */
+    set.hidden = !ask; go.hidden = ask;
+  }
   $("#stepNext").onclick = () => {
     if (step === 0 && !count()) { toast(t("cart.needOne")); return; }
+    if (step === 1 && isDel() && !loc) {
+      const gpsFailed = locState && locState[2] && locState[0] !== "px.loc.mapError";
+      $(gpsFailed ? "#locPick" : "#locUse").click(); $("#locF").scrollIntoView({ block: "center", behavior: reduce.matches ? "auto" : "smooth" });
+      return;
+    }
     if (step && !stepOk(step)) return;
     goStep(step + 1);
   };
