@@ -269,7 +269,7 @@
     "f.phonePh": "0414-0000000",
     "f.zone": "Zona de entrega",
     "f.zonePh": "Elige tu zona…",
-    "f.addr": "Dirección de entrega",
+    "f.addr": "Dirección de entrega (opcional)",
     "f.addrPh": "Urbanización, calle, edificio, apto.",
     "f.ref": "Punto de referencia (opcional)",
     "f.refPh": "Frente a la panadería…",
@@ -318,7 +318,6 @@
     "err.name": "Escribe tu nombre.",
     "err.phone": "Escribe un teléfono válido, ej. 0414-0000000.",
     "err.zone": "Elige tu zona de entrega.",
-    "err.addr": "Escribe la dirección para el delivery.",
 
     /* success panel */
     "done.sheetTitle": "Pedido listo",
@@ -560,7 +559,7 @@
     "f.phonePh": "0414-0000000",
     "f.zone": "Delivery zone",
     "f.zonePh": "Choose your zone…",
-    "f.addr": "Delivery address",
+    "f.addr": "Delivery address (optional)",
     "f.addrPh": "Neighborhood, street, building, apt.",
     "f.ref": "Landmark (optional)",
     "f.refPh": "Across from the bakery…",
@@ -607,7 +606,6 @@
     "err.name": "Please enter your name.",
     "err.phone": "Enter a valid phone number, e.g. 0414-0000000.",
     "err.zone": "Choose your delivery zone.",
-    "err.addr": "Enter the delivery address.",
 
     "done.sheetTitle": "Order ready to send",
     "done.title": "Order {id} is ready to send",
@@ -820,7 +818,7 @@
     "f.phonePh": "0414-0000000",
     "f.zone": "منطقة التوصيل",
     "f.zonePh": "اختر منطقتك…",
-    "f.addr": "عنوان التوصيل",
+    "f.addr": "عنوان التوصيل (اختياري)",
     "f.addrPh": "الحي، الشارع، المبنى، الشقة",
     "f.ref": "معلم قريب (اختياري)",
     "f.refPh": "مقابل المخبز…",
@@ -867,7 +865,6 @@
     "err.name": "يرجى كتابة اسمك.",
     "err.phone": "أدخل رقم هاتف صحيحاً، مثال: 0414-0000000.",
     "err.zone": "اختر منطقة التوصيل.",
-    "err.addr": "اكتب عنوان التوصيل.",
 
     "done.sheetTitle": "الطلب جاهز للإرسال",
     "done.title": "الطلب {id} جاهز للإرسال",
@@ -1593,7 +1590,7 @@
     L.push(E("wa.order.type", { type: o.type }));
     if (del) {
       if (o.zone) L.push(E("wa.order.zone", { zone: wx(o.zone.name), eta: wx(o.zone.eta) }));
-      L.push(E("wa.order.addr", { addr: wx(o.addr) }));
+      if (o.addr && wx(o.addr)) L.push(E("wa.order.addr", { addr: wx(o.addr) }));
       if (o.ref && wx(o.ref)) L.push(E("wa.order.ref", { ref: wx(o.ref) }));
     }
     L.push(E("wa.order.sep"));

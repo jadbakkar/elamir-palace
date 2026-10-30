@@ -760,8 +760,7 @@
   });
   const RULES = {
     name: v => v.trim().length >= 2 ? "" : t("err.name"),
-    phone: v => /^\+?[0-9\s-]{10,15}$/.test(v.trim()) ? "" : t("err.phone"),
-    addr: v => isDel() && v.trim().length < 5 ? t("err.addr") : ""
+    phone: v => /^\+?[0-9\s-]{10,15}$/.test(v.trim()) ? "" : t("err.phone")
   };
   function validate(el) {
     const rule = RULES[el.name]; if (!rule) return true;
@@ -883,7 +882,7 @@
 
   /* ---------- checkout steps: 0 = the cart (edit quantities, drinks upsell), 1 delivery, 2 details, 3 payment ---------- */
   let step = 1;
-  const STEP_FIELDS = { 1: ["addr"], 2: ["name", "phone"] };
+  const STEP_FIELDS = { 2: ["name", "phone"] };
   function shake(el) {
     const f = el.closest(".f"); f.classList.remove("shake"); void f.offsetWidth; f.classList.add("shake");   /* polish.css */
     el.addEventListener("animationend", () => f.classList.remove("shake"), { once: true });
@@ -983,7 +982,7 @@
     if (step < 3) { $("#stepNext").click(); return; }   /* Enter on an earlier step = Continue */
     updateStatus();
     let firstBad = null;
-    ["addr", "name", "phone"].forEach(k => {
+    ["name", "phone"].forEach(k => {
       const el = form.elements[k]; if (el.closest(".f").hidden) return;
       if (!validate(el)) { if (!firstBad) firstBad = el; shake(el); }
     });
