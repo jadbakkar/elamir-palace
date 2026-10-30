@@ -6,6 +6,8 @@
   function place() {
     var a = nav.querySelector("a[aria-current]");
     if (!a || !nav.offsetWidth) { nav.classList.remove("has-ind"); return; }
+    /* first placement: appear in place instead of sliding in from the left edge */
+    if (!nav.classList.contains("has-ind")) { nav.classList.add("ind-init"); requestAnimationFrame(function () { requestAnimationFrame(function () { nav.classList.remove("ind-init"); }); }); }
     nav.style.setProperty("--x", (a.offsetLeft + a.offsetWidth / 2 - 13) + "px");
     nav.classList.add("has-ind");
   }

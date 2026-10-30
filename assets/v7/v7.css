@@ -41,6 +41,9 @@
 html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-padding-top:var(--hd-h)}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
+/* the page must never be wider than the screen, not even for a frame while it builds: on phones that zooms the layout out
+   and the fixed bottom nav first sits below the screen, then jumps up (body's own overflow-x moves to the viewport, so clip both) */
+html{overflow-x:clip}
 body{background:var(--paper);color:var(--ink);font:400 var(--t-body)/1.7 var(--f-body);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;overflow-x:clip;-webkit-tap-highlight-color:transparent}
 img,video,svg{display:block;max-width:100%}
 a{color:inherit;text-decoration:none}
@@ -567,15 +570,18 @@ a[href^="tel:"],.q-count,.amt{direction:ltr;unicode-bidi:isolate}
 /* story photo's 1.25 curtain scale + parallax must not widen the page (it panned sideways on phones) */
 .story-body{overflow-x:clip}
 
-/* hero: vapor rising out of the middle of the photo. Each layer is fractal noise (SVG filter) turned into white wisps,
-   faded by a soft mask and lifted slowly; three layers at different sizes and speeds so it billows instead of looping visibly. Off for reduced motion. */
+/* hero: vapor rising out of the middle of the photo. Each layer is a pre-rendered image of white wisps (img/steam, rendered once
+   from the old fractal-noise SVG filters, which were redrawn every frame and halved the frame rate on phones), faded by a soft
+   mask and lifted slowly with transform/opacity only; three layers at different sizes and speeds so it billows instead of looping
+   visibly. Off for reduced motion. */
 .hero-steam{position:absolute;inset:0;overflow:hidden;pointer-events:none}
 .hero-steam i{position:absolute;left:50%;bottom:6%;width:clamp(260px,46vw,720px);height:80%;margin-left:calc(clamp(260px,46vw,720px) / -2);opacity:0;will-change:transform,opacity;
   -webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 55%,#000 0,rgba(0,0,0,.6) 52%,transparent 100%);mask-image:radial-gradient(ellipse 50% 50% at 50% 55%,#000 0,rgba(0,0,0,.6) 52%,transparent 100%);
   animation:hero-steam 12s linear infinite}
-.hero-steam .st-a{filter:url(#st-a)}
-.hero-steam .st-b{filter:url(#st-b);width:clamp(200px,36vw,560px);margin-left:calc(clamp(200px,36vw,560px) / -2);left:44%;animation-duration:15s;animation-delay:-5s}
-.hero-steam .st-c{filter:url(#st-c);width:clamp(220px,40vw,640px);margin-left:calc(clamp(220px,40vw,640px) / -2);left:57%;animation-duration:18s;animation-delay:-11s}
+.hero-steam i{background:center/100% 100% no-repeat}
+.hero-steam .st-a{background-image:url(../../img/steam/steam-a.webp)}
+.hero-steam .st-b{background-image:url(../../img/steam/steam-b.webp);width:clamp(200px,36vw,560px);margin-left:calc(clamp(200px,36vw,560px) / -2);left:44%;animation-duration:15s;animation-delay:-5s}
+.hero-steam .st-c{background-image:url(../../img/steam/steam-c.webp);width:clamp(220px,40vw,640px);margin-left:calc(clamp(220px,40vw,640px) / -2);left:57%;animation-duration:18s;animation-delay:-11s}
 @keyframes hero-steam{
   0%{opacity:0;transform:translate3d(0,22%,0) scale(.88)}
   22%{opacity:.5}
