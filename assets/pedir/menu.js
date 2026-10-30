@@ -124,6 +124,8 @@ const EXTRAS_POR_PLATO = [
   [/^Ensalada César/, ADD("pollo","camaron","shCarne","shPollo","tocineta")],
   /* Plato mixto: solo pinchos extra (shish taouk / kafta / lahme) */
   [/^Plato mixto$/, ADD("pollo","kafta","lomito")],
+  /* brochetas: solo se les pueden agregar pinchos */
+  [/^Brocheta/, ADD("pollo","kafta","lomito")],
   /* shawarmas: sin adicionales, solo quitar ingredientes (gratis) */
   [/^Shawarma/, {label:"¿Quitamos algo?", items:[["Sin lechuga",0],["Sin tomate",0],["Sin cebolla",0],["Sin pepinillo",0],["Sin perejil",0],["Sin salsa de ajo",0]]}]
 ];
