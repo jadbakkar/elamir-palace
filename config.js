@@ -4,7 +4,7 @@
    ===================================================================== */
 const CONFIG = {
   nombre: "El Amir Palace",
-  whatsapp: "584248060218",            // WhatsApp principal (sucursal Lechería, delivery 0424-806 0218)
+  whatsapp: "584248060218",            // WhatsApp principal (respaldo si una sucursal no tiene número)
   direccion: "[DIRECCIÓN: calle, edificio, ciudad]", // <<< CAMBIAR
   telefono: "0424-806 0218",           // teléfono principal (Lechería)
   instagram: "@tu_instagram",          // <<< CAMBIAR
@@ -16,25 +16,20 @@ const CONFIG = {
     lun: ["11:30","22:00"], mar: ["11:30","22:00"], mie: ["11:30","22:00"], jue: ["11:30","22:00"],
     vie: ["11:30","23:00"], sab: ["11:30","23:00"], dom: ["11:30","21:00"]
   },
-  // Sucursales: cada una recibe por WhatsApp los pedidos de sus zonas.
+  // Sucursales. Delivery: el cliente DEBE marcar su ubicación y el pedido va al WhatsApp de la sucursal más cercana
+  // (distancia en línea recta). Retiro: el cliente elige la sucursal.
+  // lat/lng: coordenadas del local (Google Maps → clic derecho sobre el local → copiar). SIN ellas todo el delivery va a la primera sucursal.
   sucursales: [
-    // lat/lng: coordenadas del local (Google Maps → clic derecho sobre el local → copiar). Necesarias para el delivery por distancia.
-    { id: "lecheria", nombre: "Lechería",       whatsapp: "584248060218", telefono: "0424-806 0218", lat: null, lng: null }, // <<< CAMBIAR
-    { id: "plc",      nombre: "Puerto La Cruz", whatsapp: "584127505025", telefono: "0412-750 5025", lat: null, lng: null }  // <<< CAMBIAR
+    { id: "lecheria", nombre: "Lechería",       whatsapp: "584248060218", telefono: "0424-806 0218", lat: null, lng: null }, // <<< CAMBIAR lat/lng
+    { id: "plc",      nombre: "Puerto La Cruz", whatsapp: "584127505025", telefono: "0412-750 5025", lat: null, lng: null }  // <<< CAMBIAR lat/lng
   ],
-  // Delivery por distancia: si el cliente marca su ubicación en el mapa, el precio sale de la distancia
-  // (en línea recta) desde la sucursal que atiende su zona. Tramos en orden: hastaKm = hasta cuántos km, fee = USD.
-  // Más lejos que el último tramo, o sin ubicación marcada → se usa el fee de la zona (o "se confirma por WhatsApp").
-  // Vacío [] = apagado. Ejemplo: [{ hastaKm: 2, fee: 1 }, { hastaKm: 4, fee: 2 }, { hastaKm: 6, fee: 3 }, { hastaKm: 10, fee: 4 }]
-  deliveryPorKm: [],                   // <<< CAMBIAR
-  // Zonas de delivery. fee: tarifa en USD, o null = "se confirma por WhatsApp".
-  // sucursal: qué sucursal atiende la zona  <<< CONFIRMAR con el cliente (asignación por cercanía)
+  // Zonas donde hay delivery: solo se listan en la página principal (el precio del delivery no se muestra en el pedido).
   zonas: [
-    { name: "Lechería",        sucursal: "lecheria", fee: null, eta: "" },
-    { name: "Nueva Barcelona", sucursal: "lecheria", fee: null, eta: "" },
-    { name: "Barcelona",       sucursal: "lecheria", fee: null, eta: "" },
-    { name: "Puerto La Cruz",  sucursal: "plc",      fee: null, eta: "" },
-    { name: "Guanta",          sucursal: "plc",      fee: null, eta: "" }
+    { name: "Lechería" },
+    { name: "Nueva Barcelona" },
+    { name: "Barcelona" },
+    { name: "Puerto La Cruz" },
+    { name: "Guanta" }
   ],
   pedidoMinimo: 0,                   // <<< CAMBIAR: USD (subtotal de platos). 0 = sin mínimo
   bcv: { tasa: 0, fecha: "" },         // <<< CAMBIAR: tasa en Bs por USD (0 = oculta los Bs) y fecha "AAAA-MM-DD"

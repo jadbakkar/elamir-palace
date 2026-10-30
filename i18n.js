@@ -229,7 +229,7 @@
     "ledger.title": "Tu pedido",
     "ledger.clear": "Vaciar",
     "ledger.subtotal": "Subtotal",
-    "ledger.hint": "Delivery según tu zona. Precios sin IVA.",
+    "ledger.hint": "Precios sin IVA.",
     "ledger.go": "Continuar con el pedido",
     "ledger.addOne": "Agrega un plato para continuar.",
     "ledger.greet": "أهلاً",
@@ -527,7 +527,7 @@
     "ledger.title": "Your Order",
     "ledger.clear": "Clear",
     "ledger.subtotal": "Subtotal",
-    "ledger.hint": "Delivery fee depends on your zone. Prices exclude VAT.",
+    "ledger.hint": "Prices exclude VAT.",
     "ledger.go": "Continue with order",
     "ledger.addOne": "Add a dish to continue.",
     "ledger.greet": "أهلاً",
@@ -783,7 +783,7 @@
     "ledger.title": "طلبك",
     "ledger.clear": "إفراغ",
     "ledger.subtotal": "المجموع الفرعي",
-    "ledger.hint": "رسوم التوصيل حسب منطقتك. الأسعار لا تشمل ضريبة القيمة المضافة.",
+    "ledger.hint": "الأسعار لا تشمل ضريبة القيمة المضافة.",
     "ledger.go": "متابعة الطلب",
     "ledger.addOne": "أضف طبقاً للمتابعة.",
     "ledger.greet": "أهلاً",
@@ -1585,25 +1585,26 @@
     return lang && lang !== "es" ? I18N.tEs("wa.clientLang", { lang: NAMES[lang] || lang }) : null;
   }
   /* o = { id, stamp:"dd/mm hh:mi", name, phone, type:"Delivery"|"Retiro en tienda",
-           zone:{name,eta}|null, addr, ref, lines:[{qty, name, total}], subtotal, fee, total,
+           zone?:{name,eta}, addr, ref, lines:[{qty, name, total}], subtotal, fee? (only with zone), total,
            bsTotal?:"Bs. 1.234,56", rate?:"36,50", pay:"Pago móvil"|"Efectivo ($)"|"Zelle"|"Punto de venta",
            cash?, notes?, lang?, payRef? (payment reference), elec? (paid before delivery) }
      All dish names / values must be the SPANISH ones (as stored in the cart).
      Money is formatted here ("$12", "$1.50"). */
   I18N.buildOrderMessage = function (o) {
-    var E = I18N.tEs, wx = I18N.wx, M = I18N.money, del = o.type === E("wa.value.delivery") && o.zone;
+    var E = I18N.tEs, wx = I18N.wx, M = I18N.money, del = o.type === E("wa.value.delivery");
     var L = [E("wa.order.title", { id: o.id }), o.stamp,
       E("wa.order.client", { name: wx(o.name), phone: wx(o.phone) })];
     var cl = clientLangLine(o.lang == null ? I18N.lang : o.lang); if (cl) L.push(cl);
     L.push(E("wa.order.type", { type: o.type }));
     if (del) {
-      L.push(E("wa.order.zone", { zone: wx(o.zone.name), eta: wx(o.zone.eta) }), E("wa.order.addr", { addr: wx(o.addr) }));
+      if (o.zone) L.push(E("wa.order.zone", { zone: wx(o.zone.name), eta: wx(o.zone.eta) }));
+      L.push(E("wa.order.addr", { addr: wx(o.addr) }));
       if (o.ref && wx(o.ref)) L.push(E("wa.order.ref", { ref: wx(o.ref) }));
     }
     L.push(E("wa.order.sep"));
     (o.lines || []).forEach(function (l) { L.push(E("wa.order.line", { qty: l.qty, name: wx(l.name), price: M(l.total) })); });
     L.push(E("wa.order.sep"), E("wa.order.subtotal", { amount: M(o.subtotal) }));
-    if (del) L.push(E("wa.order.delivery", { zone: wx(o.zone.name), amount: M(o.fee) }));
+    if (del && o.zone && typeof o.fee === "number") L.push(E("wa.order.delivery", { zone: wx(o.zone.name), amount: M(o.fee) }));
     L.push(E("wa.order.total", { amount: M(o.total) }) + (o.bsTotal ? E("wa.order.totalBs", { bs: o.bsTotal, rate: o.rate }) : ""));
     var payRef = o.payRef && wx(o.payRef);
     L.push(E("wa.order.pay", { pay: o.pay }) +

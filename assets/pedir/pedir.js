@@ -124,7 +124,8 @@
       "px.results.one": "{n} plato encontrado", "px.results.other": "{n} platos encontrados",
       "px.top": "Volver arriba", "px.backHome": "Volver al inicio", "px.menuPdf": "Carta en PDF",
       "px.copied": "Copiado",
-      "px.loc.label": "Ubicación en el mapa (opcional)",
+      "px.loc.label": "Tu ubicación en el mapa",
+      "px.loc.err": "Marca tu ubicación: así enviamos tu pedido a la sucursal más cercana.",
       "px.loc.use": "Usar mi ubicación actual",
       "px.loc.map": "Marcar en el mapa",
       "px.loc.remove": "Quitar ubicación",
@@ -133,14 +134,13 @@
       "px.loc.set": "Ubicación marcada en el mapa. Mueve el pin si hace falta.",
       "px.loc.saved": "Usaremos tu ubicación guardada. Puedes ajustarla en el mapa.",
       "px.loc.tap": "Toca el mapa para colocar el pin en tu puerta.",
-      "px.loc.denied": "No diste permiso para usar tu ubicación. Escribe la dirección o márcala en el mapa.",
-      "px.loc.unavailable": "No pudimos obtener tu ubicación. Escribe la dirección o márcala en el mapa.",
+      "px.loc.denied": "No diste permiso para usar tu ubicación. Márcala en el mapa.",
+      "px.loc.unavailable": "No pudimos obtener tu ubicación. Márcala en el mapa.",
       "px.loc.timeout": "La ubicación tardó demasiado. Inténtalo de nuevo o márcala en el mapa.",
-      "px.loc.unsupported": "Este navegador no permite compartir la ubicación. Escribe la dirección o márcala en el mapa.",
-      "px.loc.mapError": "No se pudo cargar el mapa. Tu dirección escrita es suficiente para el pedido.",
+      "px.loc.unsupported": "Este navegador no permite compartir la ubicación. Márcala en el mapa.",
+      "px.loc.mapError": "No se pudo cargar el mapa. Usa tu ubicación actual o inténtalo de nuevo.",
       "px.loc.mapAria": "Mapa para confirmar tu ubicación. Toca el mapa o arrastra el pin.",
       "px.loc.pin": "Tu ubicación de entrega",
-      "px.fee.tbc": "Se confirma por WhatsApp",
       "px.branch.serves": "Te atiende: Sucursal {name}",
       "px.branch.pick": "¿En qué sucursal lo retiras?",
       "px.branch.err": "Elige la sucursal donde retiras tu pedido."
@@ -178,7 +178,8 @@
       "px.results.one": "{n} dish found", "px.results.other": "{n} dishes found",
       "px.top": "Back to top", "px.backHome": "Back to home", "px.menuPdf": "Menu (PDF)",
       "px.copied": "Copied",
-      "px.loc.label": "Location on the map (optional)",
+      "px.loc.label": "Your location on the map",
+      "px.loc.err": "Set your location so we can send your order to the nearest branch.",
       "px.loc.use": "Use my current location",
       "px.loc.map": "Pick on the map",
       "px.loc.remove": "Remove location",
@@ -187,14 +188,13 @@
       "px.loc.set": "Location pinned on the map. Drag the pin if needed.",
       "px.loc.saved": "We'll use your saved location. You can adjust it on the map.",
       "px.loc.tap": "Tap the map to drop the pin at your door.",
-      "px.loc.denied": "Location permission was denied. Type your address or pick it on the map.",
-      "px.loc.unavailable": "We couldn't get your location. Type your address or pick it on the map.",
+      "px.loc.denied": "Location permission was denied. Pick it on the map.",
+      "px.loc.unavailable": "We couldn't get your location. Pick it on the map.",
       "px.loc.timeout": "Finding your location took too long. Try again or pick it on the map.",
-      "px.loc.unsupported": "This browser can't share your location. Type your address or pick it on the map.",
-      "px.loc.mapError": "The map couldn't load. Your typed address is enough for the order.",
+      "px.loc.unsupported": "This browser can't share your location. Pick it on the map.",
+      "px.loc.mapError": "The map couldn't load. Use your current location or try again.",
       "px.loc.mapAria": "Map to confirm your location. Tap the map or drag the pin.",
       "px.loc.pin": "Your delivery location",
-      "px.fee.tbc": "Confirmed on WhatsApp",
       "px.branch.serves": "Your order goes to our {name} branch",
       "px.branch.pick": "Which branch will you pick up from?",
       "px.branch.err": "Choose the branch where you'll pick up your order."
@@ -232,7 +232,8 @@
       "px.results.other": "عدد الأطباق: {n}",
       "px.top": "العودة إلى الأعلى", "px.backHome": "العودة إلى الرئيسية", "px.menuPdf": "القائمة (PDF)",
       "px.copied": "تم النسخ",
-      "px.loc.label": "الموقع على الخريطة (اختياري)",
+      "px.loc.label": "موقعك على الخريطة",
+      "px.loc.err": "حدّد موقعك لنرسل طلبك إلى أقرب فرع.",
       "px.loc.use": "استخدم موقعي الحالي",
       "px.loc.map": "حدّد على الخريطة",
       "px.loc.remove": "إزالة الموقع",
@@ -241,14 +242,13 @@
       "px.loc.set": "تم تحديد الموقع على الخريطة. اسحب الدبوس إذا لزم الأمر.",
       "px.loc.saved": "سنستخدم موقعك المحفوظ. يمكنك تعديله على الخريطة.",
       "px.loc.tap": "اضغط على الخريطة لوضع الدبوس عند بابك.",
-      "px.loc.denied": "لم تمنح إذن الوصول إلى موقعك. اكتب العنوان أو حدّده على الخريطة.",
-      "px.loc.unavailable": "تعذّر الحصول على موقعك. اكتب العنوان أو حدّده على الخريطة.",
+      "px.loc.denied": "لم تمنح إذن الوصول إلى موقعك. حدّده على الخريطة.",
+      "px.loc.unavailable": "تعذّر الحصول على موقعك. حدّده على الخريطة.",
       "px.loc.timeout": "استغرق تحديد الموقع وقتاً طويلاً. حاول مجدداً أو حدّده على الخريطة.",
-      "px.loc.unsupported": "هذا المتصفح لا يسمح بمشاركة الموقع. اكتب العنوان أو حدّده على الخريطة.",
-      "px.loc.mapError": "تعذّر تحميل الخريطة. العنوان المكتوب يكفي لإتمام الطلب.",
+      "px.loc.unsupported": "هذا المتصفح لا يسمح بمشاركة الموقع. حدّده على الخريطة.",
+      "px.loc.mapError": "تعذّر تحميل الخريطة. استخدم موقعك الحالي أو حاول مجدداً.",
       "px.loc.mapAria": "خريطة لتأكيد موقعك. اضغط على الخريطة أو اسحب الدبوس.",
       "px.loc.pin": "موقع التوصيل",
-      "px.fee.tbc": "يُؤكَّد عبر واتساب",
       "px.branch.serves": "يتولى طلبك: فرع {name}",
       "px.branch.pick": "من أي فرع ستستلم طلبك؟",
       "px.branch.err": "اختر الفرع الذي ستستلم منه طلبك."
@@ -263,7 +263,6 @@
   const rate = () => +CONFIG.bcv.tasa > 0 ? +CONFIG.bcv.tasa : 0;
   /* owner placeholders ("[BANCO…]", "@tu_instagram", "TU-DOMINIO", "0000000") are never shown to guests */
   const isPh = v => !v || /^\s*\[|TU-DOMINIO|@tu_|0{6,}|000-0000|ejemplo\.com/i.test(String(v));
-  const zName = z => String(z.name).replace(/\s*\((?:ejemplo|example)\)\s*/i, " ").trim();
   const now = () => typeof window.__PEDIR_NOW === "number" ? new Date(window.__PEDIR_NOW) : new Date();
   const reduce = matchMedia("(prefers-reduced-motion: reduce)");
   const mqSheet = "(max-width:1080px)";
@@ -341,42 +340,31 @@
     return h;
   }
 
-  /* ---------- zones / totals ---------- */
-  const form = $("#form"), zoneSel = form.elements.zone;
+  /* ---------- branch / totals ---------- */
+  const form = $("#form");
   const isDel = () => form.elements.type.value === "Delivery";
-  /* no zone question any more: the delivery "zone" is the branch nearest the pinned location (no pin / no coords → first branch) */
+  /* delivery: the pinned location is required and the order goes to the nearest branch (straight-line km).
+     Branches without lat/lng in CONFIG.sucursales are skipped; none with coordinates → first branch. No delivery fee is shown. */
   const hasLL = b => b && isFinite(b.lat) && isFinite(b.lng) && b.lat !== null && b.lng !== null;
   const kmTo = b => { const r = Math.PI / 180, dLat = (loc.lat - b.lat) * r, dLng = (loc.lng - b.lng) * r;
     return 12742 * Math.asin(Math.sqrt(Math.sin(dLat / 2) ** 2 + Math.cos(b.lat * r) * Math.cos(loc.lat * r) * Math.sin(dLng / 2) ** 2)); };
-  const curZone = () => {
+  function nearestBranch() {
     const bs = BRANCHES || [], ll = loc ? bs.filter(hasLL) : [];
-    const b = ll.length ? ll.reduce((a, x) => kmTo(x) < kmTo(a) ? x : a) : bs[0];
-    return b ? { name: b.nombre, sucursal: b.id, fee: null, eta: "" } : null;
-  };
-  /* fee:null in config = "se confirma por WhatsApp" → nothing added to the total */
-  const feeKnown = z => !!z && typeof z.fee === "number" && isFinite(z.fee);
-  /* delivery by distance: pinned location → straight-line km from the zone's branch → CONFIG.deliveryPorKm band; null = no band applies */
-  function kmFee(z) {
-    const bands = Array.isArray(CONFIG.deliveryPorKm) ? CONFIG.deliveryPorKm : [], b = z && branchById(z.sucursal);
-    if (!bands.length || !loc || !hasLL(b)) return null;
-    const km = kmTo(b), band = bands.find(x => km <= x.hastaKm);
-    return band && typeof band.fee === "number" ? { fee: band.fee, km } : null;
+    return ll.length ? ll.reduce((a, x) => kmTo(x) < kmTo(a) ? x : a) : bs[0] || null;
   }
-  function totals() {
-    const sub = subtotal(), z = isDel() ? curZone() : null, kf = kmFee(z), known = !!kf || feeKnown(z), fee = kf ? kf.fee : known ? z.fee : 0;
-    return { sub, zone: z, fee, known, km: kf ? kf.km : null, total: sub + fee };
-  }
-  /* branches: the zone decides (delivery) or the guest chooses (pickup); fallback = CONFIG.whatsapp */
+  function totals() { const sub = subtotal(); return { sub, total: sub }; }
+  /* branches: the pinned location decides (delivery) or the guest chooses (pickup); fallback = CONFIG.whatsapp */
   const BRANCHES = Array.isArray(CONFIG.sucursales) && CONFIG.sucursales.length ? CONFIG.sucursales : null;
+  if (BRANCHES && BRANCHES.length > 1 && !BRANCHES.every(hasLL)) console.warn("CONFIG.sucursales: faltan lat/lng; el delivery va siempre a la primera sucursal.");
   const branchById = id => BRANCHES && BRANCHES.find(b => b.id === id) || null;
   function curBranch() {
     if (!BRANCHES) return null;
-    if (isDel()) { const z = curZone(); return z ? branchById(z.sucursal) || BRANCHES[0] : null; }
+    if (isDel()) return loc ? nearestBranch() : null;
     if (BRANCHES.length === 1) return BRANCHES[0];
     const r = form.querySelector('input[name="branch"]:checked'); return r ? branchById(r.value) : null;
   }
-  /* delivery always goes to the delivery line (CONFIG.whatsapp); pickup goes to the chosen branch */
-  const waNumber = () => { const b = isDel() ? null : curBranch(); return b && b.whatsapp ? b.whatsapp : CONFIG.whatsapp; };
+  /* every order goes to the WhatsApp of its branch (nearest for delivery, chosen for pickup) */
+  const waNumber = () => { const b = curBranch(); return b && b.whatsapp ? b.whatsapp : CONFIG.whatsapp; };
   function minMsg() { const m = +CONFIG.pedidoMinimo || 0, s = subtotal(); return count() && m && s < m ? t("cart.min", { missing: money(m - s), min: money(m) }) : ""; }
   const staleRate = () => { const d = Date.parse(CONFIG.bcv.fecha); return d && (now() - d) > 3 * 864e5; };
 
@@ -421,7 +409,7 @@
 
   /* ---------- cart render ---------- */
   function renderTotals() {
-    const tt = totals(), c = count(), r = rate(), del = isDel();
+    const tt = totals(), c = count(), r = rate();
     $("#ledgerSub").textContent = $("#sheetSub").textContent = $("#pillSub").textContent = money(tt.sub);
     $("#pillCount").textContent = c;
     const hc = $("#hdCount"); hc.textContent = c; hc.hidden = !c;
@@ -431,13 +419,10 @@
     $("#ledgerGo").disabled = !c; $("#clearBtn").hidden = !c; $("#ledgerWhy").hidden = !!c;
     const lb = $("#ledgerBs"); lb.hidden = !(r && c); lb.textContent = r ? "≈ " + I.bs(tt.sub, r) : "";
     const mm = minMsg(); $("#ledgerMin").hidden = !mm; $("#ledgerMin").textContent = mm;
-    $("#feeRow").hidden = !del;
-    $("#sheetFee").textContent = !del ? "" : !tt.zone ? t("totals.chooseZone") : !tt.known ? t("px.fee.tbc") : tt.fee ? money(tt.fee) : t("totals.free");
-    $("#totLbl").textContent = t(del && !tt.known ? "totals.totalNoDelivery" : "totals.total");
+    $("#totLbl").textContent = t("totals.total");
     $("#sheetTotal").textContent = money(tt.total);
     const sb = $("#sheetBs"); sb.hidden = !r;
     sb.textContent = r ? t("totals.bsLine", { bs: I.bs(tt.total, r), rate: I.num(r, 2, 2), date: CONFIG.bcv.fecha ? t("totals.bsDate", { date: CONFIG.bcv.fecha.split("-").reverse().join("/") }) : "" }) + (staleRate() ? t("totals.bsStale") : "") : "";
-    const se = $("#sheetEta"); se.hidden = !(del && tt.zone && tt.zone.eta); se.textContent = tt.zone && tt.zone.eta ? t("totals.eta", { eta: I.eta(tt.zone.eta) }) : "";
     renderPay(); updateBlock();
   }
   function renderLines() { const h = linesHTML(); $("#ledgerLines").innerHTML = h; $("#sheetLines").innerHTML = count() ? h : ""; }
@@ -726,11 +711,6 @@
   };
 
   /* ---------- checkout ---------- */
-  function renderZones() {
-    const v = zoneSel.value;
-    zoneSel.innerHTML = `<option value="">${esc(t("f.zonePh"))}</option>` + CONFIG.zonas.map((z, i) => `<option value="${i}">${[esc(zName(z)), feeKnown(z) ? money(z.fee) : "", z.eta ? esc(I.eta(z.eta)) : ""].filter(Boolean).join(" · ")}</option>`).join("");
-    zoneSel.value = v;
-  }
   function renderBranches() {
     const box = $("#branchSeg"); if (!box) return;
     const many = !!BRANCHES && BRANCHES.length > 1;
@@ -740,13 +720,11 @@
     box.innerHTML = BRANCHES.map((b, i) => `<input type="radio" name="branch" id="br${i}" value="${esc(b.id)}"${v === b.id ? " checked" : ""}><label for="br${i}">${esc(b.nombre)}</label>`).join("");
   }
   function syncType() {
-    const del = isDel(), z = curZone(), b = curBranch();
-    $("#zoneF").hidden = true;
+    const del = isDel(), b = curBranch();
     $("#addrF").hidden = $("#refF").hidden = $("#locF").hidden = $("#moreDel").hidden = !del;
     $("#branchF").hidden = del || !$("#branchF").dataset.on;
     if (del && isOpen(sheet)) warmMap();
-    const tt = totals();
-    $("#zoneInfo").textContent = del && z && (tt.known || z.eta) ? [tt.known ? "Delivery " + money(tt.fee) : "", tt.km !== null ? tt.km.toFixed(1) + " km" : "", z.eta ? I.eta(z.eta) : ""].filter(Boolean).join(" · ") : "";
+    if ($("#eLoc").textContent) validateLoc();
     const bi = $("#branchInfo"); bi.textContent = del && b ? t("px.branch.serves", { name: b.nombre }) : ""; bi.hidden = !bi.textContent;
     renderTotals();
   }
@@ -754,6 +732,13 @@
     const f = $("#branchF"), need = !isDel() && !f.hidden && !curBranch(), err = $("#eBranch");
     err.textContent = need ? t("px.branch.err") : "";
     f.querySelectorAll("input").forEach(i => need ? i.setAttribute("aria-invalid", "true") : i.removeAttribute("aria-invalid"));
+    return !need;
+  }
+  /* delivery needs the pinned location: it picks the branch and goes in the WhatsApp message */
+  function validateLoc() {
+    const need = isDel() && !loc;
+    $("#eLoc").textContent = need ? t("px.loc.err") : "";
+    $("#locF").classList.toggle("bad", need);
     return !need;
   }
   const kvRow = (label, v, aria) => `<div class="kv"><span>${esc(label)}</span><b>${esc(v)}</b><button type="button" class="copy" data-copy="${esc(v)}" aria-label="${esc(aria)}">${esc(t("kv.copy"))}</button></div>`;
@@ -818,8 +803,7 @@
       : EXTRA[p] ? extraCard(p, tt.total) : "";
   }
   form.addEventListener("change", e => {
-    if (e.target.name === "type" || e.target.name === "zone" || e.target.name === "branch") {
-      if (e.target.name === "zone") validate(e.target);
+    if (e.target.name === "type" || e.target.name === "branch") {
       syncType();
       if (e.target.name === "branch") validateBranch();
     }
@@ -828,7 +812,6 @@
   const RULES = {
     name: v => v.trim().length >= 2 ? "" : t("err.name"),
     phone: v => /^\+?[0-9\s-]{10,15}$/.test(v.trim()) ? "" : t("err.phone"),
-    zone: () => "",
     addr: v => isDel() && v.trim().length < 5 ? t("err.addr") : ""
   };
   function validate(el) {
@@ -930,12 +913,12 @@
     if (marker) { marker.remove(); marker = null; } if (ring) { ring.remove(); ring = null; }
     locMapEl.hidden = true; $("#locUse").focus();
   };
-  const locLine = () => loc ? `*Ubicación:* ${loc.lat.toFixed(6)}, ${loc.lng.toFixed(6)}` : "";
+  /* Google Maps link: the branch / rider opens the exact pin from the WhatsApp chat */
+  const locLine = () => loc ? `*Ubicación:* https://www.google.com/maps?q=${loc.lat.toFixed(6)},${loc.lng.toFixed(6)}` : "";
 
   try {
     const sc = JSON.parse(localStorage.getItem("amir-customer")) || {};
     ["name", "phone", "addr", "ref"].forEach(k => { if (sc[k]) form.elements[k].value = sc[k]; });
-    if (sc.zone !== undefined && CONFIG.zonas[+sc.zone]) { renderZones(); zoneSel.value = sc.zone; }
     if (sc.branch && branchById(sc.branch)) { renderBranches(); const r = form.querySelector(`input[name="branch"][value="${CSS.escape(sc.branch)}"]`); if (r) r.checked = true; }
     if (isFinite(sc.lat) && isFinite(sc.lng) && sc.lat !== null && Math.abs(sc.lat) <= 90 && Math.abs(sc.lng) <= 180) { setLoc(sc.lat, sc.lng, "saved"); setLocMsg("px.loc.saved"); }
   } catch (e) { /* ignore */ }
@@ -960,6 +943,7 @@
     let bad = null;
     (STEP_FIELDS[n] || []).forEach(k => { const el = form.elements[k]; if (el.closest(".f").hidden) return; if (!validate(el)) { if (!bad) bad = el; shake(el); } });
     if (n === 1 && !bad && !validateBranch()) bad = $("#branchF input");
+    if (n === 1 && !bad && !validateLoc()) { bad = $("#locUse"); shake(bad); }
     if (bad) bad.focus();
     return !bad;
   }
@@ -985,12 +969,10 @@
   function openFold(id, focus) {
     const f = $("#" + id); f.classList.add("open");
     const b = form.querySelector(`[data-open="${id}"]`); if (b) b.hidden = true;
-    if (id === "locF") warmMap();
     if (focus) { const i = f.querySelector("textarea,input,button"); if (i) i.focus(); }
   }
   function syncFolds() {
     if (form.elements.ref.value.trim()) openFold("refF");
-    if (loc) openFold("locF");
     if (form.elements.notes.value.trim()) openFold("notesF");
   }
   form.addEventListener("click", e => { const b = e.target.closest("[data-open]"); if (b) openFold(b.dataset.open, true); });
@@ -1014,17 +996,9 @@
     else loadLeaflet().catch(() => {});
   }
   function buildMessage(id) {
-    const tt = totals(), b = curBranch(), L = buildBaseMessage(id).split("\n");
+    const b = curBranch(), L = buildBaseMessage(id).split("\n");
     /* "*Sucursal:*" right after "*Tipo:*" */
     if (b) { const typeP = I.tEs("wa.order.type", { type: "" }).trim(), i = L.findIndex(l => l.startsWith(typeP)); L.splice(i < 0 ? 2 : i + 1, 0, `*Sucursal:* ${I.wx(b.nombre)}`); }
-    /* no zone question any more: drop the "*Zona:*" line (address + map link say where) */
-    if (isDel() && tt.zone) { const zi = L.indexOf(I.tEs("wa.order.zone", { zone: I.wx(zName(tt.zone)), eta: I.wx(tt.zone.eta) })); if (zi > -1) L.splice(zi, 1); }
-    /* delivery fee not set (null): say "por confirmar" instead of "$0" and flag the total */
-    if (isDel() && tt.zone && !tt.known) {
-      const zn = I.wx(zName(tt.zone)), feeL = I.tEs("wa.order.delivery", { zone: zn, amount: I.money(0) }), totL = I.tEs("wa.order.total", { amount: I.money(tt.total) });
-      const fi = L.indexOf(feeL); if (fi > -1) L[fi] = I.tEs("wa.order.delivery", { zone: zn, amount: "por confirmar" });
-      const ti = L.findIndex(l => l.startsWith(totL)); if (ti > -1) L[ti] = L[ti].replace(totL, I.tEs("wa.order.total", { amount: I.money(tt.total) + " + delivery" }));
-    }
     /* "*Ubicación:*" after the reference / address */
     const line = isDel() ? locLine() : "";
     if (line) {
@@ -1036,14 +1010,13 @@
     return L.join("\n");
   }
   function buildBaseMessage(id) {
-    const tt = totals(), n = caracasNow(), z = tt.zone, r = rate(), F = form.elements;
+    const tt = totals(), n = caracasNow(), r = rate(), F = form.elements;
     return I.buildOrderMessage({
       id, stamp: `${n.dd}/${n.mm} ${n.hh}:${n.mi}`,
       name: F.name.value, phone: F.phone.value, type: F.type.value,
-      zone: isDel() && z ? { name: zName(z), eta: z.eta } : null,
       addr: F.addr.value, ref: F.ref.value,
       lines: Object.keys(cart).map(k => ({ qty: cart[k], name: lineName(k), total: unitPrice(k) * cart[k] })),
-      subtotal: tt.sub, fee: tt.fee, total: tt.total,
+      subtotal: tt.sub, total: tt.total,
       bsTotal: r ? I.bs(tt.total, r, "es") : "", rate: r ? I.num(r, 2, 2, "es") : "",
       pay: F.pay.value, cash: F.cash.value, notes: F.notes.value,
       paid: paidNow(), elec: isElec(F.pay.value),
@@ -1068,6 +1041,7 @@
       if (!validate(el)) { if (!firstBad) firstBad = el; shake(el); }
     });
     if (!firstBad && !validateBranch()) firstBad = $("#branchF input");
+    if (!firstBad && !validateLoc()) firstBad = $("#locUse");
     if (firstBad) { goStep(+firstBad.closest(".ck-step").dataset.step); firstBad.focus(); return; }
     const r = blockReason();
     if (r) { toast(r); return; }
@@ -1079,7 +1053,7 @@
     if (win) { try { win.opener = null; } catch (er) { /* ignore */ } }
     if ($("#remember").checked) {
       const v = k => form.elements[k].value.trim();
-      try { localStorage.setItem("amir-customer", JSON.stringify({ name: v("name"), phone: v("phone"), addr: v("addr"), ref: v("ref"), zone: zoneSel.value, branch: isDel() ? undefined : (curBranch() || {}).id, lat: loc ? loc.lat : null, lng: loc ? loc.lng : null })); } catch (er) { /* ignore */ }
+      try { localStorage.setItem("amir-customer", JSON.stringify({ name: v("name"), phone: v("phone"), addr: v("addr"), ref: v("ref"), branch: isDel() ? undefined : (curBranch() || {}).id, lat: loc ? loc.lat : null, lng: loc ? loc.lng : null })); } catch (er) { /* ignore */ }
     } else { try { localStorage.removeItem("amir-customer"); } catch (er) { /* ignore */ } }
     showDone();
   });
@@ -1144,7 +1118,7 @@
     if (canon) { const m = /[?&]lang=(en|ar)(?:&|#|$)/.exec(location.search); canon.href = canonBase + (m ? "?lang=" + m[1] : ""); }
     if (first && I.lang === "es" && catsEl.dataset.sig === SIG) hydrate();
     else renderMenu(!first);
-    renderZones(); renderBranches(); syncType(); renderLines(); renderMinFact();
+    renderBranches(); syncType(); renderLines(); renderMinFact();
     if ($("#eBranch").textContent) validateBranch(); updateStatus(); buildFooter();
     if (opt && isOpen(optDlg)) openOptions(opt.id, true);
     if (order && !$("#done").hidden) { showDone(true); $("#sheetTitle").textContent = t("done.sheetTitle"); }
