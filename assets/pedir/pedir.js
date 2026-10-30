@@ -773,7 +773,8 @@
   });
   const RULES = {
     name: v => v.trim().length >= 2 ? "" : t("err.name"),
-    phone: v => /^\+?[0-9\s-]{10,15}$/.test(v.trim()) ? "" : t("err.phone")
+    /* 10-15 digits; spaces, dashes, dots and brackets don't count ("+58 424 806 02 18") */
+    phone: v => { const s = v.trim(), n = (s.match(/\d/g) || []).length; return /^\+?[\d\s().-]+$/.test(s) && n >= 10 && n <= 15 ? "" : t("err.phone"); }
   };
   function validate(el) {
     const rule = RULES[el.name]; if (!rule) return true;
@@ -1083,7 +1084,7 @@
     if ($("#eBranch").textContent) validateBranch(); updateStatus(); buildFooter();
     if (opt && isOpen(optDlg)) openOptions(opt.id, true);
     if (order && !$("#done").hidden) { showDone(true); $("#sheetTitle").textContent = t("done.sheetTitle"); }
-    else $("#sheetTitle").textContent = t("sheet.title");
+    else $("#sheetTitle").textContent = t(step === 0 ? "ledger.title" : "sheet.title");
     $$('#form [aria-invalid="true"]').forEach(validate);
     if (locState) setLocMsg(locState[0], locState[1], locState[2]);
     if (map) locMapEl.setAttribute("aria-label", t("px.loc.mapAria"));
