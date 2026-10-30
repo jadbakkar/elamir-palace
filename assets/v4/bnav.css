@@ -28,7 +28,6 @@
     border:3px solid var(--paper);box-shadow:0 10px 22px -8px rgba(74,17,25,.65),0 0 0 1px rgba(190,149,100,.55);transition:transform .2s var(--ease-out)}
   .bnav-o svg{width:25px;height:25px;stroke-width:1.8}
   .bnav-order:active .bnav-o{transform:scale(.92)}
-  .bnav-order[aria-current] .bnav-o{background:var(--wine-3)}
   /* item count on the PEDIR circle (bnav.js); on pedir.html it replaces the floating "Ver mi pedido" button */
   .bnav .bnav-o{position:relative;overflow:visible}
   .bnav-n{position:absolute;top:-3px;inset-inline-end:-3px;min-width:21px;height:21px;padding:0 6px;border-radius:11px;background:#fff;color:var(--wine);
@@ -43,8 +42,11 @@
     transform:translateX(var(--x,0));transition:transform .45s var(--ease-drawer),opacity .2s}
   .bnav.has-ind .bnav-ind{opacity:1}
   .bnav.ind-init .bnav-ind{transition:none}
+  /* homepage hero: hidden until the visitor scrolls (bnav.js); the extra 48px also hides the raised PEDIR circle */
+  .bnav{transition:transform .4s var(--ease-out,cubic-bezier(.2,.7,.2,1))}
+  .bnav-away .bnav{transform:translateY(calc(100% + 48px))}
   :lang(ar) .bnav a{font-family:"IBM Plex Sans Arabic",var(--f-body);font-size:11.5px;letter-spacing:0}
-  @media (prefers-reduced-motion:reduce){.bnav-ind,.bnav a,.bnav-o{transition:none}.bnav-n.pop{animation:none}}
+  @media (prefers-reduced-motion:reduce){.bnav,.bnav-ind,.bnav a,.bnav-o{transition:none}.bnav-n.pop{animation:none}}
 
   /* one clear place to order: hide the header PEDIR / WhatsApp duplicates on phones */
   .hd-r>.btn--wine,.hd-order,.hd-r>.icon-btn[data-wa]{display:none!important}

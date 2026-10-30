@@ -10,7 +10,7 @@
 /* lang (?lang= > /en/ /ar/ > saved > Spanish) · motion flag · loader on every visit/reload, not when arriving from another page of the site */
 (function(d,w){var h=d.documentElement,l=h.getAttribute("data-static-lang")||"es",m=/[?&]lang=(es|en|ar)(?:&|#|$)/.exec(w.location.search),p=/^\/(en|ar)\//.exec(w.location.pathname);
 if(m)l=m[1];else if(p)l=p[1];else{try{var s=w.localStorage.getItem("amir-lang");if(/^(es|en|ar)$/.test(s))l=s}catch(e){}}
-h.lang=l;h.dir=l==="ar"?"rtl":"ltr";h.className+=" js";
+h.lang=l;h.dir=l==="ar"?"rtl":"ltr";h.className+=" js bnav-away";
 var rm=w.matchMedia("(prefers-reduced-motion: reduce)").matches;h.className+=" motion";setTimeout(function(){if(!/m-ready|no-motion/.test(h.className))h.classList.remove("motion")},4000);
 try{var nv=w.performance.getEntriesByType("navigation")[0],inside=d.referrer.indexOf(w.location.origin+"/")===0&&!(nv&&nv.type==="reload");if(!rm&&!inside&&!/[?&]nointro/.test(w.location.search)){h.className+=" is-loading"}}catch(e){}
 if(l==="ar"&&!d.getElementById("i18n-ar-fonts")){var k=d.createElement("link");k.rel="stylesheet";k.id="i18n-ar-fonts";k.href="/assets/fonts/arabic.css";d.head.appendChild(k);var q=d.createElement("link");q.rel="stylesheet";q.href="/assets/fonts/aref-ruqaa-home.css";d.head.appendChild(q)}
@@ -49,9 +49,9 @@ if(l==="ar"&&!d.getElementById("i18n-ar-fonts")){var k=d.createElement("link");k
 <link rel="preload" as="image" type="image/avif" imagesrcset="../img/photos/parrilla-cerca-640.avif 640w, ../img/photos/parrilla-cerca-1080.avif 1080w" imagesizes="100vw" fetchpriority="high">
 <link rel="preload" href="../assets/v3/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/v7/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/v7/v7.css?v=67">
-<link rel="stylesheet" href="../assets/v4/bnav.css?v=1.6">
-<link rel="stylesheet" href="../assets/v8/transition.css?v=3">
+<link rel="stylesheet" href="../assets/v7/v7.css?v=68">
+<link rel="stylesheet" href="../assets/v4/bnav.css?v=1.7">
+<link rel="stylesheet" href="../assets/v8/transition.css?v=4">
 <link rel="stylesheet" href="../assets/v7/motion-x.css?v=2">
 <link rel="stylesheet" href="../assets/v7/decor.css?v=5">
 <!--gen:jsonld-->
@@ -708,7 +708,7 @@ var sk=function(){h.classList.add("fr","loader-skip")};["pointerdown","keydown",
 <script src="../assets/v7/i18n-v7.js?v=17" defer></script>
 <script src="../assets/v7/v7.js?v=35" defer></script>
 <script src="../assets/v7/motion-x.js?v=5" defer></script>
-<script src="../assets/v4/bnav.js?v=1.3" defer></script>
+<script src="../assets/v4/bnav.js?v=1.4" defer></script>
 <script src="../assets/v8/transition.js?v=1" defer></script>
 </body>
 </html>

@@ -147,6 +147,9 @@ p{text-wrap:pretty}
 .hero{position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden;color:#fff;background:var(--wine-3)}
 .hero .hero-media{position:absolute;inset:0}
 .hero-pic img{object-position:50% 45%}
+/* scalloped bottom edge: a row of paper-coloured half-rounds cuts into the photo where the next section starts */
+.hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;z-index:2;height:16px;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='16' viewBox='0 0 36 16'%3E%3Cpath d='M0 16A18 15 0 0 1 36 16Z' fill='%23F7F4EF'/%3E%3C/svg%3E") repeat-x left bottom/36px 16px}
 .hero-in{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;padding-bottom:clamp(64px,11vh,128px)}
 .hero-t{font:300 clamp(64px,12.5vw,210px)/.9 var(--f-display);letter-spacing:-.045em}
 .hero-l{margin-top:clamp(18px,2.4vw,32px);font-size:clamp(16px,1.3vw,19px);color:rgba(255,255,255,.88)}

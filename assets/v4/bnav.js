@@ -26,6 +26,14 @@
     io.observe(spy.carta); if (spy.branches) io.observe(spy.branches);
     links.forEach(function (a) { a.addEventListener("click", function () { if (a.dataset.k !== "wa" && a.dataset.k !== "order") setActive(a.dataset.k); }); });
   }
+  // homepage: the nav stays tucked away while the hero is idle and slides up once the visitor scrolls
+  // (html.bnav-away is set in the page <head> so it never flashes in on load)
+  if (document.querySelector(".hero")) {
+    var root = document.documentElement, ticking = false;
+    var away = function () { ticking = false; root.classList.toggle("bnav-away", (window.scrollY || 0) < 40); };
+    addEventListener("scroll", function () { if (!ticking) { ticking = true; requestAnimationFrame(away); } }, { passive: true });
+    away();
+  }
   // order count badge on PEDIR (same cart as pedir.html)
   var o = nav.querySelector(".bnav-o"), badge = document.createElement("b"); badge.className = "bnav-n"; badge.setAttribute("aria-hidden", "true");
   function count() {
