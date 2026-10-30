@@ -729,7 +729,7 @@
   }
   function syncType() {
     const del = isDel(), b = curBranch();
-    $("#addrF").hidden = $("#refF").hidden = $("#locF").hidden = $("#moreDel").hidden = !del;
+    $("#refF").hidden = $("#locF").hidden = $("#moreDel").hidden = !del;
     $("#branchF").hidden = del || !$("#branchF").dataset.on;
     if (del && isOpen(sheet)) warmMap();
     if ($("#eLoc").textContent) validateLoc();
@@ -874,7 +874,7 @@
 
   try {
     const sc = JSON.parse(localStorage.getItem("amir-customer")) || {};
-    ["name", "phone", "addr", "ref"].forEach(k => { if (sc[k]) form.elements[k].value = sc[k]; });
+    ["name", "phone", "ref"].forEach(k => { if (sc[k]) form.elements[k].value = sc[k]; });
     if (sc.branch && branchById(sc.branch)) { renderBranches(); const r = form.querySelector(`input[name="branch"][value="${CSS.escape(sc.branch)}"]`); if (r) r.checked = true; }
     if (isFinite(sc.lat) && isFinite(sc.lng) && sc.lat !== null && Math.abs(sc.lat) <= 90 && Math.abs(sc.lng) <= 180) { setLoc(sc.lat, sc.lng, "saved"); setLocMsg("px.loc.saved"); }
   } catch (e) { /* ignore */ }
@@ -958,11 +958,11 @@
     const b = curBranch(), L = buildBaseMessage(id).split("\n");
     /* "*Sucursal:*" right after "*Tipo:*" */
     if (b) { const typeP = I.tEs("wa.order.type", { type: "" }).trim(), i = L.findIndex(l => l.startsWith(typeP)); L.splice(i < 0 ? 2 : i + 1, 0, `*Sucursal:* ${I.wx(b.nombre)}`); }
-    /* "*Ubicación:*" after the reference / address */
+    /* "*Ubicación:*" after the reference point (or right before the dishes) */
     const line = isDel() ? locLine() : "";
     if (line) {
-      const addrP = I.tEs("wa.order.addr", { addr: "" }).trim(), refP = I.tEs("wa.order.ref", { ref: "" }).trim();
-      let i = L.findIndex(l => l.startsWith(refP)); if (i < 0) i = L.findIndex(l => l.startsWith(addrP));
+      const refP = I.tEs("wa.order.ref", { ref: "" }).trim();
+      let i = L.findIndex(l => l.startsWith(refP));
       if (i < 0) i = Math.max(0, L.indexOf(I.tEs("wa.order.sep")) - 1);
       L.splice(i + 1, 0, line);
     }
@@ -973,7 +973,7 @@
     return I.buildOrderMessage({
       id, stamp: `${n.dd}/${n.mm} ${n.hh}:${n.mi}`,
       name: F.name.value, phone: F.phone.value, type: F.type.value,
-      addr: F.addr.value, ref: F.ref.value,
+      ref: F.ref.value,
       lines: Object.keys(cart).map(k => ({ qty: cart[k], name: lineName(k), total: unitPrice(k) * cart[k] })),
       subtotal: tt.sub, total: tt.total,
       bsTotal: r ? I.bs(tt.total, r, "es") : "", rate: r ? I.num(r, 2, 2, "es") : "",
@@ -1008,7 +1008,7 @@
     if (win) { try { win.opener = null; } catch (er) { /* ignore */ } }
     if ($("#remember").checked) {
       const v = k => form.elements[k].value.trim();
-      try { localStorage.setItem("amir-customer", JSON.stringify({ name: v("name"), phone: v("phone"), addr: v("addr"), ref: v("ref"), branch: isDel() ? undefined : (curBranch() || {}).id, lat: loc ? loc.lat : null, lng: loc ? loc.lng : null })); } catch (er) { /* ignore */ }
+      try { localStorage.setItem("amir-customer", JSON.stringify({ name: v("name"), phone: v("phone"), ref: v("ref"), branch: isDel() ? undefined : (curBranch() || {}).id, lat: loc ? loc.lat : null, lng: loc ? loc.lng : null })); } catch (er) { /* ignore */ }
     } else { try { localStorage.removeItem("amir-customer"); } catch (er) { /* ignore */ } }
     showDone();
   });
