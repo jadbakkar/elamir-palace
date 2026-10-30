@@ -110,14 +110,14 @@ const DRINK_CATS = ["Batidos y Yogurt","Bebidas","Licores y Cócteles"];
 const PRINCIPAL = ADD("papas","arroz","veg","hummus","tabbule",...PROTEINAS);
 const EXTRAS_POR_CATEGORIA = {
   "Ensaladas": ADD("pollo","camaron","shCarne","shPollo"),
-  "Platos Árabes Especiales": ADD("pollo","lomito","kafta"),
+  "Platos Árabes Especiales": ADD("pollo","lomito","kafta","shCarne","shPollo"),
   "Shawarmas y Sándwiches": PRINCIPAL,
   "Brochetas y Parrillas": PRINCIPAL,
-  "Carnes y Aves": PRINCIPAL,
+  "Carnes y Aves": ADD("tocineta","arroz","veg"),
   "Pescados y Mariscos": PRINCIPAL,
   "Arroces": ADD(...PROTEINAS),
   "Pastas": ADD("camaron","pollo","lomito","tocineta","veg"),
-  "Hamburguesas": ADD("papas","tocineta","veg")
+  "Hamburguesas": ADD("tocineta")
 };
 /* excepciones por plato (nombre exacto o que empiece por…) */
 const EXTRAS_POR_PLATO = [
