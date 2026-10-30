@@ -27,3 +27,6 @@
 .mx-cursor.is-down i{transform:scale(.6)}
 
 /* page-to-page transition: burgundy wipe, see assets/v8/transition.css */
+
+/* curtain cover (motion-x.js): sits on the photo in the colour behind the frame and shrinks up to reveal it bottom-first */
+.mx-veil{position:absolute;inset:-1px;z-index:3;pointer-events:none;transform-origin:50% 0;will-change:transform}

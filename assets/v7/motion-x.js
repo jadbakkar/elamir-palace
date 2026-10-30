@@ -1,11 +1,10 @@
 /* El Amir Palace · motion layer X (loads after v7.js, reuses its GSAP / ScrollTrigger / Lenis).
    To revert: delete this file + motion-x.css and their two tags in index.html, en/, ar/.
-     curtain      image frames unveil bottom-up while the photo settles from 1.25 to 1
+     curtain      image frames unveil bottom-up while the photo settles from 1.25 to 1 (once the photo is decoded)
      hero lift    hero text and buttons rise faster than the page as it scrolls away (no fade)
      rules        section-label gold rules draw outwards
      magnetic     buttons and arrows lean toward the pointer (desktop)
      tilt         cards tilt in 3D under the pointer, lift kept (desktop)
-     count        prices count up from 0
      stars        review stars pop in one by one
      footer       emblem spins in, columns rise
      cursor       trailing ring that grows over links (desktop)
@@ -21,15 +20,30 @@
   function onEnter(el, fn, start) { ST.create({ trigger: el, start: start || "top 88%", once: true, onEnter: fn }); }
   function nth(el) { var li = el.closest("li"); return li && li.parentNode ? Array.prototype.indexOf.call(li.parentNode.children, li) : 0; }
 
-  /* ---- curtain: frame clips open from the bottom, photo inside settles ---- */
+  /* ---- curtain: frame opens from the bottom, photo inside settles ----
+     A cover in the colour behind the frame shrinks away (transform only: phones composite it, whereas an animated rounded
+     clip-path is repainted every frame). The reveal waits for the photo to be decoded (lazy images are fetched now), max 0.8s. */
+  function bgBehind(el) {
+    for (var e = el.parentElement; e; e = e.parentElement) { var c = getComputedStyle(e).backgroundColor; if (c && c !== "transparent" && !/rgba\(.*,\s*0\)$/.test(c)) return c; }
+    return getComputedStyle(d.body).backgroundColor;
+  }
+  function decoded(img) {
+    if (!img) return Promise.resolve();
+    if (img.loading === "lazy") img.loading = "eager";
+    var wait = img.decode ? img.decode().catch(function () {}) : Promise.resolve();
+    return Promise.race([wait, new Promise(function (r) { setTimeout(r, 800); })]);
+  }
   $$(".card-img, .dish-img, .intro-img, .story-photo, .vid-frame").forEach(function (f) {
-    var r = getComputedStyle(f).borderRadius || "0px", pic /* full radius: keeps the decor arch (decor.css) during the reveal */ = f.querySelector("picture, video");
-    var shut = "inset(100% 0% 0% 0% round " + r + ")", open = "inset(0% 0% 0% 0% round " + r + ")";
-    gsap.set(f, { clipPath: shut }); if (pic) gsap.set(pic, { scale: 1.25 });
+    var pic = f.querySelector("picture, video"), img = f.querySelector("img"), veil = d.createElement("i");
+    veil.className = "mx-veil"; veil.setAttribute("aria-hidden", "true"); veil.style.background = bgBehind(f);
+    if (getComputedStyle(f).position === "static") f.style.position = "relative";
+    f.appendChild(veil); if (pic) gsap.set(pic, { scale: 1.25 });
     onEnter(f, function () {
       var fast = f.classList.contains("card-img"), dl = fast ? Math.min(nth(f), 6) * 0.06 : Math.min(nth(f), 6) * 0.12 + 0.05;
-      gsap.to(f, { clipPath: open, duration: fast ? 1.1 : 1.5, ease: fast ? "expo.out" : "expo.inOut", delay: dl, clearProps: "clipPath" });
-      if (pic) gsap.to(pic, { scale: 1, duration: fast ? 1.6 : 2.1, ease: "expo.out", delay: dl + (fast ? 0.1 : 0.25), clearProps: "transform" });
+      decoded(img).then(function () {
+        gsap.to(veil, { scaleY: 0, duration: fast ? 1.1 : 1.5, ease: fast ? "expo.out" : "expo.inOut", delay: dl, onComplete: function () { veil.remove(); } });
+        if (pic) gsap.to(pic, { scale: 1, duration: fast ? 1.6 : 2.1, ease: "expo.out", delay: dl + (fast ? 0.1 : 0.25), clearProps: "transform" });
+      });
     }, f.classList.contains("card-img") ? "top 100%" : "top 92%");
   });
 
@@ -43,17 +57,6 @@
 
   /* ---- section-label rules draw outwards ---- */
   $$(".sec-label").forEach(function (l) { onEnter(l, function () { l.classList.add("mx-on"); }); });
-
-  /* ---- prices count up (text restored exactly afterwards) ---- */
-  $$(".amt").forEach(function (el) {
-    onEnter(el, function () {
-      var txt = el.textContent, m = txt.match(/^(\D*)(\d+)(.*)$/); if (!m) return;
-      var o = { v: 0 }; el.style.minWidth = el.offsetWidth + "px"; el.style.display = "inline-block";
-      gsap.to(o, { v: +m[2], duration: 1.8, ease: "power3.out", delay: 0.35 + Math.min(nth(el), 6) * 0.12,
-        onUpdate: function () { el.textContent = m[1] + Math.round(o.v) + m[3]; },
-        onComplete: function () { el.textContent = txt; el.style.minWidth = el.style.display = ""; } });
-    });
-  });
 
   /* ---- review stars pop ---- */
   $$(".rcard").forEach(function (c) {
