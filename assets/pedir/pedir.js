@@ -415,6 +415,13 @@
     const hc = $("#hdCount"); hc.textContent = c; hc.hidden = !c;
     $("#hdCart").setAttribute("aria-label", c ? t("pill.aria", { items: I.tp("cart.dishes", c), total: money(tt.sub) }) : t("pill.view"));
     const pill = $("#pill"); pill.classList.toggle("show", c > 0);
+    /* phones: the bottom-nav PEDIR button stands in for the pill (count badge from bnav.js, total under the circle) */
+    const bo = $(".bnav-order");
+    if (bo) {
+      const lbl = bo.querySelector("[data-i18n]"), bt = $("#bnavTot");
+      bt.textContent = money(tt.sub); bt.hidden = !c; lbl.hidden = !!c;
+      bo.setAttribute("aria-label", c ? t("pill.aria", { items: I.tp("cart.dishes", c), total: money(tt.sub) }) : t("bnav.order"));
+    }
     pill.setAttribute("aria-label", t("pill.aria", { items: I.tp("cart.dishes", c), total: money(tt.sub) }));
     $("#ledgerGo").disabled = !c; $("#clearBtn").hidden = !c; $("#ledgerWhy").hidden = !!c;
     const lb = $("#ledgerBs"); lb.hidden = !(r && c); lb.textContent = r ? "≈ " + I.bs(tt.sub, r) : "";
@@ -426,7 +433,7 @@
     updateBlock();
   }
   function renderLines() { const h = linesHTML(); $("#ledgerLines").innerHTML = h; $("#sheetLines").innerHTML = count() ? h : ""; }
-  function save() { try { localStorage.setItem("amir-cart-v2", JSON.stringify(cart)); } catch (e) { /* ignore */ } }
+  function save() { try { localStorage.setItem("amir-cart-v2", JSON.stringify(cart)); } catch (e) { /* ignore */ } doc.dispatchEvent(new Event("amir-cart")); }
   function refreshAll() { renderLines(); renderTotals(); save(); }
 
   let tt0;
@@ -451,7 +458,8 @@
   function fly() {
     const from = tapFrom; tapFrom = null;
     if (!from || reduce.matches || !doc.body.animate) return;
-    const pill = $("#pill"), to = (pill && pill.classList.contains("show") && pill.offsetParent ? $("#pillCount") : $("#ledgerSub"));
+    const pill = $("#pill"), bo = $(".bnav-o");
+    const to = pill && pill.classList.contains("show") && pill.offsetParent ? $("#pillCount") : bo && bo.offsetParent ? bo : $("#ledgerSub");
     if (!to) return;
     const r = to.getBoundingClientRect(); if (!r.width) return;
     const x0 = from.left + from.width / 2, y0 = from.top + from.height / 2, x1 = r.left + r.width / 2, y1 = r.top + r.height / 2;
@@ -871,7 +879,7 @@
     if (isFinite(sc.lat) && isFinite(sc.lng) && sc.lat !== null && Math.abs(sc.lat) <= 90 && Math.abs(sc.lng) <= 180) { setLoc(sc.lat, sc.lng, "saved"); setLocMsg("px.loc.saved"); }
   } catch (e) { /* ignore */ }
 
-  const dlgTrigger = () => matchMedia(mqSheet).matches ? "#pill" : "#ledgerGo";
+  const dlgTrigger = () => !matchMedia(mqSheet).matches ? "#ledgerGo" : $("#pill").offsetParent ? "#pill" : ".bnav-order";
   /* "view my order" (pill / header bag) opens on the cart; "Continue" in the desktop ledger, which already lists it, skips to delivery */
   function openSheet(at) {
     $("#done").hidden = true; form.hidden = $("#sheetFoot").hidden = false;
@@ -929,6 +937,9 @@
   $("#sumToggle").onclick = () => { const x = $("#sumX"), o = x.hidden; x.hidden = !o; $("#sumToggle").setAttribute("aria-expanded", String(o)); };
   $("#ledgerGo").onclick = () => openSheet(1);
   $("#pill").onclick = () => openSheet(0);
+  /* bottom-nav PEDIR: with dishes in the cart it opens the order, otherwise it jumps to the menu (#carta) */
+  const bnavOrder = $(".bnav-order");
+  if (bnavOrder) bnavOrder.addEventListener("click", e => { if (count()) { e.preventDefault(); openSheet(0); } });
   $("#hdCart").onclick = () => { if (count()) openSheet(0); else toast(t("cart.needOne")); };
 
   function nextOrderId() {
