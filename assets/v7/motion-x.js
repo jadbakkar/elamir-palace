@@ -1,8 +1,6 @@
 /* El Amir Palace · motion layer X (loads after v7.js, reuses its GSAP / ScrollTrigger / Lenis).
    To revert: delete this file + motion-x.css and their two tags in index.html, en/, ar/.
      curtain      image frames unveil bottom-up while the photo settles from 1.25 to 1
-     hero out     headline lifts and fades, photo dims into the wine as the hero scrolls away
-     hero look    photo drifts a few px with the pointer (desktop)
      rules        section-label gold rules draw outwards
      magnetic     buttons and arrows lean toward the pointer (desktop)
      tilt         cards tilt in 3D under the pointer, lift kept (desktop)
@@ -33,15 +31,6 @@
       if (pic) gsap.to(pic, { scale: 1, duration: fast ? 1.6 : 2.1, ease: "expo.out", delay: dl + (fast ? 0.1 : 0.25), clearProps: "transform" });
     }, f.classList.contains("card-img") ? "top 100%" : "top 92%");
   });
-
-  /* ---- hero: scroll-out + pointer look ---- */
-  var hero = d.querySelector(".hero");
-  if (hero) {
-    var hin = hero.querySelector(".hero-in"), hm = hero.querySelector(".hero-media");
-    gsap.timeline({ scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true } })
-      .to(hin, { y: function () { return -hero.offsetHeight * 0.22; }, opacity: 0, ease: "none" }, 0)
-      .to(hm, { opacity: 0.3, ease: "none" }, 0);
-  }
 
   /* ---- section-label rules draw outwards ---- */
   $$(".sec-label").forEach(function (l) { onEnter(l, function () { l.classList.add("mx-on"); }); });
