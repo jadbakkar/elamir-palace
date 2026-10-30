@@ -26,9 +26,11 @@
     var m = function (s) { var a = s.split(":"); return +a[0] * 60 + +a[1]; };
     var t12 = function (s) { if (w.I18N && w.I18N.time12) return w.I18N.time12(s, w.I18N.lang); var a = s.split(":"), hh = +a[0], ap = hh >= 12 ? "pm" : "am"; hh = hh % 12 || 12; return hh + ":" + a[1] + " " + ap; };
     var T = function (k, v) { return w.I18N && w.I18N.t ? w.I18N.t(k, v) : k; };
-    var today = H[keys[day]], open = false, txt;
-    if (today) { var o = m(today[0]), c = m(today[1]); open = c > o ? now >= o && now < c : now >= o || now < c; }
-    if (open) txt = T("v7.br.open", { t: t12(today[1]) });
+    var today = H[keys[day]], yest = H[keys[(day + 6) % 7]], open = false, until, txt;
+    if (today) { var o = m(today[0]), c = m(today[1]); if (c > o ? now >= o && now < c : now >= o) { open = true; until = today[1]; } }
+    /* yesterday's hours can run past midnight ("02:00") */
+    if (!open && yest && m(yest[1]) <= m(yest[0]) && now < m(yest[1])) { open = true; until = yest[1]; }
+    if (open) txt = T("v7.br.open", { t: t12(until) });
     else {
       var next = today && now < m(today[0]) ? today[0] : null;
       for (var i = 1; !next && i < 8; i++) { var hd = H[keys[(day + i) % 7]]; if (hd) next = hd[0]; }

@@ -1,20 +1,27 @@
-/* page-to-page transition (home <-> order): a burgundy sheet wipes up from the bottom, covers the old page,
-   the new page swaps in underneath, and the sheet keeps going off the top.
+/* page-to-page transition (home <-> order): a burgundy sheet with a flat top rises from the bottom, holds with the gold
+   emblem in the middle while the new page swaps in underneath, then leaves off the top showing its curved bottom edge.
    Cross-document view transitions where supported; a short fade (transition.js) elsewhere. */
 @view-transition{navigation:auto}
 /* z-index: view-transition groups paint in their elements' paint order, so the sheet must sit above the sticky header and bottom bar */
 html::after{content:"";position:fixed;inset:0;z-index:2147483647;pointer-events:none;view-transition-name:wipe}
-::view-transition-group(wipe){background:#7A1F2B;animation:vt-wipe 2.1s both}
-::view-transition-image-pair(wipe),::view-transition-old(wipe),::view-transition-new(wipe){display:none}
+/* the sheet: wider than the screen so the ends of the curve stay off-screen, taller so the curve hangs below it while it covers */
+::view-transition-group(wipe){width:124vw;height:125vh;background:#7A1F2B;border-radius:0 0 50% 50%/0 0 20% 20%;animation:vt-wipe 2.1s both}
+::view-transition-old(wipe),::view-transition-new(wipe){display:none}
+/* the emblem rides in the sheet, centred on the screen while it holds (40% of 125vh = the middle of the screen) */
+::view-transition-image-pair(wipe){background:url(/img/brand/emblem.svg) no-repeat 50% 40%/clamp(64px,22vw,96px);animation:vt-logo 2.1s both}
 ::view-transition-old(root){animation:vt-old .01s linear 1.05s both reverse}
 ::view-transition-new(root){animation:vt-new .01s linear 1.05s both}
 /* the curve is nearly even at both ends: a strong ease-in-out made the edge crawl over the bottom nav (and the header on the way out) for ~150ms, which read as the sheet stopping there */
 /* 2.1s = 0.55s up, 1s holding the screen covered (the page swaps underneath at 1.05s), 0.55s off the top */
 @keyframes vt-wipe{
-  0%{transform:translateY(100%);animation-timing-function:cubic-bezier(.3,.15,.7,.85)}
-  26.19%{transform:translateY(0)}
-  73.81%{transform:translateY(0);animation-timing-function:cubic-bezier(.3,.15,.7,.85)}
-  100%{transform:translateY(-100%)}
+  0%{transform:translate(-12vw,100vh);animation-timing-function:cubic-bezier(.3,.15,.7,.85)}
+  26.19%{transform:translate(-12vw,0)}
+  73.81%{transform:translate(-12vw,0);animation-timing-function:cubic-bezier(.3,.15,.7,.85)}
+  100%{transform:translate(-12vw,-125vh)}
+}
+@keyframes vt-logo{
+  0%,18%{opacity:0;transform:scale(.82) rotate(-8deg)}
+  36%,100%{opacity:1;transform:none}
 }
 @keyframes vt-old{from{opacity:0}to{opacity:1}}
 @keyframes vt-new{from{opacity:0}to{opacity:1}}
