@@ -261,7 +261,7 @@
 
   const $ = s => doc.querySelector(s), $$ = s => Array.from(doc.querySelectorAll(s));
   const t = (k, v) => I.t(k, v), esc = R.esc, money = R.money;
-  const MAXQ = 20, DAYS = I.dayKeys || ["dom", "lun", "mar", "mie", "jue", "vie", "sab"];
+  const MAXQ = 99, DAYS = I.dayKeys || ["dom", "lun", "mar", "mie", "jue", "vie", "sab"];
   const DAYEN = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
   const rate = () => +CONFIG.bcv.tasa > 0 ? +CONFIG.bcv.tasa : 0;
   /* owner placeholders ("[BANCO…]", "@tu_instagram", "TU-DOMINIO", "0000000") are never shown to guests */
@@ -487,6 +487,7 @@
       if (tapFrom && !reduce.matches) requestAnimationFrame(fly); else { bump($("#pillCount")); bump($("#ledgerSub")); bump($("#hdCount")); }
       try { if (matchMedia("(pointer:coarse)").matches && navigator.vibrate) navigator.vibrate(8); } catch (e) { /* ignore */ }
     }
+    return want > MAXQ;   /* true = capped: callers keep the "max" toast instead of "added" */
   }
   const sheet = $("#sheet"), optDlg = $("#optDlg");
   const isOpen = el => el.classList.contains("open");
@@ -542,7 +543,7 @@
         (c.querySelector(`[data-k="${ek}"][data-d="${d}"]`) || c.querySelector(`[data-k="${ek}"]`) || c.querySelector(".ln button") || $("#ledgerGo")).focus({ preventScroll: true });
       }
     } else if (b.dataset.up) {
-      change(b.dataset.up, 1); toast(t("cart.added", { name: lineNameUI(b.dataset.up) }));
+      if (!change(b.dataset.up, 1)) toast(t("cart.added", { name: lineNameUI(b.dataset.up) }));
       const c = b.closest("#ledgerLines,#sheetLines"); const f = c && c.querySelector(`[data-k="${CSS.escape(b.dataset.up)}"][data-d="1"]`); if (f) f.focus({ preventScroll: true });
     } else if (b.dataset.copy !== undefined) {
       copyText(b.dataset.copy).then(() => {
@@ -718,7 +719,7 @@
     }
     const note = cleanNote(opt.note), ex = p ? [...opt.picks, ...(opt.aparte ? [APARTE] : []), ...opt.extras] : opt.extras;
     const key = o || ex.length || note ? [opt.id, o ? opt.choice : "", ex.join("~"), note].join("|").replace(/\|+$/, "") : opt.id, qn = opt.qty;
-    closeDlg(optDlg); change(key, qn); toast(t("cart.added", { name: lineNameUI(key) }));
+    closeDlg(optDlg); if (!change(key, qn)) toast(t("cart.added", { name: lineNameUI(key) }));
   };
 
   /* ---------- checkout ---------- */
