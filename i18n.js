@@ -1497,6 +1497,17 @@
       if (on) btns[i].setAttribute("aria-current", "true"); else btns[i].removeAttribute("aria-current");
     }
   }
+  /* links to the order page carry the language (?lang=en|ar): a guest who lands on /en/ or /ar/
+     has no saved choice yet, and pedir.html would otherwise open in Spanish */
+  function syncOrderLinks() {
+    var links = global.document.querySelectorAll('a[href*="pedir.html"]');
+    for (var i = 0; i < links.length; i++) {
+      var h = links[i].getAttribute("href"), j = h.indexOf("#"), hash = j < 0 ? "" : h.slice(j);
+      var p = (j < 0 ? h : h.slice(0, j)).replace(/([?&])lang=[a-z]{2}(&|$)/, function (m, a, b) { return b ? a : ""; });
+      if (I18N.lang !== "es") p += (p.indexOf("?") < 0 ? "?" : "&") + "lang=" + I18N.lang;
+      if (p + hash !== h) links[i].setAttribute("href", p + hash);
+    }
+  }
   I18N.apply = function (root) {
     var doc = global.document; if (!doc) return;
     root = root || doc;
@@ -1505,7 +1516,7 @@
     var nodes = root.querySelectorAll ? root.querySelectorAll(sel) : [];
     for (var i = 0; i < nodes.length; i++) applyNode(nodes[i]);
     if (root === doc || root === doc.documentElement || root === doc.body) applyMeta();
-    syncSwitchers();
+    syncSwitchers(); syncOrderLinks();
   };
 
   I18N.dir = function (lang) { return (lang || I18N.lang) === "ar" ? "rtl" : "ltr"; };
@@ -1638,7 +1649,7 @@
        On those pages the page script calls I18N.apply() once its keys are merged and only when the language
        differs from the pre-rendered one (keeps LCP intact, no flash of raw keys). Other pages: unchanged. */
     var root = doc.documentElement, staticLang = root && root.getAttribute("data-static-lang");
-    var boot = function () { if (staticLang) { syncSwitchers(); return; } I18N.apply(doc); };
+    var boot = function () { if (staticLang) { syncSwitchers(); syncOrderLinks(); return; } I18N.apply(doc); };
     if (doc.readyState === "loading" || (staticLang && doc.readyState === "interactive")) doc.addEventListener("DOMContentLoaded", boot); else boot();
   }
 })(typeof window !== "undefined" ? window : this);
