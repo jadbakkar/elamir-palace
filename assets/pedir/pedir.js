@@ -19,7 +19,7 @@
   const MINUS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg>';
   function ctl(id, d, q, I, pop) {
     const name = I.dish(d.name, d.desc, d.cat).name;
-    if (d.opts || d.extras) {
+    if (d.opts || d.extras || d.pick) {
       return `<button type="button" class="add" data-opt="1" aria-haspopup="dialog" aria-label="${esc(q ? I.t("dish.chooseOptionsQty", { name, qty: q }) : I.t("dish.chooseOptions", { name }))}">${PLUS}${q ? `<i class="bd" aria-hidden="true">${q}</i>` : ""}</button>`;
     }
     if (!q) return `<button type="button" class="add" data-d="1" aria-label="${esc(I.t("dish.add", { name }))}">${PLUS}</button>`;
@@ -35,7 +35,7 @@
   /* "Destacados" keeps the curated studio photos only (the PedidosYa set would turn it into the whole menu) */
   function featured(menu, photos) {
     const out = [];
-    if (photos) menu.forEach(([cat, , list]) => list.forEach(([name, price, desc, opts, extras]) => { const id = dishId(cat, name); if (photos[id] && !hasExt(photos[id])) out.push([id, { name, price, cat, desc: desc || "", opts: opts || null, extras: extras || null }, photos[id]]); }));
+    if (photos) menu.forEach(([cat, , list]) => list.forEach(([name, price, desc, opts, extras, pick]) => { const id = dishId(cat, name); if (photos[id] && !hasExt(photos[id])) out.push([id, { name, price, cat, desc: desc || "", opts: opts || null, extras: extras || null, pick: pick || null }, photos[id]]); }));
     return out;
   }
   function chips(menu, I, photos) {
@@ -62,9 +62,9 @@
     return feat(menu, I, photos, qty) + menu.map(([cat, note, list]) => {
       const cid = slug(cat), mc = I.menu && I.menu[cat];
       const ar = I.lang !== "ar" && mc && mc.ar && mc.ar.name ? mc.ar.name : "";
-      const items = list.map(([name, price, desc, opts, extras]) => {
+      const items = list.map(([name, price, desc, opts, extras, pick]) => {
         const id = cid + "--" + slug(name), T = I.dish(name, desc, cat), ph = photos && photos[id];
-        const d = { name, price, cat, desc: desc || "", opts: opts || null, extras: extras || null };
+        const d = { name, price, cat, desc: desc || "", opts: opts || null, extras: extras || null, pick: pick || null };
         /* dishes without a real photo get a branded placeholder in the same slot */
         return `<li class="dish has-ph" data-id="${id}">` +
           (ph ? `<img class="ph" src="${phTh(ph)}" alt="" width="72" height="72" loading="lazy" decoding="async">` : `<span class="ph ph-empty" aria-hidden="true"></span>`) +
@@ -299,7 +299,7 @@
   } catch (e) { /* private mode */ }
 
   const qtyOf = id => Object.entries(cart).reduce((s, [k, q]) => s + (parseKey(k).id === id ? q : 0), 0);
-  const qtyFor = id => dishes[id].opts || dishes[id].extras ? qtyOf(id) : (cart[id] || 0);
+  const qtyFor = id => dishes[id].opts || dishes[id].extras || dishes[id].pick ? qtyOf(id) : (cart[id] || 0);
   const count = () => Object.values(cart).reduce((a, b) => a + b, 0);
   const subtotal = () => Object.entries(cart).reduce((s, [k, q]) => s + unitPrice(k) * q, 0);
   const tr = id => I.dish(dishes[id].name, dishes[id].desc, dishes[id].cat);
@@ -962,12 +962,13 @@
   if (bnavOrder) bnavOrder.addEventListener("click", e => { if (count()) { e.preventDefault(); openSheet(0); } });
   $("#hdCart").onclick = () => { if (count()) openSheet(0); else toast(t("cart.needOne")); };
 
+  /* "AP-1030-K7QX": date + 4 random characters. A counter would live on each guest's phone, so every guest's
+     first order of the day was "-001"; random keeps ids apart (no 0/O, 1/I/L to misread on WhatsApp) */
+  const ID_ABC = "23456789ABCDEFGHJKMNPQRSTUVWXYZ";
   function nextOrderId() {
-    const n = caracasNow(), k = n.mm + n.dd; let s = { k: "", n: 0 };
-    try { s = JSON.parse(localStorage.getItem("amir-seq")) || s; } catch (e) { /* ignore */ }
-    const num = s.k === k ? s.n + 1 : 1;
-    try { localStorage.setItem("amir-seq", JSON.stringify({ k, n: num })); } catch (e) { /* ignore */ }
-    return `AP-${k}-${String(num).padStart(3, "0")}`;
+    const n = caracasNow(), r = new Uint32Array(4);
+    try { crypto.getRandomValues(r); } catch (e) { r.forEach((x, i) => { r[i] = Math.random() * 2 ** 32; }); }
+    return `AP-${n.mm}${n.dd}-${Array.from(r, x => ID_ABC[x % ID_ABC.length]).join("")}`;
   }
   /* lazy Leaflet only once the delivery checkout is open; show the saved pin */
   function warmMap() {
