@@ -5,18 +5,18 @@
 /* z-index: view-transition groups paint in their elements' paint order, so the sheet must sit above the sticky header and bottom bar */
 html::after{content:"";position:fixed;inset:0;z-index:2147483647;pointer-events:none;view-transition-name:wipe}
 /* the sheet: wider than the screen so the ends of the curve stay off-screen, taller so the curve hangs below it while it covers */
-::view-transition-group(wipe){width:124vw;height:125vh;background:#7A1F2B;border-radius:0 0 50% 50%/0 0 20% 20%;animation:vt-wipe 1.15s both}
+::view-transition-group(wipe){width:124vw;height:125vh;background:#7A1F2B;border-radius:0 0 50% 50%/0 0 20% 20%;animation:vt-wipe 1.5s both}
 ::view-transition-old(wipe),::view-transition-new(wipe){display:none}
 /* the emblem rides in the sheet, centred on the screen while it holds (40% of 125vh = the middle of the screen);
    the file is gold, so it is used as a mask over white */
-::view-transition-image-pair(wipe){background:#fff;-webkit-mask:url(/img/brand/emblem.svg) no-repeat 50% 40%/clamp(64px,22vw,96px);mask:url(/img/brand/emblem.svg) no-repeat 50% 40%/clamp(64px,22vw,96px);animation:vt-logo 1.15s both}
-::view-transition-old(root){animation:vt-old .01s linear .575s both reverse}
-::view-transition-new(root){animation:vt-new .01s linear .575s both}
-/* 1.15s = 0.55s up, a short hold with the screen covered (the page swaps underneath at 0.575s), 0.55s off the top */
+::view-transition-image-pair(wipe){background:#fff;-webkit-mask:url(/img/brand/emblem.svg) no-repeat 50% 40%/clamp(64px,22vw,96px);mask:url(/img/brand/emblem.svg) no-repeat 50% 40%/clamp(64px,22vw,96px);animation:vt-logo 1.5s both}
+::view-transition-old(root){animation:vt-old .01s linear .75s both reverse}
+::view-transition-new(root){animation:vt-new .01s linear .75s both}
+/* 1.5s = 0.7s up, a short hold with the screen covered (the page swaps underneath at 0.75s), 0.7s off the top */
 @keyframes vt-wipe{
   0%{transform:translate(-12vw,100vh);animation-timing-function:cubic-bezier(.65,0,.35,1)}
-  48%{transform:translate(-12vw,0)}
-  52%{transform:translate(-12vw,0);animation-timing-function:cubic-bezier(.65,0,.35,1)}
+  46.67%{transform:translate(-12vw,0)}
+  53.33%{transform:translate(-12vw,0);animation-timing-function:cubic-bezier(.65,0,.35,1)}
   100%{transform:translate(-12vw,-125vh)}
 }
 /* glows in as the sheet arrives, brightest while it holds, fades as it rides off */
