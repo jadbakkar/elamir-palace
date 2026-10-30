@@ -88,7 +88,7 @@ p{text-wrap:pretty}
 [dir=rtl] .btn .arw{transform:scaleX(-1)}
 [dir=rtl] .btn:hover .arw{transform:scaleX(-1) translateX(3px)}
 
-/* ---------- loader: first visit per session (class set in <head>, driven by the inline script after it) ---------- */
+/* ---------- loader: every fresh visit / reload, skipped when arriving from another page of the site (class set in <head>, driven by the inline script after it) ---------- */
 .loader{display:none}
 .is-loading .loader{display:grid;place-items:center;position:fixed;inset:0;z-index:120}
 .loader::before{content:"";position:absolute;left:-12%;right:-12%;top:-30vh;bottom:0;background:var(--wine);border-radius:0 0 50% 50%/0 0 0 0;will-change:transform}
