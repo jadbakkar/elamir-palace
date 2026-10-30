@@ -20,8 +20,8 @@ const CONFIG = {
   // (distancia en línea recta). Retiro: el cliente elige la sucursal.
   // lat/lng: coordenadas del local (Google Maps → clic derecho sobre el local → copiar). SIN ellas todo el delivery va a la primera sucursal.
   sucursales: [
-    { id: "lecheria", nombre: "Lechería",       whatsapp: "584248060218", telefono: "0424-806 0218", lat: null, lng: null }, // <<< CAMBIAR lat/lng
-    { id: "plc",      nombre: "Puerto La Cruz", whatsapp: "584127505025", telefono: "0412-750 5025", lat: null, lng: null }  // <<< CAMBIAR lat/lng
+    { id: "lecheria", nombre: "Lechería",       whatsapp: "584248060218", telefono: "0424-806 0218", lat: 10.196197, lng: -64.691991 },
+    { id: "plc",      nombre: "Puerto La Cruz", whatsapp: "584127505025", telefono: "0412-750 5025", lat: 10.220758, lng: -64.639242 }
   ],
   // Zonas donde hay delivery: solo se listan en la página principal (el precio del delivery no se muestra en el pedido).
   zonas: [

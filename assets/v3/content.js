@@ -18,8 +18,8 @@
   var MAP = {
     zoom: 16,
     branches: {
-      lecheria: { lat: null, lng: null },   // TODO(owner): e.g. { lat: 10.18512, lng: -64.69071 }
-      plc:      { lat: null, lng: null }    // TODO(owner)
+      lecheria: { lat: 10.196197, lng: -64.691991 },
+      plc:      { lat: 10.220758, lng: -64.639242 }
     }
   };
 
