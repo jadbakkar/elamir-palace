@@ -50,8 +50,9 @@ if(l==="ar"&&!d.getElementById("i18n-ar-fonts")){var k=d.createElement("link");k
 <link rel="manifest" href="../site.webmanifest">
 <link rel="preload" as="image" type="image/avif" imagesrcset="../img/photos/parrilla-cerca-640.avif 640w, ../img/photos/parrilla-cerca-1080.avif 1080w" imagesizes="100vw" fetchpriority="high">
 <link rel="preload" href="../assets/v3/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/v7/fonts/fraunces-loader.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high">
 <link rel="preload" href="../assets/v7/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/v7/v7.css?v=78">
+<link rel="stylesheet" href="../assets/v7/v7.css?v=79">
 <link rel="stylesheet" href="../assets/v4/bnav.css?v=1.8">
 <link rel="stylesheet" href="../assets/v7/motion-x.css?v=10">
 <link rel="stylesheet" href="../assets/v7/decor.css?v=6">
@@ -394,7 +395,7 @@ if(l==="ar"&&!d.getElementById("i18n-ar-fonts")){var k=d.createElement("link");k
 var B=L.querySelector("b"),rv=0,dn=0,cs=function(e){return getComputedStyle(e)};
 var reveal=function(){if(rv)return;rv=1;h.classList.add("loader-out");d.dispatchEvent(new Event("amir:reveal"))};
 var end=function(){if(dn)return;dn=1;reveal();h.classList.remove("is-loading","loader-fly","loader-land")};
-var go=function(){h.classList.add("fr")};try{Promise.race([d.fonts.load('900 1em "Fraunces"'),new Promise(function(r){setTimeout(r,900)})]).then(go,go)}catch(e){go()}
+var go=function(){h.classList.add("fr")};try{Promise.race([d.fonts.load('900 1em "Fraunces Loader"'),new Promise(function(r){setTimeout(r,900)})]).then(go,go)}catch(e){go()}
 B.addEventListener("animationend",function(e){if(e.animationName!=="loader-morph"||/loader-skip/.test(h.className))return;
 var t=d.querySelector(".hd .brand b"),hd=d.getElementById("hd");if(!t||!t.offsetWidth||(hd&&hd.classList.contains("is-hidden"))){h.classList.add("loader-skip");return}
 var a=B.getBoundingClientRect(),b=t.getBoundingClientRect(),s=B.style;
