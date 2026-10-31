@@ -1,4 +1,5 @@
 # Netlify / Cloudflare Pages headers. Cache-Control rules never overlap (Netlify merges duplicates).
+# The site deploys on Vercel, which ignores this file: vercel.json mirrors these rules (all but the CSP). Change both.
 # Files under /assets/v3/ are referenced with ?v=… (bump it in index.html when they change) -> immutable is safe.
 # PRE-LAUNCH: the X-Robots-Tag line below keeps the unfinished site out of search engines. REMOVE it on launch day.
 /*
