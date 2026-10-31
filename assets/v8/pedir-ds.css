@@ -334,3 +334,6 @@ html{scroll-padding-top:calc(var(--hd) + var(--bar) + 12px)}
 
 /* phones: the hero cover runs edge to edge (no side margin) */
 @media (max-width:599px){.cover{margin-inline:0}}
+/* phones: the hero cover has no text, so it doesn't wait hidden for the translation like the rest of the page (?lang=en/ar);
+   it is the largest paint, so this is what lets it show at first paint instead of after every script */
+@media (max-width:599px){.i18n-wait .cover{visibility:visible;animation:none}}
