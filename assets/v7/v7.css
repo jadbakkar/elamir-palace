@@ -142,6 +142,11 @@ p{text-wrap:pretty}
   .brand b{font-size:13px;letter-spacing:.2em}
   .hd-r .btn{display:none}
 }
+@media (max-width:374px){ /* smallest phones: brand + ES/EN/ع fit without the ع button running off screen */
+  .hd-in{gap:8px}
+  .brand b{letter-spacing:.14em}
+  .lang button{min-width:30px;padding:0 4px}
+}
 
 /* ---------- 1 · hero ---------- */
 .hero{position:relative;height:100vh;height:100svh;min-height:560px;overflow:hidden;color:#fff;background:var(--wine-3)}

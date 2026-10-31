@@ -148,7 +148,7 @@ main:focus{outline:none}
 .up p{font:400 20px/1.2 var(--f-display);margin-bottom:2px}
 .up button{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;min-height:44px;border-top:1px solid var(--line);text-align:start;font-size:14px;color:var(--ink)}
 .up button:first-of-type{border-top:0}
-.up button b{color:var(--wine);font-variant-numeric:tabular-nums}
+.up button b{color:var(--wine);font-variant-numeric:tabular-nums;white-space:nowrap;flex:none}
 .sum{padding:16px 22px 18px;border-top:1px solid var(--line);background:var(--marble)}
 .sum+.sum{border-top:0;padding-top:0}
 .sum .row{display:flex;justify-content:space-between;align-items:baseline}
