@@ -201,6 +201,23 @@
     }, { rootMargin: "200px 0px" }).observe(v);
   });
 
+  /* ---- hero steam (phones, v7.css): each layer drawn once into a canvas, shown when all three are in, paused while the hero is off screen ---- */
+  var steam = d.querySelector(".hero-steam");
+  if (steam && !reduced && w.matchMedia("(max-width:599px)").matches) {
+    var left = 3;
+    ["a", "b", "c"].forEach(function (k) {
+      var layer = steam.querySelector(".st-" + k), im = new Image();
+      if (!layer) { left--; return; }
+      im.onload = function () {
+        var cv = d.createElement("canvas"); cv.width = im.naturalWidth; cv.height = im.naturalHeight;
+        cv.getContext("2d").drawImage(im, 0, 0); layer.appendChild(cv);
+        if (!--left) steam.classList.add("is-drawn");
+      };
+      im.src = "/img/steam/steam-" + k + "-m.webp";
+    });
+    if ("IntersectionObserver" in w) new IntersectionObserver(function (es) { steam.classList.toggle("is-off", !es[0].isIntersecting); }).observe(steam);
+  }
+
   /* motion setup waits for the first paint so the hero shows before GSAP/Lenis work starts */
   function motion() {
   var gsap = w.gsap, ST = w.ScrollTrigger;

@@ -188,7 +188,8 @@ p{text-wrap:pretty}
   .cards{gap:36px 14px}
   .cards li:nth-child(2n){margin-top:32px}
   .card-n{font-size:20px}
-  .card-tx{margin-top:12px}
+  .card-tx{margin-top:12px;flex-direction:column;align-items:flex-start;gap:8px}
+  .card-d{white-space:normal;line-height:1.35} /* two narrow columns: count sits under the name, not beside it into the next card */
 }
 
 /* ---------- shared: round icon button ---------- */
@@ -594,7 +595,16 @@ a[href^="tel:"],.q-count,.amt{direction:ltr;unicode-bidi:isolate}
   100%{opacity:0;transform:translate3d(-4%,-32%,0) scale(1.18)}
 }
 @media (prefers-reduced-motion:reduce){.hero-steam{display:none}}
-@media (max-width:599px){.hero-steam{display:none}} /* phones: no steam, keeps the hero photo as the first paint */
+/* phones: lighter steam, same look. v7.js draws each layer once into a <canvas> from its wisps image with the soft oval already baked in
+   (img/steam/*-m.webp): no background image and no masks to blend every frame, and a canvas is never a PageSpeed LCP candidate (Chrome skips
+   the over-screen hero photo, so the fading steam used to be picked). Fades in once drawn; no preload; paused while the hero is off screen. */
+@media (max-width:599px){
+  .hero-steam{opacity:0;transition:opacity 1.2s ease}
+  .hero-steam.is-drawn{opacity:1}
+  .hero-steam i,.hero-steam .st-a,.hero-steam .st-b,.hero-steam .st-c{background:none;-webkit-mask:none;mask:none}
+  .hero-steam canvas{display:block;width:100%;height:100%}
+  .hero-steam.is-off i{animation-play-state:paused}
+}
 
 /* ---------- footer: structured columns ---------- */
 .ft-grid{grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:clamp(32px,4vw,64px);padding-bottom:clamp(48px,5vw,72px)}
