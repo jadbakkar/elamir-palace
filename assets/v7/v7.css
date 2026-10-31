@@ -385,6 +385,8 @@ a[href^="tel:"],.q-count,.amt{direction:ltr;unicode-bidi:isolate}
 @keyframes hero-zoom{from{transform:scale(1.08)}to{transform:none}}
 @media (prefers-reduced-motion:reduce){.motion .hero-t>span,.motion .hero-pic img{animation:none}.motion [data-hero-in]{animation:hero-fade-o .6s ease both}}
 @keyframes hero-fade-o{from{opacity:0}to{opacity:1}}
+/* phones: same entrance, shorter, so the first screen settles sooner (Speed Index) */
+@media (max-width:599px) and (prefers-reduced-motion:no-preference){.motion .hero-t>span{animation-duration:1.4s;animation-delay:0s}.motion [data-hero-in]{animation-duration:.7s;animation-delay:calc(.3s + var(--i,0) * .1s)}.motion .hero-pic img{animation:none}}
 .ft-grid h3{color:#EBD3BE}
 .lang button{opacity:.82}
 .ft .lang button{opacity:.9}
