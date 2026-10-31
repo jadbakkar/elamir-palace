@@ -619,6 +619,7 @@ a[href^="tel:"],.q-count,.amt{direction:ltr;unicode-bidi:isolate}
    and the fixed header / map tabs skip the live blur (it re-blurs the page under them on every scroll frame) */
 @media (hover:none){
   .parallax__inner,.intro-img,.card-img,.br-img,.media,.grow{will-change:transform}
+  .salon-i,.salon-txt{will-change:transform,opacity} /* dining-room tiles slide in together: their layers exist ahead, not made in the first frame */
   .hd.is-solid{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(247,244,239,.97)}
   .find-tabs{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(247,244,239,.98)}
 }

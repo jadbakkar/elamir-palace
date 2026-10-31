@@ -45,3 +45,5 @@
 /* warm-up (motion-x.js): uncovered while still a screen below the view so the photo is drawn ahead, covered again before it shows */
 .mx-cur.mx-warm{clip-path:none}
 .mx-slide.mx-warm .mx-w,.mx-slide.mx-warm .mx-c{translate:none}
+/* touch screens: the sliding curtain layers exist before the reveal, so the photos are not turned into layers in the frame it starts */
+@media (hover:none){.mx-slide .mx-w,.mx-slide .mx-c{will-change:translate}}

@@ -14,7 +14,7 @@
   var d = document, h = d.documentElement, w = window, gsap = w.gsap, ST = w.ScrollTrigger;
   if (!gsap || !ST || w.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   var OFF = (w.location.search.match(/[?&]off=([a-z,]+)/) || [])[1] || ""; /* TEMPORARY phone test switch (see v7.js) */
-  var fine = w.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  var fine = w.matchMedia("(hover: hover) and (pointer: fine)").matches, phone = w.matchMedia("(max-width: 599px)").matches;
   var rtl = function () { return h.dir === "rtl"; };
   h.classList.add("mx"); if (fine) h.classList.add("mx-fine");
   var $$ = function (s, r) { return Array.prototype.slice.call((r || d).querySelectorAll(s)); };
@@ -32,7 +32,8 @@
   function decoded(img, max) { return Promise.race([decode(img), new Promise(function (r) { setTimeout(r, max); })]); }
   if (OFF.indexOf("curtain") < 0) $$(".card-img, .dish-img, .intro-img, .story-photo, .vid-frame").forEach(function (f) {
     var r = getComputedStyle(f).borderRadius || "0px", pic /* full radius: keeps the decor arch (decor.css) during the reveal */ = f.querySelector("picture, video"), img = f.querySelector("img");
-    var group = f.closest("[data-reveal-group]");
+    /* phones: the 6 menu cards fill about one screen, and opening all of them in one frame was the bump; each row of two opens as it arrives */
+    var byRow = phone && f.matches(".card-img"), group = byRow ? null : f.closest("[data-reveal-group]");
     /* the reveal is a CSS transition (motion-x.css): the browser runs it, no per-frame clip-path writes from JS (they made phones stutter).
        Menu cards and dishes open many at once, so they slide instead of clipping (GPU only): a window (.mx-w, carries the frame's
        background) rises from below while the photo inside moves down by the same amount, so the photo stays put and the opening grows from the bottom. */
@@ -51,7 +52,7 @@
        While the frame is still a screen below the view it is uncovered (.mx-warm) so the photo gets drawn, then covered again before it can be seen. */
     ST.create({ trigger: group || f, start: "top bottom+=25%", once: true, onEnter: function () { f._cold = 1; f.classList.remove("mx-warm"); } });
     onEnter(group || f, function () {
-      var fast = !!group || f.classList.contains("card-img"), dl = fast ? Math.min(nth(f), 6) * 0.06 : Math.min(nth(f), 6) * 0.12 + 0.05;
+      var k = byRow ? nth(f) % 2 : Math.min(nth(f), 6), fast = !!group || f.classList.contains("card-img"), dl = fast ? k * 0.06 : k * 0.12 + 0.05;
       var du = fast ? 1.1 : 1.5, pdl = dl + (fast ? 0.1 : 0.25), pdu = fast ? 1.6 : 2.1;
       (OFF.indexOf("decode") < 0 ? decoded(img, 300) : Promise.resolve()).then(function () {
         f.style.setProperty("--mx-d", du + "s"); f.style.setProperty("--mx-dl", dl + "s"); f.style.setProperty("--mx-pd", pdu + "s"); f.style.setProperty("--mx-pdl", pdl + "s");
