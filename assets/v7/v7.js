@@ -200,6 +200,8 @@
     }, { rootMargin: "200px 0px" }).observe(v);
   });
 
+  /* motion setup waits for the first paint so the hero shows before GSAP/Lenis work starts */
+  function motion() {
   var gsap = w.gsap, ST = w.ScrollTrigger;
   if (!gsap || !ST) { h.classList.remove("motion"); h.classList.add("no-motion"); initHeader(null); return; }
   gsap.registerPlugin(ST);
@@ -532,4 +534,7 @@
     if (lenis) lenis.on("scroll", onScroll); else w.addEventListener("scroll", onScroll, { passive: true });
     onScroll();
   }
+  }
+  var started = 0, go = function () { if (!started) { started = 1; motion(); } };
+  requestAnimationFrame(function () { setTimeout(go, 0); }); setTimeout(go, 300); /* rAF never fires in a background tab */
 })();
