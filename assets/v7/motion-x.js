@@ -31,14 +31,18 @@
   function decoded(img, max) { return Promise.race([decode(img), new Promise(function (r) { setTimeout(r, max); })]); }
   $$(".card-img, .dish-img, .intro-img, .story-photo, .vid-frame").forEach(function (f) {
     var r = getComputedStyle(f).borderRadius || "0px", pic /* full radius: keeps the decor arch (decor.css) during the reveal */ = f.querySelector("picture, video"), img = f.querySelector("img");
-    var shut = "inset(100% 0% 0% 0% round " + r + ")", open = "inset(0% 0% 0% 0% round " + r + ")", group = f.closest("[data-reveal-group]");
-    gsap.set(f, { clipPath: shut }); if (pic) gsap.set(pic, { scale: 1.25 });
+    var group = f.closest("[data-reveal-group]");
+    /* the reveal is a CSS transition (motion-x.css): the browser runs it, no per-frame clip-path writes from JS (they made phones stutter) */
+    f.style.setProperty("--mx-r", r); f.classList.add("mx-cur"); if (pic) pic.classList.add("mx-pic");
     ST.create({ trigger: group || f, start: "top bottom+=100%", once: true, onEnter: function () { decode(img); } });
     onEnter(group || f, function () {
       var fast = !!group || f.classList.contains("card-img"), dl = fast ? Math.min(nth(f), 6) * 0.06 : Math.min(nth(f), 6) * 0.12 + 0.05;
+      var du = fast ? 1.1 : 1.5, pdl = dl + (fast ? 0.1 : 0.25), pdu = fast ? 1.6 : 2.1;
       decoded(img, 300).then(function () {
-        gsap.to(f, { clipPath: open, duration: fast ? 1.1 : 1.5, ease: fast ? "expo.out" : "expo.inOut", delay: dl, clearProps: "clipPath" });
-        if (pic) gsap.to(pic, { scale: 1, duration: fast ? 1.6 : 2.1, ease: "expo.out", delay: dl + (fast ? 0.1 : 0.25), clearProps: "transform" });
+        f.style.setProperty("--mx-d", du + "s"); f.style.setProperty("--mx-dl", dl + "s"); f.style.setProperty("--mx-pd", pdu + "s"); f.style.setProperty("--mx-pdl", pdl + "s");
+        f.classList.add(fast ? "mx-fast" : "mx-slow", "mx-open"); if (pic) pic.classList.add("mx-pic-on");
+        setTimeout(function () { f.classList.remove("mx-cur", "mx-open", "mx-fast", "mx-slow"); }, (dl + du) * 1000 + 60);
+        if (pic) setTimeout(function () { pic.classList.remove("mx-pic", "mx-pic-on"); }, (pdl + pdu) * 1000 + 60);
       });
     }, group ? "top 88%" : f.classList.contains("card-img") ? "top 100%" : "top 92%");
   });

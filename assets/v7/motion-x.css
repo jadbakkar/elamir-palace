@@ -27,3 +27,12 @@
 .mx-cursor.is-down i{transform:scale(.6)}
 
 /* page-to-page transition: burgundy wipe, see assets/v8/transition.css */
+
+/* curtain (motion-x.js): frame clips open from the bottom while the photo settles from 1.25; a CSS transition so the browser runs it, not a per-frame JS tween.
+   Easings match GSAP expo.out / expo.inOut. Classes are removed when it ends. */
+.mx-cur{clip-path:inset(100% 0% 0% 0% round var(--mx-r,0px))}
+.mx-cur.mx-open{clip-path:inset(0% 0% 0% 0% round var(--mx-r,0px));transition:clip-path var(--mx-d) var(--mx-dl)}
+.mx-cur.mx-fast{transition-timing-function:cubic-bezier(.16,1,.3,1)}
+.mx-cur.mx-slow{transition-timing-function:cubic-bezier(.87,0,.13,1)}
+.mx-pic{scale:1.25}
+.mx-pic.mx-pic-on{scale:1;transition:scale var(--mx-pd) cubic-bezier(.16,1,.3,1) var(--mx-pdl)}
