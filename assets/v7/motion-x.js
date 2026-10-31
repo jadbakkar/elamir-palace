@@ -73,7 +73,7 @@
   }
 
   /* ---- section-label rules draw outwards ---- */
-  if (OFF.indexOf("rules") < 0) $$(".sec-label").forEach(function (l) { onEnter(l, function () { l.classList.add("mx-on"); }); });
+  if (OFF.indexOf("rules") < 0 && !phone) $$(".sec-label").forEach(function (l) { onEnter(l, function () { l.classList.add("mx-on"); }); });
 
   /* ---- review stars pop ---- */
   $$(".rcard").forEach(function (c) {

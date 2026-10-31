@@ -51,3 +51,5 @@
    so they are uncovered with the photo as the clip did, and hand back to the frame's own corners when the classes go */
 .mx-slide.mx-slow .mx-w,.mx-slide.mx-slow .mx-c{transition-timing-function:cubic-bezier(.87,0,.13,1)}
 .mx-slide.intro-img::after,.mx-slide.story-photo::after{content:none}
+/* phones: the section-label gold rules are simply there, no draw-out (owner's call; motion-x.js skips them too) */
+@media (max-width:599px){.mx .sec-label::after,.mx .sec-label::before{transform:none;transition:none}}
