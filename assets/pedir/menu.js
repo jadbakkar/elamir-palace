@@ -158,7 +158,7 @@ const PHOTOS_OFF = {
   "sopas-y-cremas--crema-de-auyama": "img/crema-auyama-480",
   "ensaladas--ensalada-de-cangrejo": "img/ensalada-cangrejo-480",
   "ensaladas--ensalada-de-burrata": "img/ensalada-burrata-480",
-  "platos-arabes-especiales--plato-de-shawarma": "img/photos/shawarma-plato-640",
+  "platos-arabes-especiales--plato-de-shawarma": "img/pya/platos-arabes-especiales--plato-de-shawarma.jpg",
   "platos-arabes-especiales--bandeja-arabe-2-personas": "img/photos/bandeja-arabe-640",
   "platos-arabes-especiales--bandeja-arabe-3-personas": "img/pya/platos-arabes-especiales--bandeja-arabe-3-personas.jpg",
   "shawarmas-y-sandwiches--shawarma": "img/photos/shawarma-wrap-640",
