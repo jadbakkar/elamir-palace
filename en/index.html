@@ -51,7 +51,7 @@ if(l==="ar"&&!d.getElementById("i18n-ar-fonts")){var k=d.createElement("link");k
 <link rel="preload" as="image" type="image/avif" imagesrcset="../img/photos/parrilla-cerca-640.avif 640w, ../img/photos/parrilla-cerca-1080.avif 1080w" imagesizes="100vw" fetchpriority="high">
 <link rel="preload" href="../assets/v3/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/v7/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/v7/v7.css?v=76">
+<link rel="stylesheet" href="../assets/v7/v7.css?v=77">
 <link rel="stylesheet" href="../assets/v4/bnav.css?v=1.8">
 <link rel="stylesheet" href="../assets/v7/motion-x.css?v=10">
 <link rel="stylesheet" href="../assets/v7/decor.css?v=6">
@@ -502,19 +502,25 @@ var sk=function(){h.classList.add("fr","loader-skip")};["pointerdown","keydown",
 <!-- 3b · EL SALÓN: interior gallery -->
 <section class="salon sec" id="salon" aria-labelledby="salon-t">
   <div class="wrap">
-    <header class="sec-head">
+    <div class="salon-c">
+      <div class="salon-side">
+        <header class="sec-head">
       <div class="sec-label" data-reveal><span data-i18n="v7.salon.k">The dining room</span></div>
       <h2 class="h2" id="salon-t" data-split data-i18n="v7.salon.t">Our dining room</h2>
       <p class="lede" data-reveal data-i18n="v7.salon.p">Generous tables, warm light and room for the whole family.</p>
     </header>
-    <ul class="salon-grid">
-      <li class="salon-i salon-i--1" data-reveal="left" style="--i:0"><img src="../img/salon/salon-1-1600.webp" srcset="../img/salon/salon-1-800.webp 800w, ../img/salon/salon-1-1600.webp 1600w" sizes="(min-width:900px) 58vw, 92vw" width="1600" height="900" alt="Salón de El Amir Palace con paredes de relieve dorado y mesas de mármol blanco" loading="lazy" decoding="async" draggable="false"></li>
-      <li class="salon-i salon-i--2" data-reveal="right" style="--i:1"><img src="../img/salon/salon-2-1600.webp" srcset="../img/salon/salon-2-800.webp 800w, ../img/salon/salon-2-1600.webp 1600w" sizes="(min-width:900px) 40vw, 92vw" width="1600" height="900" alt="Mesas de mármol y sillas de colores junto a los ventanales del salón" loading="lazy" decoding="async" draggable="false"></li>
-      <li class="salon-txt salon-txt--1" data-reveal="right" style="--i:2"><b data-i18n="v7.salon.b1">Since 1997</b><span data-i18n="v7.salon.b1s">Two locations · Lechería and Puerto La Cruz</span></li>
-      <li class="salon-i salon-i--3" data-reveal="right" style="--i:2"><img src="../img/salon/salon-3-1600.webp" srcset="../img/salon/salon-3-800.webp 800w, ../img/salon/salon-3-1600.webp 1600w" sizes="(min-width:900px) 40vw, 92vw" width="1600" height="900" alt="Salón con columnas, mesas de mármol y sillas grises, verdes y mostaza" loading="lazy" decoding="async" draggable="false"></li>
-      <li class="salon-i salon-i--4" data-reveal="left" style="--i:3"><img src="../img/salon/salon-4-1600.webp" srcset="../img/salon/salon-4-800.webp 800w, ../img/salon/salon-4-1600.webp 1600w" sizes="(min-width:900px) 58vw, 92vw" width="1600" height="900" alt="Vista del salón con mesas servidas y piso de porcelanato" loading="lazy" decoding="async" draggable="false"></li>
-      <li class="salon-txt salon-txt--2" data-reveal="right" style="--i:5"><b data-i18n="v7.salon.b2">Family</b><span data-i18n="v7.salon.b2s">Tables for groups and celebrations</span></li>
-    </ul>
+        <ul class="salon-facts" data-reveal>
+          <li><b data-i18n="v7.salon.b1">Since 1997</b><span data-i18n="v7.salon.b1s">Two locations · Lechería and Puerto La Cruz</span></li>
+          <li><b data-i18n="v7.salon.b2">Family</b><span data-i18n="v7.salon.b2s">Tables for groups and celebrations</span></li>
+        </ul>
+      </div>
+      <ul class="salon-ph">
+        <li class="salon-i salon-i--1" data-reveal style="--i:0"><img src="../img/salon/salon-1-1600.webp" srcset="../img/salon/salon-1-800.webp 800w, ../img/salon/salon-1-1600.webp 1600w" sizes="(min-width:900px) 55vw, 92vw" width="1600" height="900" alt="Salón de El Amir Palace con paredes de relieve dorado y mesas de mármol blanco" loading="lazy" decoding="async" draggable="false"></li>
+        <li class="salon-i salon-i--2" data-reveal style="--i:1"><img src="../img/salon/salon-2-1600.webp" srcset="../img/salon/salon-2-800.webp 800w, ../img/salon/salon-2-1600.webp 1600w" sizes="(min-width:900px) 55vw, 92vw" width="1600" height="900" alt="Mesas de mármol y sillas de colores junto a los ventanales del salón" loading="lazy" decoding="async" draggable="false"></li>
+        <li class="salon-i salon-i--3" data-reveal style="--i:2"><img src="../img/salon/salon-3-1600.webp" srcset="../img/salon/salon-3-800.webp 800w, ../img/salon/salon-3-1600.webp 1600w" sizes="(min-width:900px) 55vw, 92vw" width="1600" height="900" alt="Salón con columnas, mesas de mármol y sillas grises, verdes y mostaza" loading="lazy" decoding="async" draggable="false"></li>
+        <li class="salon-i salon-i--4" data-reveal style="--i:3"><img src="../img/salon/salon-4-1600.webp" srcset="../img/salon/salon-4-800.webp 800w, ../img/salon/salon-4-1600.webp 1600w" sizes="(min-width:900px) 55vw, 92vw" width="1600" height="900" alt="Vista del salón con mesas servidas y piso de porcelanato" loading="lazy" decoding="async" draggable="false"></li>
+      </ul>
+    </div>
   </div>
 </section>
 

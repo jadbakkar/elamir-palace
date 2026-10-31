@@ -541,41 +541,25 @@ a[href^="tel:"],.q-count,.amt{direction:ltr;unicode-bidi:isolate}
 /* platos row: small inset before the first card */
 .h-track{padding-inline-start:clamp(16px,2vw,28px);scroll-padding-inline-start:clamp(16px,2vw,28px)}
 
-/* ---------- salon: interior gallery (2 rows, 7/5 then 5/7) ---------- */
-.salon-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:clamp(200px,28vw,420px);gap:clamp(10px,1.4vw,20px)}
-.salon-i{margin:0;overflow:hidden;border-radius:var(--r);background:var(--shell)}
+/* ---------- salon: two-photo collage (big photo in a gold frame, small one overlapping its corner, "1997" stamp) beside the text ---------- */
+.salon-c{display:grid;gap:clamp(40px,6vw,56px);align-items:center}
+.salon-side .sec-head{margin-bottom:0}
+.salon-facts{list-style:none;margin:clamp(24px,3vw,40px) 0 0;padding:0;display:flex;gap:clamp(24px,4vw,48px)}
+.salon-facts li{display:flex;flex-direction:column;gap:6px;max-width:16ch}
+.salon-facts b{font:400 clamp(30px,3.6vw,52px)/1 var(--f-display);color:var(--gold)}
+.salon-facts span{font-size:13px;line-height:1.45;opacity:.75}
+.salon-ph{list-style:none;margin:0;padding:0 14% 20% 0;padding-inline:0 14%;position:relative;order:-1}
+.salon-ph::before{content:"1997";position:absolute;z-index:2;inset-inline-start:-14px;top:-14px;width:clamp(72px,8vw,104px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:var(--wine);color:var(--gold);font:400 clamp(18px,2vw,26px)/1 var(--f-display);box-shadow:0 12px 28px -12px rgba(31,26,25,.5)}
+.salon-i{margin:0;overflow:hidden;background:var(--shell)}
 .salon-i img{display:block;width:100%;height:100%;object-fit:cover}
-.salon-i--1{grid-column:span 7}.salon-i--2{grid-column:span 5}.salon-i--3{grid-column:span 5}.salon-i--4{grid-column:span 7}
+.salon-i--1{aspect-ratio:4/3;outline:1px solid var(--gold);outline-offset:10px}
 .salon-i--1 img{object-position:50% 40%}
-/* desktop: "palace arch" composition. A tall arched hero photo (the Lebanese arch motif, with a gold
-   inner frame) anchors the left; the title sits top right; three photos step down beside it with
-   numbered captions. The ul becomes display:contents so header + photos share one 12-col grid. */
+.salon-i--3{position:absolute;inset-inline-end:0;bottom:0;width:50%;aspect-ratio:1;border:8px solid var(--paper);box-shadow:0 24px 48px -24px rgba(31,26,25,.45)}
+.salon-i--2,.salon-i--4{display:none}
 @media (min-width:900px){
-  /* bento: big photo, tall photo, text tile, small photo / wide photo, text tile */
-  .salon .wrap{counter-reset:salon}
-  .salon-grid{grid-template-columns:repeat(4,1fr);grid-auto-rows:clamp(150px,17vw,250px);gap:clamp(12px,1.6vw,22px)}
-  .salon-i{position:relative;counter-increment:salon;border-radius:var(--r);box-shadow:0 1px 0 rgba(31,26,25,.04),0 24px 48px -28px rgba(31,26,25,.35)}
-  .salon-i--1{grid-column:1/3;grid-row:1/3}.salon-i--2{grid-column:3;grid-row:1/3}
-  .salon-txt--1{grid-column:4;grid-row:1}.salon-i--3{grid-column:4;grid-row:2}
-  .salon-i--4{grid-column:1/3;grid-row:3}.salon-txt--2{grid-column:3/5;grid-row:3}
+  .salon-c{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(48px,6vw,104px)}
   .salon-i img{transition:transform 1.1s cubic-bezier(.2,.7,.2,1)}
   .salon-i:hover img{transform:scale(1.045)}
-  /* numbered caption chip (no copy to translate) */
-}
-.salon-txt{display:flex;flex-direction:column;justify-content:space-between;gap:12px;padding:clamp(18px,2vw,28px);border-radius:var(--r);background:var(--wine);color:var(--cream)}
-.salon-txt b{font:400 clamp(28px,3.2vw,50px)/1 var(--f-display);color:var(--gold)}
-.salon-txt span{font-size:14px;line-height:1.5;opacity:.88}
-.salon-txt--2{background:var(--gold);color:var(--wine)}
-.salon-txt--2 b{color:var(--wine)}
-@media (max-width:899px){
-  /* phones: wide photo, 2 photos, 2 text tiles, wide photo */
-  .salon-grid{grid-template-columns:1fr 1fr;grid-auto-rows:auto;gap:10px}
-  .salon-i{grid-column:auto;aspect-ratio:1/1}
-  .salon-i--1,.salon-i--4{grid-column:1/-1;aspect-ratio:16/10}
-  .salon-i--1{order:1}.salon-i--2{order:2}.salon-i--3{order:3}.salon-txt--1{order:4}.salon-txt--2{order:5}.salon-i--4{order:6}
-  .salon-txt{min-height:150px;padding:16px}
-  .salon-txt b{font-size:26px}
-  .salon-txt span{font-size:13px}
 }
 
 /* story photo's 1.25 curtain scale + parallax must not widen the page (it panned sideways on phones) */
@@ -634,7 +618,7 @@ a[href^="tel:"],.q-count,.amt{direction:ltr;unicode-bidi:isolate}
    and the fixed header / map tabs skip the live blur (it re-blurs the page under them on every scroll frame) */
 @media (hover:none){
   .parallax__inner,.intro-img,.card-img,.br-img,.media,.grow{will-change:transform}
-  .salon-i,.salon-txt{will-change:transform,opacity} /* dining-room tiles slide in together: their layers exist ahead, not made in the first frame */
+  .salon-i,.salon-facts{will-change:transform,opacity} /* dining-room tiles slide in together: their layers exist ahead, not made in the first frame */
   .sec-label,.cards>li{will-change:transform,opacity} /* eyebrow and menu cards rise in the same moment: layers made ahead, not all in that frame */
   .script svg{will-change:transform} /* the hand-drawn word repaints every frame while it writes: on its own layer only the word is redrawn, not the whole eyebrow row with its gold rules */
   .hd.is-solid{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(247,244,239,.97)}
