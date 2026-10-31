@@ -725,8 +725,6 @@
     box.innerHTML = BRANCHES.map((b, i) => `<input type="radio" name="branch" id="br${i}" value="${esc(b.id)}"${v === b.id ? " checked" : ""}><label for="br${i}">${esc(b.nombre)}</label>`).join("");
   }
   function syncType() {
-    const del = isDel();
-    $("#refF").hidden = $("#moreDel").hidden = !del;
     $("#branchF").hidden = !$("#branchF").dataset.on;
     renderTotals();
   }
@@ -775,7 +773,7 @@
 
   try {
     const sc = JSON.parse(localStorage.getItem("amir-customer")) || {};
-    ["name", "phone", "ref"].forEach(k => { if (sc[k]) form.elements[k].value = sc[k]; });
+    ["name", "phone"].forEach(k => { if (sc[k]) form.elements[k].value = sc[k]; });
     if (sc.branch && branchById(sc.branch)) { renderBranches(); const r = form.querySelector(`input[name="branch"][value="${CSS.escape(sc.branch)}"]`); if (r) r.checked = true; }
   } catch (e) { /* ignore */ }
 
@@ -826,7 +824,6 @@
     if (focus) { const i = f.querySelector("textarea,input,button"); if (i) i.focus(); }
   }
   function syncFolds() {
-    if (form.elements.ref.value.trim()) openFold("refF");
     if (form.elements.notes.value.trim()) openFold("notesF");
   }
   form.addEventListener("click", e => { const b = e.target.closest("[data-open]"); if (b) openFold(b.dataset.open, true); });
@@ -859,7 +856,6 @@
     return I.buildOrderMessage({
       id, stamp: `${n.dd}/${n.mm} ${n.hh}:${n.mi}`,
       name: F.name.value, phone: F.phone.value, type: F.type.value,
-      ref: F.ref.value,
       lines: Object.keys(cart).map(k => ({ qty: cart[k], name: lineName(k), total: unitPrice(k) * cart[k] })),
       subtotal: tt.sub, total: tt.total,
       bsTotal: r ? I.bs(tt.total, r, "es") : "", rate: r ? I.num(r, 2, 2, "es") : "",
@@ -893,7 +889,7 @@
     if (win) { try { win.opener = null; } catch (er) { /* ignore */ } }
     if ($("#remember").checked) {
       const v = k => form.elements[k].value.trim();
-      try { localStorage.setItem("amir-customer", JSON.stringify({ name: v("name"), phone: v("phone"), ref: v("ref"), branch: (curBranch() || {}).id })); } catch (er) { /* ignore */ }
+      try { localStorage.setItem("amir-customer", JSON.stringify({ name: v("name"), phone: v("phone"), branch: (curBranch() || {}).id })); } catch (er) { /* ignore */ }
     } else { try { localStorage.removeItem("amir-customer"); } catch (er) { /* ignore */ } }
     showDone();
   });
