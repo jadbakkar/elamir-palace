@@ -17,8 +17,8 @@
 - Vegetarian options: hummus, mutabal, falafel, tabbouleh, fattoush, salads
 
 ## Pages
-- [Home (Spanish)](https://elamirpalace.com/): menu sections, signature dishes with prices, reviews, both locations with hours, FAQ
-- [Home (English)](https://elamirpalace.com/en/)
-- [Home (Arabic)](https://elamirpalace.com/ar/)
-- [Full menu with prices and online ordering](https://elamirpalace.com/pedir.html)
-- [Printable menu (PDF)](https://elamirpalace.com/menu.pdf)
+- [Home (Spanish)](https://www.elamirpalace.online/): menu sections, signature dishes with prices, reviews, both locations with hours, FAQ
+- [Home (English)](https://www.elamirpalace.online/en/)
+- [Home (Arabic)](https://www.elamirpalace.online/ar/)
+- [Full menu with prices and online ordering](https://www.elamirpalace.online/pedir.html)
+- [Printable menu (PDF)](https://www.elamirpalace.online/menu.pdf)

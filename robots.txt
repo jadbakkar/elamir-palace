@@ -1,4 +1,4 @@
-# El Amir Palace — https://elamirpalace.com
+# El Amir Palace — https://www.elamirpalace.online
 User-agent: *
 Allow: /
 Disallow: /_backup*
@@ -31,4 +31,4 @@ Disallow: /i18n-test.html
 Disallow: /scripts/
 Disallow: /*.md$
 
-Sitemap: https://elamirpalace.com/sitemap.xml
+Sitemap: https://www.elamirpalace.online/sitemap.xml
