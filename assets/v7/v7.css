@@ -592,6 +592,7 @@ a[href^="tel:"],.q-count,.amt{direction:ltr;unicode-bidi:isolate}
   100%{opacity:0;transform:translate3d(-4%,-32%,0) scale(1.18)}
 }
 @media (prefers-reduced-motion:reduce){.hero-steam{display:none}}
+@media (max-width:599px){.hero-steam{display:none}} /* phones: no steam, keeps the hero photo as the first paint */
 
 /* ---------- footer: structured columns ---------- */
 .ft-grid{grid-template-columns:1.5fr 1fr 1fr 1.2fr;gap:clamp(32px,4vw,64px);padding-bottom:clamp(48px,5vw,72px)}
