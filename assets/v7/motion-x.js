@@ -44,7 +44,12 @@
       f.appendChild(wr); f.style.background = "transparent";
     }
     f.style.setProperty("--mx-r", r); f.classList.add(slide ? "mx-slide" : "mx-cur"); if (pic) pic.classList.add("mx-pic");
-    if (OFF.indexOf("decode") < 0) ST.create({ trigger: group || f, start: "top bottom+=100%", once: true, onEnter: function () { decode(img); } });
+    if (OFF.indexOf("decode") < 0) ST.create({ trigger: group || f, start: "top bottom+=100%", once: true, onEnter: function () {
+      decode(img).then(function () { if (OFF.indexOf("warm") < 0 && !f._cold && !f.classList.contains("mx-open")) f.classList.add("mx-warm"); });
+    } });
+    /* warm-up: a fully hidden photo is never drawn ahead, so phones drew every photo of a row at once when it opened (the lag).
+       While the frame is still a screen below the view it is uncovered (.mx-warm) so the photo gets drawn, then covered again before it can be seen. */
+    ST.create({ trigger: group || f, start: "top bottom+=25%", once: true, onEnter: function () { f._cold = 1; f.classList.remove("mx-warm"); } });
     onEnter(group || f, function () {
       var fast = !!group || f.classList.contains("card-img"), dl = fast ? Math.min(nth(f), 6) * 0.06 : Math.min(nth(f), 6) * 0.12 + 0.05;
       var du = fast ? 1.1 : 1.5, pdl = dl + (fast ? 0.1 : 0.25), pdu = fast ? 1.6 : 2.1;
