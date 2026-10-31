@@ -31,7 +31,7 @@ body{background-image:url(../../img/brand/star-pattern-cream.svg);background-siz
 
 /* ---------- notched frame corners ---------- */
 .vid-frame{position:relative}
-.intro-img::after,.story-photo::after,.vid-frame::after,.card-img::after,.dish-img::after,.find-card::before{content:"";position:absolute;z-index:2;pointer-events:none;
+.intro-img::after,.story-photo::after,.vid-frame::after,.card-img::after,.dish-img::after,.find-card::before,.mx-slide.intro-img .mx-c::after,.mx-slide.story-photo .mx-c::after{content:"";position:absolute;z-index:2;pointer-events:none;
   --dc-c:clamp(40px,4vw,60px);inset:clamp(12px,1.4vw,18px);background:var(--dc-gold);
   /* declared here (not on :root) so each frame resolves its own --dc-c */
   --dc-corners:url(../../img/brand/frame-corner-bold-tl.svg) top left/var(--dc-c) no-repeat,url(../../img/brand/frame-corner-bold-tr.svg) top right/var(--dc-c) no-repeat,

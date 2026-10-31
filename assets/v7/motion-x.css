@@ -47,3 +47,7 @@
 .mx-slide.mx-warm .mx-w,.mx-slide.mx-warm .mx-c{translate:none}
 /* touch screens: the sliding curtain layers exist before the reveal, so the photos are not turned into layers in the frame it starts */
 @media (hover:none){.mx-slide .mx-w,.mx-slide .mx-c{will-change:translate}}
+/* phones: intro and story photos slide (motion-x.js) with their slow easing; their gold corners (decor.css) ride inside the window,
+   so they are uncovered with the photo as the clip did, and hand back to the frame's own corners when the classes go */
+.mx-slide.mx-slow .mx-w,.mx-slide.mx-slow .mx-c{transition-timing-function:cubic-bezier(.87,0,.13,1)}
+.mx-slide.intro-img::after,.mx-slide.story-photo::after{content:none}

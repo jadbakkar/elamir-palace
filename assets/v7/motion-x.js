@@ -37,7 +37,8 @@
     /* the reveal is a CSS transition (motion-x.css): the browser runs it, no per-frame clip-path writes from JS (they made phones stutter).
        Menu cards and dishes open many at once, so they slide instead of clipping (GPU only): a window (.mx-w, carries the frame's
        background) rises from below while the photo inside moves down by the same amount, so the photo stays put and the opening grows from the bottom. */
-    var inner = f.querySelector(".parallax__inner"), slide = !!inner && f.matches(".card-img, .dish-img") && OFF.indexOf("slide") < 0;
+    /* phones: the intro and story photos slide too; the clip-path reveal repainted the whole photo and its gold corners every frame there */
+    var inner = f.querySelector(".parallax__inner"), slide = !!inner && (f.matches(".card-img, .dish-img") || phone && f.matches(".intro-img, .story-photo")) && OFF.indexOf("slide") < 0;
     if (OFF.indexOf("zoom") > -1) pic = null;
     if (slide) {
       var wr = d.createElement("div"); wr.className = "mx-w"; wr.style.background = getComputedStyle(f).backgroundColor;
