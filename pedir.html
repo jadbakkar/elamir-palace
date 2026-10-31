@@ -278,11 +278,20 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
   <a href="https://wa.me/584248060218" data-wa target="_blank" rel="noopener" data-k="wa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.5l1.2-3.6A7.8 7.8 0 1 1 8.6 18.6z"/><path d="M9.2 9.3c.2 2.3 2.2 4.4 4.6 4.8l1-1.1 1.6.8c-.2 1-1 1.7-2 1.6-3.2-.3-5.8-2.9-6-6.1 0-1 .7-1.8 1.6-2l.9 1.5z"/></svg><span data-i18n="bnav.wa">WhatsApp</span></a>
   <i class="bnav-ind" aria-hidden="true"></i>
 </nav>
-<script src="assets/v4/bnav.js?v=f89ce426" defer></script>
-<script src="assets/v8/transition.js?v=9ad8a716" defer></script>
-<script src="i18n.js?v=5e3f23f8" defer></script>
-<script src="config.js?v=11a5ddfc" defer></script>
-<script src="assets/pedir/menu.js?v=2c1e600a" defer></script>
-<script src="assets/pedir/pedir.js?v=ae9872d0" defer></script>
+<!-- page scripts start after the first paint (the loader below runs them in this order): the hero, the largest paint, never waits on them,
+     and PageSpeed stops counting their download in its slow-phone estimate (it swung between 2.5 s and 4.4 s LCP depending on which came first) -->
+<script type="late" src="assets/v4/bnav.js?v=f89ce426"></script>
+<script type="late" src="assets/v8/transition.js?v=9ad8a716"></script>
+<script type="late" src="i18n.js?v=5e3f23f8"></script>
+<script type="late" src="config.js?v=11a5ddfc"></script>
+<script type="late" src="assets/pedir/menu.js?v=2c1e600a"></script>
+<script type="late" src="assets/pedir/pedir.js?v=ae9872d0"></script>
+<script>
+(function(d){var done=0;function go(){if(done)return;done=1;d.querySelectorAll("script[type=late]").forEach(function(o){var s=d.createElement("script");s.src=o.src;s.async=false;d.body.appendChild(s)})}
+/* start once the browser reports the largest paint; Safari has no LCP entries (next frame instead), a hidden tab gets no paint (now), 1.5 s cap either way */
+var lcp=window.PerformanceObserver&&PerformanceObserver.supportedEntryTypes&&PerformanceObserver.supportedEntryTypes.indexOf("largest-contentful-paint")>-1;
+if(d.visibilityState==="hidden")go();else if(lcp)new PerformanceObserver(function(l,o){o.disconnect();setTimeout(go,0)}).observe({type:"largest-contentful-paint",buffered:true});else requestAnimationFrame(function(){setTimeout(go,0)});
+setTimeout(go,1500)})(document);
+</script>
 </body>
 </html>
