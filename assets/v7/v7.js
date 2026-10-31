@@ -13,6 +13,7 @@
   "use strict";
   var d = document, h = d.documentElement, w = window;
   var reduced = w.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var OFF = (w.location.search.match(/[?&]off=([a-z,]+)/) || [])[1] || ""; /* TEMPORARY phone test switch: ?off=curtain,rules,parallax,grow,lenis — remove after testing */
 
   var rtl = function () { return h.dir === "rtl"; };
 
@@ -211,7 +212,7 @@
 
   /* ---- Lenis: calm, heavy glide ---- */
   var lenis = null;
-  if (!reduced && w.Lenis) {
+  if (!reduced && w.Lenis && OFF.indexOf("lenis") < 0) {
     lenis = w.lenis = new w.Lenis({ lerp: 0.08, smoothWheel: true });
     lenis.on("scroll", ST.update);
     /* first in the tick: the scroll is applied before any tween writes styles, so it never forces a style/layout flush */
@@ -463,7 +464,7 @@
 
   if (!reduced) {
     /* ---- parallax: inner image (scale 1.12) drifts ±5% of its height ---- */
-    gsap.utils.toArray(".parallax__inner").forEach(function (el) {
+    if (OFF.indexOf("parallax") < 0) gsap.utils.toArray(".parallax__inner").forEach(function (el) {
       gsap.fromTo(el, { yPercent: -5, scale: 1.12 }, { yPercent: 5, scale: 1.12, ease: "none",
         scrollTrigger: { trigger: el.parentNode, start: "top bottom", end: "bottom top", scrub: true } });
     });
@@ -476,7 +477,7 @@
   }
 
   /* ---- every other large image frame grows from 82% to full size as it scrolls into view ---- */
-  if (!reduced) gsap.utils.toArray(".intro-img, .card-img, .br-img, .media").forEach(function (f) {
+  if (!reduced && OFF.indexOf("grow") < 0) gsap.utils.toArray(".intro-img, .card-img, .br-img, .media").forEach(function (f) {
     gsap.fromTo(f, { scale: w.innerWidth < 768 ? 0.92 : 0.82, transformOrigin: "50% 100%" }, { scale: 1, ease: "none",
       scrollTrigger: { trigger: f, start: "top 100%", end: "top 85%", scrub: 0.15 } });
   });

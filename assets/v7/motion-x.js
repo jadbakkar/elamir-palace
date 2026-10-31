@@ -13,6 +13,7 @@
   "use strict";
   var d = document, h = d.documentElement, w = window, gsap = w.gsap, ST = w.ScrollTrigger;
   if (!gsap || !ST || w.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var OFF = (w.location.search.match(/[?&]off=([a-z,]+)/) || [])[1] || ""; /* TEMPORARY phone test switch (see v7.js) */
   var fine = w.matchMedia("(hover: hover) and (pointer: fine)").matches;
   var rtl = function () { return h.dir === "rtl"; };
   h.classList.add("mx"); if (fine) h.classList.add("mx-fine");
@@ -29,11 +30,19 @@
     return img._dec;
   }
   function decoded(img, max) { return Promise.race([decode(img), new Promise(function (r) { setTimeout(r, max); })]); }
-  $$(".card-img, .dish-img, .intro-img, .story-photo, .vid-frame").forEach(function (f) {
+  if (OFF.indexOf("curtain") < 0) $$(".card-img, .dish-img, .intro-img, .story-photo, .vid-frame").forEach(function (f) {
     var r = getComputedStyle(f).borderRadius || "0px", pic /* full radius: keeps the decor arch (decor.css) during the reveal */ = f.querySelector("picture, video"), img = f.querySelector("img");
     var group = f.closest("[data-reveal-group]");
-    /* the reveal is a CSS transition (motion-x.css): the browser runs it, no per-frame clip-path writes from JS (they made phones stutter) */
-    f.style.setProperty("--mx-r", r); f.classList.add("mx-cur"); if (pic) pic.classList.add("mx-pic");
+    /* the reveal is a CSS transition (motion-x.css): the browser runs it, no per-frame clip-path writes from JS (they made phones stutter).
+       Menu cards and dishes open many at once, so they slide instead of clipping (GPU only): a window (.mx-w, carries the frame's
+       background) rises from below while the photo inside moves down by the same amount, so the photo stays put and the opening grows from the bottom. */
+    var inner = f.querySelector(".parallax__inner"), slide = !!inner && f.matches(".card-img, .dish-img");
+    if (slide) {
+      var wr = d.createElement("div"); wr.className = "mx-w"; wr.style.background = getComputedStyle(f).backgroundColor;
+      var cn = d.createElement("div"); cn.className = "mx-c"; while (f.firstChild) cn.appendChild(f.firstChild); wr.appendChild(cn);
+      f.appendChild(wr); f.style.background = "transparent";
+    }
+    f.style.setProperty("--mx-r", r); f.classList.add(slide ? "mx-slide" : "mx-cur"); if (pic) pic.classList.add("mx-pic");
     ST.create({ trigger: group || f, start: "top bottom+=100%", once: true, onEnter: function () { decode(img); } });
     onEnter(group || f, function () {
       var fast = !!group || f.classList.contains("card-img"), dl = fast ? Math.min(nth(f), 6) * 0.06 : Math.min(nth(f), 6) * 0.12 + 0.05;
@@ -41,7 +50,7 @@
       decoded(img, 300).then(function () {
         f.style.setProperty("--mx-d", du + "s"); f.style.setProperty("--mx-dl", dl + "s"); f.style.setProperty("--mx-pd", pdu + "s"); f.style.setProperty("--mx-pdl", pdl + "s");
         f.classList.add(fast ? "mx-fast" : "mx-slow", "mx-open"); if (pic) pic.classList.add("mx-pic-on");
-        setTimeout(function () { f.classList.remove("mx-cur", "mx-open", "mx-fast", "mx-slow"); }, (dl + du) * 1000 + 60);
+        setTimeout(function () { f.classList.remove("mx-cur", "mx-slide", "mx-open", "mx-fast", "mx-slow"); }, (dl + du) * 1000 + 60);
         if (pic) setTimeout(function () { pic.classList.remove("mx-pic", "mx-pic-on"); }, (pdl + pdu) * 1000 + 60);
       });
     }, group ? "top 88%" : f.classList.contains("card-img") ? "top 100%" : "top 92%");
@@ -56,7 +65,7 @@
   }
 
   /* ---- section-label rules draw outwards ---- */
-  $$(".sec-label").forEach(function (l) { onEnter(l, function () { l.classList.add("mx-on"); }); });
+  if (OFF.indexOf("rules") < 0) $$(".sec-label").forEach(function (l) { onEnter(l, function () { l.classList.add("mx-on"); }); });
 
   /* ---- review stars pop ---- */
   $$(".rcard").forEach(function (c) {

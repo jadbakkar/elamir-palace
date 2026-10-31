@@ -36,3 +36,9 @@
 .mx-cur.mx-slow{transition-timing-function:cubic-bezier(.87,0,.13,1)}
 .mx-pic{scale:1.25}
 .mx-pic.mx-pic-on{scale:1;transition:scale var(--mx-pd) cubic-bezier(.16,1,.3,1) var(--mx-pdl)}
+/* sliding curtain for menu cards and dishes: window rises, photo counter-moves (own wrappers, GSAP never sees the translate) */
+.mx-w{position:absolute;inset:0;overflow:hidden;border-radius:inherit}
+.mx-c{position:absolute;inset:0}
+.mx-slide .mx-w{translate:0 100%}
+.mx-slide .mx-c{translate:0 -100%}
+.mx-slide.mx-open .mx-w,.mx-slide.mx-open .mx-c{translate:0 0;transition:translate var(--mx-d) cubic-bezier(.16,1,.3,1) var(--mx-dl)}
