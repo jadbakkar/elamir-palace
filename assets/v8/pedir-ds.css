@@ -331,3 +331,6 @@ html{scroll-padding-top:calc(var(--hd) + var(--bar) + 12px)}
 #branchF .seg label{min-height:56px;border-radius:14px;background:var(--card);border:2px solid rgba(122,31,43,.35);color:var(--wine);font-size:16px;box-shadow:none}
 #branchF .seg input:checked+label{background:var(--wine);border-color:var(--wine);color:#fff;box-shadow:0 2px 8px rgba(122,31,43,.3)}
 #branchF input[aria-invalid=true]+label{border-color:var(--wine);box-shadow:0 0 0 3px rgba(122,31,43,.18)}
+
+/* phones: the hero cover runs edge to edge (no side margin) */
+@media (max-width:599px){.cover{margin-inline:0}}
