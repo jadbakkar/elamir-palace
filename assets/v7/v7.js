@@ -13,7 +13,7 @@
   "use strict";
   var d = document, h = d.documentElement, w = window;
   var reduced = w.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var OFF = (w.location.search.match(/[?&]off=([a-z,]+)/) || [])[1] || ""; /* TEMPORARY phone test switch: ?off=curtain,rules,parallax,grow,lenis — remove after testing */
+  var OFF = (w.location.search.match(/[?&]off=([a-z,]+)/) || [])[1] || ""; /* TEMPORARY phone test switch: ?off=curtain,rules,parallax,grow,lenis,zoom,decode,slide — remove after testing */
 
   var rtl = function () { return h.dir === "rtl"; };
 
