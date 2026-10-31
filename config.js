@@ -16,9 +16,9 @@ const CONFIG = {
     lun: ["11:30","22:00"], mar: ["11:30","22:00"], mie: ["11:30","22:00"], jue: ["11:30","22:00"],
     vie: ["11:30","23:00"], sab: ["11:30","23:00"], dom: ["11:30","21:00"]
   },
-  // Sucursales. Delivery: el cliente DEBE marcar su ubicación y el pedido va al WhatsApp de la sucursal más cercana
-  // (distancia en línea recta). Retiro: el cliente elige la sucursal.
-  // lat/lng: coordenadas del local (Google Maps → clic derecho sobre el local → copiar). SIN ellas todo el delivery va a la primera sucursal.
+  // Sucursales. El cliente elige con cuál hablar al final del pedido (delivery y retiro); el pedido va al WhatsApp de esa sucursal,
+  // que le pide la ubicación por el chat.
+  // lat/lng: coordenadas del local (ya no se usan para elegir sucursal).
   sucursales: [
     { id: "lecheria", nombre: "Lechería",       whatsapp: "584248060218", telefono: "0424-806 0218", lat: 10.196197, lng: -64.691991 },
     { id: "plc",      nombre: "Puerto La Cruz", whatsapp: "584127505025", telefono: "0412-750 5025", lat: 10.220758, lng: -64.639242 }

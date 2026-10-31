@@ -323,3 +323,11 @@ html{scroll-padding-top:calc(var(--hd) + var(--bar) + 12px)}
 #locF.need #locUse{min-height:50px;background:var(--wine);border-color:var(--wine);color:#fff;font-size:16px}
 #stepNext .pin{flex:none;margin-inline-end:-4px}
 #stepNext.need-loc{background:var(--surface,#fff);color:var(--wine);box-shadow:inset 0 0 0 2px var(--wine)}
+
+/* checkout: "which branch do you want to talk to" — two clearly separate buttons */
+#branchF{margin-top:18px}
+#branchF legend{font-weight:800;font-size:16px;color:var(--wine)}
+#branchF .seg{background:none;padding:0;gap:10px;border-radius:0}
+#branchF .seg label{min-height:56px;border-radius:14px;background:var(--card);border:2px solid rgba(122,31,43,.35);color:var(--wine);font-size:16px;box-shadow:none}
+#branchF .seg input:checked+label{background:var(--wine);border-color:var(--wine);color:#fff;box-shadow:0 2px 8px rgba(122,31,43,.3)}
+#branchF input[aria-invalid=true]+label{border-color:var(--wine);box-shadow:0 0 0 3px rgba(122,31,43,.18)}

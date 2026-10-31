@@ -143,8 +143,8 @@
       "px.loc.mapAria": "Mapa para confirmar tu ubicación. Toca el mapa o arrastra el pin.",
       "px.loc.pin": "Tu ubicación de entrega",
       "px.branch.serves": "Te atiende: Sucursal {name}",
-      "px.branch.pick": "¿En qué sucursal lo retiras?",
-      "px.branch.err": "Elige la sucursal donde retiras tu pedido.",
+      "px.branch.pick": "¿Con qué sucursal quieres hablar?",
+      "px.branch.err": "Elige la sucursal con la que quieres hablar.",
       "px.done.shareLoc": "Envía también tu ubicación en el chat (📎 o + → Ubicación) para que el repartidor llegue directo a tu puerta."
     },
     en: {
@@ -199,8 +199,8 @@
       "px.loc.mapAria": "Map to confirm your location. Tap the map or drag the pin.",
       "px.loc.pin": "Your delivery location",
       "px.branch.serves": "Your order goes to our {name} branch",
-      "px.branch.pick": "Which branch will you pick up from?",
-      "px.branch.err": "Choose the branch where you'll pick up your order.",
+      "px.branch.pick": "Which branch do you want to talk to?",
+      "px.branch.err": "Choose the branch you want to talk to.",
       "px.done.shareLoc": "Also send your location in the chat (📎 or + → Location) so the rider comes straight to your door."
     },
     ar: {
@@ -255,8 +255,8 @@
       "px.loc.mapAria": "خريطة لتأكيد موقعك. اضغط على الخريطة أو اسحب الدبوس.",
       "px.loc.pin": "موقع التوصيل",
       "px.branch.serves": "يتولى طلبك: فرع {name}",
-      "px.branch.pick": "من أي فرع ستستلم طلبك؟",
-      "px.branch.err": "اختر الفرع الذي ستستلم منه طلبك.",
+      "px.branch.pick": "مع أي فرع تريد التحدث؟",
+      "px.branch.err": "اختر الفرع الذي تريد التحدث معه.",
       "px.done.shareLoc": "أرسل موقعك أيضاً في المحادثة (📎 أو + ← الموقع) ليصل المندوب إلى بابك مباشرة."
     }
   };
@@ -349,27 +349,17 @@
   /* ---------- branch / totals ---------- */
   const form = $("#form");
   const isDel = () => form.elements.type.value === "Delivery";
-  /* delivery: the pinned location is required and the order goes to the nearest branch (straight-line km).
-     Branches without lat/lng in CONFIG.sucursales are skipped; none with coordinates → first branch. No delivery fee is shown. */
-  const hasLL = b => b && isFinite(b.lat) && isFinite(b.lng) && b.lat !== null && b.lng !== null;
-  const kmTo = b => { const r = Math.PI / 180, dLat = (loc.lat - b.lat) * r, dLng = (loc.lng - b.lng) * r;
-    return 12742 * Math.asin(Math.sqrt(Math.sin(dLat / 2) ** 2 + Math.cos(b.lat * r) * Math.cos(loc.lat * r) * Math.sin(dLng / 2) ** 2)); };
-  function nearestBranch() {
-    const bs = BRANCHES || [], ll = loc ? bs.filter(hasLL) : [];
-    return ll.length ? ll.reduce((a, x) => kmTo(x) < kmTo(a) ? x : a) : bs[0] || null;
-  }
   function totals() { const sub = subtotal(); return { sub, total: sub }; }
-  /* branches: the pinned location decides (delivery) or the guest chooses (pickup); fallback = CONFIG.whatsapp */
+  /* branches: the guest picks the branch to chat with on the last step (delivery and pickup); fallback = CONFIG.whatsapp.
+     The branch asks for the delivery location in the WhatsApp chat. No delivery fee is shown. */
   const BRANCHES = Array.isArray(CONFIG.sucursales) && CONFIG.sucursales.length ? CONFIG.sucursales : null;
-  if (BRANCHES && BRANCHES.length > 1 && !BRANCHES.every(hasLL)) console.warn("CONFIG.sucursales: faltan lat/lng; el delivery va siempre a la primera sucursal.");
   const branchById = id => BRANCHES && BRANCHES.find(b => b.id === id) || null;
   function curBranch() {
     if (!BRANCHES) return null;
-    if (isDel()) return loc ? nearestBranch() : null;
     if (BRANCHES.length === 1) return BRANCHES[0];
     const r = form.querySelector('input[name="branch"]:checked'); return r ? branchById(r.value) : null;
   }
-  /* every order goes to the WhatsApp of its branch (nearest for delivery, chosen for pickup) */
+  /* every order goes to the WhatsApp of the branch the guest chose */
   const waNumber = () => { const b = curBranch(); return b && b.whatsapp ? b.whatsapp : CONFIG.whatsapp; };
   function minMsg() { const m = +CONFIG.pedidoMinimo || 0, s = subtotal(); return count() && m && s < m ? t("cart.min", { missing: money(m - s), min: money(m) }) : ""; }
   const staleRate = () => { const d = Date.parse(CONFIG.bcv.fecha); return d && (now() - d) > 3 * 864e5; };
@@ -735,26 +725,15 @@
     box.innerHTML = BRANCHES.map((b, i) => `<input type="radio" name="branch" id="br${i}" value="${esc(b.id)}"${v === b.id ? " checked" : ""}><label for="br${i}">${esc(b.nombre)}</label>`).join("");
   }
   function syncType() {
-    const del = isDel(), b = curBranch();
-    $("#refF").hidden = $("#locF").hidden = $("#moreDel").hidden = !del;
-    $("#branchF").hidden = del || !$("#branchF").dataset.on;
-    if (del && isOpen(sheet)) warmMap();
-    if ($("#eLoc").textContent) validateLoc();
-    syncNeedLoc();
-    const bi = $("#branchInfo"); bi.textContent = del && b ? t("px.branch.serves", { name: b.nombre }) : ""; bi.hidden = !bi.textContent;
+    const del = isDel();
+    $("#refF").hidden = $("#moreDel").hidden = !del;
+    $("#branchF").hidden = !$("#branchF").dataset.on;
     renderTotals();
   }
   function validateBranch() {
-    const f = $("#branchF"), need = !isDel() && !f.hidden && !curBranch(), err = $("#eBranch");
+    const f = $("#branchF"), need = !f.hidden && !curBranch(), err = $("#eBranch");
     err.textContent = need ? t("px.branch.err") : "";
     f.querySelectorAll("input").forEach(i => need ? i.setAttribute("aria-invalid", "true") : i.removeAttribute("aria-invalid"));
-    return !need;
-  }
-  /* delivery needs the pinned location: it picks the branch and goes in the WhatsApp message */
-  function validateLoc() {
-    const need = isDel() && !loc;
-    $("#eLoc").textContent = need ? t("px.loc.err") : "";
-    $("#locF").classList.toggle("bad", need);
     return !need;
   }
   /* hide methods switched off in config.js; if the checked one is hidden, check the first visible one */
@@ -792,101 +771,12 @@
     if (matchMedia(mqSheet).matches && e.target.matches("input:not([type=radio]):not([type=checkbox]),textarea,select")) setTimeout(() => e.target.scrollIntoView({ block: "center", behavior: "smooth" }), 320);
   });
 
-  /* ---------- delivery location: Geolocation + lazy Leaflet map (never blocks the order) ---------- */
-  const LEAFLET = { v: "1.9.4", js: "sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=", css: "sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" };
-  const LECHERIA = [10.19, -64.69];
-  let step = 1;   /* checkout step (declared early: syncType → syncNeedLoc can run while restoring the saved pin) */
-  let loc = null, locState = null, map = null, marker = null, ring = null, leafletP = null;
-  const locMsg = $("#locMsg"), locMapEl = $("#locMap");
-  function setLocMsg(key, vars, bad) { locState = key ? [key, vars, bad] : null; locMsg.textContent = key ? t(key, vars) : ""; locMsg.classList.toggle("bad", !!bad); }
-  /* same files (same SRI) on two CDNs: cdnjs first, unpkg if it fails or stalls */
-  const LEAFLET_CDNS = [`https://cdnjs.cloudflare.com/ajax/libs/leaflet/${LEAFLET.v}/leaflet`, `https://unpkg.com/leaflet@${LEAFLET.v}/dist/leaflet`];
-  function loadFrom(base) {
-    return new Promise((res, rej) => {
-      const css = doc.createElement("link"); css.rel = "stylesheet"; css.href = base + ".css"; css.integrity = LEAFLET.css; css.crossOrigin = ""; doc.head.append(css);
-      const s = doc.createElement("script"); s.src = base + ".js"; s.integrity = LEAFLET.js; s.crossOrigin = ""; s.async = true;
-      const fail = () => { clearTimeout(to); s.remove(); css.remove(); rej(new Error("leaflet")); };
-      const to = setTimeout(fail, 9000);
-      s.onload = () => { clearTimeout(to); window.L && window.L.map ? res(window.L) : fail(); };
-      s.onerror = fail;
-      doc.head.append(s);
-    });
-  }
-  function loadLeaflet() {
-    if (window.L && window.L.map) return Promise.resolve(window.L);
-    return leafletP || (leafletP = loadFrom(LEAFLET_CDNS[0]).catch(() => loadFrom(LEAFLET_CDNS[1])).catch(e => { leafletP = null; throw e; }));
-  }
-  function setLoc(lat, lng, src, acc) {
-    loc = { lat: +(+lat).toFixed(6), lng: +(+lng).toFixed(6), src, acc };
-    $("#locClear").hidden = false;
-    syncType();
-  }
-  function placePin(L, ll) {
-    if (!marker) {
-      const icon = L.divIcon({ className: "pin", iconSize: [34, 44], iconAnchor: [17, 43], html: '<svg width="34" height="44" viewBox="0 0 34 44" aria-hidden="true"><path d="M17 1.5C8.4 1.5 1.5 8.3 1.5 16.8 1.5 28 17 42.5 17 42.5S32.5 28 32.5 16.8C32.5 8.3 25.6 1.5 17 1.5z" fill="#7A1F2B" stroke="#fff" stroke-width="2"/><circle cx="17" cy="16.5" r="5.5" fill="#FBF8F3"/></svg>' });
-      marker = L.marker(ll, { draggable: true, icon, title: t("px.loc.pin"), alt: t("px.loc.pin"), keyboard: true }).addTo(map);
-      marker.on("dragend", () => { const p = marker.getLatLng(); setLoc(p.lat, p.lng, "map"); if (ring) { ring.remove(); ring = null; } setLocMsg("px.loc.set"); });
-    } else marker.setLatLng(ll);
-  }
-  function showMap(center, zoom) {
-    locMapEl.hidden = false;
-    return loadLeaflet().then(L => {
-      if (!map) {
-        const coarse = matchMedia("(pointer:coarse)").matches;
-        /* one-finger drag would hijack the bottom sheet scroll on phones: pan with pinch / +−, tap to move the pin */
-        map = L.map(locMapEl, { center, zoom, dragging: !coarse, scrollWheelZoom: false, tap: false, zoomControl: true, attributionControl: true });
-        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' }).addTo(map);
-        map.on("click", e => { placePin(L, e.latlng); setLoc(e.latlng.lat, e.latlng.lng, "map"); if (ring) { ring.remove(); ring = null; } setLocMsg("px.loc.set"); });
-        locMapEl.setAttribute("aria-label", t("px.loc.mapAria"));
-      } else map.setView(center, zoom);
-      requestAnimationFrame(() => map.invalidateSize());
-      setTimeout(() => map && map.invalidateSize(), 450);   /* after the sheet transition */
-      return L;
-    }).catch(() => { locMapEl.hidden = true; setLocMsg(loc ? locState && locState[0] || "px.loc.set" : "px.loc.mapError", locState && locState[1], !loc); return null; });
-  }
-  function showLocOnMap() {
-    if (!loc) return;
-    showMap([loc.lat, loc.lng], 17).then(L => {
-      if (!L) return;
-      placePin(L, [loc.lat, loc.lng]);
-      if (ring) { ring.remove(); ring = null; }
-      if (loc.acc && loc.acc < 2000) ring = L.circle([loc.lat, loc.lng], { radius: loc.acc, color: "#7A1F2B", weight: 1, opacity: .5, fillColor: "#7A1F2B", fillOpacity: .08, interactive: false }).addTo(map);
-    });
-  }
-  $("#locUse").onclick = () => {
-    const b = $("#locUse");
-    if (!("geolocation" in navigator) || !window.isSecureContext) { setLocMsg("px.loc.unsupported", null, true); return; }
-    b.setAttribute("aria-busy", "true"); setLocMsg("px.loc.locating");
-    loadLeaflet().catch(() => {});          /* warm the map while the GPS works */
-    navigator.geolocation.getCurrentPosition(p => {
-      b.removeAttribute("aria-busy");
-      const acc = Math.round(p.coords.accuracy || 0);
-      setLoc(p.coords.latitude, p.coords.longitude, "gps", acc);
-      setLocMsg("px.loc.ok", { acc: acc || "?" });
-      showLocOnMap();
-    }, err => {
-      b.removeAttribute("aria-busy");
-      setLocMsg(err && err.code === 1 ? "px.loc.denied" : err && err.code === 3 ? "px.loc.timeout" : "px.loc.unavailable", null, true);
-    }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 });
-  };
-  $("#locPick").onclick = () => {
-    if (loc) { showLocOnMap(); return; }
-    setLocMsg("px.loc.tap");
-    showMap(LECHERIA, 14);
-  };
-  $("#locClear").onclick = () => {
-    loc = null; $("#locClear").hidden = true; setLocMsg(null); syncType();
-    if (marker) { marker.remove(); marker = null; } if (ring) { ring.remove(); ring = null; }
-    locMapEl.hidden = true; $("#locUse").focus();
-  };
-  /* Google Maps link (official "api=1" form), alone on its line: the branch / rider opens the exact pin from the WhatsApp chat */
-  const locLine = () => loc ? `*Ubicación:*\nhttps://www.google.com/maps/search/?api=1&query=${loc.lat.toFixed(6)}%2C${loc.lng.toFixed(6)}` : "";
+  let step = 1;   /* checkout step */
 
   try {
     const sc = JSON.parse(localStorage.getItem("amir-customer")) || {};
     ["name", "phone", "ref"].forEach(k => { if (sc[k]) form.elements[k].value = sc[k]; });
     if (sc.branch && branchById(sc.branch)) { renderBranches(); const r = form.querySelector(`input[name="branch"][value="${CSS.escape(sc.branch)}"]`); if (r) r.checked = true; }
-    if (isFinite(sc.lat) && isFinite(sc.lng) && sc.lat !== null && Math.abs(sc.lat) <= 90 && Math.abs(sc.lng) <= 180) { setLoc(sc.lat, sc.lng, "saved"); setLocMsg("px.loc.saved"); }
   } catch (e) { /* ignore */ }
 
   const dlgTrigger = () => !matchMedia(mqSheet).matches ? "#ledgerGo" : $("#pill").offsetParent ? "#pill" : ".bnav-order";
@@ -907,8 +797,7 @@
   function stepOk(n) {
     let bad = null;
     (STEP_FIELDS[n] || []).forEach(k => { const el = form.elements[k]; if (el.closest(".f").hidden) return; if (!validate(el)) { if (!bad) bad = el; shake(el); } });
-    if (n === 1 && !bad && !validateBranch()) bad = $("#branchF input");
-    if (n === 1 && !bad && !validateLoc()) { bad = $("#locUse"); shake(bad); }
+    if (n === 3 && !bad && !validateBranch()) bad = $("#branchF input");
     if (bad) bad.focus();
     return !bad;
   }
@@ -919,25 +808,11 @@
     $$("#steps li").forEach(li => { const g = +li.dataset.go; li.classList.toggle("on", g === n); li.classList.toggle("done", g < n); });
     $("#stepBack").hidden = n === 0;
     $("#stepNext").hidden = n === 3; $("#send").hidden = n !== 3;
-    syncNeedLoc();
     $("#sheetTitle").textContent = t(n === 0 ? "ledger.title" : "sheet.title");
     form.scrollTop = 0;
   }
-  /* delivery without a location: the box is highlighted ("Obligatorio") and Continue becomes "Marca tu ubicación",
-     which asks for the GPS position (or opens the map if GPS already failed) instead of showing an error */
-  function syncNeedLoc() {
-    const need = isDel() && !loc, b = $("#stepNext"), ask = need && step === 1, [go, set] = b.querySelectorAll("span");
-    $("#locF").classList.toggle("need", need);
-    b.classList.toggle("need-loc", ask); b.querySelector(".pin").toggleAttribute("hidden", !ask);   /* SVG has no .hidden property */
-    set.hidden = !ask; go.hidden = ask;
-  }
   $("#stepNext").onclick = () => {
     if (step === 0 && !count()) { toast(t("cart.needOne")); return; }
-    if (step === 1 && isDel() && !loc) {
-      const gpsFailed = locState && locState[2] && locState[0] !== "px.loc.mapError";
-      $(gpsFailed ? "#locPick" : "#locUse").click(); $("#locF").scrollIntoView({ block: "center", behavior: reduce.matches ? "auto" : "smooth" });
-      return;
-    }
     if (step && !stepOk(step)) return;
     goStep(step + 1);
   };
@@ -973,23 +848,10 @@
     try { crypto.getRandomValues(r); } catch (e) { r.forEach((x, i) => { r[i] = Math.random() * 2 ** 32; }); }
     return `AP-${n.mm}${n.dd}-${Array.from(r, x => ID_ABC[x % ID_ABC.length]).join("")}`;
   }
-  /* lazy Leaflet only once the delivery checkout is open; show the saved pin */
-  function warmMap() {
-    if (loc) { if (!map || locMapEl.hidden) showLocOnMap(); }
-    else loadLeaflet().catch(() => {});
-  }
   function buildMessage(id) {
     const b = curBranch(), L = buildBaseMessage(id).split("\n");
     /* "*Sucursal:*" right after "*Tipo:*" */
     if (b) { const typeP = I.tEs("wa.order.type", { type: "" }).trim(), i = L.findIndex(l => l.startsWith(typeP)); L.splice(i < 0 ? 2 : i + 1, 0, `*Sucursal:* ${I.wx(b.nombre)}`); }
-    /* "*Ubicación:*" after the reference point (or right before the dishes) */
-    const line = isDel() ? locLine() : "";
-    if (line) {
-      const refP = I.tEs("wa.order.ref", { ref: "" }).trim();
-      let i = L.findIndex(l => l.startsWith(refP));
-      if (i < 0) i = Math.max(0, L.indexOf(I.tEs("wa.order.sep")) - 1);
-      L.splice(i + 1, 0, line);
-    }
     return L.join("\n");
   }
   function buildBaseMessage(id) {
@@ -1022,7 +884,6 @@
       if (!validate(el)) { if (!firstBad) firstBad = el; shake(el); }
     });
     if (!firstBad && !validateBranch()) firstBad = $("#branchF input");
-    if (!firstBad && !validateLoc()) firstBad = $("#locUse");
     if (firstBad) { goStep(+firstBad.closest(".ck-step").dataset.step); firstBad.focus(); return; }
     const r = blockReason();
     if (r) { toast(r); return; }
@@ -1032,7 +893,7 @@
     if (win) { try { win.opener = null; } catch (er) { /* ignore */ } }
     if ($("#remember").checked) {
       const v = k => form.elements[k].value.trim();
-      try { localStorage.setItem("amir-customer", JSON.stringify({ name: v("name"), phone: v("phone"), ref: v("ref"), branch: isDel() ? undefined : (curBranch() || {}).id, lat: loc ? loc.lat : null, lng: loc ? loc.lng : null })); } catch (er) { /* ignore */ }
+      try { localStorage.setItem("amir-customer", JSON.stringify({ name: v("name"), phone: v("phone"), ref: v("ref"), branch: (curBranch() || {}).id })); } catch (er) { /* ignore */ }
     } else { try { localStorage.removeItem("amir-customer"); } catch (er) { /* ignore */ } }
     showDone();
   });
@@ -1091,9 +952,6 @@
     if (order && !$("#done").hidden) { showDone(true); $("#sheetTitle").textContent = t("done.sheetTitle"); }
     else $("#sheetTitle").textContent = t(step === 0 ? "ledger.title" : "sheet.title");
     $$('#form [aria-invalid="true"]').forEach(validate);
-    if (locState) setLocMsg(locState[0], locState[1], locState[2]);
-    if (map) locMapEl.setAttribute("aria-label", t("px.loc.mapAria"));
-    if (marker) { const im = marker.getElement && marker.getElement(); if (im) { im.title = t("px.loc.pin"); im.setAttribute("aria-label", t("px.loc.pin")); } }
     if (first) {
       measure(); requestAnimationFrame(spy);
       if (I.lang !== "es" && location.hash) { const h = doc.getElementById(decodeURIComponent(location.hash.slice(1))); if (h) h.scrollIntoView({ block: "start", behavior: "instant" }); }
