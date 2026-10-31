@@ -620,6 +620,7 @@ a[href^="tel:"],.q-count,.amt{direction:ltr;unicode-bidi:isolate}
 @media (hover:none){
   .parallax__inner,.intro-img,.card-img,.br-img,.media,.grow{will-change:transform}
   .salon-i,.salon-txt{will-change:transform,opacity} /* dining-room tiles slide in together: their layers exist ahead, not made in the first frame */
+  .sec-label,.cards>li{will-change:transform,opacity} /* eyebrow and menu cards rise in the same moment: layers made ahead, not all in that frame */
   .script svg{will-change:transform} /* the hand-drawn word repaints every frame while it writes: on its own layer only the word is redrawn, not the whole eyebrow row with its gold rules */
   .hd.is-solid{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(247,244,239,.97)}
   .find-tabs{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(247,244,239,.98)}
