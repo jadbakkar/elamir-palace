@@ -58,3 +58,5 @@
   .pill{bottom:calc(var(--bnav-h) + 28px + env(safe-area-inset-bottom))}
   .toast{bottom:calc(var(--bnav-h) + 100px + env(safe-area-inset-bottom))}
 }
+/* touch screens: no live blur under the fixed bar (it re-blurs the page on every scroll frame); a little more opaque instead */
+@media (hover:none){.bnav{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(251,248,243,.97)}}

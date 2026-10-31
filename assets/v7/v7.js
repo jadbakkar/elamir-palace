@@ -525,9 +525,12 @@
   function initHeader(lenis) {
     var hd = d.getElementById("hd"), hr = d.querySelector(".hero");
     if (!hd) return;
-    var last = 0;
+    var last = 0, lim = 80;
+    /* measured on resize, not per scroll frame (reading offsetHeight while scrolling forced a layout each frame on phones) */
+    function measure() { lim = hr ? hr.offsetHeight - hd.offsetHeight : 80; }
+    w.addEventListener("resize", measure); measure();
     function onScroll() {
-      var y = w.scrollY || 0, lim = hr ? hr.offsetHeight - hd.offsetHeight : 80;
+      var y = w.scrollY || 0;
       hd.classList.toggle("is-solid", y > lim);
       hd.classList.toggle("is-hidden", y > lim + 200 && y > last && !hd.contains(d.activeElement));
       last = y;

@@ -615,3 +615,10 @@ a[href^="tel:"],.q-count,.amt{direction:ltr;unicode-bidi:isolate}
 @media (max-width:1099px){.ft-grid{grid-template-columns:1fr 1fr}.ft-brand{grid-column:1/-1}}
 @media (max-width:479px){.ft-grid{grid-template-columns:1fr}.ft-bot{flex-direction:column;align-items:flex-start}}
 .salon{overflow-x:clip}
+/* touch screens only (desktop unchanged): the scroll-linked photo scales keep their first raster instead of redrawing every photo each frame,
+   and the fixed header / map tabs skip the live blur (it re-blurs the page under them on every scroll frame) */
+@media (hover:none){
+  .parallax__inner,.intro-img,.card-img,.br-img,.media,.grow{will-change:transform}
+  .hd.is-solid{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(247,244,239,.97)}
+  .find-tabs{-webkit-backdrop-filter:none;backdrop-filter:none;background:rgba(247,244,239,.98)}
+}
