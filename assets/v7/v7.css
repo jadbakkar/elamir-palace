@@ -108,7 +108,7 @@ p{text-wrap:pretty}
 .is-loading .hd .brand b{opacity:0}
 .is-loading.loader-land .hd .brand b{opacity:1}
 .is-loading.loader-skip .loader{animation:loader-out .3s ease forwards}
-@keyframes loader-morph{0%,100%{opacity:1;translate:0 0}}
+@keyframes loader-morph{0%{color:color-mix(in srgb,var(--paper) 4%,var(--wine));translate:0 12px}100%{color:var(--paper);translate:0 0}} /* fades by colour, not opacity: an opacity:0 word is not counted as painted, so PageSpeed waited for the whole fade (LCP 3.1 s); a near-wine colour looks the same and counts at first paint */
 @keyframes loader-out{to{opacity:0;visibility:hidden}}
 
 /* ---------- header ---------- */
