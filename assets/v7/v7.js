@@ -13,7 +13,6 @@
   "use strict";
   var d = document, h = d.documentElement, w = window;
   var reduced = w.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var OFF = (w.location.search.match(/[?&]off=([a-z,]+)/) || [])[1] || ""; /* TEMPORARY phone test switch: ?off=curtain,rules,parallax,grow,lenis,zoom,decode,slide — remove after testing */
 
   var rtl = function () { return h.dir === "rtl"; };
 
@@ -167,7 +166,7 @@
       var m = el.scrollWidth - el.clientWidth, cur = el.scrollLeft, to = cur + (best || 0);
       to = rt ? Math.min(0, Math.max(-m, to)) : Math.max(0, Math.min(m, to));
       var o = { x: cur };
-      gsap && gsap.to ? gsap.to(o, { x: to, duration: 0.55, ease: "power3.out", onUpdate: function () { el.scrollLeft = o.x; },
+      w.gsap && w.gsap.to ? w.gsap.to(o, { x: to, duration: 0.55, ease: "power3.out", onUpdate: function () { el.scrollLeft = o.x; },
         onComplete: function () { el.style.scrollSnapType = ""; el.style.scrollBehavior = ""; } })
         : (el.scrollLeft = to, el.style.scrollSnapType = "", el.style.scrollBehavior = "");
     }
@@ -229,7 +228,7 @@
 
   /* ---- Lenis: calm, heavy glide ---- */
   var lenis = null;
-  if (!reduced && w.Lenis && OFF.indexOf("lenis") < 0) {
+  if (!reduced && w.Lenis) {
     lenis = w.lenis = new w.Lenis({ lerp: 0.08, smoothWheel: true });
     lenis.on("scroll", ST.update);
     /* first in the tick: the scroll is applied before any tween writes styles, so it never forces a style/layout flush */
@@ -481,7 +480,7 @@
 
   if (!reduced) {
     /* ---- parallax: inner image (scale 1.12) drifts ±5% of its height ---- */
-    if (OFF.indexOf("parallax") < 0) gsap.utils.toArray(".parallax__inner").forEach(function (el) {
+    gsap.utils.toArray(".parallax__inner").forEach(function (el) {
       gsap.fromTo(el, { yPercent: -5, scale: 1.12 }, { yPercent: 5, scale: 1.12, ease: "none",
         scrollTrigger: { trigger: el.parentNode, start: "top bottom", end: "bottom top", scrub: true } });
     });
@@ -494,7 +493,7 @@
   }
 
   /* ---- every other large image frame grows from 82% to full size as it scrolls into view ---- */
-  if (!reduced && OFF.indexOf("grow") < 0) gsap.utils.toArray(".intro-img, .card-img, .br-img, .media").forEach(function (f) {
+  if (!reduced) gsap.utils.toArray(".intro-img, .card-img, .br-img, .media").forEach(function (f) {
     gsap.fromTo(f, { scale: w.innerWidth < 768 ? 0.92 : 0.82, transformOrigin: "50% 100%" }, { scale: 1, ease: "none",
       scrollTrigger: { trigger: f, start: "top 100%", end: "top 85%", scrub: 0.15 } });
   });
@@ -509,25 +508,7 @@
     return function () { fm.classList.remove("is-bleed"); };
   });
 
-  /* ---- h-section: pinned horizontal row (desktop, motion allowed); rebuilt when the language flips direction ---- */
-  var mm = null;
-  function setupH() {
-    if (mm) mm.revert();
-    mm = gsap.matchMedia();
-    mm.add("(min-width: 900px) and (prefers-reduced-motion: no-preference)", function () {
-      var secs = gsap.utils.toArray(".h-section");
-      secs.forEach(function (sec) {
-        var track = sec.querySelector(".h-track"), pin = sec.querySelector(".h-pin") || sec;
-        if (!track) return;
-        sec.classList.add("is-pinned");
-        var dist = function () { return Math.max(0, track.scrollWidth - d.documentElement.clientWidth); };
-        gsap.to(track, { x: function () { return (rtl() ? 1 : -1) * dist(); }, ease: "none",
-          scrollTrigger: { trigger: pin, start: "top top", end: function () { return "+=" + dist(); }, pin: true, scrub: 1, invalidateOnRefresh: true, refreshPriority: 1 } });
-      });
-      return function () { secs.forEach(function (s) { s.classList.remove("is-pinned"); }); };
-    });
-  }
-  /* pinning turned off at the owner's request: the dish row is a free swipe row (arrows below) */
+  /* .h-section pinning turned off at the owner's request: the dish row is a free swipe row (arrows below) */
 
   /* language switch rewrites text: show anything still waiting */
   d.addEventListener("langchange", function () {

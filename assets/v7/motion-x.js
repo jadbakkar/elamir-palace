@@ -13,10 +13,12 @@
   "use strict";
   var d = document, h = d.documentElement, w = window, gsap = w.gsap, ST = w.ScrollTrigger;
   if (!gsap || !ST || w.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  var OFF = (w.location.search.match(/[?&]off=([a-z,]+)/) || [])[1] || ""; /* TEMPORARY phone test switch (see v7.js) */
   var fine = w.matchMedia("(hover: hover) and (pointer: fine)").matches, phone = w.matchMedia("(max-width: 599px)").matches;
-  var rtl = function () { return h.dir === "rtl"; };
   h.classList.add("mx"); if (fine) h.classList.add("mx-fine");
+  /* setup waits for the first paint, like motion() in v7.js (its rAF is queued first, so it still runs before this) */
+  var started = 0, go = function () { if (!started) { started = 1; run(); } };
+  requestAnimationFrame(function () { setTimeout(go, 0); }); setTimeout(go, 300);
+  function run() {
   var $$ = function (s, r) { return Array.prototype.slice.call((r || d).querySelectorAll(s)); };
   function onEnter(el, fn, start) { ST.create({ trigger: el, start: start || "top 88%", once: true, onEnter: fn }); }
   function nth(el) { var li = el.closest("li"); return li && li.parentNode ? Array.prototype.indexOf.call(li.parentNode.children, li) : 0; }
@@ -30,7 +32,7 @@
     return img._dec;
   }
   function decoded(img, max) { return Promise.race([decode(img), new Promise(function (r) { setTimeout(r, max); })]); }
-  if (OFF.indexOf("curtain") < 0) $$(".card-img, .dish-img, .intro-img, .story-photo, .vid-frame").forEach(function (f) {
+  $$(".card-img, .dish-img, .intro-img, .story-photo, .vid-frame").forEach(function (f) {
     var r = getComputedStyle(f).borderRadius || "0px", pic /* full radius: keeps the decor arch (decor.css) during the reveal */ = f.querySelector("picture, video"), img = f.querySelector("img");
     /* phones: the 6 menu cards fill about one screen, and opening all of them in one frame was the bump; each row of two opens as it arrives */
     var byRow = phone && f.matches(".card-img"), group = byRow ? null : f.closest("[data-reveal-group]");
@@ -38,16 +40,15 @@
        Menu cards and dishes open many at once, so they slide instead of clipping (GPU only): a window (.mx-w, carries the frame's
        background) rises from below while the photo inside moves down by the same amount, so the photo stays put and the opening grows from the bottom. */
     /* phones: the intro and story photos slide too; the clip-path reveal repainted the whole photo and its gold corners every frame there */
-    var inner = f.querySelector(".parallax__inner"), slide = !!inner && (f.matches(".card-img, .dish-img") || phone && f.matches(".intro-img, .story-photo")) && OFF.indexOf("slide") < 0;
-    if (OFF.indexOf("zoom") > -1) pic = null;
+    var inner = f.querySelector(".parallax__inner"), slide = !!inner && (f.matches(".card-img, .dish-img") || phone && f.matches(".intro-img, .story-photo"));
     if (slide) {
       var wr = d.createElement("div"); wr.className = "mx-w"; wr.style.background = getComputedStyle(f).backgroundColor;
       var cn = d.createElement("div"); cn.className = "mx-c"; while (f.firstChild) cn.appendChild(f.firstChild); wr.appendChild(cn);
       f.appendChild(wr); f.style.background = "transparent";
     }
     f.style.setProperty("--mx-r", r); f.classList.add(slide ? "mx-slide" : "mx-cur"); if (pic) pic.classList.add("mx-pic");
-    if (OFF.indexOf("decode") < 0) ST.create({ trigger: group || f, start: "top bottom+=100%", once: true, onEnter: function () {
-      decode(img).then(function () { if (OFF.indexOf("warm") < 0 && !f._cold && !f.classList.contains("mx-open")) f.classList.add("mx-warm"); });
+    ST.create({ trigger: group || f, start: "top bottom+=100%", once: true, onEnter: function () {
+      decode(img).then(function () { if (!f._cold && !f.classList.contains("mx-open")) f.classList.add("mx-warm"); });
     } });
     /* warm-up: a fully hidden photo is never drawn ahead, so phones drew every photo of a row at once when it opened (the lag).
        While the frame is still a screen below the view it is uncovered (.mx-warm) so the photo gets drawn, then covered again before it can be seen. */
@@ -55,7 +56,7 @@
     onEnter(group || f, function () {
       var k = byRow ? nth(f) % 2 : Math.min(nth(f), 6), fast = !!group || f.classList.contains("card-img"), dl = fast ? k * 0.06 : k * 0.12 + 0.05;
       var du = fast ? 1.1 : 1.5, pdl = dl + (fast ? 0.1 : 0.25), pdu = fast ? 1.6 : 2.1;
-      (OFF.indexOf("decode") < 0 ? decoded(img, 300) : Promise.resolve()).then(function () {
+      decoded(img, 300).then(function () {
         f.style.setProperty("--mx-d", du + "s"); f.style.setProperty("--mx-dl", dl + "s"); f.style.setProperty("--mx-pd", pdu + "s"); f.style.setProperty("--mx-pdl", pdl + "s");
         f.classList.add(fast ? "mx-fast" : "mx-slow", "mx-open"); if (pic) pic.classList.add("mx-pic-on");
         setTimeout(function () { f.classList.remove("mx-cur", "mx-slide", "mx-open", "mx-fast", "mx-slow"); }, (dl + du) * 1000 + 60);
@@ -73,7 +74,7 @@
   }
 
   /* ---- section-label rules draw outwards ---- */
-  if (OFF.indexOf("rules") < 0 && !phone) $$(".sec-label").forEach(function (l) { onEnter(l, function () { l.classList.add("mx-on"); }); });
+  if (!phone) $$(".sec-label").forEach(function (l) { onEnter(l, function () { l.classList.add("mx-on"); }); });
 
   /* ---- review stars pop ---- */
   $$(".rcard").forEach(function (c) {
@@ -137,4 +138,5 @@
   d.addEventListener("pointerleave", function () { cu.classList.remove("is-on"); });
   d.addEventListener("pointerdown", function () { cu.classList.add("is-down"); });
   d.addEventListener("pointerup", function () { cu.classList.remove("is-down"); });
+  }
 })();
