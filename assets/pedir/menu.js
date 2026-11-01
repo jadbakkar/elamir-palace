@@ -17,9 +17,9 @@ const CONTORNOS_2 = {label:"Elige 2 contornos", n:2, items:["Papas fritas","Papa
 const OPT_SALSA_TENDERS = {label:"Salsa", choices:["Salsa rosa","Sweet chili"]};
 /* Extras opcionales (5º dato del plato): el cliente marca los que quiera y se suman al precio. Precios: CONFIRMAR con el cliente. */
 const ADDON = {
-  papas:["Papas fritas",6], hummus:["Hummus",8], tabbule:["Tabbule",11], camaron:["Camarón",7],
+  camaron:["Camarón",7],
   kafta:["Pincho de kafta",8], lomito:["Pincho de lomito",8], pollo:["Pincho de pollo",8], tocineta:["Tocineta",4],
-  veg:["Vegetales salteados",5], arroz:["Arroz",4], shCarne:["Carne de shawarma",5], shPollo:["Pollo de shawarma",5]
+  shCarne:["Carne de shawarma",5], shPollo:["Pollo de shawarma",5]
 };
 const ADD = (...keys) => ({label:"Adicionales", items:keys.map(k => ADDON[k])});
 const PROTEINAS = ["pollo","lomito","kafta","camaron","shCarne","shPollo"];
@@ -62,7 +62,7 @@ const MENU = [
   ["Tawook",13,"Pollo a la brasa, salsa de ajo, pepinillo, papas"],["Camarón",14,"Camarón, lechuga, pepinillo, salsa rosada"],
   ["Lomito",14,"Lomito a la brasa, crema de garbanzo, cebolla, perejil, tomate, pepinillo"],["Kebab",13,"Kebab a la brasa, crema de garbanzo, vegetales"],
   ["Makanek",13,"Salchicha árabe, ajo, tomate, limón, pepinillo"],["Hígado de pollo",13,"Hígado de pollo, papas, ajo, granadina"],
-  ["Falafel especial",10,"Croquetas de falafel con ingredientes especiales y papas fritas."],["Kibbe frito",11,"Sándwich de kibbe frito acompañado de papas fritas."]]],
+  ["Falafel especial",10,"Croquetas de falafel con ingredientes especiales y papas fritas.",null,null,PICK(1,true)],["Kibbe frito",11,"Sándwich de kibbe frito acompañado de papas fritas."]]],
  ["Brochetas y Parrillas","",[
   ["Brochetas El Amir",65,"2 pinchos de pollo, 3 de kafta, 2 de lomito, 8 alas, 8 makanek, vegetales a la brasa, papas y pan"],
   ["Brocheta de kafta",20,"Pinchos de carne molida sazonada a la brasa."],["Brocheta de pollo",21,"Pinchos de pechuga de pollo marinada a la brasa.",null,EXTRA_SIDES],["Brocheta de lomito",24,"Pinchos de lomito tierno a la brasa."],["Brocheta mixta",24],
@@ -79,12 +79,12 @@ const MENU = [
   ["Mero en 2 salsas",22,"Al carbón con salsa de alcaparras y amatriciana"],["Mero a la plancha",24],["Mero al ajillo",24],
   ["Cazuela de mariscos",17],["Dynamite shrimp",21,"Cóctel de camarones con toques asiáticos y papas"],
   ["Camarones a la plancha",20,"Con 2 contornos"],["Camarones al ajillo",20,"Con 2 contornos"],["Camarones rebozados",20,"Con 2 contornos"],
-  ["Calamares al ajillo",18,"Con 2 contornos"],["Calamares rebozados",20,"Con 2 contornos"],["Langostinos",25,"Con 2 contornos"],
-  ["Pulpo al grill",28,"Con chimichurri"],["Asopado de mariscos (2 personas)",50],["Arroz a la marinera",50]]],
+  ["Calamares al ajillo",18,"Con 2 contornos"],["Calamares rebozados",20,"Con 2 contornos"],
+  ["Pulpo al grill",28,"Con chimichurri"],["Asopado de mariscos (2 personas)",50]]],
  ["Arroces","",[
   ["Risotto al pesto con escalopines de pollo",19],["Risotto con calabaza y calamares acevichados",19],
   ["Paella (2 personas)",50],["Paella (3 personas)",60],["Paella (4 personas)",75],
-  ["Fideuá (2 personas)",50],["Fideuá (3 personas)",60],["Fideuá (4 personas)",75]]],
+  ["Fideuá (2 personas)",50],["Fideuá (3 personas)",60],["Fideuá (4 personas)",75],["Arroz a la marinera (2 personas)",50]]],
  ["Pastas","",[
   ["Fettuccine con ragú de mero",24],["Cartoccio de lomito",24,"Linguini en salsa blanca con lomito en salsa de champiñones"],
   ["Rigatoni cremoso con tocineta y champiñones",20,"Rigatoni en salsa blanca con tomates cherry confitados, champiñones, tocineta ahumada, toques de pesto y pimentón rostizado."],["Linguini con camarones",21,"Linguini en delicada salsa acompañado de camarones."],["Linguini al fileto",20,"Linguini en salsa de tomates frescos y albahaca."],["Linguini marinera",21,"Linguini con variedad de mariscos de la casa."],
@@ -107,30 +107,27 @@ const MENU = [
 const DRINK_CATS = ["Batidos y Yogurt","Bebidas","Licores y Cócteles"];
 /* Adicionales por categoría (las que no aparecen aquí: sin adicionales — entradas, sopas, bebidas).
    Sin tocineta en la comida árabe; sin arroz en arroces. Un plato nunca se ofrece a sí mismo como adicional. */
-const PRINCIPAL = ADD("papas","arroz","veg","hummus","tabbule",...PROTEINAS);
+const PRINCIPAL = ADD(...PROTEINAS);
 const EXTRAS_POR_CATEGORIA = {
-  "Ensaladas": ADD("pollo","camaron","shCarne","shPollo"),
   "Platos Árabes Especiales": ADD("pollo","lomito","kafta","shCarne","shPollo"),
   "Shawarmas y Sándwiches": PRINCIPAL,
   "Brochetas y Parrillas": PRINCIPAL,
-  "Carnes y Aves": ADD("tocineta","arroz","veg"),
-  "Pescados y Mariscos": PRINCIPAL,
-  "Arroces": ADD(...PROTEINAS),
-  "Pastas": ADD("camaron","pollo","lomito","tocineta","veg"),
-  "Hamburguesas": ADD("tocineta")
 };
 /* excepciones por plato (nombre exacto o que empiece por…) */
 const EXTRAS_POR_PLATO = [
-  [/^Ensalada César/, ADD("pollo","camaron","shCarne","shPollo","tocineta")],
   /* Plato mixto: solo pinchos extra (shish taouk / kafta / lahme) */
-  [/^Plato mixto$/, ADD("pollo","kafta","lomito")],
+  [/^Plato mixto( con lomito)?$/, ADD("pollo","kafta","lomito")],
+  /* bandejas árabes: pinchos, sin carne/pollo de shawarma */
+  [/^Bandeja árabe/, ADD("pollo","lomito","kafta")],
   /* brochetas: solo se les pueden agregar pinchos */
   [/^Brocheta/, ADD("pollo","kafta","lomito")],
   /* shawarmas: sin adicionales, solo quitar ingredientes (gratis) */
-  [/^Shawarma/, {label:"¿Quitamos algo?", items:[["Sin lechuga",0],["Sin tomate",0],["Sin cebolla",0],["Sin pepinillo",0],["Sin perejil",0],["Sin salsa de ajo",0]]}]
+  [/^Shawarma/, {label:"¿Quitamos algo?", items:[["Sin lechuga",0],["Sin tomate",0],["Sin cebolla",0],["Sin pepinillo",0],["Sin perejil",0],["Sin salsa de ajo",0],["Sin vegetales",0],["Sin nabo",0]]}]
 ];
 /* Para quitarle los adicionales a un plato concreto: añade su nombre a NO_EXTRAS. */
-const NO_EXTRAS = ["Plato mixto con lomito"];
+const NO_EXTRAS_SANDWICH = ["Fajita","Philadelphia","Tawook","Camarón","Lomito","Kebab","Makanek","Hígado de pollo","Kibbe frito"];   /* solo en Shawarmas y Sándwiches (Camarón y Makanek existen también en otras categorías) */
+const NO_EXTRAS = ["Fatte","Fatte de berenjena","Arroz libanés con pollo o cordero","Kibbe al yogurt",
+  "Parrilla El Amir","Parrilla mar y tierra","Parrilla de mariscos","Parrilla de pollo","Parrilla de lomito","Parrilla mixta"];
 /* Lleva 2 contornos a elegir: los de "Carnes y Aves" (salvo los que ya traen su guarnición en la descripción) y los que dicen "2 contornos" */
 const CON_CONTORNOS = (cat, it) => /2 contornos/i.test(it[2] || "") || (cat === "Carnes y Aves" && !/papas|arroz/i.test(it[2] || ""));
 /* Adicionales que no se ofrecen en un plato */
@@ -143,7 +140,7 @@ const YA_LO_TRAE = (cat, it, n) => {
 MENU.forEach(([cat, , list]) => list.forEach(it => {
   if (CON_CONTORNOS(cat, it)) it[5] = it[5] || CONTORNOS_2;
   const hit = EXTRAS_POR_PLATO.find(([re]) => re.test(it[0])), base = hit ? hit[1] : EXTRAS_POR_CATEGORIA[cat];
-  const items = base && !NO_EXTRAS.includes(it[0]) ? base.items.filter(x => x[0] !== it[0] && !YA_LO_TRAE(cat, it, x[0])) : [];
+  const items = base && !NO_EXTRAS.includes(it[0]) && !(cat === "Shawarmas y Sándwiches" && NO_EXTRAS_SANDWICH.includes(it[0])) ? base.items.filter(x => x[0] !== it[0] && !YA_LO_TRAE(cat, it, x[0])) : [];
   if (items.length) { it[2] = it[2] || ""; it[3] = it[3] || null; it[4] = {label: base.label, items}; }
   else if (it[4]) it[4] = null;
 }));
@@ -279,7 +276,7 @@ const PHOTOS_OFF = {
   "brochetas-y-parrillas--parrilla-de-pollo": "img/pya/brochetas-y-parrillas--parrilla-de-pollo.jpg",
   "brochetas-y-parrillas--parrilla-de-lomito": "img/pya/brochetas-y-parrillas--parrilla-de-lomito.jpg",
   "brochetas-y-parrillas--brocheta-mixta": "img/pya/brochetas-y-parrillas--brocheta-mixta.jpg",
-  "pescados-y-mariscos--arroz-a-la-marinera": "img/pya/pescados-y-mariscos--arroz-a-la-marinera.jpg",
+  "arroces--arroz-a-la-marinera-2-personas": "img/pya/pescados-y-mariscos--arroz-a-la-marinera.jpg",
   "pescados-y-mariscos--asopado-de-mariscos-2-personas": "img/pya/pescados-y-mariscos--asopado-de-mariscos.jpg",
   "pescados-y-mariscos--calamares-al-ajillo": "img/pya/pescados-y-mariscos--calamares-al-ajillo.jpg",
   "pescados-y-mariscos--camarones-al-ajillo": "img/pya/pescados-y-mariscos--camarones-al-ajillo.jpg",

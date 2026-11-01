@@ -141,7 +141,7 @@
     "carta.catdesc.shawarmas-y-sandwiches": "Shawarma, tawook, falafel",
     "carta.catdesc.brochetas-y-parrillas": "Kafta, lomito, mar y tierra",
     "carta.catdesc.carnes-y-aves": "Filet mignon, pollo a la brasa",
-    "carta.catdesc.pescados-y-mariscos": "Mero, pulpo, langostinos",
+    "carta.catdesc.pescados-y-mariscos": "Mero, pulpo, calamares",
     "carta.catdesc.arroces": "Paella, fideuá, risotto",
     "carta.catdesc.pastas": "Linguini, fettuccine",
     "carta.catdesc.hamburguesas": "Oh My Burger!, pollo crispy",
@@ -441,7 +441,7 @@
     "carta.catdesc.shawarmas-y-sandwiches": "Shawarma, tawook, falafel",
     "carta.catdesc.brochetas-y-parrillas": "Kafta, tenderloin, surf and turf",
     "carta.catdesc.carnes-y-aves": "Filet mignon, charcoal-grilled chicken",
-    "carta.catdesc.pescados-y-mariscos": "Grouper, octopus, prawns",
+    "carta.catdesc.pescados-y-mariscos": "Grouper, octopus, calamari",
     "carta.catdesc.arroces": "Paella, fideuà, risotto",
     "carta.catdesc.pastas": "Linguine, fettuccine",
     "carta.catdesc.hamburguesas": "Oh My Burger!, crispy chicken",
@@ -696,7 +696,7 @@
     "carta.catdesc.shawarmas-y-sandwiches": "شاورما، طاووق، فلافل",
     "carta.catdesc.brochetas-y-parrillas": "كفتة، فيليه، بر وبحر",
     "carta.catdesc.carnes-y-aves": "فيليه مينيون، دجاج مشوي",
-    "carta.catdesc.pescados-y-mariscos": "هامور، أخطبوط، جمبري",
+    "carta.catdesc.pescados-y-mariscos": "هامور، أخطبوط، حبار",
     "carta.catdesc.arroces": "باييلا، فيدوا، ريزوتو",
     "carta.catdesc.pastas": "لينغويني، فيتوتشيني",
     "carta.catdesc.hamburguesas": "أوه ماي برغر!، دجاج مقرمش",
@@ -931,6 +931,8 @@
   O("Sin pepinillo", "No pickles", "بدون مخلل");
   O("Sin perejil", "No parsley", "بدون بقدونس");
   O("Sin salsa de ajo", "No garlic sauce", "بدون صلصة الثوم");
+  O("Sin vegetales", "No vegetables", "بدون خضار");
+  O("Sin nabo", "No turnip", "بدون لفت");
   O("Camarón", "Shrimp", "روبيان");
   O("Pincho de kafta", "Kafta skewer", "سيخ كفتة");
   O("Pincho de lomito", "Beef tenderloin skewer", "سيخ فيليه لحم");
@@ -1169,7 +1171,7 @@
   D("Langostinos", "Con 2 contornos", ["King Prawns", "With 2 sides"], ["جمبري ملكي", "مع صنفين جانبيين"]);
   D("Pulpo al grill", "Con chimichurri", ["Grilled Octopus", "With chimichurri"], ["أخطبوط مشوي", "مع صلصة تشيميتشوري"]);
   D("Asopado de mariscos (2 personas)", "", ["Seafood Asopado (soupy rice stew, serves 2)", ""], ["أسوبادو المأكولات البحرية (أرز بمرق، لشخصين)", ""]);
-  D("Arroz a la marinera", "", ["Marinera-Style Seafood Rice", ""], ["أرز بحري على الطريقة المارينيرا", ""]);
+  D("Arroz a la marinera (2 personas)", "", ["Marinera-Style Seafood Rice (serves 2)", ""], ["أرز بحري على الطريقة المارينيرا (لشخصين)", ""]);
 
   /* ---- 10. Arroces ---- */
   C("Arroces", "Rice Dishes", "أطباق الأرز");
