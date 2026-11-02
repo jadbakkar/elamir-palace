@@ -42,7 +42,7 @@
     // small photo per section (6 KB thumbs from scripts/make-thumbs.js); sections without one get a gold mark
     const TH = { "entradas-arabes": "bandeja-arabe-640", "entradas-mediterraneas": "carpaccio-480", "sopas-y-cremas": "crema-auyama-480", "ensaladas": "ensalada-burrata-480",
       "platos-arabes-especiales": "tabaquitos-uva", "shawarmas-y-sandwiches": "shawarma-wrap-640", "brochetas-y-parrillas": "parrilla-mixta-640", "carnes-y-aves": "pollo-brasa-el-amir-480",
-      "pescados-y-mariscos": "dynamite-shrimp-640", "arroces": "fideua-640", "pastas": "rigatoni-480", "hamburguesas": "oh-my-burger-480" };
+      "pescados-y-mariscos": "dynamite-shrimp-640", "arroces": "fideua-640", "pastas": "rigatoni-480", "hamburguesas": "oh-my-burger-480", "licores-y-cocteles": "licores-cocteles" };
     return menu.map(([cat]) => {
       const s = slug(cat), th = TH[s];
       const pic = th ? '<img src="assets/pedir/thumbs/' + th + '.webp" width="30" height="30" alt="" decoding="async">' : '<i class="chip-dot" aria-hidden="true"></i>';

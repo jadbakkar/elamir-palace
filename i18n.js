@@ -1043,18 +1043,19 @@
   /* ---- 5. Platos Árabes Especiales ---- */
   C("Platos Árabes Especiales", "Special Arabic Dishes", "أطباق عربية مميزة");
   C("Medias Porciones", "Half Portions", "أنصاف الحصص");
-  O("Medio hummus", "Half hummus", "نصف حمص");
-  O("Medio mutabal", "Half mutabal", "نصف متبل");
-  O("Media muhammara", "Half muhammara", "نصف محمرة");
-  O("Medio labne", "Half labne", "نصف لبنة");
-  O("Media crema mixta", "Half mixed dips", "نصف المقبلات المشكّلة");
-  O("Medio kibbe crudo", "Half raw kibbe", "نصف كبة نيئة");
-  O("Medio kibbe frito", "Half fried kibbe", "نصف كبة مقلية");
-  O("Medio kibbe horneado", "Half baked kibbe", "نصف كبة بالفرن");
-  O("Medio falafel", "Half falafel", "نصف فلافل");
-  O("Medio tabaquito de uva", "Half stuffed grape leaves", "نصف ورق عنب");
-  O("Medio tabaquito de repollo", "Half stuffed cabbage", "نصف ملفوف محشي");
-  O("Medio tabbule", "Half tabbouleh", "نصف تبولة");
+  D("Medio hummus", "", ["Half hummus", ""], ["نصف حمص", ""]);
+  D("Medio mutabal", "", ["Half mutabal", ""], ["نصف متبل", ""]);
+  D("Media muhammara", "", ["Half muhammara", ""], ["نصف محمرة", ""]);
+  D("Medio labne", "", ["Half labne", ""], ["نصف لبنة", ""]);
+  D("Media crema mixta", "", ["Half mixed dips", ""], ["نصف المقبلات المشكّلة", ""]);
+  D("Medio kibbe crudo", "", ["Half raw kibbe", ""], ["نصف كبة نيئة", ""]);
+  D("Medio kibbe frito", "", ["Half fried kibbe", ""], ["نصف كبة مقلية", ""]);
+  D("Medio kibbe horneado", "", ["Half baked kibbe", ""], ["نصف كبة بالفرن", ""]);
+  D("Medio falafel", "", ["Half falafel", ""], ["نصف فلافل", ""]);
+  D("Medio tabaquito de uva", "", ["Half stuffed grape leaves", ""], ["نصف ورق عنب", ""]);
+  D("Medio tabaquito de repollo", "", ["Half stuffed cabbage", ""], ["نصف ملفوف محشي", ""]);
+  D("Medio tabbule", "", ["Half tabbouleh", ""], ["نصف تبولة", ""]);
+  D("Medio plato de shawarma", "", ["Half shawarma plate", ""], ["نصف طبق شاورما", ""]);
   D("Fatte", "Carne molida, garbanzo y pan frito al yogurt con almendras",
     ["Fatteh", "Ground beef, chickpeas and fried bread in yogurt, topped with almonds"],
     ["فتّة", "لحم مفروم وحمص وخبز مقلي باللبن مع اللوز"]);

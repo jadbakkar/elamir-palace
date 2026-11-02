@@ -55,7 +55,7 @@ const MENU = [
   ["Bandeja árabe (3 personas)",65,"3 pinchos, 4 kibbe fritos, 8 tabaquitos, 4 falafel, makanek, kibbe crudo y horneado, tabbule, cremas"],
   ["Bandeja árabe (4 personas)",75,"4 pinchos, 6 kibbes fritos, 6 falafel, 10 tabaquitos, makanek, kibbe crudo y horneado, tabbule, cremas"]]],
  ["Medias Porciones","",[
-  ["Medio hummus",4],["Medio mutabal",4],["Media muhammara",4],["Medio labne",6],["Media crema mixta",6],["Medio kibbe crudo",6],["Medio kibbe frito",6],["Medio kibbe horneado",7],["Medio falafel",5],["Medio tabaquito de uva",6],["Medio tabaquito de repollo",6],["Medio tabbule",6]]],
+  ["Medio hummus",4],["Medio mutabal",4],["Media muhammara",4],["Medio labne",6],["Media crema mixta",6],["Medio kibbe crudo",6],["Medio kibbe frito",6],["Medio kibbe horneado",7],["Medio falafel",5],["Medio tabaquito de uva",6],["Medio tabaquito de repollo",6],["Medio tabbule",6],["Medio plato de shawarma",18]]],
  ["Shawarmas y Sándwiches","Todos los sándwiches vienen con papas fritas",[
   ["Shawarma",8,"Proteína de tu preferencia y vegetales tradicionales",OPT_SH],["Shawarma especial",10,"Con 1 ingrediente extra (tabbule, falafel, pimentones…)",OPT_SH,null,PICK(1,true)],
   ["Shawarma súper especial",12,"Con 2 ingredientes extra",OPT_SH,null,PICK(2,true)],["Shawarma abierto",10,"Servido abierto en plato con la proteína de tu preferencia y vegetales.",OPT_SH],["Shawarma especial abierto",12,"Servido abierto en plato con vegetales tradicionales y un ingrediente especial extra.",OPT_SH,null,PICK(1)],["Shawarma súper especial abierto",13,"Servido abierto en plato con vegetales tradicionales y dos ingredientes especiales extra.",OPT_SH,null,PICK(2)],
@@ -112,7 +112,7 @@ const DRINK_CATS = ["Batidos y Yogurt","Bebidas","Licores y Cócteles"];
 const SAND = "Shawarmas y Sándwiches";
 const CARNES = "Carnes y Aves";
 const ENVASES = [
-  [/^Plato mixto$/, 2], [/^Plato de shawarma$/, 2],
+  [/^Plato mixto$/, 2], [/^Plato de shawarma$/, 2], [/^Medio plato de shawarma$/, 2],
   [/^Bandeja árabe \(2 personas\)$/, 6], [/^Bandeja árabe \(3 personas\)$/, 6], [/^Bandeja árabe \(4 personas\)$/, 8],
   [/^Kibbe al yogurt$/, 1],
   [/^Shawarma abierto$/, 1, SAND], [/^Shawarma especial abierto$/, 1, SAND], [/^Shawarma súper especial abierto$/, 1, SAND], [/^Fajita$/, 1, SAND], [/^Philadelphia$/, 1, SAND], [/^Tawook$/, 1, SAND], [/^Camarón$/, 1, SAND], [/^Lomito$/, 1, SAND], [/^Kebab$/, 1, SAND], [/^Makanek$/, 1, SAND], [/^Hígado de pollo$/, 1, SAND],
@@ -139,6 +139,8 @@ const EXTRAS_POR_CATEGORIA = {
 const EXTRAS_POR_PLATO = [
   /* Plato mixto: solo pinchos extra (shish taouk / kafta / lahme) */
   [/^Plato mixto( con lomito)?$/, ADD("pollo","kafta","lomito")],
+  /* medio plato de shawarma: los mismos adicionales que el plato de shawarma */
+  [/^Medio plato de shawarma$/, ADD("pollo","lomito","kafta","shCarne","shPollo")],
   /* bandejas árabes: pinchos, sin carne/pollo de shawarma */
   [/^Bandeja árabe/, ADD("pollo","lomito","kafta")],
   /* brochetas: solo se les pueden agregar pinchos */
@@ -171,6 +173,12 @@ const UPSELL =[["Batidos y Yogurt","Limonada con hierbabuena"],["Bebidas","Agua 
 /* Fotos reales por plato (id = slug(categoría)--slug(plato)). Solo se muestran si existen.
    Para ocultarlas, cambia PHOTOS = PHOTOS_OFF por PHOTOS = {} y ejecuta: node scripts/prerender-menu.js */
 const PHOTOS_OFF = {
+  "licores-y-cocteles--cerveza-nacional": "img/drinks/cerveza.jpg",
+  "licores-y-cocteles--cerveza-importada": "img/drinks/cerveza.jpg",
+  "licores-y-cocteles--copa-de-vino": "img/drinks/vino.jpg",
+  "licores-y-cocteles--botella-de-whisky-8-anos": "img/drinks/whisky.jpg",
+  "licores-y-cocteles--botella-de-whisky-12-anos": "img/drinks/whisky.jpg",
+  "licores-y-cocteles--botella-de-whisky-18-anos": "img/drinks/whisky.jpg",
   "entradas-arabes--tabaquitos-de-uva": "img/tabaquitos-uva",
   "entradas-arabes--tabaquitos-de-repollo": "img/tabaquitos-repollo-480",
   "entradas-mediterraneas--carpaccio-de-lomito": "img/carpaccio-480",
@@ -294,6 +302,18 @@ const PHOTOS_OFF = {
   "ensaladas--yogurt-con-pepino": "img/pya/ensaladas--yogurt-con-pepino.jpg",
   "entradas-arabes--hummus": "img/pya/entradas-arabes--hummus.jpg",
   "entradas-arabes--mutabal": "img/pya/entradas-arabes--mutabal.jpg",
+  "medias-porciones--medio-hummus": "img/pya/entradas-arabes--hummus.jpg",
+  "medias-porciones--medio-mutabal": "img/pya/entradas-arabes--mutabal.jpg",
+  "medias-porciones--media-muhammara": "img/pya/entradas-arabes--muhammara.jpg",
+  "medias-porciones--media-crema-mixta": "img/pya/entradas-arabes--cremas-mixtas.jpg",
+  "medias-porciones--medio-kibbe-crudo": "img/pya/entradas-arabes--kibbe-crudo.jpg",
+  "medias-porciones--medio-kibbe-frito": "img/pya/entradas-arabes--kibbe-frito.jpg",
+  "medias-porciones--medio-kibbe-horneado": "img/pya/entradas-arabes--kibbe-horneado.jpg",
+  "medias-porciones--medio-falafel": "img/pya/entradas-arabes--falafel.jpg",
+  "medias-porciones--medio-tabaquito-de-uva": "img/tabaquitos-uva",
+  "medias-porciones--medio-tabaquito-de-repollo": "img/tabaquitos-repollo-480",
+  "medias-porciones--medio-tabbule": "img/pya/ensaladas--tabbule-2.jpg",
+  "medias-porciones--medio-plato-de-shawarma": "img/pya/platos-arabes-especiales--plato-de-shawarma.jpg",
   "pescados-y-mariscos--pulpo-al-grill": "img/pya/pescados-y-mariscos--pulpo-al-grill.jpg",
   "brochetas-y-parrillas--parrilla-de-pollo": "img/pya/brochetas-y-parrillas--parrilla-de-pollo.jpg",
   "brochetas-y-parrillas--parrilla-de-lomito": "img/pya/brochetas-y-parrillas--parrilla-de-lomito.jpg",
