@@ -42,7 +42,7 @@
     // small photo per section (6 KB thumbs from scripts/make-thumbs.js); sections without one get a gold mark
     const TH = { "entradas-arabes": "bandeja-arabe-640", "entradas-mediterraneas": "carpaccio-480", "sopas-y-cremas": "crema-auyama-480", "ensaladas": "ensalada-burrata-480",
       "platos-arabes-especiales": "tabaquitos-uva", "shawarmas-y-sandwiches": "shawarma-wrap-640", "brochetas-y-parrillas": "parrilla-mixta-640", "carnes-y-aves": "pollo-brasa-el-amir-480",
-      "pescados-y-mariscos": "dynamite-shrimp-640", "arroces": "fideua-640", "pastas": "rigatoni-480", "hamburguesas": "oh-my-burger-480", "licores-y-cocteles": "licores-cocteles" };
+      "pescados-y-mariscos": "dynamite-shrimp-640", "arroces": "fideua-640", "pastas": "rigatoni-480", "hamburguesas": "oh-my-burger-480", "batidos-y-yogurt": "batidos-yogurt", "bebidas": "bebidas", "licores-y-cocteles": "licores-cocteles" };
     return menu.map(([cat]) => {
       const s = slug(cat), th = TH[s];
       const pic = th ? '<img src="assets/pedir/thumbs/' + th + '.webp" width="30" height="30" alt="" decoding="async">' : '<i class="chip-dot" aria-hidden="true"></i>';
@@ -351,10 +351,11 @@
   /* ---------- branch / totals ---------- */
   const form = $("#form");
   const isDel = () => form.elements.type.value === "Delivery";
-  /* packaging: each "envase" of a dish costs $1, per unit ordered (ENVASES in menu.js) */
+  /* packaging: each "envase" of a dish costs $1, per unit ordered (ENVASES in menu.js); "servir aparte" adds 1 */
   const envOf = k => { const d = dishes[parseKey(k).id], r = typeof ENVASES !== "undefined" && ENVASES.find(([re, , cat]) => re.test(d.name) && (!cat || d.cat === cat)); return (r ? r[1] : 0) + (parseKey(k).extras.includes(APARTE) ? 1 : 0); };
   const envases = () => Object.entries(cart).reduce((s, [k, q]) => s + envOf(k) * q, 0);
   function totals() { const sub = subtotal(), env = envases(); return { sub, env, total: sub + env }; }
+  let sumTouched = false;   /* the guest tapped the total bar: stop auto-opening the breakdown */
   /* branches: the guest picks the branch to chat with on the last step (delivery and pickup); fallback = CONFIG.whatsapp.
      The branch asks for the delivery location in the WhatsApp chat. No delivery fee is shown. */
   const BRANCHES = Array.isArray(CONFIG.sucursales) && CONFIG.sucursales.length ? CONFIG.sucursales : null;
@@ -412,7 +413,9 @@
   function renderTotals() {
     const tt = totals(), c = count(), r = rate();
     $("#ledgerSub").textContent = $("#sheetSub").textContent = money(tt.sub); $("#pillSub").textContent = money(tt.total);
-    $("#ledgerEnvRow").hidden = $("#sheetEnvRow").hidden = !tt.env; $("#ledgerEnv").textContent = $("#sheetEnv").textContent = money(tt.env);
+    $("#ledgerEnvRow").hidden = $("#sheetEnvRow").hidden = $("#ledgerTotRow").hidden = !tt.env; $("#ledgerEnv").textContent = $("#sheetEnv").textContent = money(tt.env); $("#ledgerTot").textContent = money(tt.total);
+    /* with envases, the breakdown (subtotal + envases) is open above the total unless the guest closed it */
+    if (!sumTouched) { $("#sumX").hidden = !tt.env; $("#sumToggle").setAttribute("aria-expanded", String(!!tt.env)); }
     $("#pillCount").textContent = c;
     const hc = $("#hdCount"); hc.textContent = c; hc.hidden = !c;
     $("#hdCart").setAttribute("aria-label", c ? t("pill.aria", { items: I.tp("cart.dishes", c), total: money(tt.total) }) : t("pill.view"));
@@ -426,7 +429,7 @@
     }
     pill.setAttribute("aria-label", t("pill.aria", { items: I.tp("cart.dishes", c), total: money(tt.total) }));
     $("#ledgerGo").disabled = !c; $("#clearBtn").hidden = !c; $("#ledgerWhy").hidden = !!c;
-    const lb = $("#ledgerBs"); lb.hidden = !(r && c); lb.textContent = r ? "≈ " + I.bs(tt.sub, r) : "";
+    const lb = $("#ledgerBs"); lb.hidden = !(r && c); lb.textContent = r ? "≈ " + I.bs(tt.total, r) : "";
     const mm = minMsg(); $("#ledgerMin").hidden = !mm; $("#ledgerMin").textContent = mm;
     $("#totLbl").textContent = t("totals.total");
     $("#sheetTotal").textContent = money(tt.total);
@@ -835,7 +838,7 @@
   form.addEventListener("click", e => { const b = e.target.closest("[data-open]"); if (b) openFold(b.dataset.open, true); });
 
   /* compact total bar: tap the total for the breakdown */
-  $("#sumToggle").onclick = () => { const x = $("#sumX"), o = x.hidden; x.hidden = !o; $("#sumToggle").setAttribute("aria-expanded", String(o)); };
+  $("#sumToggle").onclick = () => { sumTouched = true; const x = $("#sumX"), o = x.hidden; x.hidden = !o; $("#sumToggle").setAttribute("aria-expanded", String(o)); };
   $("#ledgerGo").onclick = () => openSheet(1);
   $("#pill").onclick = () => openSheet(0);
   /* bottom-nav PEDIR: with dishes in the cart it opens the order, otherwise it jumps to the menu (#carta) */

@@ -173,6 +173,22 @@ const UPSELL =[["Batidos y Yogurt","Limonada con hierbabuena"],["Bebidas","Agua 
 /* Fotos reales por plato (id = slug(categoría)--slug(plato)). Solo se muestran si existen.
    Para ocultarlas, cambia PHOTOS = PHOTOS_OFF por PHOTOS = {} y ejecuta: node scripts/prerender-menu.js */
 const PHOTOS_OFF = {
+  "batidos-y-yogurt--batido-de-fresa": "img/drinks/batido-fresa.jpg",
+  "batidos-y-yogurt--batido-de-melon": "img/drinks/batido-melon.jpg",
+  "batidos-y-yogurt--batido-de-pina": "img/drinks/batido-pina.jpg",
+  "batidos-y-yogurt--batido-de-melocoton": "img/drinks/batido-melocoton.jpg",
+  "batidos-y-yogurt--batido-de-guanabana": "img/drinks/batido-guanabana.jpg",
+  "batidos-y-yogurt--batido-de-lechosa": "img/drinks/batido-lechosa.jpg",
+  "batidos-y-yogurt--batido-de-parchita": "img/drinks/batido-parchita.jpg",
+  "batidos-y-yogurt--batido-de-mora": "img/drinks/batido-mora.jpg",
+  "batidos-y-yogurt--merengada-de-frutas": "img/drinks/merengada.jpg",
+  "batidos-y-yogurt--limonada": "img/drinks/limonada.jpg",
+  "batidos-y-yogurt--limonada-con-hierbabuena": "img/drinks/limonada-hierbabuena.jpg",
+  "batidos-y-yogurt--yogurt-con-hierbabuena": "img/drinks/yogurt-hierbabuena.jpg",
+  "batidos-y-yogurt--yogurt-con-frutas": "img/drinks/yogurt.jpg",
+  "bebidas--nestea": "img/drinks/te-helado.jpg",
+  "bebidas--jarra-de-nestea-x4": "img/drinks/te-jarra.jpg",
+  "bebidas--gatorade": "img/drinks/gatorade.jpg",
   "licores-y-cocteles--cerveza-nacional": "img/drinks/cerveza.jpg",
   "licores-y-cocteles--cerveza-importada": "img/drinks/cerveza.jpg",
   "licores-y-cocteles--copa-de-vino": "img/drinks/vino.jpg",
