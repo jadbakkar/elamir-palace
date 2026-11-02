@@ -13,8 +13,8 @@ const CONFIG = {
   pruebaSinHorario: true,              // TEST: true = se puede enviar pedidos aunque esté cerrado. Poner false al publicar.
   // Horario por día: ["apertura","cierre"] en 24h, o null si cierra ese día. Si cierra pasada la medianoche (ej. "02:00") funciona.
   horario: {                           // <<< CAMBIAR
-    lun: ["11:30","22:00"], mar: ["11:30","22:00"], mie: ["11:30","22:00"], jue: ["11:30","22:00"],
-    vie: ["11:30","23:00"], sab: ["11:30","23:00"], dom: ["11:30","21:00"]
+    lun: ["11:30","00:00"], mar: ["11:30","00:00"], mie: ["11:30","00:00"], jue: ["11:30","00:00"],
+    vie: ["11:30","00:00"], sab: ["11:30","00:00"], dom: ["11:30","00:00"]
   },
   // Sucursales. El cliente elige con cuál hablar al final del pedido (delivery y retiro); el pedido va al WhatsApp de esa sucursal,
   // que le pide la ubicación por el chat.

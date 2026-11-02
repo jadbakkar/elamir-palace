@@ -196,7 +196,7 @@
     "status.closed": "Cerrado ahora",
     "status.closedOpensAt": "Cerrado ahora · Abrimos {when} a las {time}",
     "status.opensAt": "Abrimos {when} a las {time}",
-    "status.closedNote": "{status}. Puedes armar tu pedido, pero no enviarlo todavía.",
+    "status.closedNote": "{status}. Puedes enviar tu pedido igual, pero no empezaremos a prepararlo antes de abrir.",
 
     /* ordering page: hero + toolbar */
     "pedir.skip": "Saltar al menú",
@@ -301,6 +301,7 @@
 
     /* totals */
     "totals.subtotal": "Subtotal",
+    "totals.envases": "Envases",
     "totals.delivery": "Delivery",
     "totals.free": "Gratis",
     "totals.chooseZone": "Elige tu zona",
@@ -345,6 +346,7 @@
     "wa.order.sep": "-----",
     "wa.order.line": "{qty}x {name} - {price}",
     "wa.order.subtotal": "Subtotal: {amount}",
+    "wa.order.envases": "Envases: {amount}",
     "wa.order.delivery": "Delivery ({zone}): {amount}",
     "wa.order.total": "*TOTAL: {amount}*",
     "wa.order.totalBs": " (≈ {bs} a tasa BCV {rate})",
@@ -491,7 +493,7 @@
     "status.closed": "Closed now",
     "status.closedOpensAt": "Closed now · We open {when} at {time}",
     "status.opensAt": "We open {when} at {time}",
-    "status.closedNote": "{status}. You can build your order, but you cannot send it yet.",
+    "status.closedNote": "{status}. You can still send your order, but we won't start preparing it before we open.",
 
     "pedir.skip": "Skip to menu",
     "pedir.heroAria": "Order delivery",
@@ -590,6 +592,7 @@
     "kv.copyZelle": "Copy Zelle email",
 
     "totals.subtotal": "Subtotal",
+    "totals.envases": "Packaging",
     "totals.delivery": "Delivery",
     "totals.free": "Free",
     "totals.chooseZone": "Choose your zone",
@@ -746,7 +749,7 @@
     "status.closed": "مغلق حالياً",
     "status.closedOpensAt": "مغلق حالياً · نفتح {when} الساعة {time}",
     "status.opensAt": "نفتح {when} الساعة {time}",
-    "status.closedNote": "{status}. يمكنك تجهيز طلبك لكن لا يمكن إرساله الآن.",
+    "status.closedNote": "{status}. يمكنك إرسال طلبك، لكن لن نبدأ بتحضيره قبل موعد الافتتاح.",
 
     "pedir.skip": "تخطَّ إلى القائمة",
     "pedir.heroAria": "اطلب التوصيل",
@@ -849,6 +852,7 @@
     "kv.copyZelle": "نسخ بريد Zelle",
 
     "totals.subtotal": "المجموع الفرعي",
+    "totals.envases": "العبوات",
     "totals.delivery": "التوصيل",
     "totals.free": "مجاني",
     "totals.chooseZone": "اختر منطقتك",
@@ -949,6 +953,7 @@
   O("Papas rústicas", "Rustic potatoes", "بطاطا ريفية");
   O("Puré", "Mashed potatoes", "بطاطا مهروسة");
   O("Vegetales al vapor", "Steamed vegetables", "خضار على البخار");
+  O("Vegetales Santiago", "Santiago vegetables", "خضار سانتياغو");
   O("Ensalada mixta", "Mixed salad", "سلطة مشكّلة");
   O("Salsa", "Sauce", "الصلصة");
   O("Salsa rosa", "Pink sauce", "صلصة وردية");
@@ -1037,6 +1042,19 @@
 
   /* ---- 5. Platos Árabes Especiales ---- */
   C("Platos Árabes Especiales", "Special Arabic Dishes", "أطباق عربية مميزة");
+  C("Medias Porciones", "Half Portions", "أنصاف الحصص");
+  O("Medio hummus", "Half hummus", "نصف حمص");
+  O("Medio mutabal", "Half mutabal", "نصف متبل");
+  O("Media muhammara", "Half muhammara", "نصف محمرة");
+  O("Medio labne", "Half labne", "نصف لبنة");
+  O("Media crema mixta", "Half mixed dips", "نصف المقبلات المشكّلة");
+  O("Medio kibbe crudo", "Half raw kibbe", "نصف كبة نيئة");
+  O("Medio kibbe frito", "Half fried kibbe", "نصف كبة مقلية");
+  O("Medio kibbe horneado", "Half baked kibbe", "نصف كبة بالفرن");
+  O("Medio falafel", "Half falafel", "نصف فلافل");
+  O("Medio tabaquito de uva", "Half stuffed grape leaves", "نصف ورق عنب");
+  O("Medio tabaquito de repollo", "Half stuffed cabbage", "نصف ملفوف محشي");
+  O("Medio tabbule", "Half tabbouleh", "نصف تبولة");
   D("Fatte", "Carne molida, garbanzo y pan frito al yogurt con almendras",
     ["Fatteh", "Ground beef, chickpeas and fried bread in yogurt, topped with almonds"],
     ["فتّة", "لحم مفروم وحمص وخبز مقلي باللبن مع اللوز"]);
@@ -1609,6 +1627,7 @@
     L.push(E("wa.order.sep"));
     (o.lines || []).forEach(function (l) { L.push(E("wa.order.line", { qty: l.qty, name: wx(l.name), price: M(l.total) })); });
     L.push(E("wa.order.sep"), E("wa.order.subtotal", { amount: M(o.subtotal) }));
+    if (o.envases) L.push(E("wa.order.envases", { amount: M(o.envases) }));
     if (del && o.zone && typeof o.fee === "number") L.push(E("wa.order.delivery", { zone: wx(o.zone.name), amount: M(o.fee) }));
     L.push(E("wa.order.total", { amount: M(o.total) }) + (o.bsTotal ? E("wa.order.totalBs", { bs: o.bsTotal, rate: o.rate }) : ""));
     L.push(E("wa.order.pay", { pay: o.pay }));

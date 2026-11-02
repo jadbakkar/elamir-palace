@@ -13,7 +13,7 @@ const OPT_BAT = {label:"Preparación", choices:["En agua","En leche"]};
 const EXTRAS_SH = ["Crema de berenjena","Crema de garbanzo","Crema de pimentón","Falafel","Kibbe frito","Papas fritas","Tabbule","Tabaquitos de uva","Tabaquitos de repollo"];
 const PICK = (n, aparte) => ({label: n > 1 ? "Elige 2 extras" : "Elige 1 extra", n, items: EXTRAS_SH, aparte: !!aparte});
 /* Platos "con 2 contornos": el cliente elige sus 2 contornos (incluidos). Se asigna abajo, junto a los adicionales. */
-const CONTORNOS_2 = {label:"Elige 2 contornos", n:2, items:["Papas fritas","Papas bravas","Papas rústicas","Puré","Vegetales al vapor","Ensalada mixta","Arroz"]};
+const CONTORNOS_2 = {label:"Elige 2 contornos", n:2, items:["Papas fritas","Papas bravas","Papas rústicas","Puré","Vegetales al vapor","Vegetales Santiago","Ensalada mixta","Arroz"]};
 const OPT_SALSA_TENDERS = {label:"Salsa", choices:["Salsa rosa","Sweet chili"]};
 /* Extras opcionales (5º dato del plato): el cliente marca los que quiera y se suman al precio. Precios: CONFIRMAR con el cliente. */
 const ADDON = {
@@ -54,6 +54,8 @@ const MENU = [
   ["Bandeja árabe (2 personas)",50,"Pinchos de pollo y lomito, tabbule, tabaquitos, makanek, kibbes, falafel y cremas mixtas"],
   ["Bandeja árabe (3 personas)",65,"3 pinchos, 4 kibbe fritos, 8 tabaquitos, 4 falafel, makanek, kibbe crudo y horneado, tabbule, cremas"],
   ["Bandeja árabe (4 personas)",75,"4 pinchos, 6 kibbes fritos, 6 falafel, 10 tabaquitos, makanek, kibbe crudo y horneado, tabbule, cremas"]]],
+ ["Medias Porciones","",[
+  ["Medio hummus",4],["Medio mutabal",4],["Media muhammara",4],["Medio labne",6],["Media crema mixta",6],["Medio kibbe crudo",6],["Medio kibbe frito",6],["Medio kibbe horneado",7],["Medio falafel",5],["Medio tabaquito de uva",6],["Medio tabaquito de repollo",6],["Medio tabbule",6]]],
  ["Shawarmas y Sándwiches","Todos los sándwiches vienen con papas fritas",[
   ["Shawarma",8,"Proteína de tu preferencia y vegetales tradicionales",OPT_SH],["Shawarma especial",10,"Con 1 ingrediente extra (tabbule, falafel, pimentones…)",OPT_SH,null,PICK(1,true)],
   ["Shawarma súper especial",12,"Con 2 ingredientes extra",OPT_SH,null,PICK(2,true)],["Shawarma abierto",10,"Servido abierto en plato con la proteína de tu preferencia y vegetales.",OPT_SH],["Shawarma especial abierto",12,"Servido abierto en plato con vegetales tradicionales y un ingrediente especial extra.",OPT_SH,null,PICK(1)],["Shawarma súper especial abierto",13,"Servido abierto en plato con vegetales tradicionales y dos ingredientes especiales extra.",OPT_SH,null,PICK(2)],
@@ -105,6 +107,26 @@ const MENU = [
   ["Botella de whisky 8 años",45],["Botella de whisky 12 años",60],["Botella de whisky 18 años",115]]]
 ];
 const DRINK_CATS = ["Batidos y Yogurt","Bebidas","Licores y Cócteles"];
+/* Envases por plato: [nombre, envases, categoría opcional]. Cada envase = $1 por unidad, se suma al total del pedido.
+   Gana la primera regla que coincida; /./ con categoría = todo lo demás de esa categoría. Platos sin regla: sin envases. */
+const SAND = "Shawarmas y Sándwiches";
+const CARNES = "Carnes y Aves";
+const ENVASES = [
+  [/^Plato mixto$/, 2], [/^Plato de shawarma$/, 2],
+  [/^Bandeja árabe \(2 personas\)$/, 6], [/^Bandeja árabe \(3 personas\)$/, 6], [/^Bandeja árabe \(4 personas\)$/, 8],
+  [/^Kibbe al yogurt$/, 1],
+  [/^Shawarma abierto$/, 1, SAND], [/^Shawarma especial abierto$/, 1, SAND], [/^Shawarma súper especial abierto$/, 1, SAND], [/^Fajita$/, 1, SAND], [/^Philadelphia$/, 1, SAND], [/^Tawook$/, 1, SAND], [/^Camarón$/, 1, SAND], [/^Lomito$/, 1, SAND], [/^Kebab$/, 1, SAND], [/^Makanek$/, 1, SAND], [/^Hígado de pollo$/, 1, SAND],
+  [/^Pollo a la brasa El Amir$/, 3, CARNES], [/./, 1, CARNES],
+  [/^Asopado de mariscos \(2 personas\)$/, 2, "Pescados y Mariscos"], [/./, 1, "Pescados y Mariscos"],
+  [/^Risotto al pesto con escalopines de pollo$/, 1, "Arroces"], [/^Risotto con calabaza y calamares acevichados$/, 1, "Arroces"], [/./, 4, "Arroces"],
+  [/./, 1, "Pastas"],
+  [/./, 1, "Hamburguesas"],
+  [/^Brochetas El Amir$/, 4, "Brochetas y Parrillas"], [/^Brocheta (de kafta|de pollo|de lomito|mixta)$/, 2, "Brochetas y Parrillas"],
+  [/^Parrilla /, 1, "Brochetas y Parrillas"],
+  [/^Fatte$/, 1, "Platos Árabes Especiales"], [/^Fatte de berenjena$/, 1, "Platos Árabes Especiales"],
+  [/^Plato mixto con lomito$/, 2], [/^Plato vegetariano árabe$/, 2], [/^Arroz libanés con pollo o cordero$/, 1],
+  [/./, 1, "Entradas Árabes"], [/./, 1, "Entradas Mediterráneas"], [/./, 1, "Sopas y Cremas"], [/./, 1, "Ensaladas"]
+];
 /* Adicionales por categoría (las que no aparecen aquí: sin adicionales — entradas, sopas, bebidas).
    Sin tocineta en la comida árabe; sin arroz en arroces. Un plato nunca se ofrece a sí mismo como adicional. */
 const PRINCIPAL = ADD(...PROTEINAS);

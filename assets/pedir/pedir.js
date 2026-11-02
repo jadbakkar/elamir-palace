@@ -351,7 +351,10 @@
   /* ---------- branch / totals ---------- */
   const form = $("#form");
   const isDel = () => form.elements.type.value === "Delivery";
-  function totals() { const sub = subtotal(); return { sub, total: sub }; }
+  /* packaging: each "envase" of a dish costs $1, per unit ordered (ENVASES in menu.js) */
+  const envOf = k => { const d = dishes[parseKey(k).id], r = typeof ENVASES !== "undefined" && ENVASES.find(([re, , cat]) => re.test(d.name) && (!cat || d.cat === cat)); return (r ? r[1] : 0) + (parseKey(k).extras.includes(APARTE) ? 1 : 0); };
+  const envases = () => Object.entries(cart).reduce((s, [k, q]) => s + envOf(k) * q, 0);
+  function totals() { const sub = subtotal(), env = envases(); return { sub, env, total: sub + env }; }
   /* branches: the guest picks the branch to chat with on the last step (delivery and pickup); fallback = CONFIG.whatsapp.
      The branch asks for the delivery location in the WhatsApp chat. No delivery fee is shown. */
   const BRANCHES = Array.isArray(CONFIG.sucursales) && CONFIG.sucursales.length ? CONFIG.sucursales : null;
@@ -392,35 +395,36 @@
     const pill = $("#statusPill"), note = $("#closedNote");
     pill.className = "status " + (ST.open ? "open" : "closed");
     if (pill.textContent !== S.text) pill.textContent = S.text;
-    const showNote = !ST.open && !CONFIG.pruebaSinHorario;
+    const showNote = !ST.open;
     note.hidden = !showNote; note.textContent = showNote ? S.note : "";
     html.classList.toggle("is-closed", !ST.open);
     updateBlock();
   }
-  function blockReason() { if (!count()) return t("cart.needOne"); if (!ST.open && !CONFIG.pruebaSinHorario) return S.text; return minMsg(); }
+  function blockReason() { if (!count()) return t("cart.needOne"); return minMsg(); }
   function updateBlock() {
     const r = blockReason();
     $("#send").setAttribute("aria-disabled", r ? "true" : "false");
     $("#blockMsg").textContent = r;
-    $("#sendLbl").textContent = t(ST.open || CONFIG.pruebaSinHorario ? "px.send.short" : "send.closed");
+    $("#sendLbl").textContent = t("px.send.short");
   }
 
   /* ---------- cart render ---------- */
   function renderTotals() {
     const tt = totals(), c = count(), r = rate();
-    $("#ledgerSub").textContent = $("#sheetSub").textContent = $("#pillSub").textContent = money(tt.sub);
+    $("#ledgerSub").textContent = $("#sheetSub").textContent = money(tt.sub); $("#pillSub").textContent = money(tt.total);
+    $("#ledgerEnvRow").hidden = $("#sheetEnvRow").hidden = !tt.env; $("#ledgerEnv").textContent = $("#sheetEnv").textContent = money(tt.env);
     $("#pillCount").textContent = c;
     const hc = $("#hdCount"); hc.textContent = c; hc.hidden = !c;
-    $("#hdCart").setAttribute("aria-label", c ? t("pill.aria", { items: I.tp("cart.dishes", c), total: money(tt.sub) }) : t("pill.view"));
+    $("#hdCart").setAttribute("aria-label", c ? t("pill.aria", { items: I.tp("cart.dishes", c), total: money(tt.total) }) : t("pill.view"));
     const pill = $("#pill"); pill.classList.toggle("show", c > 0);
     /* phones: the bottom-nav PEDIR button stands in for the pill (count badge from bnav.js, total under the circle) */
     const bo = $(".bnav-order");
     if (bo) {
       const lbl = bo.querySelector("[data-i18n]"), bt = $("#bnavTot");
-      bt.textContent = money(tt.sub); bt.hidden = !c; lbl.hidden = !!c;
-      bo.setAttribute("aria-label", c ? t("pill.aria", { items: I.tp("cart.dishes", c), total: money(tt.sub) }) : t("bnav.order"));
+      bt.textContent = money(tt.total); bt.hidden = !c; lbl.hidden = !!c;
+      bo.setAttribute("aria-label", c ? t("pill.aria", { items: I.tp("cart.dishes", c), total: money(tt.total) }) : t("bnav.order"));
     }
-    pill.setAttribute("aria-label", t("pill.aria", { items: I.tp("cart.dishes", c), total: money(tt.sub) }));
+    pill.setAttribute("aria-label", t("pill.aria", { items: I.tp("cart.dishes", c), total: money(tt.total) }));
     $("#ledgerGo").disabled = !c; $("#clearBtn").hidden = !c; $("#ledgerWhy").hidden = !!c;
     const lb = $("#ledgerBs"); lb.hidden = !(r && c); lb.textContent = r ? "≈ " + I.bs(tt.sub, r) : "";
     const mm = minMsg(); $("#ledgerMin").hidden = !mm; $("#ledgerMin").textContent = mm;
@@ -859,7 +863,7 @@
       id, stamp: `${n.dd}/${n.mm} ${n.hh}:${n.mi}`,
       name: F.name.value, phone: F.phone.value, type: F.type.value,
       lines: Object.keys(cart).map(k => ({ qty: cart[k], name: lineName(k), total: unitPrice(k) * cart[k] })),
-      subtotal: tt.sub, total: tt.total,
+      subtotal: tt.sub, envases: tt.env, total: tt.total,
       bsTotal: r ? I.bs(tt.total, r, "es") : "", rate: r ? I.num(r, 2, 2, "es") : "",
       pay: F.pay.value, notes: F.notes.value
     });
