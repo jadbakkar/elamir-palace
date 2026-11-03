@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>iPhone bar test</title>
+<style>
+  /* Temporary page: which bottom bar reaches the real screen edge on iOS 26 Safari. Delete once decided. */
+  html{background:#FBF8F3}
+  body{margin:0;font:16px/1.5 system-ui,sans-serif;color:#1E1A18;background:#FBF8F3}
+  .tabs{display:flex;flex-wrap:wrap;gap:8px;padding:56px 16px 12px}
+  .tabs a{padding:10px 14px;border-radius:99px;border:1px solid #BE9564;color:#7A1F2B;text-decoration:none;font-weight:700}
+  .tabs a[aria-current]{background:#7A1F2B;color:#fff}
+  h1{margin:8px 16px;font-size:22px}
+  p.note{margin:0 16px 12px;color:#555}
+  .num{position:fixed;top:45%;left:12px;right:12px;z-index:9;padding:8px;background:#000;color:#fff;font:12px/1.4 monospace;border-radius:8px;pointer-events:none}
+  .row{height:90px;display:flex;align-items:center;padding:0 16px;font-weight:700;color:#fff}
+  .row:nth-child(odd){background:#2E7D32}.row:nth-child(even){background:#1565C0}
+  .bar{left:0;right:0;bottom:0;z-index:20;height:64px;display:flex;align-items:center;justify-content:space-around;
+    border-top:1px solid #BE9564;font-weight:700;color:#7A1F2B}
+  .probe{position:fixed;bottom:0;height:env(safe-area-inset-bottom);width:1px;visibility:hidden}
+  /* A: like the live site today */
+  .vA .bar{position:fixed;background:rgba(251,248,243,.97);padding-bottom:env(safe-area-inset-bottom)}
+  /* B: same, but a solid colour (Safari may only tint from solid fixed bars) */
+  .vB .bar{position:fixed;background:#FBF8F3;padding-bottom:env(safe-area-inset-bottom)}
+  /* C: part of the page, stuck to the bottom (sticky) instead of pinned to the screen (fixed) */
+  .vC .bar{position:sticky;background:#FBF8F3;padding-bottom:env(safe-area-inset-bottom)}
+  /* D: sticky + its colour continued below it */
+  .vD .bar{position:sticky;background:#FBF8F3;padding-bottom:env(safe-area-inset-bottom);box-shadow:0 120px 0 120px #FBF8F3}
+</style>
+</head>
+<body>
+<nav class="tabs" id="tabs"></nav>
+<h1 id="h"></h1>
+<p class="note">Scroll down slowly, then send a screenshot with the bar at the bottom. Then tap the next letter.</p>
+<main id="rows"></main>
+<div class="bar"><span>Inicio</span><span>Carta</span><span>Pedir</span><span>Sucursales</span><span>WhatsApp</span></div>
+<div class="probe" id="probe"></div>
+<output class="num" id="num"></output>
+<script>
+  var v = (location.search.match(/v=([A-D])/) || [0, "A"])[1], names = { A: "A · como hoy", B: "B · color sólido", C: "C · sticky", D: "D · sticky + color" };
+  document.body.className = "v" + v;
+  document.getElementById("h").textContent = names[v];
+  document.getElementById("tabs").innerHTML = "ABCD".split("").map(function (k) { return '<a href="?v=' + k + '"' + (k === v ? ' aria-current="page"' : "") + ">" + k + "</a>"; }).join("");
+  var rows = ""; for (var i = 1; i <= 40; i++) rows += '<div class="row">' + i + "</div>"; document.getElementById("rows").innerHTML = rows;
+  var num = document.getElementById("num"), bar = document.querySelector(".bar"), vv = window.visualViewport;
+  function show() {
+    var r = bar.getBoundingClientRect();
+    num.textContent = v + " · screen " + screen.height + " · inner " + innerHeight + (vv ? " · vv " + Math.round(vv.height) + " @" + Math.round(vv.offsetTop) : "") + " · bar " + Math.round(r.top) + "–" + Math.round(r.bottom) + " · safe " + document.getElementById("probe").offsetHeight;
+  }
+  addEventListener("scroll", show, { passive: true }); addEventListener("resize", show); if (vv) vv.addEventListener("resize", show); show();
+</script>
+</body>
+</html>

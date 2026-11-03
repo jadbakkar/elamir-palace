@@ -7,6 +7,7 @@ Disallow: /site-b/
 Disallow: /site-c/
 Disallow: /concept-*.html
 Disallow: /i18n-test.html
+Disallow: /ios-test.html
 Disallow: /i18n-switcher.html-snippet.txt
 Disallow: /scripts/
 Disallow: /*.md$
@@ -28,6 +29,7 @@ Disallow: /site-b/
 Disallow: /site-c/
 Disallow: /concept-*.html
 Disallow: /i18n-test.html
+Disallow: /ios-test.html
 Disallow: /scripts/
 Disallow: /*.md$
 
