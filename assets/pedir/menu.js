@@ -58,13 +58,13 @@ const MENU = [
   ["Medio hummus",4],["Medio mutabal",4],["Media muhammara",4],["Medio labne",6],["Media crema mixta",6],["Medio kibbe crudo",6],["Medio kibbe frito",6],["Medio kibbe horneado",7],["Medio falafel",5],["Medio tabaquito de uva",6],["Medio tabaquito de repollo",6],["Medio tabbule",6],["Medio plato de shawarma",18]]],
  ["Shawarmas y Sándwiches","Todos los sándwiches vienen con papas fritas",[
   ["Shawarma",8,"Proteína de tu preferencia y vegetales tradicionales",OPT_SH],["Shawarma especial",10,"Con 1 ingrediente extra (tabbule, falafel, pimentones…)",OPT_SH,null,PICK(1,true)],
-  ["Shawarma súper especial",12,"Con 2 ingredientes extra",OPT_SH,null,PICK(2,true)],["Shawarma abierto",10,"Servido abierto en plato con la proteína de tu preferencia y vegetales.",OPT_SH],["Shawarma especial abierto",12,"Servido abierto en plato con vegetales tradicionales y un ingrediente especial extra.",OPT_SH,null,PICK(1)],["Shawarma súper especial abierto",13,"Servido abierto en plato con vegetales tradicionales y dos ingredientes especiales extra.",OPT_SH,null,PICK(2)],
+  ["Shawarma súper especial",12,"Con 2 ingredientes extra",OPT_SH,null,PICK(2,true)],["Shawarma abierto",10,"Servido abierto en plato con la proteína de tu preferencia y vegetales.",OPT_SH],["Shawarma especial abierto",12,"Servido abierto en plato con vegetales tradicionales y un ingrediente especial extra.",OPT_SH,null,PICK(1)],["Shawarma súper especial abierto",13,"Servido abierto en plato con vegetales tradicionales y dos ingredientes especiales extra.",OPT_SH,null,PICK(2)],["Salsa de ajo",1,"Porción de salsa de ajo."],
   ["Sándwich de falafel",8,"Croquetas de falafel y vegetales tradicionales"],
   ["Fajita",14,"Salsa de aguacate, pimentón, cebolla, mozzarella, pollo"],["Philadelphia",15,"Salsa de aguacate, pimentón, cebolla, mozzarella, carne"],
   ["Tawook",13,"Pollo a la brasa, salsa de ajo, pepinillo, papas"],["Camarón",14,"Camarón, lechuga, pepinillo, salsa rosada"],
   ["Lomito",14,"Lomito a la brasa, crema de garbanzo, cebolla, perejil, tomate, pepinillo"],["Kebab",13,"Kebab a la brasa, crema de garbanzo, vegetales"],
   ["Makanek",13,"Salchicha árabe, ajo, tomate, limón, pepinillo"],["Hígado de pollo",13,"Hígado de pollo, papas, ajo, granadina"],
-  ["Falafel especial",10,"Croquetas de falafel con ingredientes especiales y papas fritas.",null,null,PICK(1,true)],["Kibbe frito",11,"Sándwich de kibbe frito acompañado de papas fritas."],["Salsa de ajo",1,"Porción de salsa de ajo."]]],
+  ["Falafel especial",10,"Croquetas de falafel con ingredientes especiales y papas fritas.",null,null,PICK(1,true)],["Kibbe frito",11,"Sándwich de kibbe frito acompañado de papas fritas."]]],
  ["Brochetas y Parrillas","",[
   ["Brochetas El Amir",65,"2 pinchos de pollo, 3 de kafta, 2 de lomito, 8 alas, 8 makanek, vegetales a la brasa, papas y pan"],
   ["Brocheta de kafta",20,"Pinchos de carne molida sazonada a la brasa."],["Brocheta de pollo",21,"Pinchos de pechuga de pollo marinada a la brasa.",null,EXTRA_SIDES],["Brocheta de lomito",24,"Pinchos de lomito tierno a la brasa."],["Brocheta mixta",24],
