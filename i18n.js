@@ -234,7 +234,7 @@
     "ledger.addOne": "Agrega un plato para continuar.",
     "ledger.greet": "أهلاً",
     "ledger.empty": "Toca + en cualquier plato para empezar tu pedido.",
-    "upsell.title": "¿Agregar una bebida?",
+    "upsell.title": "¿Agregar algo?",
     "pill.view": "Ver mi pedido",
     "pill.aria": "Ver mi pedido, {items}, {total}",
     "cart.dishes.one": "{n} plato",
@@ -528,7 +528,7 @@
     "ledger.addOne": "Add a dish to continue.",
     "ledger.greet": "أهلاً",
     "ledger.empty": "Tap + on any dish to start your order.",
-    "upsell.title": "Add a drink?",
+    "upsell.title": "Add anything?",
     "pill.view": "View my order",
     "pill.aria": "View my order, {items}, {total}",
     "cart.dishes.one": "{n} dish",
@@ -784,7 +784,7 @@
     "ledger.addOne": "أضف طبقاً للمتابعة.",
     "ledger.greet": "أهلاً",
     "ledger.empty": "اضغط على + بجانب أي طبق لتبدأ طلبك.",
-    "upsell.title": "هل تود إضافة مشروب؟",
+    "upsell.title": "هل تود إضافة شيء؟",
     "pill.view": "عرض طلبي",
     "pill.aria": "عرض طلبي، {items}، {total}",
     "cart.dishes.zero": "{n} طبق",
@@ -1256,7 +1256,7 @@
   D("Refresco 1L", "Refresco variado en botella de 1 litro.", ["Soda 1 L", "Assorted soda, 1-liter bottle."], ["مشروب غازي 1 لتر", "مشروب غازي متنوع، زجاجة 1 لتر."]);
   D("Refresco 1.5L", "", ["Soda 1.5 L", ""], ["مشروب غازي 1.5 لتر", ""]);
   D("Sparkling", "", ["Sparkling Water", ""], ["مياه فوّارة", ""]);
-  D("Salsa de ajo extra", "Porción extra de salsa de ajo.", ["Extra Garlic Sauce", "Extra portion of garlic sauce."], ["صلصة ثوم إضافية", "حصة إضافية من صلصة الثوم."]);
+  D("Salsa de ajo", "Porción de salsa de ajo.", ["Garlic Sauce", "Portion of garlic sauce."], ["صلصة ثوم", "حصة من صلصة الثوم."]);
   D("Agua de manzana", "Agua gasificada sabor manzana.", ["Apple Water", "Sparkling apple-flavored water."], ["مياه التفاح", "مياه فوّارة بنكهة التفاح."]);
   D("Soda", "", ["Club Soda", ""], ["مياه الصودا", ""]);
 

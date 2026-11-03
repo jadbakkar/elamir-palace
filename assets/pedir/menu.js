@@ -64,7 +64,7 @@ const MENU = [
   ["Tawook",13,"Pollo a la brasa, salsa de ajo, pepinillo, papas"],["Camarón",14,"Camarón, lechuga, pepinillo, salsa rosada"],
   ["Lomito",14,"Lomito a la brasa, crema de garbanzo, cebolla, perejil, tomate, pepinillo"],["Kebab",13,"Kebab a la brasa, crema de garbanzo, vegetales"],
   ["Makanek",13,"Salchicha árabe, ajo, tomate, limón, pepinillo"],["Hígado de pollo",13,"Hígado de pollo, papas, ajo, granadina"],
-  ["Falafel especial",10,"Croquetas de falafel con ingredientes especiales y papas fritas.",null,null,PICK(1,true)],["Kibbe frito",11,"Sándwich de kibbe frito acompañado de papas fritas."],["Salsa de ajo extra",1,"Porción extra de salsa de ajo."]]],
+  ["Falafel especial",10,"Croquetas de falafel con ingredientes especiales y papas fritas.",null,null,PICK(1,true)],["Kibbe frito",11,"Sándwich de kibbe frito acompañado de papas fritas."],["Salsa de ajo",1,"Porción de salsa de ajo."]]],
  ["Brochetas y Parrillas","",[
   ["Brochetas El Amir",65,"2 pinchos de pollo, 3 de kafta, 2 de lomito, 8 alas, 8 makanek, vegetales a la brasa, papas y pan"],
   ["Brocheta de kafta",20,"Pinchos de carne molida sazonada a la brasa."],["Brocheta de pollo",21,"Pinchos de pechuga de pollo marinada a la brasa.",null,EXTRA_SIDES],["Brocheta de lomito",24,"Pinchos de lomito tierno a la brasa."],["Brocheta mixta",24],
@@ -149,7 +149,7 @@ const EXTRAS_POR_PLATO = [
   [/^Shawarma/, {label:"¿Quitamos algo?", items:[["Sin lechuga",0],["Sin tomate",0],["Sin cebolla",0],["Sin pepinillo",0],["Sin perejil",0],["Sin salsa de ajo",0],["Sin vegetales",0],["Sin nabo",0]]}]
 ];
 /* Para quitarle los adicionales a un plato concreto: añade su nombre a NO_EXTRAS. */
-const NO_EXTRAS_SANDWICH = ["Fajita","Philadelphia","Tawook","Camarón","Lomito","Kebab","Makanek","Hígado de pollo","Kibbe frito","Salsa de ajo extra"];   /* solo en Shawarmas y Sándwiches (Camarón y Makanek existen también en otras categorías) */
+const NO_EXTRAS_SANDWICH = ["Fajita","Philadelphia","Tawook","Camarón","Lomito","Kebab","Makanek","Hígado de pollo","Kibbe frito","Salsa de ajo"];   /* solo en Shawarmas y Sándwiches (Camarón y Makanek existen también en otras categorías) */
 const NO_EXTRAS = ["Fatte","Fatte de berenjena","Arroz libanés con pollo o cordero","Kibbe al yogurt",
   "Parrilla El Amir","Parrilla mar y tierra","Parrilla de mariscos","Parrilla de pollo","Parrilla de lomito","Parrilla mixta"];
 /* Lleva 2 contornos a elegir: los de "Carnes y Aves" (salvo los que ya traen su guarnición en la descripción) y los que dicen "2 contornos" */
@@ -168,7 +168,7 @@ MENU.forEach(([cat, , list]) => list.forEach(it => {
   if (items.length) { it[2] = it[2] || ""; it[3] = it[3] || null; it[4] = {label: base.label, items}; }
   else if (it[4]) it[4] = null;
 }));
-const UPSELL =[["Shawarmas y Sándwiches","Salsa de ajo extra"],["Batidos y Yogurt","Limonada con hierbabuena"],["Bebidas","Agua mineral"],["Bebidas","Refresco de lata"]];
+const UPSELL =[["Shawarmas y Sándwiches","Salsa de ajo"],["Batidos y Yogurt","Limonada con hierbabuena"],["Bebidas","Agua mineral"],["Bebidas","Refresco de lata"]];
 
 /* Fotos reales por plato (id = slug(categoría)--slug(plato)). Solo se muestran si existen.
    Para ocultarlas, cambia PHOTOS = PHOTOS_OFF por PHOTOS = {} y ejecuta: node scripts/prerender-menu.js */
@@ -304,7 +304,7 @@ const PHOTOS_OFF = {
   "shawarmas-y-sandwiches--kebab": "img/pya/shawarmas-y-sandwiches--kebab.jpg",
   "shawarmas-y-sandwiches--makanek": "img/pya/shawarmas-y-sandwiches--makanek.jpg",
   "shawarmas-y-sandwiches--kibbe-frito": "img/pya/shawarmas-y-sandwiches--kibbe-frito.jpg",
-  "shawarmas-y-sandwiches--salsa-de-ajo-extra": "img/pya/shawarmas-y-sandwiches--salsa-de-ajo-extra.jpg",
+  "shawarmas-y-sandwiches--salsa-de-ajo": "img/pya/shawarmas-y-sandwiches--salsa-de-ajo.jpg",
   "platos-arabes-especiales--plato-mixto": "img/pya/platos-arabes-especiales--plato-mixto.jpg",
   "platos-arabes-especiales--kibbe-al-yogurt": "img/pya/platos-arabes-especiales--kibbe-al-yogurt.jpg",
   "platos-arabes-especiales--arroz-libanes-con-pollo-o-cordero": "img/pya/platos-arabes-especiales--arroz-libanes-con-pollo-o-cordero.jpg",
