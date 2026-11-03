@@ -168,7 +168,7 @@ MENU.forEach(([cat, , list]) => list.forEach(it => {
   if (items.length) { it[2] = it[2] || ""; it[3] = it[3] || null; it[4] = {label: base.label, items}; }
   else if (it[4]) it[4] = null;
 }));
-const UPSELL =[["Batidos y Yogurt","Limonada con hierbabuena"],["Bebidas","Agua mineral"],["Bebidas","Refresco de lata"]];
+const UPSELL =[["Shawarmas y Sándwiches","Salsa de ajo extra"],["Batidos y Yogurt","Limonada con hierbabuena"],["Bebidas","Agua mineral"],["Bebidas","Refresco de lata"]];
 
 /* Fotos reales por plato (id = slug(categoría)--slug(plato)). Solo se muestran si existen.
    Para ocultarlas, cambia PHOTOS = PHOTOS_OFF por PHOTOS = {} y ejecuta: node scripts/prerender-menu.js */
