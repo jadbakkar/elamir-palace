@@ -115,6 +115,7 @@
       "px.when.now": "Pagar ahora · más rápido", "px.when.later": "Pagar al recibir",
       "px.when.nowHint": "Paga con estos datos y sube el comprobante. Preparamos tu pedido apenas lo confirmemos.",
       "px.when.laterHint": "Pagarás al recibir tu pedido. Confirmaremos los detalles por WhatsApp.",
+      "px.addr.label": "Dirección de entrega", "px.addr.ph": "Lechería, Avenida Principal, Edificio número 13", "px.addr.err": "Escribe tu dirección de entrega.",
       "px.note.label": "Indicaciones (opcional)", "px.note.ph": "Ej. sin sal, salsa aparte, bien cocido…", "px.step.1": "Entrega", "px.step.2": "Tus datos", "px.step.3": "Pago", "px.step.next": "Continuar", "px.send.short": "Enviar por WhatsApp", "px.step.back": "Atrás",
       "px.more.ref": "+ Punto de referencia", "px.more.loc": "+ Ubicación en el mapa", "px.more.notes": "+ Nota para la cocina",
       "px.receipt.add": "Subir comprobante de pago", "px.receipt.ok": "Comprobante listo: {name}", "px.receipt.remove": "Quitar",
@@ -171,6 +172,7 @@
       "px.when.now": "Pay now · faster", "px.when.later": "Pay on delivery",
       "px.when.nowHint": "Pay with these details and upload the receipt. We start preparing your order as soon as we confirm it.",
       "px.when.laterHint": "You will pay when you receive your order. We'll confirm the details on WhatsApp.",
+      "px.addr.label": "Delivery address", "px.addr.ph": "Lechería, Avenida Principal, Building number 13", "px.addr.err": "Please enter your delivery address.",
       "px.note.label": "Special instructions (optional)", "px.note.ph": "e.g. no salt, sauce on the side, well done…", "px.step.1": "Delivery", "px.step.2": "Your details", "px.step.3": "Payment", "px.step.next": "Continue", "px.send.short": "Send on WhatsApp", "px.step.back": "Back",
       "px.more.ref": "+ Landmark", "px.more.loc": "+ Location on the map", "px.more.notes": "+ Note for the kitchen",
       "px.receipt.add": "Upload payment receipt", "px.receipt.ok": "Receipt ready: {name}", "px.receipt.remove": "Remove",
@@ -227,6 +229,7 @@
       "px.when.now": "ادفع الآن · أسرع", "px.when.later": "ادفع عند الاستلام",
       "px.when.nowHint": "ادفع باستخدام هذه البيانات وارفع إيصال الدفع. نبدأ بتحضير طلبك فور تأكيده.",
       "px.when.laterHint": "ستدفع عند استلام طلبك. سنؤكد التفاصيل عبر واتساب.",
+      "px.addr.label": "عنوان التوصيل", "px.addr.ph": "ليتشيريا، الشارع الرئيسي، مبنى رقم 13", "px.addr.err": "يرجى كتابة عنوان التوصيل.",
       "px.note.label": "تعليمات خاصة (اختياري)", "px.note.ph": "مثال: بدون ملح، الصلصة جانباً، مطهو جيداً…", "px.step.1": "التوصيل", "px.step.2": "بياناتك", "px.step.3": "الدفع", "px.step.next": "متابعة", "px.send.short": "أرسل عبر واتساب", "px.step.back": "رجوع",
       "px.more.ref": "+ معلم قريب", "px.more.loc": "+ الموقع على الخريطة", "px.more.notes": "+ ملاحظة للمطبخ",
       "px.receipt.add": "ارفع إيصال الدفع", "px.receipt.ok": "الإيصال جاهز: {name}", "px.receipt.remove": "إزالة",
@@ -735,6 +738,7 @@
   }
   function syncType() {
     $("#branchF").hidden = !$("#branchF").dataset.on;
+    $("#addrF").hidden = !isDel();
     renderTotals();
   }
   function validateBranch() {
@@ -762,6 +766,7 @@
   });
   const RULES = {
     name: v => v.trim().length >= 2 ? "" : t("err.name"),
+    addr: v => v.trim().length >= 5 ? "" : t("px.addr.err"),
     /* 10-15 digits; spaces, dashes, dots and brackets don't count ("+58 424 806 02 18") */
     phone: v => { const s = v.trim(), n = (s.match(/\d/g) || []).length; return /^\+?[\d\s().-]+$/.test(s) && n >= 10 && n <= 15 ? "" : t("err.phone"); }
   };
@@ -796,7 +801,7 @@
   }
 
   /* ---------- checkout steps: 0 = the cart (edit quantities, drinks upsell), 1 delivery, 2 details, 3 payment ---------- */
-  const STEP_FIELDS = { 2: ["name", "phone"] };
+  const STEP_FIELDS = { 1: ["addr"], 2: ["name", "phone"] };
   function shake(el) {
     const f = el.closest(".f"); f.classList.remove("shake"); void f.offsetWidth; f.classList.add("shake");   /* polish.css */
     el.addEventListener("animationend", () => f.classList.remove("shake"), { once: true });
@@ -864,7 +869,7 @@
     const tt = totals(), n = caracasNow(), r = rate(), F = form.elements;
     return I.buildOrderMessage({
       id, stamp: `${n.dd}/${n.mm} ${n.hh}:${n.mi}`,
-      name: F.name.value, phone: F.phone.value, type: F.type.value,
+      name: F.name.value, phone: F.phone.value, type: F.type.value, addr: F.addr.value,
       lines: Object.keys(cart).map(k => ({ qty: cart[k], name: lineName(k), total: unitPrice(k) * cart[k] })),
       subtotal: tt.sub, envases: tt.env, total: tt.total,
       bsTotal: r ? I.bs(tt.total, r, "es") : "", rate: r ? I.num(r, 2, 2, "es") : "",
@@ -884,7 +889,7 @@
     if (step < 3) { $("#stepNext").click(); return; }   /* Enter on an earlier step = Continue */
     updateStatus();
     let firstBad = null;
-    ["name", "phone"].forEach(k => {
+    ["addr", "name", "phone"].forEach(k => {
       const el = form.elements[k]; if (el.closest(".f").hidden) return;
       if (!validate(el)) { if (!firstBad) firstBad = el; shake(el); }
     });
@@ -943,6 +948,7 @@
   }
   function applyPx() {
     $$("[data-px]").forEach(el => { let v; try { v = el.dataset.pxVars ? JSON.parse(el.dataset.pxVars) : undefined; } catch (e) { v = undefined; } el.textContent = t(el.dataset.px, v); });
+    $("#fAddr").placeholder = t("px.addr.ph");
   }
   const canon = $('link[rel="canonical"]'), canonBase = canon ? canon.href.split("?")[0] : "";
   function renderAll(first) {
