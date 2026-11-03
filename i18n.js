@@ -1256,6 +1256,8 @@
   D("Refresco 1L", "Refresco variado en botella de 1 litro.", ["Soda 1 L", "Assorted soda, 1-liter bottle."], ["مشروب غازي 1 لتر", "مشروب غازي متنوع، زجاجة 1 لتر."]);
   D("Refresco 1.5L", "", ["Soda 1.5 L", ""], ["مشروب غازي 1.5 لتر", ""]);
   D("Sparkling", "", ["Sparkling Water", ""], ["مياه فوّارة", ""]);
+  D("Salsa de ajo extra", "Porción extra de salsa de ajo.", ["Extra Garlic Sauce", "Extra portion of garlic sauce."], ["صلصة ثوم إضافية", "حصة إضافية من صلصة الثوم."]);
+  D("Agua de manzana", "Agua gasificada sabor manzana.", ["Apple Water", "Sparkling apple-flavored water."], ["مياه التفاح", "مياه فوّارة بنكهة التفاح."]);
   D("Soda", "", ["Club Soda", ""], ["مياه الصودا", ""]);
 
   /* ---- 15. Licores y Cócteles ---- */

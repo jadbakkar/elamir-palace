@@ -64,7 +64,7 @@ const MENU = [
   ["Tawook",13,"Pollo a la brasa, salsa de ajo, pepinillo, papas"],["Camarón",14,"Camarón, lechuga, pepinillo, salsa rosada"],
   ["Lomito",14,"Lomito a la brasa, crema de garbanzo, cebolla, perejil, tomate, pepinillo"],["Kebab",13,"Kebab a la brasa, crema de garbanzo, vegetales"],
   ["Makanek",13,"Salchicha árabe, ajo, tomate, limón, pepinillo"],["Hígado de pollo",13,"Hígado de pollo, papas, ajo, granadina"],
-  ["Falafel especial",10,"Croquetas de falafel con ingredientes especiales y papas fritas.",null,null,PICK(1,true)],["Kibbe frito",11,"Sándwich de kibbe frito acompañado de papas fritas."]]],
+  ["Falafel especial",10,"Croquetas de falafel con ingredientes especiales y papas fritas.",null,null,PICK(1,true)],["Kibbe frito",11,"Sándwich de kibbe frito acompañado de papas fritas."],["Salsa de ajo extra",1,"Porción extra de salsa de ajo."]]],
  ["Brochetas y Parrillas","",[
   ["Brochetas El Amir",65,"2 pinchos de pollo, 3 de kafta, 2 de lomito, 8 alas, 8 makanek, vegetales a la brasa, papas y pan"],
   ["Brocheta de kafta",20,"Pinchos de carne molida sazonada a la brasa."],["Brocheta de pollo",21,"Pinchos de pechuga de pollo marinada a la brasa.",null,EXTRA_SIDES],["Brocheta de lomito",24,"Pinchos de lomito tierno a la brasa."],["Brocheta mixta",24],
@@ -101,7 +101,7 @@ const MENU = [
   ["Yogurt con hierbabuena",6],["Yogurt con frutas",6]]],
  ["Bebidas","",[
   ["Agua mineral",1.5,"Agua mineral embotellada."],["Nestea",2],["Jarra de Nestea (x4)",12],["Té Lipton",3,"Té frío Lipton de limón, 500 ml."],["Gatorade",3,"Bebida hidratante deportiva."],["Refresco de lata",2,"Refresco variado en lata."],
-  ["Refresco 1L",3,"Refresco variado en botella de 1 litro."],["Refresco 1.5L",4],["Sparkling",3],["Soda",3]]],
+  ["Refresco 1L",3,"Refresco variado en botella de 1 litro."],["Refresco 1.5L",4],["Sparkling",3],["Soda",3],["Agua de manzana",2,"Agua gasificada sabor manzana."]]],
  ["Licores y Cócteles","Solo mayores de edad",[
   ["Cerveza nacional",1.5],["Cerveza importada",5],["Copa de vino",5],["Botella de anís",30],
   ["Botella de whisky 8 años",45],["Botella de whisky 12 años",60],["Botella de whisky 18 años",115]]]
@@ -149,7 +149,7 @@ const EXTRAS_POR_PLATO = [
   [/^Shawarma/, {label:"¿Quitamos algo?", items:[["Sin lechuga",0],["Sin tomate",0],["Sin cebolla",0],["Sin pepinillo",0],["Sin perejil",0],["Sin salsa de ajo",0],["Sin vegetales",0],["Sin nabo",0]]}]
 ];
 /* Para quitarle los adicionales a un plato concreto: añade su nombre a NO_EXTRAS. */
-const NO_EXTRAS_SANDWICH = ["Fajita","Philadelphia","Tawook","Camarón","Lomito","Kebab","Makanek","Hígado de pollo","Kibbe frito"];   /* solo en Shawarmas y Sándwiches (Camarón y Makanek existen también en otras categorías) */
+const NO_EXTRAS_SANDWICH = ["Fajita","Philadelphia","Tawook","Camarón","Lomito","Kebab","Makanek","Hígado de pollo","Kibbe frito","Salsa de ajo extra"];   /* solo en Shawarmas y Sándwiches (Camarón y Makanek existen también en otras categorías) */
 const NO_EXTRAS = ["Fatte","Fatte de berenjena","Arroz libanés con pollo o cordero","Kibbe al yogurt",
   "Parrilla El Amir","Parrilla mar y tierra","Parrilla de mariscos","Parrilla de pollo","Parrilla de lomito","Parrilla mixta"];
 /* Lleva 2 contornos a elegir: los de "Carnes y Aves" (salvo los que ya traen su guarnición en la descripción) y los que dicen "2 contornos" */
@@ -297,12 +297,14 @@ const PHOTOS_OFF = {
   "bebidas--refresco-de-lata": "img/pya/bebidas--refresco-de-lata.jpg",
   "bebidas--te-lipton": "img/pya/bebidas--te-lipton.jpg",
   "bebidas--refresco-1l": "img/pya/bebidas--refresco-1l.jpg",
+  "bebidas--agua-de-manzana": "img/pya/bebidas--agua-de-manzana.jpg",
   /* fotos nuevas del cliente (img/pya, convertidas a 640×480 + -th 240×180) */
   "entradas-arabes--kibbe-crudo": "img/pya/entradas-arabes--kibbe-crudo.jpg",
   "entradas-arabes--kibbe-frito": "img/pya/entradas-arabes--kibbe-frito.jpg",
   "shawarmas-y-sandwiches--kebab": "img/pya/shawarmas-y-sandwiches--kebab.jpg",
   "shawarmas-y-sandwiches--makanek": "img/pya/shawarmas-y-sandwiches--makanek.jpg",
   "shawarmas-y-sandwiches--kibbe-frito": "img/pya/shawarmas-y-sandwiches--kibbe-frito.jpg",
+  "shawarmas-y-sandwiches--salsa-de-ajo-extra": "img/pya/shawarmas-y-sandwiches--salsa-de-ajo-extra.jpg",
   "platos-arabes-especiales--plato-mixto": "img/pya/platos-arabes-especiales--plato-mixto.jpg",
   "platos-arabes-especiales--kibbe-al-yogurt": "img/pya/platos-arabes-especiales--kibbe-al-yogurt.jpg",
   "platos-arabes-especiales--arroz-libanes-con-pollo-o-cordero": "img/pya/platos-arabes-especiales--arroz-libanes-con-pollo-o-cordero.jpg",
