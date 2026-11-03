@@ -18,7 +18,7 @@
 [dir=rtl]{--dir:-1}
 html{scroll-behavior:smooth;scroll-padding-top:calc(var(--bar) + 12px)}
 html.lock{overflow:hidden}
-body{font-size:16px;line-height:1.6;min-height:100vh;font-family:var(--f-body),"Manrope Fallback",sans-serif}
+body{font-size:16px;line-height:1.6;min-height:100vh;min-height:100dvh;font-family:var(--f-body),"Manrope Fallback",sans-serif}
 button{cursor:pointer;background:none;border:0}
 legend{text-wrap:balance}
 .latin{font-family:var(--f-display),"Instrument Fallback",serif!important}

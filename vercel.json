@@ -10,6 +10,7 @@
         { "key": "Strict-Transport-Security", "value": "max-age=31536000; includeSubDomains" }
       ]
     },
+    { "source": "/((?:en|ar)/?|pedir|.*\\.html)?", "headers": [{ "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://unpkg.com; font-src 'self' data:; img-src 'self' data: blob: https:; media-src 'self' blob:; connect-src 'self'; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'" }] },
     { "source": "/assets/v3/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] },
     { "source": "/assets/fonts/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, must-revalidate" }] },
     { "source": "/img/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800, must-revalidate" }] },
