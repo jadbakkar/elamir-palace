@@ -97,8 +97,10 @@
 
 /* ---- pedir: a field that blocks the order gives a short shake; its message slides in ---- */
 .f.shake input,.f.shake textarea,.f.shake select{animation:shake 320ms var(--ease-out)}
+/* the same for the required choices without a text box: map pin, branch, dish options */
+#locF.shake,#branchF.shake .seg,#optBody fieldset.shake .opts{animation:shake 320ms var(--ease-out)}
 @keyframes shake{20%{translate:-5px 0}40%{translate:5px 0}60%{translate:-3px 0}80%{translate:2px 0}}
-.f.bad .err{animation:errIn 200ms var(--ease-out)}
+.f.bad .err,.err-b:not(:empty),#optErr:not(:empty){animation:errIn 200ms var(--ease-out)}
 @keyframes errIn{from{opacity:0;transform:translateY(-4px)}}
 
 /* ---- pedir: order sent, the check draws itself ---- */
@@ -120,7 +122,7 @@ img.img-in.is-in{opacity:1}
 @media (prefers-reduced-motion:reduce){
   @view-transition{navigation:none}
   .burger i,.menu-open .burger i:first-child,.menu-open .burger i:last-child{transition:none}
-  :focus-visible,.is-bump,.f.shake input,.f.shake textarea,.f.shake select,[data-roll] .rn,[data-roll] .ro,.done .ok-ic,.cat:target .cat-h h2,.cat:target .cat-h::after{animation:none}
+  :focus-visible,.is-bump,.f.shake input,.f.shake textarea,.f.shake select,#locF.shake,#branchF.shake .seg,#optBody fieldset.shake .opts,[data-roll] .rn,[data-roll] .ro,.done .ok-ic,.cat:target .cat-h h2,.cat:target .cat-h::after{animation:none}
   .done .ok-ic path{animation:none;stroke-dashoffset:0}
   img.img-in{opacity:1;transition:none}
 }

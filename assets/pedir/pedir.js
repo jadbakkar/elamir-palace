@@ -126,7 +126,7 @@
       "px.top": "Volver arriba", "px.backHome": "Volver al inicio", "px.menuPdf": "Carta en PDF",
       "px.copied": "Copiado",
       "px.loc.label": "Tu ubicación en el mapa",
-      "px.loc.err": "Marca tu ubicación: así enviamos tu pedido a la sucursal más cercana.",
+      "px.loc.err": "Marca tu ubicación en el mapa para que el repartidor llegue a tu puerta.",
       "px.loc.req": "Obligatorio", "px.loc.need": "Marca tu ubicación",
       "px.loc.use": "Usar mi ubicación actual",
       "px.loc.map": "Marcar en el mapa",
@@ -183,7 +183,7 @@
       "px.top": "Back to top", "px.backHome": "Back to home", "px.menuPdf": "Menu (PDF)",
       "px.copied": "Copied",
       "px.loc.label": "Your location on the map",
-      "px.loc.err": "Set your location so we can send your order to the nearest branch.",
+      "px.loc.err": "Pin your location on the map so the rider finds your door.",
       "px.loc.req": "Required", "px.loc.need": "Set your location",
       "px.loc.use": "Use my current location",
       "px.loc.map": "Pick on the map",
@@ -240,7 +240,7 @@
       "px.top": "العودة إلى الأعلى", "px.backHome": "العودة إلى الرئيسية", "px.menuPdf": "القائمة (PDF)",
       "px.copied": "تم النسخ",
       "px.loc.label": "موقعك على الخريطة",
-      "px.loc.err": "حدّد موقعك لنرسل طلبك إلى أقرب فرع.",
+      "px.loc.err": "حدّد موقعك على الخريطة ليصل المندوب إلى بابك.",
       "px.loc.req": "مطلوب", "px.loc.need": "حدّد موقعك",
       "px.loc.use": "استخدم موقعي الحالي",
       "px.loc.map": "حدّد على الخريطة",
@@ -715,12 +715,12 @@
     const o = dishes[opt.id].opts;
     if (o && !opt.choice) {
       $("#optErr").textContent = t("opt.pick", { label: I.opt(o.label).toLowerCase() });
-      $$("#optBody input").forEach(i => i.setAttribute("aria-invalid", "true")); $("#optBody input").focus(); return;
+      $$('#optBody input[name="optc"]').forEach(i => i.setAttribute("aria-invalid", "true")); shake($('#optBody input[name="optc"]')); $('#optBody input[name="optc"]').focus(); return;
     }
     const p = dishes[opt.id].pick;
     if (p && opt.picks.length !== p.n) {
       $("#optErr").textContent = t("opt.pick", { label: I.opt(p.label).toLowerCase() });
-      $$('#optBody input[name="optp"]').forEach(i => i.setAttribute("aria-invalid", "true")); $('#optBody input[name="optp"]').focus(); return;
+      $$('#optBody input[name="optp"]').forEach(i => i.setAttribute("aria-invalid", "true")); shake($('#optBody input[name="optp"]')); $('#optBody input[name="optp"]').focus(); return;
     }
     const note = cleanNote(opt.note), ex = p ? [...opt.picks, ...(opt.aparte ? [APARTE] : []), ...opt.extras] : opt.extras;
     const key = o || ex.length || note ? [opt.id, o ? opt.choice : "", ex.join("~"), note].join("|").replace(/\|+$/, "") : opt.id, qn = opt.qty;
@@ -738,8 +738,21 @@
   }
   function syncType() {
     $("#branchF").hidden = !$("#branchF").dataset.on;
-    $("#addrF").hidden = !isDel();
+    $("#addrF").hidden = $("#locF").hidden = !isDel();
+    if (isDel() && isOpen(sheet)) warmMap();
+    syncNeedLoc();
     renderTotals();
+  }
+  /* delivery needs the pinned location next to the address: the box is highlighted ("Obligatorio") until it is set */
+  function syncNeedLoc() {
+    $("#locF").classList.toggle("need", isDel() && !loc);
+    if ($("#eLoc").textContent) validateLoc();
+  }
+  function validateLoc() {
+    const need = isDel() && !loc;
+    $("#eLoc").textContent = need ? t("px.loc.err") : "";
+    $("#locF").classList.toggle("bad", need);
+    return !need;
   }
   function validateBranch() {
     const f = $("#branchF"), need = !f.hidden && !curBranch(), err = $("#eBranch");
@@ -784,11 +797,106 @@
   });
 
   let step = 1;   /* checkout step */
+  let loc = null;   /* declared early: syncType → syncNeedLoc can run before the location code below */
+
+  /* ---------- delivery location (optional, next to the address): Geolocation + lazy Leaflet map; the guest can tap the map or drag the pin ---------- */
+  const LEAFLET = { v: "1.9.4", js: "sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=", css: "sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" };
+  const LECHERIA = [10.19, -64.69];
+  let locState = null, map = null, marker = null, ring = null, leafletP = null;
+  const locMsg = $("#locMsg"), locMapEl = $("#locMap");
+  function setLocMsg(key, vars, bad) { locState = key ? [key, vars, bad] : null; locMsg.textContent = key ? t(key, vars) : ""; locMsg.classList.toggle("bad", !!bad); }
+  /* same files (same SRI) on two CDNs: cdnjs first, unpkg if it fails or stalls */
+  const LEAFLET_CDNS = [`https://cdnjs.cloudflare.com/ajax/libs/leaflet/${LEAFLET.v}/leaflet`, `https://unpkg.com/leaflet@${LEAFLET.v}/dist/leaflet`];
+  function loadFrom(base) {
+    return new Promise((res, rej) => {
+      const css = doc.createElement("link"); css.rel = "stylesheet"; css.href = base + ".css"; css.integrity = LEAFLET.css; css.crossOrigin = ""; doc.head.append(css);
+      const s = doc.createElement("script"); s.src = base + ".js"; s.integrity = LEAFLET.js; s.crossOrigin = ""; s.async = true;
+      const fail = () => { clearTimeout(to); s.remove(); css.remove(); rej(new Error("leaflet")); };
+      const to = setTimeout(fail, 9000);
+      s.onload = () => { clearTimeout(to); window.L && window.L.map ? res(window.L) : fail(); };
+      s.onerror = fail;
+      doc.head.append(s);
+    });
+  }
+  function loadLeaflet() {
+    if (window.L && window.L.map) return Promise.resolve(window.L);
+    return leafletP || (leafletP = loadFrom(LEAFLET_CDNS[0]).catch(() => loadFrom(LEAFLET_CDNS[1])).catch(e => { leafletP = null; throw e; }));
+  }
+  function setLoc(lat, lng, src, acc) {
+    loc = { lat: +(+lat).toFixed(6), lng: +(+lng).toFixed(6), src, acc };
+    $("#locClear").hidden = false;
+    syncNeedLoc();
+  }
+  function placePin(L, ll) {
+    if (!marker) {
+      const icon = L.divIcon({ className: "pin", iconSize: [34, 44], iconAnchor: [17, 43], html: '<svg width="34" height="44" viewBox="0 0 34 44" aria-hidden="true"><path d="M17 1.5C8.4 1.5 1.5 8.3 1.5 16.8 1.5 28 17 42.5 17 42.5S32.5 28 32.5 16.8C32.5 8.3 25.6 1.5 17 1.5z" fill="#7A1F2B" stroke="#fff" stroke-width="2"/><circle cx="17" cy="16.5" r="5.5" fill="#FBF8F3"/></svg>' });
+      marker = L.marker(ll, { draggable: true, icon, title: t("px.loc.pin"), alt: t("px.loc.pin"), keyboard: true }).addTo(map);
+      marker.on("dragend", () => { const p = marker.getLatLng(); setLoc(p.lat, p.lng, "map"); if (ring) { ring.remove(); ring = null; } setLocMsg("px.loc.set"); });
+    } else marker.setLatLng(ll);
+  }
+  function showMap(center, zoom) {
+    locMapEl.hidden = false;
+    return loadLeaflet().then(L => {
+      if (!map) {
+        const coarse = matchMedia("(pointer:coarse)").matches;
+        /* one-finger drag would hijack the bottom sheet scroll on phones: pan with pinch / +−, tap to move the pin */
+        map = L.map(locMapEl, { center, zoom, dragging: !coarse, scrollWheelZoom: false, tap: false, zoomControl: true, attributionControl: true });
+        L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' }).addTo(map);
+        map.on("click", e => { placePin(L, e.latlng); setLoc(e.latlng.lat, e.latlng.lng, "map"); if (ring) { ring.remove(); ring = null; } setLocMsg("px.loc.set"); });
+        locMapEl.setAttribute("aria-label", t("px.loc.mapAria"));
+      } else map.setView(center, zoom);
+      requestAnimationFrame(() => map.invalidateSize());
+      setTimeout(() => map && map.invalidateSize(), 450);   /* after the sheet transition */
+      return L;
+    }).catch(() => { locMapEl.hidden = true; setLocMsg(loc ? locState && locState[0] || "px.loc.set" : "px.loc.mapError", locState && locState[1], !loc); return null; });
+  }
+  function showLocOnMap() {
+    if (!loc) return;
+    showMap([loc.lat, loc.lng], 17).then(L => {
+      if (!L) return;
+      placePin(L, [loc.lat, loc.lng]);
+      if (ring) { ring.remove(); ring = null; }
+      if (loc.acc && loc.acc < 2000) ring = L.circle([loc.lat, loc.lng], { radius: loc.acc, color: "#7A1F2B", weight: 1, opacity: .5, fillColor: "#7A1F2B", fillOpacity: .08, interactive: false }).addTo(map);
+    });
+  }
+  $("#locUse").onclick = () => {
+    const b = $("#locUse");
+    if (!("geolocation" in navigator) || !window.isSecureContext) { setLocMsg("px.loc.unsupported", null, true); return; }
+    b.setAttribute("aria-busy", "true"); setLocMsg("px.loc.locating");
+    loadLeaflet().catch(() => {});          /* warm the map while the GPS works */
+    navigator.geolocation.getCurrentPosition(p => {
+      b.removeAttribute("aria-busy");
+      const acc = Math.round(p.coords.accuracy || 0);
+      setLoc(p.coords.latitude, p.coords.longitude, "gps", acc);
+      setLocMsg("px.loc.ok", { acc: acc || "?" });
+      showLocOnMap();
+    }, err => {
+      b.removeAttribute("aria-busy");
+      setLocMsg(err && err.code === 1 ? "px.loc.denied" : err && err.code === 3 ? "px.loc.timeout" : "px.loc.unavailable", null, true);
+    }, { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 });
+  };
+  $("#locPick").onclick = () => {
+    if (loc) { showLocOnMap(); return; }
+    setLocMsg("px.loc.tap");
+    showMap(LECHERIA, 14);
+  };
+  $("#locClear").onclick = () => {
+    loc = null; $("#locClear").hidden = true; setLocMsg(null); syncNeedLoc();
+    if (marker) { marker.remove(); marker = null; } if (ring) { ring.remove(); ring = null; }
+    locMapEl.hidden = true; $("#locUse").focus();
+  };
+  /* lazy Leaflet only once the delivery checkout is open; show the saved pin */
+  function warmMap() {
+    if (loc) { if (!map || locMapEl.hidden) showLocOnMap(); }
+    else loadLeaflet().catch(() => {});
+  }
+  /* Google Maps link (official "api=1" form), alone on its line: the branch / rider opens the exact pin from the WhatsApp chat */
+  const locLine = () => loc ? `*Ubicación:*\nhttps://www.google.com/maps/search/?api=1&query=${loc.lat.toFixed(6)}%2C${loc.lng.toFixed(6)}` : "";
 
   try {
     const sc = JSON.parse(localStorage.getItem("amir-customer")) || {};
     ["name", "phone"].forEach(k => { if (sc[k]) form.elements[k].value = sc[k]; });
-    if (sc.branch && branchById(sc.branch)) { renderBranches(); const r = form.querySelector(`input[name="branch"][value="${CSS.escape(sc.branch)}"]`); if (r) r.checked = true; }
+    if (isFinite(sc.lat) && isFinite(sc.lng) && sc.lat !== null && Math.abs(sc.lat) <= 90 && Math.abs(sc.lng) <= 180) { setLoc(sc.lat, sc.lng, "saved"); setLocMsg("px.loc.saved"); }
   } catch (e) { /* ignore */ }
 
   const dlgTrigger = () => !matchMedia(mqSheet).matches ? "#ledgerGo" : $("#pill").offsetParent ? "#pill" : ".bnav-order";
@@ -803,13 +911,15 @@
   /* ---------- checkout steps: 0 = the cart (edit quantities, drinks upsell), 1 delivery, 2 details, 3 payment ---------- */
   const STEP_FIELDS = { 1: ["addr"], 2: ["name", "phone"] };
   function shake(el) {
-    const f = el.closest(".f"); f.classList.remove("shake"); void f.offsetWidth; f.classList.add("shake");   /* polish.css */
-    el.addEventListener("animationend", () => f.classList.remove("shake"), { once: true });
+    /* the field box, or the fieldset of a required choice (branch, dish options) */
+    const f = el.closest(".f, fieldset"); f.classList.remove("shake"); void f.offsetWidth; f.classList.add("shake");   /* polish.css */
+    f.addEventListener("animationend", function end(e) { if (e.animationName !== "shake") return; f.classList.remove("shake"); f.removeEventListener("animationend", end); });
   }
   function stepOk(n) {
     let bad = null;
     (STEP_FIELDS[n] || []).forEach(k => { const el = form.elements[k]; if (el.closest(".f").hidden) return; if (!validate(el)) { if (!bad) bad = el; shake(el); } });
-    if (n === 3 && !bad && !validateBranch()) bad = $("#branchF input");
+    if (n === 1 && !bad && !validateLoc()) { bad = $("#locUse"); shake(bad); $("#locF").scrollIntoView({ block: "center", behavior: reduce.matches ? "auto" : "smooth" }); }
+    if (n === 3 && !bad && !validateBranch()) { bad = $("#branchF input"); shake(bad); }
     if (bad) bad.focus();
     return !bad;
   }
@@ -863,6 +973,14 @@
     const b = curBranch(), L = buildBaseMessage(id).split("\n");
     /* "*Sucursal:*" right after "*Tipo:*" */
     if (b) { const typeP = I.tEs("wa.order.type", { type: "" }).trim(), i = L.findIndex(l => l.startsWith(typeP)); L.splice(i < 0 ? 2 : i + 1, 0, `*Sucursal:* ${I.wx(b.nombre)}`); }
+    /* "*Ubicación:*" right after the address (or right before the dishes) */
+    const line = isDel() ? locLine() : "";
+    if (line) {
+      const addrP = I.tEs("wa.order.addr", { addr: "" }).trim();
+      let i = L.findIndex(l => l.startsWith(addrP));
+      if (i < 0) i = Math.max(0, L.indexOf(I.tEs("wa.order.sep")) - 1);
+      L.splice(i + 1, 0, line);
+    }
     return L.join("\n");
   }
   function buildBaseMessage(id) {
@@ -893,7 +1011,8 @@
       const el = form.elements[k]; if (el.closest(".f").hidden) return;
       if (!validate(el)) { if (!firstBad) firstBad = el; shake(el); }
     });
-    if (!firstBad && !validateBranch()) firstBad = $("#branchF input");
+    if (!firstBad && !validateLoc()) { firstBad = $("#locUse"); shake(firstBad); }
+    if (!firstBad && !validateBranch()) { firstBad = $("#branchF input"); shake(firstBad); }
     if (firstBad) { goStep(+firstBad.closest(".ck-step").dataset.step); firstBad.focus(); return; }
     const r = blockReason();
     if (r) { toast(r); return; }
@@ -903,8 +1022,10 @@
     if (win) { try { win.opener = null; } catch (er) { /* ignore */ } }
     if ($("#remember").checked) {
       const v = k => form.elements[k].value.trim();
-      try { localStorage.setItem("amir-customer", JSON.stringify({ name: v("name"), phone: v("phone"), branch: (curBranch() || {}).id })); } catch (er) { /* ignore */ }
+      try { localStorage.setItem("amir-customer", JSON.stringify({ name: v("name"), phone: v("phone"), lat: loc ? loc.lat : null, lng: loc ? loc.lng : null })); } catch (er) { /* ignore */ }
     } else { try { localStorage.removeItem("amir-customer"); } catch (er) { /* ignore */ } }
+    /* the branch is never remembered: the guest picks it again on every order */
+    form.querySelectorAll('input[name="branch"]').forEach(i => { i.checked = false; });
     showDone();
   });
   function showDone(refresh) {
@@ -963,6 +1084,9 @@
     if (order && !$("#done").hidden) { showDone(true); $("#sheetTitle").textContent = t("done.sheetTitle"); }
     else $("#sheetTitle").textContent = t(step === 0 ? "ledger.title" : "sheet.title");
     $$('#form [aria-invalid="true"]').forEach(validate);
+    if (locState) setLocMsg(locState[0], locState[1], locState[2]);
+    if (map) locMapEl.setAttribute("aria-label", t("px.loc.mapAria"));
+    if (marker) { const im = marker.getElement && marker.getElement(); if (im) { im.title = t("px.loc.pin"); im.setAttribute("aria-label", t("px.loc.pin")); } }
     if (first) {
       measure(); requestAnimationFrame(spy);
       if (I.lang !== "es" && location.hash) { const h = doc.getElementById(decodeURIComponent(location.hash.slice(1))); if (h) h.scrollIntoView({ block: "start", behavior: "instant" }); }
