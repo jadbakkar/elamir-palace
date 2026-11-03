@@ -45,8 +45,6 @@ legend{font-size:19px}
 
 /* ---------- header: sticky, clean, cart with badge ---------- */
 .hd{position:sticky;top:0;z-index:25;background:rgba(250,248,245,.9);border-bottom-color:var(--border)}
-/* iOS 26 Safari: the page shows through under the status bar; carry the header's background up past the screen edge */
-.hd::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:120px;background:inherit;pointer-events:none}
 .bar{top:var(--hd)}
 html{scroll-padding-top:calc(var(--hd) + var(--bar) + 12px)}
 .hd .hd-cart{position:relative;display:inline-grid;color:var(--text);border-color:var(--border-2);transition:background-color var(--t-fast) var(--ease-ui),transform var(--t-fast) var(--ease-ui)}

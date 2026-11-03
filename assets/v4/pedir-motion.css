@@ -14,7 +14,7 @@
 /* cart sheet / options dialog: iOS-like drawer curve, leaves the way it came */
 .sheet,.optdlg{transition:transform 420ms var(--ease-drawer),opacity 240ms var(--ease-out),visibility 0s 420ms}
 .sheet.open,.optdlg.open{transition:transform 480ms var(--ease-drawer),opacity 240ms var(--ease-out),visibility 0s}
-.scrim{transition:opacity 420ms var(--ease-drawer)}
+.scrim{transition:opacity 420ms var(--ease-drawer),visibility 0s 420ms}
 
 /* dish photos: tiny lift on hover (fine pointers only) */
 .ph{transition:transform 300ms var(--ease-out)}

@@ -172,8 +172,9 @@ main:focus{outline:none}
 .pill:focus-visible{outline-color:var(--ink)}
 
 /* ---------- dialogs (bottom sheets on phones) ---------- */
-.scrim{position:fixed;inset:0;z-index:40;background:var(--scrim);opacity:0;pointer-events:none;transition:opacity 300ms var(--ease)}
-.scrim.open{opacity:1;pointer-events:auto}
+/* visibility, not just opacity: iOS 26 Safari reads the topmost fixed layer at the screen edge, and a closed-but-present scrim hid the bottom bar from it */
+.scrim{position:fixed;inset:0;z-index:40;background:var(--scrim);opacity:0;pointer-events:none;visibility:hidden;transition:opacity 300ms var(--ease),visibility 0s 300ms}
+.scrim.open{opacity:1;pointer-events:auto;visibility:visible;transition-delay:0s}
 .sheet,.optdlg{position:fixed;z-index:41;left:0;right:0;bottom:0;max-height:92vh;max-height:92dvh;display:flex;flex-direction:column;background:var(--paper);color:var(--ink);border-radius:20px 20px 0 0;box-shadow:var(--shadow-2);transform:translateY(100%);visibility:hidden;transition:transform 340ms var(--ease),opacity 240ms var(--ease),visibility 0s 340ms}
 .optdlg{z-index:42;max-height:88dvh}
 .sheet.open,.optdlg.open{transform:none;visibility:visible;transition:transform 340ms var(--ease),opacity 240ms var(--ease),visibility 0s}

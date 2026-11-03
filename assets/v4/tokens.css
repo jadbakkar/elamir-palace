@@ -54,7 +54,7 @@ p,li,dd,figcaption{text-wrap:pretty}
 html{scrollbar-color:var(--wine) transparent;scrollbar-width:thin}
 input,select,textarea{caret-color:var(--wine);accent-color:var(--wine)}
 .sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.skip{position:fixed;top:10px;inset-inline-start:10px;z-index:200;background:var(--wine);color:#fff;padding:12px 18px;border-radius:var(--r-pill);font-weight:700;text-decoration:none;transform:translateY(-200%)}
+.skip{position:absolute;top:10px;inset-inline-start:10px;z-index:200;background:var(--wine);color:#fff;padding:12px 18px;border-radius:var(--r-pill);font-weight:700;text-decoration:none;transform:translateY(-200%)}
 .skip:focus{transform:none}
 
 /* display type */

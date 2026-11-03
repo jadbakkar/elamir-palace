@@ -2,8 +2,10 @@
    emblem in the middle while the new page swaps in underneath, then leaves off the top showing its curved bottom edge.
    Cross-document view transitions where supported; a short fade (transition.js) elsewhere. */
 @view-transition{navigation:auto}
-/* z-index: view-transition groups paint in their elements' paint order, so the sheet must sit above the sticky header and bottom bar */
-html::after{content:"";position:fixed;inset:0;z-index:2147483647;pointer-events:none;view-transition-name:wipe}
+/* z-index: view-transition groups paint in their elements' paint order, so the sheet must sit above the sticky header and bottom bar.
+   absolute, not fixed: iOS 26 Safari colours the strips behind its status bar and address pill from fixed layers at the screen
+   edges, and this always-present transparent one made it show the page there instead of the bars (the animation sets its own position) */
+html::after{content:"";position:absolute;inset:0;z-index:2147483647;pointer-events:none;view-transition-name:wipe}
 /* the sheet: wider than the screen so the ends of the curve stay off-screen, taller so the curve hangs below it while it covers */
 ::view-transition-group(wipe){width:124vw;height:125vh;background:#7A1F2B;border-radius:0 0 50% 50%/0 0 20% 20%;animation:vt-wipe 1.5s both}
 ::view-transition-old(wipe),::view-transition-new(wipe){display:none}
