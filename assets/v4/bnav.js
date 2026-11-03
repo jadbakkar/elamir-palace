@@ -47,4 +47,31 @@
   document.addEventListener("langchange", function () { setTimeout(place, 50); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
   place();
+
+  // iOS 26 Safari (WebKit bug 297779): once the toolbar shrinks to the floating pill, fixed bars can stay where they were,
+  // the bottom nav floating above the screen edge and the header below the status bar. Measure the gap to the visible
+  // edge and close it with `translate` (the bars' own show/hide uses `transform`, so the two never clash). Zero gap = no change.
+  var vv = window.visualViewport, ua = navigator.userAgent;
+  if (vv && (/iP(hone|od|ad)/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1))) {
+    var hd = document.querySelector(".hd"), queued = false;
+    if (hd && getComputedStyle(hd).position !== "fixed") hd = null; // pedir.html's header is sticky: it scrolls with the page
+    var fit = function () {
+      queued = false;
+      var zoomed = vv.scale > 1.01;
+      var down = zoomed ? 0 : Math.round(vv.offsetTop + vv.height - (nav.offsetTop + nav.offsetHeight));
+      nav.style.translate = down > 0 && down < 200 ? "0 " + down + "px" : "";
+      if (hd) {
+        var up = zoomed ? 0 : Math.round(hd.offsetTop - vv.offsetTop);
+        hd.style.translate = up > 0 && up < 120 ? "0 " + -up + "px" : "";
+      }
+      if (dbg) dbg.textContent = "inner " + innerHeight + " · vv " + Math.round(vv.height) + " @" + Math.round(vv.offsetTop) + " · nav " + (nav.offsetTop + nav.offsetHeight) + " → " + down + (hd ? " · hd " + hd.offsetTop : "");
+    };
+    var queue = function () { if (!queued) { queued = true; requestAnimationFrame(fit); } };
+    // ?vv in the address bar shows the numbers on screen, to read off a real iPhone
+    var dbg = /[?&]vv\b/.test(location.search) ? document.body.appendChild(document.createElement("output")) : null;
+    if (dbg) dbg.style.cssText = "position:fixed;top:40%;left:8px;right:8px;z-index:999;padding:8px;background:#000;color:#fff;font:12px/1.4 monospace;border-radius:8px;pointer-events:none";
+    vv.addEventListener("resize", queue); vv.addEventListener("scroll", queue);
+    addEventListener("scroll", queue, { passive: true }); addEventListener("resize", queue);
+    fit();
+  }
 })();
