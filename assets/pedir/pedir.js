@@ -309,8 +309,8 @@
   const count = () => Object.values(cart).reduce((a, b) => a + b, 0);
   const subtotal = () => Object.entries(cart).reduce((s, [k, q]) => s + unitPrice(k) * q, 0);
   const tr = id => I.dish(dishes[id].name, dishes[id].desc, dishes[id].cat);
-  /* WhatsApp: the sandwiches of "Shawarmas y Sándwiches" say "Sándwich …" (the shawarmas and "Sándwich de falafel" already read right) */
-  const waName = d => d.cat === "Shawarmas y Sándwiches" && !/^(Shawarma|Sándwich)/.test(d.name) ? "Sándwich " + d.name : d.name;
+  /* WhatsApp: the sandwiches of "Shawarmas y Sándwiches" say "Sándwich …" (the shawarmas, "Sándwich de falafel" and "Salsa de ajo" already read right) */
+  const waName = d => d.cat === "Shawarmas y Sándwiches" && !/^(Shawarma|Sándwich|Salsa)/.test(d.name) ? "Sándwich " + d.name : d.name;
   const lineName = k => { const { id, opt, extras, note } = parseKey(k); return lineFmt(waName(dishes[id]), opt, extras, note, x => x); };        /* Spanish: WhatsApp */
   const lineNameUI = k => { const { id, opt, extras, note } = parseKey(k); return lineFmt(tr(id).name, opt, extras, note, x => I.opt(x)); };  /* on screen */
 
