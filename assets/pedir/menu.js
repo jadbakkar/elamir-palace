@@ -139,8 +139,6 @@ const EXTRAS_POR_CATEGORIA = {
 const EXTRAS_POR_PLATO = [
   /* Plato mixto: solo pinchos extra (shish taouk / kafta / lahme) */
   [/^Plato mixto( con lomito)?$/, ADD("pollo","kafta","lomito")],
-  /* medio plato de shawarma: los mismos adicionales que el plato de shawarma */
-  [/^Medio plato de shawarma$/, ADD("pollo","lomito","kafta","shCarne","shPollo")],
   /* bandejas árabes: pinchos, sin carne/pollo de shawarma */
   [/^Bandeja árabe/, ADD("pollo","lomito","kafta")],
   /* brochetas: solo se les pueden agregar pinchos */
@@ -150,7 +148,7 @@ const EXTRAS_POR_PLATO = [
 ];
 /* Para quitarle los adicionales a un plato concreto: añade su nombre a NO_EXTRAS. */
 const NO_EXTRAS_SANDWICH = ["Fajita","Philadelphia","Tawook","Camarón","Lomito","Kebab","Makanek","Hígado de pollo","Kibbe frito","Salsa de ajo"];   /* solo en Shawarmas y Sándwiches (Camarón y Makanek existen también en otras categorías) */
-const NO_EXTRAS = ["Fatte","Fatte de berenjena","Arroz libanés con pollo o cordero","Kibbe al yogurt",
+const NO_EXTRAS = ["Fatte","Fatte de berenjena","Arroz libanés con pollo o cordero","Kibbe al yogurt","Plato de shawarma","Medio plato de shawarma",
   "Parrilla El Amir","Parrilla mar y tierra","Parrilla de mariscos","Parrilla de pollo","Parrilla de lomito","Parrilla mixta"];
 /* Lleva 2 contornos a elegir: los de "Carnes y Aves" (salvo los que ya traen su guarnición en la descripción) y los que dicen "2 contornos" */
 const CON_CONTORNOS = (cat, it) => /2 contornos/i.test(it[2] || "") || (cat === "Carnes y Aves" && !/papas|arroz/i.test(it[2] || ""));
