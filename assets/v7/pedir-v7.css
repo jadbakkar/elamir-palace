@@ -108,6 +108,8 @@ html[lang=ar] .dish .nm{font-family:var(--f-ar-body);font-weight:600;font-size:1
 /* dish sheet: photo, price, description, options; − 1 + sits next to the add button */
 .dph{margin:6px 0 0;aspect-ratio:4/3;border-radius:18px;overflow:hidden;background:var(--stone)}
 .dph img{display:block;width:100%;height:100%;object-fit:cover}
+/* uncropped dish sheet photos: whole picture shown, not cut to 4:3 */
+.dph img[src$="/batido-fresa.jpg"],.dph img[src$="/batido-lechosa.jpg"],.dph img[src$="/limonada-hierbabuena.jpg"],.dph img[src$="/batido-mora.jpg"],.dph img[src$="/batido-parchita.jpg"],.dph img[src$="/te-helado.jpg"]{object-fit:contain}
 .dpr{margin-top:14px;font:800 20px/1.2 var(--f-body);color:var(--wine);font-variant-numeric:tabular-nums}
 [dir=rtl] .dpr{direction:ltr;text-align:right}
 .optdlg .dsc{margin-top:6px}
