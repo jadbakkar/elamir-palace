@@ -953,7 +953,6 @@
   O("Papas rústicas", "Rustic potatoes", "بطاطا ريفية");
   O("Puré", "Mashed potatoes", "بطاطا مهروسة");
   O("Vegetales al vapor", "Steamed vegetables", "خضار على البخار");
-  O("Vegetales Santiago", "Santiago vegetables", "خضار سانتياغو");
   O("Ensalada mixta", "Mixed salad", "سلطة مشكّلة");
   O("Salsa", "Sauce", "الصلصة");
   O("Salsa rosa", "Pink sauce", "صلصة وردية");

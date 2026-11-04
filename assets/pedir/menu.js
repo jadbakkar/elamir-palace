@@ -13,7 +13,7 @@ const OPT_BAT = {label:"Preparación", choices:["En agua","En leche"]};
 const EXTRAS_SH = ["Crema de berenjena","Crema de garbanzo","Crema de pimentón","Falafel","Kibbe frito","Papas fritas","Tabbule","Tabaquitos de uva","Tabaquitos de repollo"];
 const PICK = (n, aparte) => ({label: n > 1 ? "Elige 2 extras" : "Elige 1 extra", n, items: EXTRAS_SH, aparte: !!aparte});
 /* Platos "con 2 contornos": el cliente elige sus 2 contornos (incluidos). Se asigna abajo, junto a los adicionales. */
-const CONTORNOS_2 = {label:"Elige 2 contornos", n:2, items:["Papas fritas","Papas bravas","Papas rústicas","Puré","Vegetales al vapor","Vegetales Santiago","Ensalada mixta","Arroz"]};
+const CONTORNOS_2 = {label:"Elige 2 contornos", n:2, items:["Papas fritas","Papas bravas","Papas rústicas","Puré","Vegetales al vapor","Vegetales salteados","Ensalada mixta","Arroz"]};
 const OPT_SALSA_TENDERS = {label:"Salsa", choices:["Salsa rosa","Sweet chili"]};
 /* Extras opcionales (5º dato del plato): el cliente marca los que quiera y se suman al precio. Precios: CONFIRMAR con el cliente. */
 const ADDON = {
