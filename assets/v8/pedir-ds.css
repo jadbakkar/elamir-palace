@@ -337,3 +337,12 @@ html{scroll-padding-top:calc(var(--hd) + var(--bar) + 12px)}
 /* phones: the hero cover has no text, so it doesn't wait hidden for the translation like the rest of the page (?lang=en/ar);
    it is the largest paint, so this is what lets it show at first paint instead of after every script */
 @media (max-width:599px){.i18n-wait .cover{visibility:visible;animation:none}}
+
+/* cart line: type the quantity, and a × removes the whole dish */
+.qin{width:40px;min-width:0;text-align:center;font:inherit;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink);background:transparent;border:0;padding:0;-moz-appearance:textfield;appearance:textfield}
+.qin::-webkit-outer-spin-button,.qin::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.qin:focus{outline:2px solid var(--line-2);outline-offset:2px;border-radius:8px}
+.ln .p{display:flex;align-items:center;justify-content:flex-end;gap:6px}
+.ln .rm{width:32px;height:32px;border-radius:50%;display:inline-grid;place-items:center;color:var(--ink-2);flex:none;transition:background-color var(--dur) var(--ease)}
+.ln .rm:hover{background:var(--marble)}
+.ln .rm svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}

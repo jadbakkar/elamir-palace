@@ -17,6 +17,7 @@
   /* one stroke weight for every glyph (styled in assets/v4/pedir.css) */
   const PLUS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
   const MINUS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg>';
+  const CROSS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
   function ctl(id, d, q, I, pop) {
     const name = I.dish(d.name, d.desc, d.cat).name;
     if (d.opts || d.extras || d.pick) {
@@ -77,7 +78,7 @@
         (note ? `<p class="note">${esc(I.note(note))}</p>` : "") + `<ul class="list">${items}</ul></section>`;
     }).join("");
   }
-  G.PedirRender = { slug, esc, money, dishId, sig, ctl, chips, cats, phSrc, phTh, PLUS, MINUS };
+  G.PedirRender = { slug, esc, money, dishId, sig, ctl, chips, cats, phSrc, phTh, PLUS, MINUS, CROSS };
 })(typeof window !== "undefined" ? window : globalThis);
 
 
@@ -342,8 +343,8 @@
     if (!keys.length) return `<div class="blank"><span class="ar" lang="ar" aria-hidden="true">${esc(t("ledger.greet"))}</span>${esc(t("ledger.empty"))}</div>`;
     let h = keys.map(k => {
       const { id, opt, extras, note } = parseKey(k), n = lineNameUI(k), ek = esc(k), sub = [opt ? I.opt(opt) : "", ...extras.map(x => (/^Sin /.test(x) ? "" : "+ ") + I.opt(x)), note ? `"${note}"` : ""].filter(Boolean).join(" · ");
-      return `<div class="ln has-th">${thumb(id)}<span class="q"><button type="button" data-k="${ek}" data-d="-1" aria-label="${esc(t("dish.removeOne", { name: n }))}">${R.MINUS}</button><b>${cart[k]}</b><button type="button" data-k="${ek}" data-d="1" aria-label="${esc(t("dish.addAnother", { name: n }))}">${R.PLUS}</button></span>` +
-        `<span class="n">${esc(tr(id).name)}${sub ? `<small>${esc(sub)}</small>` : ""}</span><span class="p">${money(unitPrice(k) * cart[k])}</span></div>`;
+      return `<div class="ln has-th">${thumb(id)}<span class="q"><button type="button" data-k="${ek}" data-d="-1" aria-label="${esc(t("dish.removeOne", { name: n }))}">${R.MINUS}</button><input class="qin" type="number" inputmode="numeric" min="0" max="${MAXQ}" step="1" value="${cart[k]}" data-setq="${ek}" aria-label="${esc(t("cart.qtyOf", { name: n }))}"><button type="button" data-k="${ek}" data-d="1" aria-label="${esc(t("dish.addAnother", { name: n }))}">${R.PLUS}</button></span>` +
+        `<span class="n">${esc(tr(id).name)}${sub ? `<small>${esc(sub)}</small>` : ""}</span><span class="p">${money(unitPrice(k) * cart[k])}<button type="button" class="rm" data-rm="${ek}" aria-label="${esc(t("cart.removeLine", { name: n }))}">${R.CROSS}</button></span></div>`;
     }).join("");
     if (!hasDrink() && typeof UPSELL !== "undefined") {
       h += `<div class="up"><p>${esc(t("upsell.title"))}</p>${UPSELL.map(([c, n]) => { const id = R.dishId(c, n); return dishes[id] ? `<button type="button" data-up="${id}"><span>${esc(tr(id).name)}</span><b>+ ${money(dishes[id].price)}</b></button>` : ""; }).join("")}</div>`;
@@ -480,6 +481,28 @@
     ], { duration: 560, easing: "cubic-bezier(.77,0,.175,1)" });
     a.onfinish = a.oncancel = () => { dot.remove(); bump($("#pillCount")); bump($("#ledgerSub")); bump($("#hdCount")); };
   }
+  /* remove a whole dish line at once (with undo) */
+  function removeLine(key) {
+    const prev = cart[key] || 0;
+    if (!prev) return;
+    change(key, -prev);
+    toast(t("cart.removed", { name: lineNameUI(key) }), () => change(key, prev));
+  }
+  /* type a quantity: 0 removes the line, above MAXQ is capped */
+  doc.addEventListener("change", e => {
+    const i = e.target; if (!i || !i.matches || !i.matches("input[data-setq]")) return;
+    const key = i.dataset.setq, cur = cart[key] || 0;
+    let v = Math.floor(Number(i.value));
+    if (i.value === "" || !isFinite(v) || v < 0) v = cur;
+    if (v === 0) { removeLine(key); return; }
+    if (v > MAXQ) { v = MAXQ; toast(t("cart.max", { max: MAXQ })); }
+    if (v !== cur) change(key, v - cur);
+    else renderLines();
+  });
+  /* Enter in the quantity box confirms it (and never submits the order form) */
+  doc.addEventListener("keydown", e => {
+    if (e.key === "Enter" && e.target && e.target.matches && e.target.matches("input[data-setq]")) { e.preventDefault(); e.target.blur(); }
+  });
   function change(key, d) {
     const cur = cart[key] || 0, want = cur + d, nx = Math.min(MAXQ, want);
     if (want > MAXQ) toast(t("cart.max", { max: MAXQ }));
@@ -538,6 +561,7 @@
       if (nb) nb.focus({ preventScroll: true });
       return;
     }
+    if (b.dataset.rm !== undefined) { removeLine(b.dataset.rm); return; }
     if (b.dataset.k) {
       const key = b.dataset.k, d = +b.dataset.d, box = b.closest("#ledgerLines,#sheetLines"), wasAdd = !cart[key];
       change(key, d);
