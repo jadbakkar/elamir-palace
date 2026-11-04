@@ -1626,14 +1626,15 @@
       if (o.addr && wx(o.addr)) L.push(E("wa.order.addr", { addr: wx(o.addr) }));
       if (o.ref && wx(o.ref)) L.push(E("wa.order.ref", { ref: wx(o.ref) }));
     }
-    L.push(E("wa.order.sep"));
-    (o.lines || []).forEach(function (l) { L.push(E("wa.order.line", { qty: l.qty, name: wx(l.name), price: M(l.total) })); });
+    /* totals, payment and notes come before the dish list, so they still arrive if a very long list gets cut */
     L.push(E("wa.order.sep"), E("wa.order.subtotal", { amount: M(o.subtotal) }));
     if (o.envases) L.push(E("wa.order.envases", { amount: M(o.envases) }));
     if (del && o.zone && typeof o.fee === "number") L.push(E("wa.order.delivery", { zone: wx(o.zone.name), amount: M(o.fee) }));
     L.push(E("wa.order.total", { amount: M(o.total) }) + (o.bsTotal ? E("wa.order.totalBs", { bs: o.bsTotal, rate: o.rate }) : ""));
     L.push(E("wa.order.pay", { pay: o.pay }));
     if (o.notes && wx(o.notes)) L.push(E("wa.order.notes", { notes: wx(o.notes) }));
+    L.push(E("wa.order.sep"));
+    (o.lines || []).forEach(function (l) { L.push(E("wa.order.line", { qty: l.qty, name: wx(l.name), price: M(l.total) })); });
     return L.join("\n");
   };
   /* r = { name, people:"2".."8"|"Más de 8", dateISO:"2026-10-20", time:"19:30", notes?, lang?, branch? (e.g. "Lechería") } */
