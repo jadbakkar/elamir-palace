@@ -196,7 +196,8 @@
     "status.closed": "Cerrado ahora",
     "status.closedOpensAt": "Cerrado ahora · Abrimos {when} a las {time}",
     "status.opensAt": "Abrimos {when} a las {time}",
-    "status.closedNote": "{status}. Puedes enviar tu pedido igual, pero no empezaremos a prepararlo antes de abrir.",
+    "status.closedNote": "En este momento nos encontramos cerrados, puedes dejar su pedido programado, lo estaremos preparando a partir de las {time}.",
+    "status.closedNoteNoTime": "En este momento nos encontramos cerrados, puedes dejar su pedido programado, lo estaremos preparando en cuanto abramos.",
 
     /* ordering page: hero + toolbar */
     "pedir.skip": "Saltar al menú",
@@ -496,7 +497,8 @@
     "status.closed": "Closed now",
     "status.closedOpensAt": "Closed now · We open {when} at {time}",
     "status.opensAt": "We open {when} at {time}",
-    "status.closedNote": "{status}. You can still send your order, but we won't start preparing it before we open.",
+    "status.closedNote": "We're closed at the moment. You can leave your order scheduled and we'll start preparing it from {time}.",
+    "status.closedNoteNoTime": "We're closed at the moment. You can leave your order scheduled and we'll start preparing it as soon as we open.",
 
     "pedir.skip": "Skip to menu",
     "pedir.heroAria": "Order delivery",
@@ -755,7 +757,8 @@
     "status.closed": "مغلق حالياً",
     "status.closedOpensAt": "مغلق حالياً · نفتح {when} الساعة {time}",
     "status.opensAt": "نفتح {when} الساعة {time}",
-    "status.closedNote": "{status}. يمكنك إرسال طلبك، لكن لن نبدأ بتحضيره قبل موعد الافتتاح.",
+    "status.closedNote": "نحن مغلقون حالياً، يمكنك ترك طلبك مجدولاً وسنبدأ بتحضيره ابتداءً من الساعة {time}.",
+    "status.closedNoteNoTime": "نحن مغلقون حالياً، يمكنك ترك طلبك مجدولاً وسنبدأ بتحضيره فور افتتاحنا.",
 
     "pedir.skip": "تخطَّ إلى القائمة",
     "pedir.heroAria": "اطلب التوصيل",
@@ -1390,12 +1393,13 @@
      -> {open, text, short, note}   (same wording as the original pedir.html) */
   I18N.status = function (st) {
     if (st.open) return { open: true, text: I18N.t("status.openUntil", { time: I18N.time12(st.until) }), short: "", note: "" };
-    var text, short = "";
+    var text, short = "", note;
     if (st.time != null) {
       var v = { when: I18N.when(st.daysAhead, st.dow), time: I18N.time12(st.time) };
       text = I18N.t("status.closedOpensAt", v); short = I18N.t("status.opensAt", v);
-    } else text = I18N.t("status.closed");
-    return { open: false, text: text, short: short, note: I18N.t("status.closedNote", { status: text }) };
+      note = I18N.t("status.closedNote", { time: v.time });
+    } else { text = I18N.t("status.closed"); note = I18N.t("status.closedNoteNoTime"); }
+    return { open: false, text: text, short: short, note: note };
   };
   /* eta("30-45 min") -> "30-45 min" / "30-45 دقيقة" (CONFIG keeps "min") */
   I18N.eta = function (s) { return String(s).replace(/\bmin\b/g, I18N.t("unit.min")); };
