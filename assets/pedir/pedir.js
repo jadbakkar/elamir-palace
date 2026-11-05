@@ -764,7 +764,7 @@
     $("#branchF").hidden = !$("#branchF").dataset.on;
     $("#addrF").hidden = $("#locF").hidden = !isDel();
     if (isDel() && isOpen(sheet)) warmMap();
-    syncNeedLoc();
+    syncNeedLoc(); askLoc();
     renderTotals();
   }
   /* delivery needs the pinned location next to the address: the box is highlighted ("Obligatorio") until it is set */
@@ -822,6 +822,11 @@
 
   let step = 1;   /* checkout step */
   let loc = null;   /* declared early: syncType → syncNeedLoc can run before the location code below */
+  let locAsked = false;   /* the device location prompt fires once, when the delivery step first opens */
+  function askLoc() {
+    if (locAsked || loc || step !== 1 || !isDel() || !isOpen(sheet)) return;
+    locAsked = true; $("#locUse").click();
+  }
 
   /* ---------- delivery location (optional, next to the address): Geolocation + lazy Leaflet map; the guest can tap the map or drag the pin ---------- */
   const LEAFLET = { v: "1.9.4", js: "sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=", css: "sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" };
@@ -956,6 +961,7 @@
     $("#stepNext").hidden = n === 3; $("#send").hidden = n !== 3;
     $("#sheetTitle").textContent = t(n === 0 ? "ledger.title" : "sheet.title");
     form.scrollTop = 0;
+    askLoc();
   }
   $("#stepNext").onclick = () => {
     if (step === 0 && !count()) { toast(t("cart.needOne")); return; }
