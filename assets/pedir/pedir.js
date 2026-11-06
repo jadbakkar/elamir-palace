@@ -93,9 +93,9 @@
   /* ---------- page-only strings (merged into I18N.dict) ---------- */
   const PX = {
     es: {
-      "meta.pedir.title": "Menú y pedidos a domicilio | El Amir Palace Lechería",
-      "meta.pedir.description": "Carta completa de El Amir Palace en Lechería con precios: mezze, shawarmas, bandejas árabes, parrillas y mariscos. Pide delivery o retiro por WhatsApp.",
-      "meta.pedir.ogDescription": "Mezze, shawarmas y parrillas libanesas en Lechería. Delivery o retiro, confirmación por WhatsApp.",
+      "meta.pedir.title": "Menú y pedidos a domicilio | El Amir Palace Lechería y Puerto La Cruz",
+      "meta.pedir.description": "Carta completa de El Amir Palace en Lechería y Puerto La Cruz con precios: mezze, shawarmas, bandejas árabes, parrillas y mariscos. Pide delivery o retiro por WhatsApp.",
+      "meta.pedir.ogDescription": "Mezze, shawarmas y parrillas libanesas en Lechería y Puerto La Cruz. Delivery o retiro, confirmación por WhatsApp.",
       "px.kicker": "Carta completa · Lechería · Puerto La Cruz",
       "px.updated": "Precios en dólares, sin IVA · Actualizado el {date}",
       "px.addrSoon": "Lechería, Anzoátegui, Venezuela",
@@ -150,9 +150,9 @@
       "px.done.shareLoc": "Envía también tu ubicación en el chat (📎 o + → Ubicación) para que el repartidor llegue directo a tu puerta."
     },
     en: {
-      "meta.pedir.title": "Menu & Delivery Orders | El Amir Palace Lechería",
-      "meta.pedir.description": "Full menu of El Amir Palace in Lechería, Venezuela, with prices: Lebanese mezze, shawarma, Arabic platters, grills and seafood. Order delivery or pickup on WhatsApp.",
-      "meta.pedir.ogDescription": "Lebanese mezze, shawarma and grills in Lechería. Delivery or pickup, confirmed on WhatsApp.",
+      "meta.pedir.title": "Menu & Delivery Orders | El Amir Palace Lechería & Puerto La Cruz",
+      "meta.pedir.description": "Full menu of El Amir Palace in Lechería and Puerto La Cruz, Venezuela, with prices: Lebanese mezze, shawarma, Arabic platters, grills and seafood. Order delivery or pickup on WhatsApp.",
+      "meta.pedir.ogDescription": "Lebanese mezze, shawarma and grills in Lechería and Puerto La Cruz. Delivery or pickup, confirmed on WhatsApp.",
       "px.kicker": "Full menu · Lechería · Puerto La Cruz",
       "px.updated": "Prices in US dollars, VAT not included · Updated {date}",
       "px.addrSoon": "Lechería, Anzoátegui, Venezuela",
@@ -207,9 +207,9 @@
       "px.done.shareLoc": "Also send your location in the chat (📎 or + → Location) so the rider comes straight to your door."
     },
     ar: {
-      "meta.pedir.title": "القائمة وطلبات التوصيل | El Amir Palace ليتشيريا",
-      "meta.pedir.description": "القائمة الكاملة لمطعم El Amir Palace في ليتشيريا، فنزويلا، مع الأسعار: مقبلات لبنانية وشاورما وصوانٍ عربية ومشاوي ومأكولات بحرية. اطلب توصيلاً أو استلاماً عبر واتساب.",
-      "meta.pedir.ogDescription": "مقبلات وشاورما ومشاوي لبنانية في ليتشيريا. توصيل أو استلام مع التأكيد عبر واتساب.",
+      "meta.pedir.title": "القائمة وطلبات التوصيل | El Amir Palace ليتشيريا وبويرتو لا كروز",
+      "meta.pedir.description": "القائمة الكاملة لمطعم El Amir Palace في ليتشيريا وبويرتو لا كروز، فنزويلا، مع الأسعار: مقبلات لبنانية وشاورما وصوانٍ عربية ومشاوي ومأكولات بحرية. اطلب توصيلاً أو استلاماً عبر واتساب.",
+      "meta.pedir.ogDescription": "مقبلات وشاورما ومشاوي لبنانية في ليتشيريا وبويرتو لا كروز. توصيل أو استلام مع التأكيد عبر واتساب.",
       "px.kicker": "القائمة الكاملة · ليتشيريا · بويرتو لا كروث",
       "px.updated": "الأسعار بالدولار الأمريكي ولا تشمل الضريبة · آخر تحديث {date}",
       "px.addrSoon": "ليتشيريا، أنزواتيغي، فنزويلا",
@@ -303,6 +303,8 @@
     Object.entries(raw).forEach(([k, q]) => {
       if (Number.isInteger(q) && q > 0 && validKey(k)) cart[k] = Math.min(q, MAXQ);
     });
+    /* dishes or choices renamed/removed since the guest's last visit: store the cleaned cart, or the PEDIR badge keeps counting them */
+    if (JSON.stringify(raw) !== JSON.stringify(cart)) save();
   } catch (e) { /* private mode */ }
 
   const qtyOf = id => Object.entries(cart).reduce((s, [k, q]) => s + (parseKey(k).id === id ? q : 0), 0);
@@ -815,6 +817,11 @@
     return !msg;
   }
   form.addEventListener("focusout", e => { if (e.target.name in RULES) validate(e.target); });
+  /* Arabic / Persian keyboards type ٠١٢… / ۰۱۲…: make them 0-9 as they are typed, so the number validates and reaches the branch readable */
+  form.elements.phone.addEventListener("input", e => {
+    const el = e.target, v = el.value.replace(/[٠-٩۰-۹]/g, d => String(d.charCodeAt(0) & 15));
+    if (v !== el.value) { const p = el.selectionStart; el.value = v; el.setSelectionRange(p, p); }
+  });
   form.addEventListener("input", e => { if (e.target.name in RULES && e.target.getAttribute("aria-invalid")) validate(e.target); });
   form.addEventListener("focusin", e => {
     if (matchMedia(mqSheet).matches && e.target.matches("input:not([type=radio]):not([type=checkbox]),textarea,select")) setTimeout(() => e.target.scrollIntoView({ block: "center", behavior: "smooth" }), 320);
@@ -1027,7 +1034,8 @@
   function waUrl(msg) {
     const base = `https://wa.me/${waNumber()}?text=`;
     if ((base + encodeURIComponent(msg)).length <= 1900) return { url: base + encodeURIComponent(msg), cut: false };
-    let m = msg; while ((base + encodeURIComponent(m + "\n…")).length > 1900) m = m.slice(0, -40);
+    /* cut by whole characters: slicing UTF-16 can split an emoji, and encodeURIComponent throws on half of one */
+    let m = msg; while ((base + encodeURIComponent(m + "\n…")).length > 1900) m = Array.from(m).slice(0, -40).join("");
     return { url: base + encodeURIComponent(m + "\n…"), cut: true };
   }
 
@@ -1129,6 +1137,12 @@
     $("#factMinT").textContent = m ? t("pedir.factMin", { min: money(m) }) : "";
   }
   doc.addEventListener("langchange", () => renderAll(false));
+  /* Inicio / Carta / Sucursales go back to the guest's language home (/en/, /ar/), not always the Spanish one */
+  const homeLinks = [...doc.querySelectorAll("a[href]")].filter(a => /^\.\/(#[\w-]*)?$/.test(a.getAttribute("href")));
+  homeLinks.forEach(a => { a.dataset.homeHash = a.getAttribute("href").slice(2); });
+  const setHomeLinks = () => homeLinks.forEach(a => a.setAttribute("href", (I.lang === "es" ? "./" : `./${I.lang}/`) + a.dataset.homeHash));
+  doc.addEventListener("langchange", setHomeLinks);
+  setHomeLinks();
   renderAll(true);
   setInterval(updateStatus, 30000);
   doc.addEventListener("visibilitychange", () => { if (!doc.hidden) updateStatus(); });

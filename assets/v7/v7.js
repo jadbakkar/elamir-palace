@@ -191,7 +191,7 @@
 
   /* ---- silent loop videos: load when near, play only while visible; never autoplay with reduced motion ---- */
   d.querySelectorAll("video[data-src]").forEach(function (v) {
-    if (reduced || !("IntersectionObserver" in w)) return;
+    if (reduced || (navigator.connection && navigator.connection.saveData) || !("IntersectionObserver" in w)) return;
     new IntersectionObserver(function (es) {
       es.forEach(function (e) {
         if (e.isIntersecting) { if (!v.src) { v.src = v.getAttribute("data-src"); } var p = v.play(); if (p && p.catch) p.catch(function () {}); }
@@ -222,6 +222,8 @@
   var gsap = w.gsap, ST = w.ScrollTrigger;
   if (!gsap || !ST) { h.classList.remove("motion"); h.classList.add("no-motion"); initHeader(null); return; }
   gsap.registerPlugin(ST);
+  /* slow connection: the 4 s failsafe in <head> already showed the content; don't hide it again just to fade it back in */
+  var late = !h.classList.contains("motion");
   h.classList.add("m-ready");
   var EASE = "power3.out", EXPO = "expo.out";
   var fontsReady = (d.fonts && d.fonts.ready) ? d.fonts.ready : Promise.resolve();
@@ -238,7 +240,14 @@
       var a = e.target.closest && e.target.closest('a[href^="#"]');
       if (!a) return;
       var id = a.getAttribute("href"), el = id.length > 1 && d.querySelector(id);
-      if (id === "#top" || el) { e.preventDefault(); lenis.scrollTo(id === "#top" ? 0 : el, { duration: 1.8, easing: function (x) { return 1 - Math.pow(1 - x, 4); } }); }
+      if (id === "#top" || el) {
+        e.preventDefault();
+        /* Lenis ignores CSS scroll-padding-top: pass the fixed header's height as the offset so it doesn't cover the heading */
+        var off = id === "#top" ? 0 : -(parseFloat(getComputedStyle(d.documentElement).scrollPaddingTop) || 0);
+        lenis.scrollTo(id === "#top" ? 0 : el, { offset: off, duration: 1.8, easing: function (x) { return 1 - Math.pow(1 - x, 4); } });
+        /* preventDefault also stops the browser moving focus (skip link): do it here, without a second jump */
+        if (el && id !== "#top") { if (!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1"); el.focus({ preventScroll: true }); }
+      }
     });
   }
 
@@ -447,7 +456,7 @@
   fontsReady.then(function () {
     /* headlines */
     gsap.utils.toArray("[data-split]").forEach(function (el) {
-      if (hero && hero.contains(el)) return;
+      if (late || (hero && hero.contains(el))) return;
       onEnter(el, function () { playSplit(el, delayOf(el)); });
     });
     /* hand-drawn words build once their font is in (section eyebrows get the same treatment) */
@@ -466,15 +475,17 @@
 
   /* ---- reveals ---- */
   gsap.utils.toArray("[data-reveal]").forEach(function (el) {
-    if (hero && hero.contains(el)) return;
+    if (late || (hero && hero.contains(el))) return;
     /* data-reveal="left|right": slide in from that side (mirrored in RTL) */
     var side = el.getAttribute("data-reveal"), dx = side === "left" ? -140 : side === "right" ? 140 : 0;
     if (document.documentElement.dir === "rtl") dx = -dx;
     /* side slides fire together off their parent, with a light stagger, so the tiles move as one */
     if (dx) { ST.create({ trigger: el.parentElement, start: "top 72%", once: true, onEnter: function () { rise(el, { delay: delayOf(el) * 0.5, x: dx }); } }); return; }
+    /* .find: on desktop its scroll-scrubbed scale owns the transform, so fade only (clearProps:"transform" would wipe the scale) */
+    if (el.classList.contains("find") && !reduced && matchMedia("(min-width: 768px)").matches) { onEnter(el, function () { gsap.fromTo(el, { opacity: 0 }, { opacity: 1, duration: 0.55, ease: EASE, delay: delayOf(el) }); }); return; }
     onEnter(el, function () { rise(el, { delay: delayOf(el) }); });
   });
-  gsap.utils.toArray("[data-reveal-group]").forEach(function (g) {
+  if (!late) gsap.utils.toArray("[data-reveal-group]").forEach(function (g) {
     onEnter(g, function () { rise(g.children, { stagger: 0.03 }); });
   });
 

@@ -8,6 +8,9 @@
 (function () {
   "use strict";
   var doc = document, html = doc.documentElement;
+  /* a skipped page transition (navigating again mid-animation) rejects these promises: swallow it */
+  function quiet(e) { var t = e.viewTransition; if (t) ["ready", "finished", "updateCallbackDone"].forEach(function (k) { t[k] && t[k].catch(function () {}); }); }
+  addEventListener("pagereveal", quiet); addEventListener("pageswap", quiet);
   var RM = matchMedia("(prefers-reduced-motion: reduce)");
 
   /* ---------- language pill ---------- */
@@ -101,7 +104,6 @@
     addEventListener("pagereveal", function (e) {
       var v; try { v = JSON.parse(sessionStorage.getItem(KEY) || "null"); sessionStorage.removeItem(KEY); } catch (er) {}
       if (!v || html.getAttribute("data-i18n-page") !== "pedir" || !e.viewTransition) return;
-      e.viewTransition.ready.catch(function () {});   /* skipped (e.g. tab in the background): nothing to do */
       var img = (v.id && doc.querySelector('.dish[data-id="' + v.id + '"] .ph')) || (v.cat && doc.querySelector("#" + CSS.escape(v.cat) + " .dish.has-ph .ph"));
       if (!img) return;
       var r = img.getBoundingClientRect();

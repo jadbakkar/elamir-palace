@@ -5,7 +5,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <!-- page wipe: first in <head>, before any script, or a phone can paint the page before it reads @view-transition and skip the wipe -->
-<link rel="stylesheet" href="../assets/v8/transition.css?v=10">
+<link rel="stylesheet" href="../assets/v8/transition.css?v=31015f1d">
+<script>(function(){function q(e){var t=e.viewTransition;t&&["ready","finished","updateCallbackDone"].forEach(function(k){t[k]&&t[k].catch(function(){})})}addEventListener("pagereveal",q);addEventListener("pageswap",q)})()</script>
 <title>El Amir Palace | Lebanese Restaurant in Lechería &amp; Puerto La Cruz</title>
 <meta name="description" content="Lebanese and Mediterranean restaurant since 1997, with branches in Lechería and Puerto La Cruz, Anzoátegui. Shawarma, Arabic platters and grills. Order delivery or pickup on WhatsApp.">
 <script>
@@ -42,7 +43,7 @@ if(l==="ar"&&!d.getElementById("i18n-ar-fonts")){var k=d.createElement("link");k
 <meta property="og:description" content="Lebanese food since 1997 in Lechería and Puerto La Cruz. Order delivery or pickup on WhatsApp.">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="El Amir Palace, cocina libanesa en Lechería desde 1997">
+<meta property="og:image:alt" data-i18n-attr="content:v7.og.alt" content="El Amir Palace, Lebanese cuisine in Lechería since 1997">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../favicon.ico" sizes="32x32">
 <link rel="icon" href="../img/brand/favicon.svg" type="image/svg+xml">
@@ -54,10 +55,10 @@ if(l==="ar"&&!d.getElementById("i18n-ar-fonts")){var k=d.createElement("link");k
 <link rel="preload" href="../assets/v7/fonts/fraunces-loader.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high">
 <link rel="preload" href="../assets/v7/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/v7/fonts/allura-mesa.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../assets/fonts/allura-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/v7/v7.css?v=83">
-<link rel="stylesheet" href="../assets/v4/bnav.css?v=1.10">
-<link rel="stylesheet" href="../assets/v7/motion-x.css?v=10">
-<link rel="stylesheet" href="../assets/v7/decor.css?v=6">
+<link rel="stylesheet" href="../assets/v7/v7.css?v=c6c14221">
+<link rel="stylesheet" href="../assets/v4/bnav.css?v=f59b223e">
+<link rel="stylesheet" href="../assets/v7/motion-x.css?v=8dbff1c9">
+<link rel="stylesheet" href="../assets/v7/decor.css?v=f6b6a0a2">
 <!--gen:jsonld-->
 <!-- TODO(owner): street addresses (CONFIG.sucursales[i].direccion), coordinates (assets/v3/content.js) and Instagram (config.js); re-run node scripts/prerender.js -->
 <script type="application/ld+json">
@@ -388,7 +389,7 @@ var sk=function(){h.classList.add("fr","loader-skip")};["pointerdown","keydown",
 <header class="hd" id="hd">
   <div class="wrap hd-in">
     <a class="brand" href="#top" aria-label="El Amir Palace"><span class="brand-mark" aria-hidden="true"></span><b>El Amir Palace</b></a>
-    <nav class="hd-nav" aria-label="Principal">
+    <nav class="hd-nav" aria-label="Main" data-i18n-attr="aria-label:v7.nav.aria">
       <a href="#carta" data-i18n="v7.nav.menu">Menu</a>
       <a href="#historia" data-i18n="v7.nav.story">Our story</a>
       <a href="#sucursales" data-i18n="v7.nav.branches">Locations</a>
@@ -408,7 +409,7 @@ var sk=function(){h.classList.add("fr","loader-skip")};["pointerdown","keydown",
 <!-- 1 · HERO (a video will replace the image later) -->
 <section class="hero" id="top" aria-labelledby="h1">
   <div class="hero-media parallax">
-    <div class="parallax__inner"><picture class="hero-pic"><source type="image/avif" srcset="../img/photos/parrilla-cerca-640.avif 640w, ../img/photos/parrilla-cerca-1080.avif 1080w" sizes="100vw"><img src="../img/photos/parrilla-cerca-1080.webp" srcset="../img/photos/parrilla-cerca-640.webp 640w, ../img/photos/parrilla-cerca-1080.webp 1080w" sizes="100vw" width="1080" height="1350" alt="Parrilla mixta a la brasa: kafta, lomito y pollo sobre papas fritas" fetchpriority="high"></picture></div>
+    <div class="parallax__inner"><picture class="hero-pic"><source type="image/avif" srcset="../img/photos/parrilla-cerca-640.avif 640w, ../img/photos/parrilla-cerca-1080.avif 1080w" sizes="100vw"><img src="../img/photos/parrilla-cerca-1080.webp" srcset="../img/photos/parrilla-cerca-640.webp 640w, ../img/photos/parrilla-cerca-1080.webp 1080w" sizes="100vw" width="1080" height="1350" data-i18n-attr="alt:v7.alt.grill" alt="Mixed charcoal grill: kafta, beef tenderloin and chicken over French fries" fetchpriority="high"></picture></div>
     <div class="hero-steam" aria-hidden="true"><i class="st-a"></i><i class="st-b"></i><i class="st-c"></i></div>
   </div>
   <div class="wrap hero-in">
@@ -426,7 +427,7 @@ var sk=function(){h.classList.add("fr","loader-skip")};["pointerdown","keydown",
   <div class="wrap">
     <div class="sec-label sec-label--c" data-reveal><span id="intro-k" data-i18n="v7.intro.k">El Amir Palace</span></div>
     <p class="intro-t" data-split data-i18n="v7.intro.t">Almost three decades of Lebanese family recipes. Dishes made for sharing, in the middle of the table.</p>
-    <div class="intro-img parallax"><div class="parallax__inner"><picture><source type="image/avif" srcset="../img/photos/fideua-mesa-640.avif 640w, ../img/photos/fideua-mesa-1080.avif 1080w" sizes="(min-width:1360px) 1232px, 92vw"><img src="../img/photos/fideua-mesa-1080.webp" srcset="../img/photos/fideua-mesa-640.webp 640w, ../img/photos/fideua-mesa-1080.webp 1080w" sizes="(min-width:1360px) 1232px, 92vw" width="1080" height="1350" alt="Fideuá de mariscos en paellera con una copa de vino, al centro de la mesa" loading="lazy" decoding="async"></picture></div></div>
+    <div class="intro-img parallax"><div class="parallax__inner"><picture><source type="image/avif" srcset="../img/photos/fideua-mesa-640.avif 640w, ../img/photos/fideua-mesa-1080.avif 1080w" sizes="(min-width:1360px) 1232px, 92vw"><img src="../img/photos/fideua-mesa-1080.webp" srcset="../img/photos/fideua-mesa-640.webp 640w, ../img/photos/fideua-mesa-1080.webp 1080w" sizes="(min-width:1360px) 1232px, 92vw" width="1080" height="1350" data-i18n-attr="alt:v7.alt.fideua" alt="Seafood fideuà in a paella pan with a glass of wine, in the middle of the table" loading="lazy" decoding="async"></picture></div></div>
   </div>
 </section>
 
@@ -452,12 +453,12 @@ var sk=function(){h.classList.add("fr","loader-skip")};["pointerdown","keydown",
       </a></li>
       <li><a class="card" href="../pedir.html#shawarmas-y-sandwiches">
         <div class="card-img parallax"><div class="parallax__inner"><picture><source type="image/avif" srcset="../img/photos/shawarma-wrap-400.avif 400w, ../img/photos/shawarma-wrap-640.avif 640w, ../img/photos/shawarma-wrap-1080.avif 1080w" sizes="(min-width:900px) 31vw, 46vw"><img src="../img/photos/shawarma-wrap-640.webp" srcset="../img/photos/shawarma-wrap-400.webp 400w, ../img/photos/shawarma-wrap-640.webp 640w, ../img/photos/shawarma-wrap-1080.webp 1080w" sizes="(min-width:900px) 31vw, 46vw" width="1080" height="1350" alt="" loading="lazy" decoding="async" draggable="false"></picture></div></div>
-        <div class="card-tx"><h3 class="card-n" data-i18n="v7.c3">Shawarma</h3><span class="card-d" data-i18n="v7.n" data-i18n-vars='{"n":17}'>17 dishes</span></div>
+        <div class="card-tx"><h3 class="card-n" data-i18n="v7.c3">Shawarma</h3><span class="card-d" data-i18n="v7.n" data-i18n-vars='{"n":18}'>18 dishes</span></div>
         <span class="card-more"><span data-i18n="v7.more">See more</span><svg class="arw" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></span>
       </a></li>
       <li><a class="card" href="../pedir.html#pescados-y-mariscos">
         <div class="card-img parallax"><div class="parallax__inner"><picture><source type="image/avif" srcset="../img/photos/dynamite-shrimp-400.avif 400w, ../img/photos/dynamite-shrimp-640.avif 640w, ../img/photos/dynamite-shrimp-1080.avif 1080w" sizes="(min-width:900px) 31vw, 46vw"><img src="../img/photos/dynamite-shrimp-640.webp" srcset="../img/photos/dynamite-shrimp-400.webp 400w, ../img/photos/dynamite-shrimp-640.webp 640w, ../img/photos/dynamite-shrimp-1080.webp 1080w" sizes="(min-width:900px) 31vw, 46vw" width="1080" height="1350" alt="" loading="lazy" decoding="async" draggable="false"></picture></div></div>
-        <div class="card-tx"><h3 class="card-n" data-i18n="v7.c4">From the Sea</h3><span class="card-d" data-i18n="v7.n" data-i18n-vars='{"n":14}'>14 dishes</span></div>
+        <div class="card-tx"><h3 class="card-n" data-i18n="v7.c4">From the Sea</h3><span class="card-d" data-i18n="v7.n" data-i18n-vars='{"n":12}'>12 dishes</span></div>
         <span class="card-more"><span data-i18n="v7.more">See more</span><svg class="arw" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></span>
       </a></li>
       <li><a class="card" href="../pedir.html#platos-arabes-especiales">
@@ -467,7 +468,7 @@ var sk=function(){h.classList.add("fr","loader-skip")};["pointerdown","keydown",
       </a></li>
       <li><a class="card" href="../pedir.html#arroces">
         <div class="card-img parallax"><div class="parallax__inner"><picture><source type="image/avif" srcset="../img/photos/fideua-400.avif 400w, ../img/photos/fideua-640.avif 640w, ../img/photos/fideua-1080.avif 1080w" sizes="(min-width:900px) 31vw, 46vw"><img src="../img/photos/fideua-640.webp" srcset="../img/photos/fideua-400.webp 400w, ../img/photos/fideua-640.webp 640w, ../img/photos/fideua-1080.webp 1080w" sizes="(min-width:900px) 31vw, 46vw" width="1080" height="1350" alt="" loading="lazy" decoding="async" draggable="false"></picture></div></div>
-        <div class="card-tx"><h3 class="card-n" data-i18n="v7.c6">Rice &amp; Paella</h3><span class="card-d" data-i18n="v7.n" data-i18n-vars='{"n":8}'>8 dishes</span></div>
+        <div class="card-tx"><h3 class="card-n" data-i18n="v7.c6">Rice &amp; Paella</h3><span class="card-d" data-i18n="v7.n" data-i18n-vars='{"n":9}'>9 dishes</span></div>
         <span class="card-more"><span data-i18n="v7.more">See more</span><svg class="arw" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></span>
       </a></li>
     </ul>
@@ -490,10 +491,10 @@ var sk=function(){h.classList.add("fr","loader-skip")};["pointerdown","keydown",
         </ul>
       </div>
       <ul class="salon-ph">
-        <li class="salon-i salon-i--1" data-reveal style="--i:0"><img src="../img/salon/salon-1-1600.webp" srcset="../img/salon/salon-1-800.webp 800w, ../img/salon/salon-1-1600.webp 1600w" sizes="(min-width:900px) 45vw, 80vw" width="1600" height="900" alt="Salón de El Amir Palace con paredes de relieve dorado y mesas de mármol blanco" loading="lazy" decoding="async" draggable="false"></li>
-        <li class="salon-i salon-i--2" data-reveal style="--i:1"><img src="../img/salon/salon-2-1600.webp" srcset="../img/salon/salon-2-800.webp 800w, ../img/salon/salon-2-1600.webp 1600w" sizes="(min-width:900px) 55vw, 92vw" width="1600" height="900" alt="Mesas de mármol y sillas de colores junto a los ventanales del salón" loading="lazy" decoding="async" draggable="false"></li>
-        <li class="salon-i salon-i--3" data-reveal style="--i:2"><img src="../img/salon/salon-3-1600.webp" srcset="../img/salon/salon-3-800.webp 800w, ../img/salon/salon-3-1600.webp 1600w" sizes="(min-width:900px) 25vw, 40vw" width="1600" height="900" alt="Salón con columnas, mesas de mármol y sillas grises, verdes y mostaza" loading="lazy" decoding="async" draggable="false"></li>
-        <li class="salon-i salon-i--4" data-reveal style="--i:3"><img src="../img/salon/salon-4-1600.webp" srcset="../img/salon/salon-4-800.webp 800w, ../img/salon/salon-4-1600.webp 1600w" sizes="(min-width:900px) 55vw, 92vw" width="1600" height="900" alt="Vista del salón con mesas servidas y piso de porcelanato" loading="lazy" decoding="async" draggable="false"></li>
+        <li class="salon-i salon-i--1" data-reveal style="--i:0"><img src="../img/salon/salon-1-1600.webp" srcset="../img/salon/salon-1-800.webp 800w, ../img/salon/salon-1-1600.webp 1600w" sizes="(min-width:900px) 45vw, 80vw" width="1600" height="900" data-i18n-attr="alt:v7.alt.salon1" alt="El Amir Palace dining room with gold relief walls and white marble tables" loading="lazy" decoding="async" draggable="false"></li>
+        <li class="salon-i salon-i--2" data-reveal style="--i:1"><img src="../img/salon/salon-2-1600.webp" srcset="../img/salon/salon-2-800.webp 800w, ../img/salon/salon-2-1600.webp 1600w" sizes="(min-width:900px) 55vw, 92vw" width="1600" height="900" data-i18n-attr="alt:v7.alt.salon2" alt="Marble tables and colourful chairs by the dining room windows" loading="lazy" decoding="async" draggable="false"></li>
+        <li class="salon-i salon-i--3" data-reveal style="--i:2"><img src="../img/salon/salon-3-1600.webp" srcset="../img/salon/salon-3-800.webp 800w, ../img/salon/salon-3-1600.webp 1600w" sizes="(min-width:900px) 25vw, 40vw" width="1600" height="900" data-i18n-attr="alt:v7.alt.salon3" alt="Dining room with columns, marble tables and grey, green and mustard chairs" loading="lazy" decoding="async" draggable="false"></li>
+        <li class="salon-i salon-i--4" data-reveal style="--i:3"><img src="../img/salon/salon-4-1600.webp" srcset="../img/salon/salon-4-800.webp 800w, ../img/salon/salon-4-1600.webp 1600w" sizes="(min-width:900px) 55vw, 92vw" width="1600" height="900" data-i18n-attr="alt:v7.alt.salon4" alt="View of the dining room with set tables and porcelain tile floors" loading="lazy" decoding="async" draggable="false"></li>
       </ul>
     </div>
   </div>
@@ -568,10 +569,10 @@ var sk=function(){h.classList.add("fr","loader-skip")};["pointerdown","keydown",
     <h2 class="h2" id="story-t" data-split data-i18n="v7.story.t">A long table since 1997</h2>
   </div>
   <div class="grow-wrap">
-    <div class="grow parallax"><div class="parallax__inner"><picture><source type="image/avif" srcset="../img/photos/fachada-640.avif 640w, ../img/photos/fachada-1376.avif 1376w" sizes="100vw"><img src="../img/photos/fachada-1376.webp" srcset="../img/photos/fachada-640.webp 640w, ../img/photos/fachada-1376.webp 1376w" sizes="100vw" width="1376" height="768" alt="Fachada de El Amir Palace en Lechería, con su entrada en arco y el cedro dorado" loading="lazy" decoding="async"></picture></div></div>
+    <div class="grow parallax"><div class="parallax__inner"><picture><source type="image/avif" srcset="../img/photos/fachada-640.avif 640w, ../img/photos/fachada-1376.avif 1376w" sizes="100vw"><img src="../img/photos/fachada-1376.webp" srcset="../img/photos/fachada-640.webp 640w, ../img/photos/fachada-1376.webp 1376w" sizes="100vw" width="1376" height="768" data-i18n-attr="alt:v7.alt.facade" alt="El Amir Palace facade in Lechería, with its arched entrance and golden cedar" loading="lazy" decoding="async"></picture></div></div>
   </div>
   <div class="wrap story-body">
-    <div class="story-photo parallax" data-reveal><div class="parallax__inner"><picture><source type="image/avif" srcset="../img/photos/helado-terraza-640.avif 640w, ../img/photos/helado-terraza-1080.avif 1080w" sizes="(min-width:900px) 34vw, 92vw"><img src="../img/photos/helado-terraza-1080.webp" srcset="../img/photos/helado-terraza-640.webp 640w, ../img/photos/helado-terraza-1080.webp 1080w" sizes="(min-width:900px) 34vw, 92vw" width="1080" height="1350" alt="Postre servido en la terraza de El Amir Palace, entre plantas" loading="lazy" decoding="async"></picture></div></div>
+    <div class="story-photo parallax" data-reveal><div class="parallax__inner"><picture><source type="image/avif" srcset="../img/photos/helado-terraza-640.avif 640w, ../img/photos/helado-terraza-1080.avif 1080w" sizes="(min-width:900px) 34vw, 92vw"><img src="../img/photos/helado-terraza-1080.webp" srcset="../img/photos/helado-terraza-640.webp 640w, ../img/photos/helado-terraza-1080.webp 1080w" sizes="(min-width:900px) 34vw, 92vw" width="1080" height="1350" data-i18n-attr="alt:v7.alt.dessert" alt="Dessert served on the El Amir Palace terrace, among plants" loading="lazy" decoding="async"></picture></div></div>
   <div class="story-tx">
     <p class="lede" data-reveal data-i18n="v7.story.p">We opened in 1997 with our family recipes: dips, kibbe, the charcoal grill and warm bread. Almost thirty years later the idea is the same: plates in the middle and room for the whole family.</p>
     <p class="story-line" data-reveal style="--i:1" data-i18n-html="v7.story.line">Nobody orders just for themselves here. We order for <span class="script">the table</span>.</p>
@@ -711,16 +712,16 @@ var sk=function(){h.classList.add("fr","loader-skip")};["pointerdown","keydown",
   <i class="bnav-ind" aria-hidden="true"></i>
 </nav>
 
-<script src="../config.js" defer></script>
-<script src="../assets/v3/vendor/gsap.min.js" defer></script>
-<script src="../assets/v3/vendor/ScrollTrigger.min.js" defer></script>
-<script src="../assets/v3/vendor/lenis.min.js" defer></script>
-<script src="../i18n.js?v=4.2" defer></script>
-<script src="../assets/v3/i18n-v3.js?v=4.4" defer></script>
-<script src="../assets/v7/i18n-v7.js?v=19" defer></script>
-<script src="../assets/v7/v7.js?v=42" defer></script>
-<script src="../assets/v7/motion-x.js?v=17" defer></script>
-<script src="../assets/v4/bnav.js?v=1.6" defer></script>
-<script src="../assets/v8/transition.js?v=1" defer></script>
+<script src="../config.js?v=d65a449e" defer></script>
+<script src="../assets/v3/vendor/gsap.min.js?v=47da594c" defer></script>
+<script src="../assets/v3/vendor/ScrollTrigger.min.js?v=ba1fa78e" defer></script>
+<script src="../assets/v3/vendor/lenis.min.js?v=cd6dd334" defer></script>
+<script src="../i18n.js?v=700f7b24" defer></script>
+<script src="../assets/v3/i18n-v3.js?v=f39abd48" defer></script>
+<script src="../assets/v7/i18n-v7.js?v=2c82df2b" defer></script>
+<script src="../assets/v7/v7.js?v=dff8cffd" defer></script>
+<script src="../assets/v7/motion-x.js?v=d160bc51" defer></script>
+<script src="../assets/v4/bnav.js?v=f89ce426" defer></script>
+<script src="../assets/v8/transition.js?v=a218c1a0" defer></script>
 </body>
 </html>
