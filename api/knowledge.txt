@@ -1,0 +1,425 @@
+EL AMIR PALACE · INFORMACIÓN PARA EL ASISTENTE
+(Archivo generado automáticamente por scripts/build-knowledge.js el 2026-11-07. No editar a mano: editar config.js / menu.js y volver a generar.)
+
+== RESTAURANTE ==
+Nombre: El Amir Palace (en árabe: قصر الأمير)
+Cocina: libanesa y mediterránea; también mariscos, arroces, pastas y hamburguesas. Comida para compartir al centro de la mesa.
+Desde: 1997 (casi tres décadas en el estado Anzoátegui, Venezuela)
+Servicios: comer en el local, retiro (pickup) y delivery
+Web: https://www.elamirpalace.online/   ·   Pedidos en línea: https://www.elamirpalace.online/pedir.html
+
+== SUCURSALES Y UBICACIÓN ==
+- Lechería
+  Teléfono: 0424-806 0218
+  WhatsApp: https://wa.me/584248060218
+  Dirección exacta: no disponible por escrito; usar el enlace de Google Maps
+  Cómo llegar (Google Maps): https://www.google.com/maps/search/?api=1&query=10.196197%2C-64.691991
+- Puerto La Cruz
+  Teléfono: 0412-750 5025
+  WhatsApp: https://wa.me/584127505025
+  Dirección exacta: no disponible por escrito; usar el enlace de Google Maps
+  Cómo llegar (Google Maps): https://www.google.com/maps/search/?api=1&query=10.220758%2C-64.639242
+Ambas sucursales están en el estado Anzoátegui, Venezuela.
+
+== HORARIO (hora de Venezuela, America/Caracas) ==
+Todos los días: 11:30 a. m. a 12:00 a. m. (medianoche)
+El mismo horario aplica a las dos sucursales, al delivery y a los pedidos en línea.
+Horario por día (24h): lun 11:30-00:00, mar 11:30-00:00, mie 11:30-00:00, jue 11:30-00:00, vie 11:30-00:00, sab 11:30-00:00, dom 11:30-00:00
+
+== DELIVERY Y RETIRO ==
+Zonas con delivery: Lechería, Nueva Barcelona, Barcelona, Puerto La Cruz, Guanta.
+Costo del delivery: depende de la zona; lo confirma la sucursal por WhatsApp (no está publicado en la web).
+Retiro: se puede retirar en cualquiera de las dos sucursales.
+Pedido mínimo: no hay pedido mínimo.
+
+== FORMAS DE PAGO ==
+Pago móvil, Efectivo en bolívares, Efectivo en divisas (dólares), Binance, Zinli, Zelle.
+Los datos para pagar (cuenta, teléfono, correo…) los envía la sucursal por WhatsApp al confirmar el pedido.
+
+== PRECIOS ==
+Precios en dólares (USD). Los precios NO incluyen IVA.
+Envases para llevar/delivery: algunos platos suman envases a $1 cada uno (el número de envases de cada plato está en la carta abajo). Pedir algo "aparte" suma 1 envase más. El carrito de https://www.elamirpalace.online/pedir.html muestra el total exacto.
+
+== CÓMO PEDIR ==
+1. Entrar a https://www.elamirpalace.online/pedir.html y agregar los platos al carrito (elegir proteína, extras o contornos cuando el plato lo pide).
+2. Elegir delivery o retiro, la sucursal y la forma de pago.
+3. El pedido se envía al WhatsApp de la sucursal, que lo confirma, indica el costo del delivery y envía los datos de pago.
+También se puede pedir escribiendo directamente al WhatsApp de la sucursal.
+
+== RESERVAS DE MESA ==
+Se piden por WhatsApp a la sucursal (no hay formulario de reservas en la web). La sucursal confirma la reserva.
+
+== CARTA (16 secciones, 174 platos) ==
+Secciones (las ÚNICAS que existen): Entradas Árabes · Entradas Mediterráneas · Sopas y Cremas · Ensaladas · Platos Árabes Especiales · Medias Porciones · Shawarmas y Sándwiches · Brochetas y Parrillas · Carnes y Aves · Pescados y Mariscos · Arroces · Pastas · Hamburguesas · Batidos y Yogurt · Bebidas · Licores y Cócteles.
+Formato: Plato — precio — descripción. Debajo: opciones, extras incluidos, adicionales con su precio y envases.
+Solo existe lo que aparece en esta carta.
+
+--- Entradas Árabes (Por ración) ---
+• Hummus — $8 — Crema de garbanzos
+   Envases para llevar: 1 ($1)
+• Mutabal — $8 — Crema de berenjenas
+   Envases para llevar: 1 ($1)
+• Muhammara — $8 — Crema de pimentón
+   Envases para llevar: 1 ($1)
+• Labne — $8 — Crema de yogurt
+   Envases para llevar: 1 ($1)
+• Cremas mixtas — $11 — Selección especial de cremas de la casa.
+   Envases para llevar: 1 ($1)
+• Makanek — $11 — Salchicha árabe
+   Envases para llevar: 1 ($1)
+• Basterma — $11 — Carne curada
+   Envases para llevar: 1 ($1)
+• Sawda Djaj — $11 — Hígado de pollo
+   Envases para llevar: 1 ($1)
+• Garbanzo con lomito — $15 — Garbanzos acompañados con jugoso lomito.
+   Envases para llevar: 1 ($1)
+• Kibbe crudo — $12
+   Envases para llevar: 1 ($1)
+• Kibbe frito — $12
+   Envases para llevar: 1 ($1)
+• Kibbe horneado — $13 — Kibbe horneado con especias tradicionales.
+   Envases para llevar: 1 ($1)
+• Falafel — $8 — Croquetas crujientes de garbanzo con especias.
+   Envases para llevar: 1 ($1)
+• Falafel especial — $10 — Falafel servido con toques y acompañantes especiales de la casa.
+   Envases para llevar: 1 ($1)
+• Tabaquitos de uva — $12 — Hojas de uva rellenas de arroz y carne sazonada.
+   Envases para llevar: 1 ($1)
+• Tabaquitos de repollo — $12 — Hojas de repollo rellenas de arroz y carne sazonada.
+   Envases para llevar: 1 ($1)
+• Tabaquitos mixtos — $12 — Combinación de tabaquitos de uva y repollo.
+   Envases para llevar: 1 ($1)
+
+--- Entradas Mediterráneas ---
+• Carpaccio de lomito — $17 — Láminas de lomito con especias, confit de cherry, rúgula, champiñones, parmesano, sal ahumada y pesto
+   Envases para llevar: 1 ($1)
+• Ceviche de camarón — $17 — Con crema de ají amarillo y toques cítricos, casabitos tostados y chips de plátano
+   Envases para llevar: 1 ($1)
+• Berenjena frita — $10 — Rebozadas, con queso de cabra y miel de pepperoncini
+   Envases para llevar: 1 ($1)
+• Dedos de mozzarella — $9 — Crujientes dedos de queso mozzarella empanizados.
+   Envases para llevar: 1 ($1)
+• Tequeños — $9 — 8 unidades
+   Envases para llevar: 1 ($1)
+• Papas fritas — $6 — Porción de papas fritas crujientes.
+   Envases para llevar: 1 ($1)
+
+--- Sopas y Cremas ---
+• Fosforera — $17 — Sofrito criollo, camarones, calamares, pulpo y conchas con aceite ahumado de ají dulce
+   Envases para llevar: 1 ($1)
+• Sopa de pollo con vegetales — $12 — Aromática con vegetales frescos
+   Envases para llevar: 1 ($1)
+• Crema de pollo — $12 — Velouté cremosa del chef
+   Envases para llevar: 1 ($1)
+• Crema de auyama — $12 — Auyama rostizada, ají dulce y tropezones de mozzarella frita
+   Envases para llevar: 1 ($1)
+
+--- Ensaladas ---
+• Tabbule — $11 — Ensalada tradicional de perejil, tomate, cebolla, trigo y limón.
+   Envases para llevar: 1 ($1)
+• Fattoush — $17 — Mezcla de vegetales frescos con pan árabe frito y aderezo de sumac.
+   Envases para llevar: 1 ($1)
+• Libanesa — $15 — Lechuga, tomate, cebolla, perejil, pimentón, hierbabuena, pepino, rábano y aderezo de limón de la casa
+   Envases para llevar: 1 ($1)
+• Armenia — $12 — Vegetales frescos con salsa balsámica
+   Envases para llevar: 1 ($1)
+• Yogurt con pepino — $11
+   Envases para llevar: 1 ($1)
+• Ensalada de cangrejo — $16 — Cangrejo mezclado con vegetales y aderezo especial.
+   Envases para llevar: 1 ($1)
+• Ensalada de burrata — $17 — Rúgula, nueces, jamón serrano, cherry y burrata con reducción de balsámico
+   Envases para llevar: 1 ($1)
+• Ensalada César — $13 — Clásica ensalada con lechuga, crutones, queso parmesano y aderezo César.
+   Envases para llevar: 1 ($1)
+• Ensalada César con pollo — $19 — Ensalada César acompañada de jugosos trozos de pollo.
+   Envases para llevar: 1 ($1)
+• Ensalada César con berro y pollo — $19 — Variación de la ensalada César con berro fresco y pollo.
+   Envases para llevar: 1 ($1)
+• Ensalada César con camarón — $20 — Ensalada César servida con camarones salteados.
+   Envases para llevar: 1 ($1)
+• Rúgula de la casa — $13 — Ensalada de rúgula fresca con aderezo especial de la casa.
+   Envases para llevar: 1 ($1)
+• Ensalada de palmitos — $12 — Palmitos frescos con aderezo y vegetales seleccionados.
+   Envases para llevar: 1 ($1)
+• Ensalada mixta — $8 — Variedad de vegetales frescos de temporada.
+   Envases para llevar: 1 ($1)
+• Ensalada de camarones — $16 — Camarones acompañados de vegetales y aderezo especial.
+   Envases para llevar: 1 ($1)
+
+--- Platos Árabes Especiales ---
+• Fatte — $15 — Carne molida, garbanzo y pan frito al yogurt con almendras
+   Envases para llevar: 1 ($1)
+• Fatte de berenjena — $15 — Carne molida, garbanzo, berenjena y pan frito al yogurt con almendras
+   Envases para llevar: 1 ($1)
+• Plato mixto — $19 — 1 pincho de pollo, 1 kibbe, tabaquitos, 2 falafel, cremas mixtas, tabbule y makanek
+   Adicionales: Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 2 ($2)
+• Plato mixto con lomito — $21 — 1 pincho de lomito, 1 kibbe, tabaquitos, 2 falafel, cremas mixtas, tabbule y makanek
+   Adicionales: Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 2 ($2)
+• Plato vegetariano árabe — $18 — Tabbule, arroz blanco, falafel, vegetales salteados y cremas mixtas
+   Envases para llevar: 2 ($2)
+• Plato de shawarma — $35 — Carne y pollo tipo shawarma, vegetales, pepinillos, nabos, crema de ajo y tahini
+   Envases para llevar: 2 ($2)
+• Kibbe al yogurt — $17 — 5 unidades de kibbe al yogurt
+   Envases para llevar: 1 ($1)
+• Arroz libanés con pollo o cordero — $19 — Con frutos secos y pan frito
+   Proteína: Pollo / Cordero | Envases para llevar: 1 ($1)
+• Bandeja árabe (2 personas) — $50 — Pinchos de pollo y lomito, tabbule, tabaquitos, makanek, kibbes, falafel y cremas mixtas
+   Adicionales: Pincho de pollo +$8, Pincho de lomito +$8, Pincho de kafta +$8 | Envases para llevar: 6 ($6)
+• Bandeja árabe (3 personas) — $65 — 3 pinchos, 4 kibbe fritos, 8 tabaquitos, 4 falafel, makanek, kibbe crudo y horneado, tabbule, cremas
+   Adicionales: Pincho de pollo +$8, Pincho de lomito +$8, Pincho de kafta +$8 | Envases para llevar: 6 ($6)
+• Bandeja árabe (4 personas) — $75 — 4 pinchos, 6 kibbes fritos, 6 falafel, 10 tabaquitos, makanek, kibbe crudo y horneado, tabbule, cremas
+   Adicionales: Pincho de pollo +$8, Pincho de lomito +$8, Pincho de kafta +$8 | Envases para llevar: 8 ($8)
+
+--- Medias Porciones ---
+• Medio hummus — $4
+• Medio mutabal — $4
+• Media muhammara — $4
+• Medio labne — $6
+• Media crema mixta — $6
+• Medio kibbe crudo — $6
+• Medio kibbe frito — $6
+• Medio kibbe horneado — $7
+• Medio falafel — $5
+• Medio tabaquito de uva — $6
+• Medio tabaquito de repollo — $6
+• Medio tabbule — $6
+• Medio plato de shawarma — $18
+   Envases para llevar: 2 ($2)
+
+--- Shawarmas y Sándwiches (Todos los sándwiches vienen con papas fritas) ---
+• Shawarma — $8 — Proteína de tu preferencia y vegetales tradicionales
+   Proteína: Pollo / Carne / Mixto | ¿Quitamos algo?: Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo
+• Shawarma especial — $10 — Con 1 ingrediente extra (tabbule, falafel, pimentones…)
+   Proteína: Pollo / Carne / Mixto | Elige 1 extra (incluidos): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo | ¿Quitamos algo?: Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo
+• Shawarma súper especial — $12 — Con 2 ingredientes extra
+   Proteína: Pollo / Carne / Mixto | Elige 2 extras (incluidos): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo | ¿Quitamos algo?: Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo
+• Shawarma abierto — $10 — Servido abierto en plato con la proteína de tu preferencia y vegetales.
+   Proteína: Pollo / Carne / Mixto | ¿Quitamos algo?: Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo | Envases para llevar: 1 ($1)
+• Shawarma especial abierto — $12 — Servido abierto en plato con vegetales tradicionales y un ingrediente especial extra.
+   Proteína: Pollo / Carne / Mixto | Elige 1 extra (incluidos): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo | ¿Quitamos algo?: Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo | Envases para llevar: 1 ($1)
+• Shawarma súper especial abierto — $13 — Servido abierto en plato con vegetales tradicionales y dos ingredientes especiales extra.
+   Proteína: Pollo / Carne / Mixto | Elige 2 extras (incluidos): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo | ¿Quitamos algo?: Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo | Envases para llevar: 1 ($1)
+• Salsa de ajo — $1 — Porción de salsa de ajo.
+• Sándwich de falafel — $8 — Croquetas de falafel y vegetales tradicionales
+• Fajita — $14 — Salsa de aguacate, pimentón, cebolla, mozzarella, pollo
+   Envases para llevar: 1 ($1)
+• Philadelphia — $15 — Salsa de aguacate, pimentón, cebolla, mozzarella, carne
+   Envases para llevar: 1 ($1)
+• Tawook — $13 — Pollo a la brasa, salsa de ajo, pepinillo, papas
+   Envases para llevar: 1 ($1)
+• Camarón — $14 — Camarón, lechuga, pepinillo, salsa rosada
+   Envases para llevar: 1 ($1)
+• Lomito — $14 — Lomito a la brasa, crema de garbanzo, cebolla, perejil, tomate, pepinillo
+   Envases para llevar: 1 ($1)
+• Kebab — $13 — Kebab a la brasa, crema de garbanzo, vegetales
+   Envases para llevar: 1 ($1)
+• Makanek — $13 — Salchicha árabe, ajo, tomate, limón, pepinillo
+   Envases para llevar: 1 ($1)
+• Hígado de pollo — $13 — Hígado de pollo, papas, ajo, granadina
+   Envases para llevar: 1 ($1)
+• Falafel especial — $10 — Croquetas de falafel con ingredientes especiales y papas fritas.
+   Elige 1 extra (incluidos): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo
+• Kibbe frito — $11 — Sándwich de kibbe frito acompañado de papas fritas.
+
+--- Brochetas y Parrillas ---
+• Brochetas El Amir — $65 — 2 pinchos de pollo, 3 de kafta, 2 de lomito, 8 alas, 8 makanek, vegetales a la brasa, papas y pan
+   Adicionales: Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 4 ($4)
+• Brocheta de kafta — $20 — Pinchos de carne molida sazonada a la brasa.
+   Adicionales: Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 2 ($2)
+• Brocheta de pollo — $21 — Pinchos de pechuga de pollo marinada a la brasa.
+   Adicionales: Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 2 ($2)
+• Brocheta de lomito — $24 — Pinchos de lomito tierno a la brasa.
+   Adicionales: Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 2 ($2)
+• Brocheta mixta — $24
+   Adicionales: Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 2 ($2)
+• Parrilla El Amir — $26 — Pechuga, churrasco de lomito, 2 ruedas de kafta, makanek y papas
+   Envases para llevar: 1 ($1)
+• Parrilla mar y tierra — $26 — Parrilla de carnes y mariscos.
+   Envases para llevar: 1 ($1)
+• Parrilla de mariscos — $26 — Parrilla con mariscos variados.
+   Envases para llevar: 1 ($1)
+• Parrilla de pollo — $20 — Parrilla con pollo.
+   Envases para llevar: 1 ($1)
+• Parrilla de lomito — $24 — Parrilla con lomito.
+   Envases para llevar: 1 ($1)
+• Parrilla mixta — $24 — Parrilla con pollo y lomito.
+   Envases para llevar: 1 ($1)
+
+--- Carnes y Aves (Acompañados con 2 contornos: papas fritas, bravas, rústicas, puré, vegetales al vapor, ensalada mixta o arroz) ---
+• Pollo a la brasa El Amir — $34 — Con chorizos, pimentones asados, papas, ensalada rallada y arroz especial
+   Envases para llevar: 3 ($3)
+• Envoltini de pollo — $20 — Relleno de espinaca, pimentón y mozzarella con salsa de ajo porro
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+• Pollo a la brasa — $17 — 300 g de pechuga deshuesada
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+• Pollo a la canasta — $16 — Escalopines empanizados con papas
+   Envases para llevar: 1 ($1)
+• Tenders de pollo crispy — $16 — Con salsa rosa o sweet chili y papas
+   Salsa: Salsa rosa / Sweet chili | Envases para llevar: 1 ($1)
+• Suprema de pollo crispy — $24 — 300 g en salsa blanca con camarones
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+• Filet mignon — $24 — Lomito con tocineta y salsa de champiñones
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+• Cordon bleu de lomito — $23 — Lomito relleno de jamón y queso, empanizado, con salsa blanca.
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+• Cordon bleu de pollo — $22 — Pollo relleno de jamón y queso, empanizado, con salsa blanca.
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+• Centro de lomito a la plancha — $20 — 300 g
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+• Pollo a la milanesa — $19 — Gratinado con mozzarella, parmesano y salsa napoli
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+• Pollo al champiñón — $20 — Pechuga de pollo en salsa de champiñones.
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+• Pollo a la plancha — $16 — 300 g de pechuga
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+
+--- Pescados y Mariscos ---
+• Mero en 2 salsas — $22 — Al carbón con salsa de alcaparras y amatriciana
+   Envases para llevar: 1 ($1)
+• Mero a la plancha — $24
+   Envases para llevar: 1 ($1)
+• Mero al ajillo — $24
+   Envases para llevar: 1 ($1)
+• Cazuela de mariscos — $17
+   Envases para llevar: 1 ($1)
+• Dynamite shrimp — $21 — Cóctel de camarones con toques asiáticos y papas
+   Envases para llevar: 1 ($1)
+• Camarones a la plancha — $20 — Con 2 contornos
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+• Camarones al ajillo — $20 — Con 2 contornos
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+• Camarones rebozados — $20 — Con 2 contornos
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+• Calamares al ajillo — $18 — Con 2 contornos
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+• Calamares rebozados — $20 — Con 2 contornos
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+• Pulpo al grill — $28 — Con chimichurri
+   Envases para llevar: 1 ($1)
+• Asopado de mariscos (2 personas) — $50
+   Envases para llevar: 2 ($2)
+
+--- Arroces ---
+• Risotto al pesto con escalopines de pollo — $19
+   Envases para llevar: 1 ($1)
+• Risotto con calabaza y calamares acevichados — $19
+   Envases para llevar: 1 ($1)
+• Paella (2 personas) — $50
+   Envases para llevar: 4 ($4)
+• Paella (3 personas) — $60
+   Envases para llevar: 4 ($4)
+• Paella (4 personas) — $75
+   Envases para llevar: 4 ($4)
+• Fideuá (2 personas) — $50
+   Envases para llevar: 4 ($4)
+• Fideuá (3 personas) — $60
+   Envases para llevar: 4 ($4)
+• Fideuá (4 personas) — $75
+   Envases para llevar: 4 ($4)
+• Arroz a la marinera (2 personas) — $50
+   Envases para llevar: 4 ($4)
+
+--- Pastas ---
+• Fettuccine con ragú de mero — $24
+   Envases para llevar: 1 ($1)
+• Cartoccio de lomito — $24 — Linguini en salsa blanca con lomito en salsa de champiñones
+   Envases para llevar: 1 ($1)
+• Rigatoni cremoso con tocineta y champiñones — $20 — Rigatoni en salsa blanca con tomates cherry confitados, champiñones, tocineta ahumada, toques de pesto y pimentón rostizado.
+   Envases para llevar: 1 ($1)
+• Linguini con camarones — $21 — Linguini en delicada salsa acompañado de camarones.
+   Envases para llevar: 1 ($1)
+• Linguini al fileto — $20 — Linguini en salsa de tomates frescos y albahaca.
+   Envases para llevar: 1 ($1)
+• Linguini marinera — $21 — Linguini con variedad de mariscos de la casa.
+   Envases para llevar: 1 ($1)
+• Linguini carbonara — $18 — Linguini con cremosa salsa carbonara y tocineta.
+   Envases para llevar: 1 ($1)
+• Pasta bologna — $11 — Pasta con salsa de carne y tomate.
+   Envases para llevar: 1 ($1)
+• Pasta napoli — $11 — Pasta con salsa clásica de tomate y hierbas.
+   Envases para llevar: 1 ($1)
+• Pasticho tradicional — $11 — Capas de pasta rellenas de carne molida, salsa bechamel y queso.
+   Envases para llevar: 1 ($1)
+
+--- Hamburguesas (Todas vienen con papas fritas) ---
+• Cheeseburger — $13 — 150 g de solomo, pan de mantequilla, mozzarella frita y salsa rosa
+   Envases para llevar: 1 ($1)
+• Oh My Burger! — $13 — 150 g de solomo, mozzarella frita, mermelada de pimentón y tocineta
+   Envases para llevar: 1 ($1)
+• Pollo crispy — $13 — Pollo frito crocante, tocineta, queso americano y mostaza miel
+   Envases para llevar: 1 ($1)
+• Gordon burger — $13 — Pollo crispy relleno de jamón y queso, tocineta y salsa de la casa
+   Envases para llevar: 1 ($1)
+
+--- Batidos y Yogurt ---
+• Batido de fresa — $4
+   Preparación: En agua / En leche
+• Batido de melón — $4
+   Preparación: En agua / En leche
+• Batido de piña — $4
+   Preparación: En agua / En leche
+• Batido de melocotón — $4
+   Preparación: En agua / En leche
+• Batido de guanábana — $4
+   Preparación: En agua / En leche
+• Batido de lechosa — $4
+   Preparación: En agua / En leche
+• Batido de parchita — $4
+   Preparación: En agua / En leche
+• Batido de mora — $4
+   Preparación: En agua / En leche
+• Limonada — $4
+• Limonada con hierbabuena — $4
+• Merengada de frutas — $6
+• Yogurt con hierbabuena — $6
+• Yogurt con frutas — $6
+
+--- Bebidas ---
+• Agua mineral — $1.50 — Agua mineral embotellada.
+• Nestea — $2
+• Jarra de Nestea (x4) — $12
+• Té Lipton — $3 — Té frío Lipton de limón, 500 ml.
+• Gatorade — $3 — Bebida hidratante deportiva.
+• Refresco de lata — $2 — Refresco variado en lata.
+• Refresco 1L — $3 — Refresco variado en botella de 1 litro.
+• Refresco 1.5L — $4
+• Sparkling — $3
+• Soda — $3
+• Agua de manzana — $2 — Agua gasificada sabor manzana.
+
+--- Licores y Cócteles (Solo mayores de edad) ---
+• Cerveza nacional — $1.50
+• Cerveza importada — $5
+• Copa de vino — $5
+• Botella de anís — $30
+• Botella de whisky 8 años — $45
+• Botella de whisky 12 años — $60
+• Botella de whisky 18 años — $115
+
+== RESUMEN DE PRECIOS ==
+Comida más económica: Salsa de ajo $1 (Shawarmas y Sándwiches); Medio hummus $4 (Medias Porciones); Medio mutabal $4 (Medias Porciones); Media muhammara $4 (Medias Porciones); Medio falafel $5 (Medias Porciones); Papas fritas $6 (Entradas Mediterráneas)
+Comida más cara: Fideuá (4 personas) $75 (Arroces); Paella (4 personas) $75 (Arroces); Bandeja árabe (4 personas) $75 (Platos Árabes Especiales); Brochetas El Amir $65 (Brochetas y Parrillas); Bandeja árabe (3 personas) $65 (Platos Árabes Especiales)
+Bebidas más económicas: Agua mineral $1.50 (Bebidas); Cerveza nacional $1.50 (Licores y Cócteles); Nestea $2 (Bebidas); Refresco de lata $2 (Bebidas)
+Bebidas más caras: Botella de whisky 18 años $115 (Licores y Cócteles); Botella de whisky 12 años $60 (Licores y Cócteles); Botella de whisky 8 años $45 (Licores y Cócteles)
+
+== PREGUNTAS FRECUENTES (texto de la web) ==
+P: ¿Dónde están ubicados?
+R: Tenemos dos sucursales en el estado Anzoátegui, Venezuela: Lechería (0424-806 0218) y Puerto La Cruz (0412-750 5025). En «Visítanos» encontrarás el enlace «Cómo llegar» de cada una.
+
+P: ¿Cuál es el horario?
+R: Abrimos todos los días a las 11:30 a. m. y cerramos a las 12:00 a. m. (medianoche).
+
+P: ¿Hacen delivery?
+R: Sí. Hacemos delivery en Lechería, Nueva Barcelona, Barcelona, Puerto La Cruz y Guanta, y también puedes retirar tu pedido en cualquiera de nuestras dos sucursales. Arma tu pedido en nuestra página de pedidos y confírmalo por WhatsApp; el costo de envío se confirma según la zona.
+
+P: ¿Tienen opciones vegetarianas?
+R: Sí. Entre las entradas árabes hay hummus, mutabal, falafel, tabbule y fattoush, y la carta tiene varias ensaladas. Si tienes alguna restricción, pregúntanos por los ingredientes de cada plato.
+
+P: ¿Qué formas de pago aceptan?
+R: Aceptamos Pago móvil, efectivo en bolívares o divisas, Binance y Zinli.
+
+P: ¿Desde cuándo existe El Amir Palace?
+R: Desde 1997. Llevamos casi tres décadas cocinando recetas libanesas y mediterráneas en Anzoátegui, hoy con sucursales en Lechería y Puerto La Cruz.
+
+P: ¿Qué platos recomiendan para compartir?
+R: La bandeja árabe, para 2, 3 o 4 personas, las brochetas El Amir y la parrilla mixta. Para empezar, hummus, kibbe y tabaquitos al centro de la mesa.

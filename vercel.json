@@ -1,5 +1,8 @@
 {
   "trailingSlash": true,
+  "functions": {
+    "api/chat.js": { "includeFiles": "api/knowledge.txt", "maxDuration": 30 }
+  },
   "headers": [
     {
       "source": "/(.*)",
