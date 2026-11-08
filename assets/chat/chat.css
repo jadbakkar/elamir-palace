@@ -187,6 +187,9 @@
 .amc-say.is-on .w2{animation:amc-wave 1s ease-in-out .2s infinite}
 @keyframes amc-wave{50%{opacity:.25}}
 .amc-say.is-off{color:#C0392B;opacity:1}
+.amc-say.is-hint{opacity:1;color:#fff;background:var(--amc-wine);animation:amc-hint 1.1s ease-in-out infinite} /* "tap here to hear it" */
+@keyframes amc-hint{50%{box-shadow:0 0 0 6px rgba(122,31,43,.18)}}
+@media (prefers-reduced-motion:reduce){.amc-say.is-hint{animation:none}}
 @media (prefers-reduced-motion:reduce){.amc-mic.is-rec::after,.amc-mic.is-busy svg,.amc-say svg,.amc-say .w1,.amc-say .w2{animation:none!important}}
 .amc-note{margin:0;padding:0 14px 10px;background:var(--amc-paper);font-size:11px;line-height:1.35;color:var(--amc-ink-2);text-align:center}
 

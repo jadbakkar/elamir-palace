@@ -390,9 +390,12 @@
       msgs = []; store.set(msgs); render();
       if (window.matchMedia("(min-width:768px)").matches) input.focus({ preventScroll: true });
     });
-    form.addEventListener("submit", function (e) { e.preventDefault(); if (rec) stopRec(true); else ask(input.value); });
+    form.addEventListener("submit", function (e) { e.preventDefault(); if (rec) { stopRec(true); unlock(); } else ask(input.value); });
     micBtn = panel.querySelector(".amc-mic");
-    if (micBtn) micBtn.addEventListener("click", function () { if (rec) stopRec(true); else startRec(); });
+    if (micBtn) micBtn.addEventListener("click", function () {
+      if (rec) { stopRec(true); unlock(); } // the mic is off now: wake the speaker inside this tap for the spoken answer
+      else { unlock(); startRec(); }
+    });
     panel.addEventListener("keydown", function (e) { if (e.key === "Escape") toggle(false); });
     swipe(panel.querySelector(".amc-hd"));
   }
@@ -559,8 +562,16 @@
   var actx = null, rec = null, playing = null, micBtn = null;
   function audio() { // one AudioContext, created/resumed inside a tap (iPhone only plays sound after a tap)
     if (!actx) actx = new AC();
-    if (actx.state === "suspended") actx.resume();
+    if (actx.state !== "running") { try { actx.resume(); } catch (e) { /* ignore */ } } // "suspended", or Safari's "interrupted" after using the mic
     return actx;
+  }
+  /* Called INSIDE the visitor's tap on 🎤 / ■: wakes the audio up with a silent click, so the spoken answer
+     that arrives seconds later (no tap anymore) is allowed to play on phones. */
+  function unlock() {
+    try {
+      var ctx = audio(), s = ctx.createBufferSource();
+      s.buffer = ctx.createBuffer(1, 1, 22050); s.connect(ctx.destination); s.start(0);
+    } catch (e) { /* ignore */ }
   }
   function vt(k) { return t("v")[k]; }
 
@@ -582,6 +593,11 @@
     if (!text) return;
     var ctx = audio(), p = { ac: new AbortController(), nodes: [], btn: btn, at: 0, left: 0, done: false };
     playing = p; sayState(btn, "load");
+    if (btn) btn.classList.remove("is-hint");
+    // the phone still refuses sound without a fresh tap: don't fetch audio nobody hears, make 🔊 pulse instead
+    setTimeout(function () {
+      if (playing === p && ctx.state !== "running") { stopSpeaking(); if (btn) btn.classList.add("is-hint"); }
+    }, 400);
     var end = function () { if (playing === p) { playing = null; sayState(btn, ""); } };
     fetch(VOICE_API, { method: "POST", headers: { "Content-Type": "application/json" }, signal: p.ac.signal,
       body: JSON.stringify({ action: "tts", text: text, lang: lang() }) })
