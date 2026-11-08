@@ -963,6 +963,7 @@
   O("Tabbule", "Tabbouleh", "تبولة");
   O("Elige 2 contornos", "Choose 2 sides", "اختر طبقين جانبيين");  O("Papas bravas", "Patatas bravas", "بطاطا برافاس");
   O("Papas rústicas", "Rustic potatoes", "بطاطا ريفية");
+  O("Papas al vapor", "Steamed potatoes", "بطاطا على البخار");
   O("Puré", "Mashed potatoes", "بطاطا مهروسة");
   O("Vegetales al vapor", "Steamed vegetables", "خضار على البخار");
   O("Ensalada mixta", "Mixed salad", "سلطة مشكّلة");
@@ -1155,9 +1156,9 @@
 
   /* ---- 8. Carnes y Aves ---- */
   C("Carnes y Aves", "Meat & Poultry", "لحوم ودواجن",
-    ["Acompañados con 2 contornos: papas fritas, bravas, rústicas, puré, vegetales al vapor, ensalada mixta o arroz",
-     "Served with 2 sides: french fries, patatas bravas, rustic potatoes, mashed potatoes, steamed vegetables, mixed salad or rice",
-     "تُقدَّم مع صنفين جانبيين: بطاطا مقلية أو بطاطا برافاس أو بطاطا ريفية أو بطاطا مهروسة أو خضار على البخار أو سلطة مشكّلة أو أرز"]);
+    ["Acompañados con 2 contornos: papas fritas, bravas, rústicas, puré, papas al vapor, vegetales al vapor, ensalada mixta o arroz",
+     "Served with 2 sides: french fries, patatas bravas, rustic potatoes, mashed potatoes, steamed potatoes, steamed vegetables, mixed salad or rice",
+     "تُقدَّم مع صنفين جانبيين: بطاطا مقلية أو بطاطا برافاس أو بطاطا ريفية أو بطاطا مهروسة أو بطاطا على البخار أو خضار على البخار أو سلطة مشكّلة أو أرز"]);
   D("Pollo a la brasa El Amir", "Con chorizos, pimentones asados, papas, ensalada rallada y arroz especial",
     ["El Amir Charcoal-Grilled Chicken", "With chorizo sausages, roasted bell peppers, fries, shredded salad and special rice"],
     ["دجاج الأمير المشوي على الفحم", "مع نقانق الشوريزو والفلفل الرومي المشوي والبطاطا والسلطة المبشورة والأرز الخاص"]);

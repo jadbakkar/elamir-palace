@@ -1,5 +1,5 @@
 EL AMIR PALACE · INFORMACIÓN PARA EL ASISTENTE
-(Archivo generado automáticamente por scripts/build-knowledge.js el 2026-11-07. No editar a mano: editar config.js / menu.js y volver a generar.)
+(Archivo generado automáticamente por scripts/build-knowledge.js el 2026-11-08. No editar a mano: editar config.js / menu.js y volver a generar.)
 
 == RESTAURANTE ==
 Nombre: El Amir Palace (en árabe: قصر الأمير)
@@ -245,33 +245,33 @@ Solo existe lo que aparece en esta carta.
 • Parrilla mixta — $24 — Parrilla con pollo y lomito.
    Envases para llevar: 1 ($1)
 
---- Carnes y Aves (Acompañados con 2 contornos: papas fritas, bravas, rústicas, puré, vegetales al vapor, ensalada mixta o arroz) ---
+--- Carnes y Aves (Acompañados con 2 contornos: papas fritas, bravas, rústicas, puré, papas al vapor, vegetales al vapor, ensalada mixta o arroz) ---
 • Pollo a la brasa El Amir — $34 — Con chorizos, pimentones asados, papas, ensalada rallada y arroz especial
    Envases para llevar: 3 ($3)
 • Envoltini de pollo — $20 — Relleno de espinaca, pimentón y mozzarella con salsa de ajo porro
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Pollo a la brasa — $17 — 300 g de pechuga deshuesada
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Pollo a la canasta — $16 — Escalopines empanizados con papas
    Envases para llevar: 1 ($1)
 • Tenders de pollo crispy — $16 — Con salsa rosa o sweet chili y papas
    Salsa: Salsa rosa / Sweet chili | Envases para llevar: 1 ($1)
 • Suprema de pollo crispy — $24 — 300 g en salsa blanca con camarones
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Filet mignon — $24 — Lomito con tocineta y salsa de champiñones
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Cordon bleu de lomito — $23 — Lomito relleno de jamón y queso, empanizado, con salsa blanca.
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Cordon bleu de pollo — $22 — Pollo relleno de jamón y queso, empanizado, con salsa blanca.
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Centro de lomito a la plancha — $20 — 300 g
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Pollo a la milanesa — $19 — Gratinado con mozzarella, parmesano y salsa napoli
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Pollo al champiñón — $20 — Pechuga de pollo en salsa de champiñones.
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Pollo a la plancha — $16 — 300 g de pechuga
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 
 --- Pescados y Mariscos ---
 • Mero en 2 salsas — $22 — Al carbón con salsa de alcaparras y amatriciana
@@ -285,15 +285,15 @@ Solo existe lo que aparece en esta carta.
 • Dynamite shrimp — $21 — Cóctel de camarones con toques asiáticos y papas
    Envases para llevar: 1 ($1)
 • Camarones a la plancha — $20 — Con 2 contornos
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Camarones al ajillo — $20 — Con 2 contornos
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Camarones rebozados — $20 — Con 2 contornos
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Calamares al ajillo — $18 — Con 2 contornos
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Calamares rebozados — $20 — Con 2 contornos
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Pulpo al grill — $28 — Con chimichurri
    Envases para llevar: 1 ($1)
 • Asopado de mariscos (2 personas) — $50

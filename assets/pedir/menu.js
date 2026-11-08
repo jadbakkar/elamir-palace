@@ -13,7 +13,7 @@ const OPT_BAT = {label:"Preparación", choices:["En agua","En leche"]};
 const EXTRAS_SH = ["Crema de berenjena","Crema de garbanzo","Crema de pimentón","Falafel","Kibbe frito","Papas fritas","Tabbule","Tabaquitos de uva","Tabaquitos de repollo"];
 const PICK = (n, aparte) => ({label: n > 1 ? "Elige 2 extras" : "Elige 1 extra", n, items: EXTRAS_SH, aparte: !!aparte});
 /* Platos "con 2 contornos": el cliente elige sus 2 contornos (incluidos). Se asigna abajo, junto a los adicionales. */
-const CONTORNOS_2 = {label:"Elige 2 contornos", n:2, items:["Papas fritas","Papas bravas","Papas rústicas","Puré","Vegetales al vapor","Vegetales salteados","Ensalada mixta","Arroz"]};
+const CONTORNOS_2 = {label:"Elige 2 contornos", n:2, items:["Papas fritas","Papas bravas","Papas rústicas","Papas al vapor","Puré","Vegetales al vapor","Vegetales salteados","Ensalada mixta","Arroz"]};
 const OPT_SALSA_TENDERS = {label:"Salsa", choices:["Salsa rosa","Sweet chili"]};
 /* Extras opcionales (5º dato del plato): el cliente marca los que quiera y se suman al precio. Precios: CONFIRMAR con el cliente. */
 const ADDON = {
@@ -70,7 +70,7 @@ const MENU = [
   ["Brocheta de kafta",20,"Pinchos de carne molida sazonada a la brasa."],["Brocheta de pollo",21,"Pinchos de pechuga de pollo marinada a la brasa.",null,EXTRA_SIDES],["Brocheta de lomito",24,"Pinchos de lomito tierno a la brasa."],["Brocheta mixta",24],
   ["Parrilla El Amir",26,"Pechuga, churrasco de lomito, 2 ruedas de kafta, makanek y papas"],
   ["Parrilla mar y tierra",26,"Parrilla de carnes y mariscos."],["Parrilla de mariscos",26,"Parrilla con mariscos variados."],["Parrilla de pollo",20,"Parrilla con pollo.",null,EXTRA_SIDES],["Parrilla de lomito",24,"Parrilla con lomito."],["Parrilla mixta",24,"Parrilla con pollo y lomito."]]],
- ["Carnes y Aves","Acompañados con 2 contornos: papas fritas, bravas, rústicas, puré, vegetales al vapor, ensalada mixta o arroz",[
+ ["Carnes y Aves","Acompañados con 2 contornos: papas fritas, bravas, rústicas, puré, papas al vapor, vegetales al vapor, ensalada mixta o arroz",[
   ["Pollo a la brasa El Amir",34,"Con chorizos, pimentones asados, papas, ensalada rallada y arroz especial"],
   ["Envoltini de pollo",20,"Relleno de espinaca, pimentón y mozzarella con salsa de ajo porro"],["Pollo a la brasa",17,"300 g de pechuga deshuesada"],
   ["Pollo a la canasta",16,"Escalopines empanizados con papas"],["Tenders de pollo crispy",16,"Con salsa rosa o sweet chili y papas",OPT_SALSA_TENDERS],
