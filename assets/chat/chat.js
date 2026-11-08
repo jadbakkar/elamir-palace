@@ -222,11 +222,21 @@
   }
 
   /* dish names in **bold** → a swipeable rail of photo cards right under the reply */
-  /* a new reply: follow it down until its first line reaches the top, then stay there
-     (the visitor reads from the start; cards and chips wait below, never a forced jump past them) */
-  function anchor(node) {
-    if (!node || node.parentNode !== log) return;
-    log.scrollTop = Math.max(0, Math.min(log.scrollHeight - log.clientHeight, node.offsetTop - 12));
+  /* Sending a question moves it to the top ONCE; the answer then fills the space below it
+     and the chat never scrolls by itself while it arrives (a long answer: the visitor scrolls).
+     A spacer after the answer keeps that room; everything new goes in before it. */
+  var sp = null, spTop = 0;
+  function put(node) { log.insertBefore(node, sp && sp.parentNode === log ? sp : null); return node; }
+  function fit() {
+    if (!sp || sp.parentNode !== log) return;
+    var used = sp.offsetTop - spTop;
+    sp.style.height = Math.max(0, log.clientHeight - used - 8) + "px";
+  }
+  function pin(node) { // the visitor's question goes to the top of the chat
+    sp = el("div", "amc-sp", { "aria-hidden": "true" }); log.appendChild(sp);
+    spTop = Math.max(0, node.offsetTop - 12); fit();
+    var smooth = !window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+    if (log.scrollTo) log.scrollTo({ top: spTop, behavior: smooth ? "smooth" : "auto" }); else log.scrollTop = spTop;
   }
   function dishCards(text, after, live) {
     var names = [], re = /\*\*(.+?)\*\*/g, x;
@@ -254,7 +264,7 @@
       });
       var stick = log.scrollHeight - log.scrollTop - log.clientHeight < 60;
       log.insertBefore(rail, after.nextSibling);
-      if (live) anchor(after); else if (stick) log.scrollTop = log.scrollHeight;
+      if (live) fit(); else if (stick) log.scrollTop = log.scrollHeight;
     });
   }
 
@@ -290,7 +300,8 @@
 
   function bubble(role, text, extra) {
     var b = el("div", "amc-m amc-m--" + role + (extra ? " " + extra : ""));
-    fill(b, text); log.appendChild(b); log.scrollTop = log.scrollHeight;
+    fill(b, text); put(b);
+    if (!sp) log.scrollTop = log.scrollHeight;
     return b;
   }
 
@@ -313,7 +324,7 @@
   }
 
   function render() {
-    log.textContent = "";
+    log.textContent = ""; sp = null;
     bubble("bot", t("hi"));
     msgs.forEach(function (m) {
       var txt = shown(m), x = txt ? bubble(m.role, txt, m.err ? "amc-m--err" : "") : null;
@@ -426,10 +437,12 @@
     if (chips) { chips.remove(); chips = null; }
     if (p) render(); // the open proposal loses its buttons once the visitor says something else
     var history = msgs.slice(-10);
-    msgs.push({ role: "user", text: q }); store.set(msgs); bubble("user", q);
+    if (sp) { sp.remove(); sp = null; }
+    msgs.push({ role: "user", text: q }); store.set(msgs);
+    var ub = bubble("user", q);
     var wait = el("div", "amc-m amc-m--bot", { "aria-label": t("busy") });
     wait.innerHTML = '<span class="amc-dots" aria-hidden="true"><i></i><i></i><i></i></span>';
-    log.appendChild(wait); log.scrollTop = log.scrollHeight;
+    log.appendChild(wait); pin(ub);
 
     var raw = "", text = "", b = null;
     function show(more) { // the reply types itself out as it streams in (a cart action after CART_MARK is never shown)
@@ -438,7 +451,7 @@
       if (!vis) return; // only the order summary so far: it becomes a card at the end
       if (!b) { wait.remove(); b = bubble("bot", ""); }
       b.textContent = ""; fill(b, vis);
-      anchor(b);
+      fit();
     }
     function fail(status) { wait.remove(); if (!text) bubble("bot", t(status === 429 ? "slow" : "err"), "amc-m--err"); }
 
@@ -466,13 +479,13 @@
           var m = { role: "bot", text: text.trim() };
           if (act && act.add && act.add.length) m.prop = act.add;  // proposal: waits for the visitor's yes
           msgs.push(m); store.set(msgs);
-          var card = m.prop ? log.appendChild(orderCard(m)) : null;
-          if (!m.prop) {
+          if (m.prop) put(orderCard(m));
+          else {
             if (b) dishCards(m.text, b, true);
-            chips = chipRow(t("more"), "amc-chips--more"); log.appendChild(chips);
+            chips = put(chipRow(t("more"), "amc-chips--more"));
           }
-          anchor(b || card);
-        } else log.scrollTop = log.scrollHeight; // the error message
+        }
+        fit();
         busy = false; sendBtn.disabled = false;
         if (window.matchMedia("(min-width:768px)").matches) input.focus({ preventScroll: true });
       });
