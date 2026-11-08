@@ -346,7 +346,7 @@
       if (m.prop) log.appendChild(orderCard(m));
       else if (m.role === "bot" && x) dishCards(m.text, x);
       if (m.cart && x) x.appendChild(cartBar());
-      if (canTalk && x && m.role === "bot" && !m.err) x.appendChild(sayBtn(m.text));
+      if (canSpeak && x && m.role === "bot" && !m.err) x.appendChild(sayBtn(m.text));
     });
     chips = null;
     var last = msgs[msgs.length - 1];
@@ -459,7 +459,7 @@
     var p = pending();
     if (p && AFFIRM.test(q)) { // "sí" / "dale" to an order proposal: add it here, no AI needed
       input.value = ""; msgs.push({ role: "user", text: q }); confirmAdd(p);
-      if (spoken) speak(t("added"));
+      if (spoken && canSpeak) speak(t("added"));
       return;
     }
     busy = true; sendBtn.disabled = true; input.value = "";
@@ -508,13 +508,13 @@
           var m = { role: "bot", text: text.trim() };
           if (act && act.add && act.add.length) m.prop = act.add;  // proposal: waits for the visitor's yes
           msgs.push(m); store.set(msgs);
-          var say = canTalk && b ? b.appendChild(sayBtn(m.text)) : null;
+          var say = canSpeak && b ? b.appendChild(sayBtn(m.text)) : null;
           if (m.prop) put(orderCard(m));
           else {
             if (b) dishCards(m.text, b, true);
             chips = put(chipRow(t("more"), "amc-chips--more"));
           }
-          if (spoken) speak(m.text, say); // asked by voice → answered by voice
+          if (spoken && canSpeak) speak(m.text, say); // asked by voice → answered by voice
         }
         fit();
         busy = false; sendBtn.disabled = false;
@@ -559,6 +559,10 @@
   var VOICE_API = "/api/voice";
   var AC = window.AudioContext || window.webkitAudioContext;
   var canTalk = !!(AC && navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+  /* Spoken replies (auto read-aloud + 🔊 on each answer) are OFF: the assistant answers in text only.
+     The 🎤 still works for asking by voice. Set to true to bring the assistant's voice back. */
+  var SPEAK_REPLIES = false;
+  var canSpeak = SPEAK_REPLIES && !!AC;
   var actx = null, rec = null, playing = null, micBtn = null;
   function audio() { // one AudioContext, created/resumed inside a tap (iPhone only plays sound after a tap)
     if (!actx) actx = new AC();
