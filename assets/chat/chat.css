@@ -41,27 +41,28 @@
 @keyframes amc-in{from{opacity:0;transform:translateY(14px) scale(.97)}}
 @keyframes amc-out{to{opacity:0;transform:translateY(10px) scale(.98)}}
 
-.amc-hd{position:relative;display:flex;align-items:center;gap:10px;padding:14px 8px 14px 16px;background:var(--amc-wine);color:#fff;
+.amc-hd{position:relative;display:flex;align-items:center;gap:9px;padding:9px 6px 9px 12px;background:var(--amc-wine);color:#fff;
   background-image:radial-gradient(120% 140% at 100% 0,rgba(217,182,126,.28),transparent 55%)}
-[dir=rtl] .amc-hd{padding:14px 16px 14px 8px}
+[dir=rtl] .amc-hd{padding:9px 12px 9px 6px}
 .amc-grab{display:none}
-.amc-av{position:relative;display:grid;place-items:center;flex:none;width:42px;height:42px;border-radius:50%;background:var(--amc-wine-2);
-  box-shadow:0 0 0 2px rgba(217,182,126,.85)}
-.amc-av img{display:block;width:34px;height:34px}
-.amc-hd-t{flex:1;min-width:0}
-.amc-hd-k{margin:0;font:700 10px/1.2 var(--amc-body);letter-spacing:.22em;text-transform:uppercase;color:#E9CF9F}
-:lang(ar) .amc-hd-k{letter-spacing:0;font-size:12px}
-.amc-hd-h{margin:2px 0 0;font:400 20px/1.1 var(--amc-disp);color:#fff}
-.amc-hd-s{display:flex;align-items:center;gap:5px;margin:3px 0 0;font:500 11.5px/1.2 var(--amc-body);color:rgba(255,255,255,.8)}
-.amc-hd-s i{width:7px;height:7px;border-radius:50%;background:var(--amc-live)}
-.amc-ib{display:grid;place-items:center;flex:none;width:40px;height:40px;padding:0;border:0;border-radius:50%;background:transparent;color:#fff;cursor:pointer;opacity:.88;
+.amc-av{position:relative;display:grid;place-items:center;flex:none;width:36px;height:36px;border-radius:50%;background:var(--amc-wine-2);
+  box-shadow:0 0 0 1.5px rgba(217,182,126,.85)}
+.amc-av img{display:block;width:29px;height:29px}
+/* two lines: "EL AMIR PALACE" / "Asistente · ● En línea" */
+.amc-hd-t{flex:1;min-width:0;display:flex;flex-wrap:wrap;align-items:baseline;column-gap:8px}
+.amc-hd-k{flex-basis:100%;margin:0;font:700 9.5px/1.2 var(--amc-body);letter-spacing:.2em;text-transform:uppercase;color:#E9CF9F}
+:lang(ar) .amc-hd-k{letter-spacing:0;font-size:11px}
+.amc-hd-h{margin:1px 0 0;font:400 18px/1.1 var(--amc-disp);color:#fff}
+.amc-hd-s{display:flex;align-items:center;gap:4px;margin:0;font:500 11px/1.2 var(--amc-body);color:rgba(255,255,255,.8);white-space:nowrap}
+.amc-hd-s i{width:6px;height:6px;border-radius:50%;background:var(--amc-live)}
+.amc-ib{display:grid;place-items:center;flex:none;width:36px;height:36px;padding:0;border:0;border-radius:50%;background:transparent;color:#fff;cursor:pointer;opacity:.88;
   -webkit-tap-highlight-color:transparent;transition:background-color .2s,opacity .2s}
 .amc-ib:hover{opacity:1;background:rgba(255,255,255,.12)}
 .amc-ib:focus-visible{outline:2px solid #fff;outline-offset:-3px}
-.amc-ib svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.amc-ib svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .amc-wab{background:rgba(255,255,255,.12);opacity:1}
 .amc-wab:hover{background:rgba(255,255,255,.22)}
-.amc-ib svg.amc-wa{fill:currentColor;stroke:none;width:20px;height:20px}
+.amc-ib svg.amc-wa{fill:currentColor;stroke:none;width:19px;height:19px}
 [dir=rtl] .amc-reset svg{transform:scaleX(-1)}
 
 .amc-log{position:relative;flex:1;overflow-y:auto;overscroll-behavior:contain;padding:16px 12px 8px;background:var(--amc-marble);display:flex;flex-direction:column;gap:10px}
@@ -197,8 +198,8 @@
   @keyframes amc-up{from{transform:translateY(100%)}}
   @keyframes amc-down{to{transform:translateY(100%)}}
   .amc-open .amc-fab{opacity:0;pointer-events:none}
-  .amc-hd{padding-top:20px;touch-action:none}
-  .amc-grab{display:block;position:absolute;top:7px;left:50%;width:38px;height:4px;margin-left:-19px;border-radius:4px;background:rgba(255,255,255,.45)}
+  .amc-hd{padding-top:15px;touch-action:none}
+  .amc-grab{display:block;position:absolute;top:5px;left:50%;width:38px;height:4px;margin-left:-19px;border-radius:4px;background:rgba(255,255,255,.45)}
 }
 @media (prefers-reduced-motion:reduce){
   .amc-fab,.amc-fab-in,.amc-panel,.amc-panel.amc-out,.amc-m,.amc-chips,.amc-cards,.amc-order,.amc-teaser,.amc-teaser--out{animation:none!important;transition:none!important}
