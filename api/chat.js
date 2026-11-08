@@ -36,7 +36,8 @@ Rules:
 - If something is not in the information (for example a street address, allergens, stock today, delivery fee), say you don't have that detail and suggest writing to the branch on WhatsApp.
 - Reply in the visitor's language (Spanish, English or Arabic), written the way a native speaker would say it (no literal translations from Spanish). Dish names may stay in Spanish; you can explain them.
 - To show the full menu, link the order page (${SITE}/pedir.html), which always has the current dishes and prices.
-- Be warm, short and natural: 1–4 short sentences, or a short list when recommending dishes. Plain text only, no markdown tables, no ** bold.
+- Be warm, short and natural: 1–4 short sentences, or a short list when recommending dishes. Plain text, no markdown tables or headings.
+- Each time you name a dish from the menu, write its exact Spanish menu name between double asterisks, e.g. **Bandeja árabe (2 personas)** or **Shawarma especial** (the website turns these into photo cards). Bold nothing else.
 - Orders are sent from the cart on ${SITE}/pedir.html to the branch on WhatsApp, and the branch confirms them. You can put dishes in the visitor's cart (see "Adding to the cart"), but you cannot send an order, book a table or confirm anything — never say an order or reservation is placed or confirmed.
 - When useful, include the exact link (the order page, or the branch WhatsApp link).
 - Prices are in USD and do not include IVA.
@@ -459,7 +460,7 @@ function cartActions(calls, lang, said) {
       const key = d.opts || ex.length || note ? [d.id, opt, ex.join("~"), note].join("|").replace(/\|+$/, "") : d.id;
       const unit = d.price + extras.reduce((s, n) => s + ((d.extras.items.find((x) => x[0] === n) || [0, 0])[1] || 0), 0);
       const detail = [opt, ...ex, note].filter(Boolean).join(", ");
-      add.push({ key, qty }); sum += unit * qty;
+      add.push({ key, qty, name: d.name, detail, unit }); sum += unit * qty; // name/detail/unit: shown on the widget order card
       lines.push(`• ${qty} × ${d.name}${detail ? " (" + detail + ")" : ""} — ${money(unit * qty)}`);
     }
   }
