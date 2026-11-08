@@ -6,7 +6,7 @@ Nombre: El Amir Palace (en árabe: قصر الأمير)
 Cocina: libanesa y mediterránea; también mariscos, arroces, pastas y hamburguesas. Comida para compartir al centro de la mesa.
 Desde: 1997 (casi tres décadas en el estado Anzoátegui, Venezuela)
 Servicios: comer en el local, retiro (pickup) y delivery
-Web: https://www.elamirpalace.online/   ·   Pedidos en línea: https://www.elamirpalace.online/pedir.html
+Web: https://www.elamirpalace.com/   ·   Pedidos en línea: https://www.elamirpalace.com/pedir.html
 
 == SUCURSALES Y UBICACIÓN ==
 - Lechería
@@ -38,10 +38,10 @@ Los datos para pagar (cuenta, teléfono, correo…) los envía la sucursal por W
 
 == PRECIOS ==
 Precios en dólares (USD). Los precios NO incluyen IVA.
-Envases para llevar/delivery: algunos platos suman envases a $1 cada uno (el número de envases de cada plato está en la carta abajo). Pedir algo "aparte" suma 1 envase más. El carrito de https://www.elamirpalace.online/pedir.html muestra el total exacto.
+Envases para llevar/delivery: algunos platos suman envases a $1 cada uno (el número de envases de cada plato está en la carta abajo). Pedir algo "aparte" suma 1 envase más. El carrito de https://www.elamirpalace.com/pedir.html muestra el total exacto.
 
 == CÓMO PEDIR ==
-1. Entrar a https://www.elamirpalace.online/pedir.html y agregar los platos al carrito (elegir proteína, extras o contornos cuando el plato lo pide).
+1. Entrar a https://www.elamirpalace.com/pedir.html y agregar los platos al carrito (elegir proteína, extras o contornos cuando el plato lo pide).
 2. Elegir delivery o retiro, la sucursal y la forma de pago.
 3. El pedido se envía al WhatsApp de la sucursal, que lo confirma, indica el costo del delivery y envía los datos de pago.
 También se puede pedir escribiendo directamente al WhatsApp de la sucursal.

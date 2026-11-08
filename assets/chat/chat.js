@@ -124,7 +124,7 @@
       var url = m[1].replace(/[.,;:!?]+$/, "");
       node.appendChild(document.createTextNode(text.slice(i, m.index)));
       var a = el("a", "", { href: url, dir: "ltr" });
-      if (!/^https?:\/\/(www\.)?elamirpalace\.online/.test(url)) { a.target = "_blank"; a.rel = "noopener"; }
+      if (!/^https?:\/\/(www\.)?elamirpalace\.(com|online)/.test(url)) { a.target = "_blank"; a.rel = "noopener"; }
       a.textContent = /google\.[a-z.]+\/maps/.test(url) ? "📍 Google Maps" : url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
       node.appendChild(a);
       i = m.index + url.length; re.lastIndex = i;

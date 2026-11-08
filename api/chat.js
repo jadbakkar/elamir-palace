@@ -16,7 +16,7 @@ const fs = require("fs");
 const path = require("path");
 
 const MODEL = process.env.GEMINI_MODEL || "gemini-3.5-flash-lite";
-const SITE = "https://www.elamirpalace.online";
+const SITE = "https://www.elamirpalace.com";
 const MAX_MSG = 600;          // characters per visitor message
 const MAX_TURNS = 10;         // previous messages kept as context
 const RATE = { windowMs: 60_000, max: Number(process.env.CHAT_RATE_MAX) || 12 }; // messages per IP per minute, per warm instance
@@ -81,7 +81,7 @@ function sameOrigin(req) {
   if (!origin) return true; // some same-origin requests omit Origin
   try {
     const o = new URL(origin).host, host = req.headers["x-forwarded-host"] || req.headers.host;
-    return o === host || /(^|\.)elamirpalace\.online$/.test(o) || /^(localhost|127\.0\.0\.1)(:\d+)?$/.test(o);
+    return o === host || /(^|\.)elamirpalace\.(com|online)$/.test(o) || /^(localhost|127\.0\.0\.1)(:\d+)?$/.test(o);
   } catch { return false; }
 }
 

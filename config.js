@@ -8,7 +8,7 @@ const CONFIG = {
   direccion: "[DIRECCIÓN: calle, edificio, ciudad]", // <<< CAMBIAR
   telefono: "0424-806 0218",           // teléfono principal (Lechería)
   instagram: "@tu_instagram",          // <<< CAMBIAR
-  sitioWeb: "https://TU-DOMINIO.com/", // <<< CAMBIAR (también en <link canonical> y og: del <head>)
+  sitioWeb: "https://www.elamirpalace.com/",
   tz: "America/Caracas",
   pruebaSinHorario: true,              // TEST: true = se puede enviar pedidos aunque esté cerrado. Poner false al publicar.
   // Horario por día: ["apertura","cierre"] en 24h, o null si cierra ese día. Si cierra pasada la medianoche (ej. "02:00") funciona.
