@@ -60,6 +60,13 @@
 .amc-m--err{border-color:rgba(122,31,43,.35);color:var(--amc-wine)}
 .amc-m a{color:var(--amc-wine);font-weight:700;text-decoration:underline;text-underline-offset:2px;unicode-bidi:isolate}
 .amc-m--user a{color:#fff}
+.amc-cart{display:flex;align-items:center;justify-content:center;gap:8px;min-height:44px;margin-top:10px;padding:10px 16px;border-radius:999px;
+  background:var(--amc-wine);color:#fff!important;font:700 14px/1.2 var(--amc-body);text-decoration:none!important;white-space:nowrap;
+  box-shadow:0 8px 18px -10px rgba(74,17,25,.7);transition:background-color .2s,transform .15s}
+.amc-cart:hover{background:var(--amc-wine-2)}
+.amc-cart:active{transform:scale(.97)}
+.amc-cart:focus-visible{outline:2px solid var(--amc-ink);outline-offset:2px}
+.amc-cart svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
 .amc-dots{display:inline-flex;gap:5px;padding:4px 2px}
 .amc-dots i{width:7px;height:7px;border-radius:50%;background:var(--amc-gold);animation:amc-dot 1s ease-in-out infinite}
 .amc-dots i:nth-child(2){animation-delay:.15s}.amc-dots i:nth-child(3){animation-delay:.3s}

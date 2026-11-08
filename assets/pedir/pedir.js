@@ -997,6 +997,18 @@
   const bnavOrder = $(".bnav-order");
   if (bnavOrder) bnavOrder.addEventListener("click", e => { if (count()) { e.preventDefault(); openSheet(0); } });
   $("#hdCart").onclick = () => { if (count()) openSheet(0); else toast(t("cart.needOne")); };
+  /* AI chat assistant (assets/chat/chat.js) adds dishes to the saved cart: reload it here when it does,
+     and "pedir.html#carrito" (its "see my cart" link) opens the order */
+  doc.addEventListener("amir-cart-external", () => {
+    try {
+      const raw = JSON.parse(localStorage.getItem("amir-cart-v2")) || {}, next = {};
+      Object.entries(raw).forEach(([k, q]) => { if (Number.isInteger(q) && q > 0 && validKey(k)) next[k] = Math.min(q, MAXQ); });
+      cart = next;
+    } catch (e) { return; }
+    $$(".dish").forEach(li => renderOne(li.dataset.id)); refreshAll();
+  });
+  const cartHash = () => { if (location.hash === "#carrito" && count()) { history.replaceState(null, "", location.pathname + location.search); openSheet(0); } };
+  window.addEventListener("hashchange", cartHash); cartHash();
 
   /* "AP-1030-K7QX": date + 4 random characters. A counter would live on each guest's phone, so every guest's
      first order of the day was "-001"; random keeps ids apart (no 0/O, 1/I/L to misread on WhatsApp) */

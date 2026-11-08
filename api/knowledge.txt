@@ -51,7 +51,7 @@ Se piden por WhatsApp a la sucursal (no hay formulario de reservas en la web). L
 
 == CARTA (16 secciones, 174 platos) ==
 Secciones (las ÚNICAS que existen): Entradas Árabes · Entradas Mediterráneas · Sopas y Cremas · Ensaladas · Platos Árabes Especiales · Medias Porciones · Shawarmas y Sándwiches · Brochetas y Parrillas · Carnes y Aves · Pescados y Mariscos · Arroces · Pastas · Hamburguesas · Batidos y Yogurt · Bebidas · Licores y Cócteles.
-Formato: Plato — precio — descripción. Debajo: opciones, extras incluidos, adicionales con su precio y envases.
+Formato: Plato — precio — descripción. Debajo: lo OBLIGATORIO que el cliente debe elegir, lo opcional (quitar ingredientes, adicionales con su precio) y los envases.
 Solo existe lo que aparece en esta carta.
 
 --- Entradas Árabes (Por ración) ---
@@ -152,9 +152,9 @@ Solo existe lo que aparece en esta carta.
 • Fatte de berenjena — $15 — Carne molida, garbanzo, berenjena y pan frito al yogurt con almendras
    Envases para llevar: 1 ($1)
 • Plato mixto — $19 — 1 pincho de pollo, 1 kibbe, tabaquitos, 2 falafel, cremas mixtas, tabbule y makanek
-   Adicionales: Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 2 ($2)
+   Opcional, adicionales (solo si el cliente los pide): Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 2 ($2)
 • Plato mixto con lomito — $21 — 1 pincho de lomito, 1 kibbe, tabaquitos, 2 falafel, cremas mixtas, tabbule y makanek
-   Adicionales: Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 2 ($2)
+   Opcional, adicionales (solo si el cliente los pide): Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 2 ($2)
 • Plato vegetariano árabe — $18 — Tabbule, arroz blanco, falafel, vegetales salteados y cremas mixtas
    Envases para llevar: 2 ($2)
 • Plato de shawarma — $35 — Carne y pollo tipo shawarma, vegetales, pepinillos, nabos, crema de ajo y tahini
@@ -162,13 +162,13 @@ Solo existe lo que aparece en esta carta.
 • Kibbe al yogurt — $17 — 5 unidades de kibbe al yogurt
    Envases para llevar: 1 ($1)
 • Arroz libanés con pollo o cordero — $19 — Con frutos secos y pan frito
-   Proteína: Pollo / Cordero | Envases para llevar: 1 ($1)
+   OBLIGATORIO elegir Proteína: Pollo / Cordero | Envases para llevar: 1 ($1)
 • Bandeja árabe (2 personas) — $50 — Pinchos de pollo y lomito, tabbule, tabaquitos, makanek, kibbes, falafel y cremas mixtas
-   Adicionales: Pincho de pollo +$8, Pincho de lomito +$8, Pincho de kafta +$8 | Envases para llevar: 6 ($6)
+   Opcional, adicionales (solo si el cliente los pide): Pincho de pollo +$8, Pincho de lomito +$8, Pincho de kafta +$8 | Envases para llevar: 6 ($6)
 • Bandeja árabe (3 personas) — $65 — 3 pinchos, 4 kibbe fritos, 8 tabaquitos, 4 falafel, makanek, kibbe crudo y horneado, tabbule, cremas
-   Adicionales: Pincho de pollo +$8, Pincho de lomito +$8, Pincho de kafta +$8 | Envases para llevar: 6 ($6)
+   Opcional, adicionales (solo si el cliente los pide): Pincho de pollo +$8, Pincho de lomito +$8, Pincho de kafta +$8 | Envases para llevar: 6 ($6)
 • Bandeja árabe (4 personas) — $75 — 4 pinchos, 6 kibbes fritos, 6 falafel, 10 tabaquitos, makanek, kibbe crudo y horneado, tabbule, cremas
-   Adicionales: Pincho de pollo +$8, Pincho de lomito +$8, Pincho de kafta +$8 | Envases para llevar: 8 ($8)
+   Opcional, adicionales (solo si el cliente los pide): Pincho de pollo +$8, Pincho de lomito +$8, Pincho de kafta +$8 | Envases para llevar: 8 ($8)
 
 --- Medias Porciones ---
 • Medio hummus — $4
@@ -188,17 +188,17 @@ Solo existe lo que aparece en esta carta.
 
 --- Shawarmas y Sándwiches (Todos los sándwiches vienen con papas fritas) ---
 • Shawarma — $8 — Proteína de tu preferencia y vegetales tradicionales
-   Proteína: Pollo / Carne / Mixto | ¿Quitamos algo?: Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo
+   OBLIGATORIO elegir Proteína: Pollo / Carne / Mixto | Opcional, quitar ingredientes sin costo (solo si el cliente lo pide): Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo
 • Shawarma especial — $10 — Con 1 ingrediente extra (tabbule, falafel, pimentones…)
-   Proteína: Pollo / Carne / Mixto | Elige 1 extra (incluidos): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo | ¿Quitamos algo?: Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo
+   OBLIGATORIO elegir Proteína: Pollo / Carne / Mixto | OBLIGATORIO Elige 1 extra (incluido): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo; se pueden pedir aparte, fuera del pan | Opcional, quitar ingredientes sin costo (solo si el cliente lo pide): Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo
 • Shawarma súper especial — $12 — Con 2 ingredientes extra
-   Proteína: Pollo / Carne / Mixto | Elige 2 extras (incluidos): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo | ¿Quitamos algo?: Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo
+   OBLIGATORIO elegir Proteína: Pollo / Carne / Mixto | OBLIGATORIO Elige 2 extras (incluidos): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo; se pueden pedir aparte, fuera del pan | Opcional, quitar ingredientes sin costo (solo si el cliente lo pide): Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo
 • Shawarma abierto — $10 — Servido abierto en plato con la proteína de tu preferencia y vegetales.
-   Proteína: Pollo / Carne / Mixto | ¿Quitamos algo?: Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo | Envases para llevar: 1 ($1)
+   OBLIGATORIO elegir Proteína: Pollo / Carne / Mixto | Opcional, quitar ingredientes sin costo (solo si el cliente lo pide): Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo | Envases para llevar: 1 ($1)
 • Shawarma especial abierto — $12 — Servido abierto en plato con vegetales tradicionales y un ingrediente especial extra.
-   Proteína: Pollo / Carne / Mixto | Elige 1 extra (incluidos): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo | ¿Quitamos algo?: Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo | Envases para llevar: 1 ($1)
+   OBLIGATORIO elegir Proteína: Pollo / Carne / Mixto | OBLIGATORIO Elige 1 extra (incluido): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo | Opcional, quitar ingredientes sin costo (solo si el cliente lo pide): Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo | Envases para llevar: 1 ($1)
 • Shawarma súper especial abierto — $13 — Servido abierto en plato con vegetales tradicionales y dos ingredientes especiales extra.
-   Proteína: Pollo / Carne / Mixto | Elige 2 extras (incluidos): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo | ¿Quitamos algo?: Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo | Envases para llevar: 1 ($1)
+   OBLIGATORIO elegir Proteína: Pollo / Carne / Mixto | OBLIGATORIO Elige 2 extras (incluidos): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo | Opcional, quitar ingredientes sin costo (solo si el cliente lo pide): Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo | Envases para llevar: 1 ($1)
 • Salsa de ajo — $1 — Porción de salsa de ajo.
 • Sándwich de falafel — $8 — Croquetas de falafel y vegetales tradicionales
 • Fajita — $14 — Salsa de aguacate, pimentón, cebolla, mozzarella, pollo
@@ -218,20 +218,20 @@ Solo existe lo que aparece en esta carta.
 • Hígado de pollo — $13 — Hígado de pollo, papas, ajo, granadina
    Envases para llevar: 1 ($1)
 • Falafel especial — $10 — Croquetas de falafel con ingredientes especiales y papas fritas.
-   Elige 1 extra (incluidos): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo
+   OBLIGATORIO Elige 1 extra (incluido): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo; se pueden pedir aparte, fuera del pan
 • Kibbe frito — $11 — Sándwich de kibbe frito acompañado de papas fritas.
 
 --- Brochetas y Parrillas ---
 • Brochetas El Amir — $65 — 2 pinchos de pollo, 3 de kafta, 2 de lomito, 8 alas, 8 makanek, vegetales a la brasa, papas y pan
-   Adicionales: Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 4 ($4)
+   Opcional, adicionales (solo si el cliente los pide): Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 4 ($4)
 • Brocheta de kafta — $20 — Pinchos de carne molida sazonada a la brasa.
-   Adicionales: Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 2 ($2)
+   Opcional, adicionales (solo si el cliente los pide): Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 2 ($2)
 • Brocheta de pollo — $21 — Pinchos de pechuga de pollo marinada a la brasa.
-   Adicionales: Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 2 ($2)
+   Opcional, adicionales (solo si el cliente los pide): Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 2 ($2)
 • Brocheta de lomito — $24 — Pinchos de lomito tierno a la brasa.
-   Adicionales: Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 2 ($2)
+   Opcional, adicionales (solo si el cliente los pide): Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 2 ($2)
 • Brocheta mixta — $24
-   Adicionales: Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 2 ($2)
+   Opcional, adicionales (solo si el cliente los pide): Pincho de pollo +$8, Pincho de kafta +$8, Pincho de lomito +$8 | Envases para llevar: 2 ($2)
 • Parrilla El Amir — $26 — Pechuga, churrasco de lomito, 2 ruedas de kafta, makanek y papas
    Envases para llevar: 1 ($1)
 • Parrilla mar y tierra — $26 — Parrilla de carnes y mariscos.
@@ -249,29 +249,29 @@ Solo existe lo que aparece en esta carta.
 • Pollo a la brasa El Amir — $34 — Con chorizos, pimentones asados, papas, ensalada rallada y arroz especial
    Envases para llevar: 3 ($3)
 • Envoltini de pollo — $20 — Relleno de espinaca, pimentón y mozzarella con salsa de ajo porro
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   OBLIGATORIO Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Pollo a la brasa — $17 — 300 g de pechuga deshuesada
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   OBLIGATORIO Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Pollo a la canasta — $16 — Escalopines empanizados con papas
    Envases para llevar: 1 ($1)
 • Tenders de pollo crispy — $16 — Con salsa rosa o sweet chili y papas
-   Salsa: Salsa rosa / Sweet chili | Envases para llevar: 1 ($1)
+   OBLIGATORIO elegir Salsa: Salsa rosa / Sweet chili | Envases para llevar: 1 ($1)
 • Suprema de pollo crispy — $24 — 300 g en salsa blanca con camarones
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   OBLIGATORIO Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Filet mignon — $24 — Lomito con tocineta y salsa de champiñones
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   OBLIGATORIO Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Cordon bleu de lomito — $23 — Lomito relleno de jamón y queso, empanizado, con salsa blanca.
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   OBLIGATORIO Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Cordon bleu de pollo — $22 — Pollo relleno de jamón y queso, empanizado, con salsa blanca.
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   OBLIGATORIO Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Centro de lomito a la plancha — $20 — 300 g
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   OBLIGATORIO Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Pollo a la milanesa — $19 — Gratinado con mozzarella, parmesano y salsa napoli
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   OBLIGATORIO Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Pollo al champiñón — $20 — Pechuga de pollo en salsa de champiñones.
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   OBLIGATORIO Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Pollo a la plancha — $16 — 300 g de pechuga
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   OBLIGATORIO Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 
 --- Pescados y Mariscos ---
 • Mero en 2 salsas — $22 — Al carbón con salsa de alcaparras y amatriciana
@@ -285,15 +285,15 @@ Solo existe lo que aparece en esta carta.
 • Dynamite shrimp — $21 — Cóctel de camarones con toques asiáticos y papas
    Envases para llevar: 1 ($1)
 • Camarones a la plancha — $20 — Con 2 contornos
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   OBLIGATORIO Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Camarones al ajillo — $20 — Con 2 contornos
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   OBLIGATORIO Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Camarones rebozados — $20 — Con 2 contornos
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   OBLIGATORIO Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Calamares al ajillo — $18 — Con 2 contornos
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   OBLIGATORIO Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Calamares rebozados — $20 — Con 2 contornos
-   Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+   OBLIGATORIO Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Pulpo al grill — $28 — Con chimichurri
    Envases para llevar: 1 ($1)
 • Asopado de mariscos (2 personas) — $50
@@ -353,21 +353,21 @@ Solo existe lo que aparece en esta carta.
 
 --- Batidos y Yogurt ---
 • Batido de fresa — $4
-   Preparación: En agua / En leche
+   OBLIGATORIO elegir Preparación: En agua / En leche
 • Batido de melón — $4
-   Preparación: En agua / En leche
+   OBLIGATORIO elegir Preparación: En agua / En leche
 • Batido de piña — $4
-   Preparación: En agua / En leche
+   OBLIGATORIO elegir Preparación: En agua / En leche
 • Batido de melocotón — $4
-   Preparación: En agua / En leche
+   OBLIGATORIO elegir Preparación: En agua / En leche
 • Batido de guanábana — $4
-   Preparación: En agua / En leche
+   OBLIGATORIO elegir Preparación: En agua / En leche
 • Batido de lechosa — $4
-   Preparación: En agua / En leche
+   OBLIGATORIO elegir Preparación: En agua / En leche
 • Batido de parchita — $4
-   Preparación: En agua / En leche
+   OBLIGATORIO elegir Preparación: En agua / En leche
 • Batido de mora — $4
-   Preparación: En agua / En leche
+   OBLIGATORIO elegir Preparación: En agua / En leche
 • Limonada — $4
 • Limonada con hierbabuena — $4
 • Merengada de frutas — $6
