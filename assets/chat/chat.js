@@ -33,6 +33,10 @@
       err: "Uy, no pude responder ahora. Intenta de nuevo o escríbenos por WhatsApp: " + WA,
       slow: "Vas muy rápido 😅 Espera un momento y vuelve a intentar.",
       note: "IA · puede equivocarse · pedidos confirmados por WhatsApp",
+      v: { mic: "Hablar", micStop: "Enviar audio", listening: "Te escucho… toca ■ para enviar", hearing: "Entendiendo lo que dijiste…", say: "Escuchar respuesta", stop: "Detener",
+        notHeard: "No te escuché bien 🙉 Intenta de nuevo, más cerca del teléfono, o escribe tu pregunta.",
+        off: "La voz no está disponible en este momento 🙏 Escríbeme tu pregunta y te respondo.",
+        denied: "Para hablarme, permite el micrófono en tu navegador. También puedes escribir 🙂" },
       chips: [["🥙", "Recomiéndame algo"], ["📋", "Ver la carta", "menu"], ["🛵", "¿Llegan a mi zona?"], ["🕐", "Horario de hoy"]],
       more: [["📋", "Ver la carta", "menu"], ["🥗", "Algo vegetariano"], ["💬", "WhatsApp", "wa"]],
       tH: "¿Te ayudo a pedir?", tP: "Dime qué se te antoja y lo armo por ti 🥙", tX: "Cerrar", tC: [["Recomiéndame", "Recomiéndame algo"], ["Delivery", "¿Llegan a mi zona?"]] },
@@ -47,6 +51,10 @@
       err: "Sorry, I couldn't answer right now. Please try again or message us on WhatsApp: " + WA,
       slow: "You're going fast 😅 Wait a moment and try again.",
       note: "AI · can make mistakes · orders confirmed on WhatsApp",
+      v: { mic: "Speak", micStop: "Send audio", listening: "Listening… tap ■ to send", hearing: "Getting what you said…", say: "Listen to the answer", stop: "Stop",
+        notHeard: "I couldn't hear you well 🙉 Try again closer to the phone, or type your question.",
+        off: "Voice isn't available right now 🙏 Type your question and I'll answer.",
+        denied: "To talk to me, allow the microphone in your browser. You can also type 🙂" },
       chips: [["🥙", "Recommend me something"], ["📋", "See the menu", "menu"], ["🛵", "Do you deliver to my area?"], ["🕐", "Today's hours"]],
       more: [["📋", "See the menu", "menu"], ["🥗", "Something vegetarian"], ["💬", "WhatsApp", "wa"]],
       tH: "Can I help you order?", tP: "Tell me what you're craving and I'll put it together 🥙", tX: "Close", tC: [["Recommend", "Recommend me something"], ["Delivery", "Do you deliver to my area?"]] },
@@ -61,6 +69,10 @@
       err: "عذراً، لم أتمكن من الرد الآن. حاول مرة أخرى أو راسلنا على واتساب: " + WA,
       slow: "أنت سريع جداً 😅 انتظر لحظة وحاول مرة أخرى.",
       note: "ذكاء اصطناعي · قد يخطئ · تُؤكَّد الطلبات عبر واتساب",
+      v: { mic: "تحدّث", micStop: "إرسال الصوت", listening: "أستمع إليك… اضغط ■ للإرسال", hearing: "أفهم ما قلته…", say: "استمع إلى الرد", stop: "إيقاف",
+        notHeard: "لم أسمعك جيداً 🙉 حاول مرة أخرى بالقرب من الهاتف، أو اكتب سؤالك.",
+        off: "الصوت غير متاح الآن 🙏 اكتب سؤالك وسأجيبك.",
+        denied: "لتتحدث معي، اسمح باستخدام الميكروفون في متصفحك. يمكنك أيضاً الكتابة 🙂" },
       chips: [["🥙", "اقترح عليّ شيئاً"], ["📋", "عرض القائمة", "menu"], ["🛵", "هل توصلون إلى منطقتي؟"], ["🕐", "مواعيد اليوم"]],
       more: [["📋", "عرض القائمة", "menu"], ["🥗", "شيء نباتي"], ["💬", "واتساب", "wa"]],
       tH: "هل أساعدك في الطلب؟", tP: "أخبرني بما تشتهي وسأجهزه لك 🥙", tX: "إغلاق", tC: [["اقترح", "اقترح عليّ شيئاً"], ["التوصيل", "هل توصلون إلى منطقتي؟"]] }
@@ -271,6 +283,9 @@
   var ICON_CHAT ='<svg class="amc-bub" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12.2c0 4-3.6 7.3-8 7.3-1.1 0-2.2-.2-3.2-.6L4 20l1.3-3.6C4.5 15.2 4 13.8 4 12.2 4 8.2 7.6 5 12 5s8 3.2 8 7.2Z"/><path d="M8.5 12.3h.01M12 12.3h.01M15.5 12.3h.01" stroke-width="2.6"/></svg>';
   var ICON_X = '<svg class="amc-x" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>';
   var ICON_SEND = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg>';
+  var ICON_MIC = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></svg>';
+  var ICON_STOP = '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="7" width="10" height="10" rx="2" fill="currentColor" stroke="none"/></svg>';
+  var ICON_SPK = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.5L12 6v12l-4.5-3.5H4Z"/><path class="w1" d="M15.5 9.5a3.5 3.5 0 0 1 0 5"/><path class="w2" d="M18 7a7 7 0 0 1 0 10"/></svg>';
   var ICON_RESET = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.4-5.7M4 4v4h4"/></svg>';
   var ICON_WA = '<svg class="amc-wa" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.4 9.4 0 0 0-8.1 14.2L2.6 21.4l4.8-1.3A9.4 9.4 0 1 0 12 2.5Zm0 17.1a7.7 7.7 0 0 1-3.9-1.1l-.3-.2-2.9.8.8-2.8-.2-.3A7.7 7.7 0 1 1 12 19.6Zm4.3-5.8c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.3 6.3 0 0 1-3.1-2.7c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.7-1.7c-.2-.4-.4-.4-.5-.4h-.5a.9.9 0 0 0-.7.3 2.8 2.8 0 0 0-.9 2.1 4.9 4.9 0 0 0 1 2.6 11.2 11.2 0 0 0 4.3 3.8c1.6.7 2.2.7 3 .6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .1-1.2c0-.1-.2-.2-.4-.3Z"/></svg>';
   function emblem(cls) { return '<span class="' + cls + '" aria-hidden="true"><img src="' + root + 'img/brand/emblem.svg" alt="" width="34" height="34"></span>'; }
@@ -331,6 +346,7 @@
       if (m.prop) log.appendChild(orderCard(m));
       else if (m.role === "bot" && x) dishCards(m.text, x);
       if (m.cart && x) x.appendChild(cartBar());
+      if (canTalk && x && m.role === "bot" && !m.err) x.appendChild(sayBtn(m.text));
     });
     chips = null;
     var last = msgs[msgs.length - 1];
@@ -350,6 +366,7 @@
     panel.querySelector(".amc-note").textContent = t("note");
     input.placeholder = t("ph"); input.setAttribute("aria-label", t("ph"));
     sendBtn.setAttribute("aria-label", t("send"));
+    if (micBtn) micBtn.setAttribute("aria-label", vt(rec ? "micStop" : "mic"));
   }
 
   function build() {
@@ -362,6 +379,7 @@
       '<button type="button" class="amc-ib amc-close"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>' +
       '<div class="amc-log" aria-live="polite" data-lenis-prevent></div>' +
       '<form class="amc-f" autocomplete="off"><input class="amc-in" name="q" type="text" maxlength="600" enterkeyhint="send">' +
+      (canTalk ? '<button type="button" class="amc-mic">' + ICON_MIC + '</button>' : '') +
       '<button type="submit" class="amc-send">' + ICON_SEND + '</button></form><p class="amc-note"></p>';
     document.body.appendChild(panel);
     log = panel.querySelector(".amc-log"); form = panel.querySelector(".amc-f");
@@ -372,7 +390,9 @@
       msgs = []; store.set(msgs); render();
       if (window.matchMedia("(min-width:768px)").matches) input.focus({ preventScroll: true });
     });
-    form.addEventListener("submit", function (e) { e.preventDefault(); ask(input.value); });
+    form.addEventListener("submit", function (e) { e.preventDefault(); if (rec) stopRec(true); else ask(input.value); });
+    micBtn = panel.querySelector(".amc-mic");
+    if (micBtn) micBtn.addEventListener("click", function () { if (rec) stopRec(true); else startRec(); });
     panel.addEventListener("keydown", function (e) { if (e.key === "Escape") toggle(false); });
     swipe(panel.querySelector(".amc-hd"));
   }
@@ -415,6 +435,8 @@
       if (window.matchMedia("(min-width:768px)").matches) input.focus({ preventScroll: true });
       else panel.querySelector(".amc-close").focus({ preventScroll: true });
     } else {
+      if (rec) stopRec(false);
+      stopSpeaking();
       var done = function () {
         if (!swiped && !panel.classList.contains("amc-out")) return;
         panel.hidden = true; panel.classList.remove("amc-out");
@@ -426,12 +448,16 @@
     }
   }
 
-  function ask(q) {
+  function ask(q, opt) {
     q = String(q || "").trim();
     if (!q || busy) return;
+    var spoken = !!(opt && opt.voice);
+    stopSpeaking();
     var p = pending();
     if (p && AFFIRM.test(q)) { // "sí" / "dale" to an order proposal: add it here, no AI needed
-      input.value = ""; msgs.push({ role: "user", text: q }); confirmAdd(p); return;
+      input.value = ""; msgs.push({ role: "user", text: q }); confirmAdd(p);
+      if (spoken) speak(t("added"));
+      return;
     }
     busy = true; sendBtn.disabled = true; input.value = "";
     if (chips) { chips.remove(); chips = null; }
@@ -479,11 +505,13 @@
           var m = { role: "bot", text: text.trim() };
           if (act && act.add && act.add.length) m.prop = act.add;  // proposal: waits for the visitor's yes
           msgs.push(m); store.set(msgs);
+          var say = canTalk && b ? b.appendChild(sayBtn(m.text)) : null;
           if (m.prop) put(orderCard(m));
           else {
             if (b) dishCards(m.text, b, true);
             chips = put(chipRow(t("more"), "amc-chips--more"));
           }
+          if (spoken) speak(m.text, say); // asked by voice → answered by voice
         }
         fit();
         busy = false; sendBtn.disabled = false;
@@ -516,6 +544,147 @@
     });
     document.body.appendChild(teaser);
     setTimeout(hideTeaser, 20000);
+  }
+
+  /* =========================================================
+     VOICE (Gemini, via /api/voice)
+     🎤 records plain 16 kHz mono WAV in the browser (every phone can, and Gemini always accepts it),
+     /api/voice turns it into text, and that text goes through the normal chat (orders included).
+     🔊 on each answer reads it aloud: /api/voice streams raw PCM, played as it arrives with Web Audio.
+     A question asked by voice gets its answer read aloud automatically.
+     ========================================================= */
+  var VOICE_API = "/api/voice";
+  var AC = window.AudioContext || window.webkitAudioContext;
+  var canTalk = !!(AC && navigator.mediaDevices && navigator.mediaDevices.getUserMedia);
+  var actx = null, rec = null, playing = null, micBtn = null;
+  function audio() { // one AudioContext, created/resumed inside a tap (iPhone only plays sound after a tap)
+    if (!actx) actx = new AC();
+    if (actx.state === "suspended") actx.resume();
+    return actx;
+  }
+  function vt(k) { return t("v")[k]; }
+
+  /* ---- speaking ---- */
+  function sayState(btn, s) {
+    if (!btn) return;
+    btn.classList.toggle("is-load", s === "load"); btn.classList.toggle("is-on", s === "on");
+    btn.setAttribute("aria-label", vt(s ? "stop" : "say")); btn.title = vt(s ? "stop" : "say");
+  }
+  function stopSpeaking() {
+    if (!playing) return;
+    var p = playing; playing = null;
+    try { p.ac.abort(); } catch (e) { /* ignore */ }
+    p.nodes.forEach(function (n) { try { n.onended = null; n.stop(); } catch (e) { /* ignore */ } });
+    sayState(p.btn, "");
+  }
+  function speak(text, btn) {
+    stopSpeaking();
+    if (!text) return;
+    var ctx = audio(), p = { ac: new AbortController(), nodes: [], btn: btn, at: 0, left: 0, done: false };
+    playing = p; sayState(btn, "load");
+    var end = function () { if (playing === p) { playing = null; sayState(btn, ""); } };
+    fetch(VOICE_API, { method: "POST", headers: { "Content-Type": "application/json" }, signal: p.ac.signal,
+      body: JSON.stringify({ action: "tts", text: text, lang: lang() }) })
+      .then(function (r) {
+        if (!r.ok || !r.body || !r.body.getReader) throw new Error("voice " + r.status);
+        var rate = +r.headers.get("X-Sample-Rate") || 24000, reader = r.body.getReader(), carry = null;
+        p.at = ctx.currentTime + 0.08;
+        return (function pump() {
+          return reader.read().then(function (c) {
+            if (playing !== p) return;
+            if (c.done) { p.done = true; if (!p.left) end(); return; }
+            var bytes = c.value;
+            if (carry) { var j = new Uint8Array(carry.length + bytes.length); j.set(carry); j.set(bytes, carry.length); bytes = j; carry = null; }
+            if (bytes.length % 2) { carry = bytes.slice(-1); bytes = bytes.slice(0, -1); }
+            var n = bytes.length / 2;
+            if (n) {
+              var dv = new DataView(bytes.buffer, bytes.byteOffset, bytes.length), buf = ctx.createBuffer(1, n, rate), ch = buf.getChannelData(0);
+              for (var i = 0; i < n; i++) ch[i] = dv.getInt16(i * 2, true) / 32768;
+              var src = ctx.createBufferSource(); src.buffer = buf; src.connect(ctx.destination);
+              p.at = Math.max(p.at, ctx.currentTime + 0.02); src.start(p.at); p.at += buf.duration;
+              p.nodes.push(src); p.left++;
+              src.onended = function () { p.left--; if (p.done && !p.left) end(); };
+              if (p.nodes.length === 1) sayState(btn, "on");
+            }
+            return pump();
+          });
+        })();
+      })
+      .catch(function () { if (playing === p) { end(); if (btn) { btn.classList.add("is-off"); setTimeout(function () { btn.classList.remove("is-off"); }, 1600); } } });
+  }
+  function sayBtn(text) { // 🔊 on an answer: tap to hear it, tap again to stop
+    var b = el("button", "amc-say", { type: "button", "aria-label": vt("say"), title: vt("say") });
+    b.innerHTML = ICON_SPK;
+    b.addEventListener("click", function () { if (playing && playing.btn === b) stopSpeaking(); else speak(text, b); });
+    return b;
+  }
+
+  /* ---- listening ---- */
+  function micState(s) { // "" | "rec" | "busy"
+    if (!micBtn) return;
+    micBtn.classList.toggle("is-rec", s === "rec"); micBtn.classList.toggle("is-busy", s === "busy");
+    micBtn.innerHTML = s === "rec" ? ICON_STOP : ICON_MIC;
+    micBtn.setAttribute("aria-label", vt(s === "rec" ? "micStop" : "mic"));
+    micBtn.disabled = s === "busy";
+    input.placeholder = s === "rec" ? vt("listening") : s === "busy" ? vt("hearing") : t("ph");
+  }
+  function voiceNote(k) { // a short note in the chat (never the same one twice in a row)
+    var last = log.querySelectorAll(".amc-m"); last = last[last.length - 1];
+    if (last && last.textContent === vt(k)) return;
+    bubble("bot", vt(k), "amc-m--err"); fit();
+  }
+  function startRec() {
+    if (busy || rec) return;
+    stopSpeaking();
+    var ctx = audio();
+    rec = { chunks: [], len: 0, t0: Date.now() };
+    micState("rec");
+    navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true, autoGainControl: true } })
+      .then(function (stream) {
+        if (!rec) { stream.getTracks().forEach(function (x) { x.stop(); }); return; }
+        rec.stream = stream; rec.rate = ctx.sampleRate;
+        rec.src = ctx.createMediaStreamSource(stream);
+        rec.node = ctx.createScriptProcessor(4096, 1, 1);
+        rec.node.onaudioprocess = function (e) { if (!rec) return; var d = new Float32Array(e.inputBuffer.getChannelData(0)); rec.chunks.push(d); rec.len += d.length; };
+        rec.src.connect(rec.node); rec.node.connect(ctx.destination); // (the processor only runs while connected; it outputs silence)
+        rec.timer = setTimeout(function () { stopRec(true); }, 30000); // 30 s max
+      })
+      .catch(function () { rec = null; micState(""); voiceNote("denied"); });
+  }
+  function stopRec(send) {
+    if (!rec) return;
+    var r = rec; rec = null; clearTimeout(r.timer);
+    try { r.src.disconnect(); r.node.disconnect(); } catch (e) { /* ignore */ }
+    if (r.stream) r.stream.getTracks().forEach(function (x) { x.stop(); });
+    if (!send || !r.len || r.len / r.rate < 0.5) { micState(""); return; } // a tap, not a question
+    micState("busy");
+    fetch(VOICE_API, { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "stt", audio: wav16(r.chunks, r.len, r.rate), lang: lang() }) })
+      .then(function (x) { return x.json().catch(function () { return {}; }).then(function (d) { d.status = x.status; return d; }); })
+      .then(function (d) {
+        micState("");
+        if (d.text) ask(d.text, { voice: true });
+        else voiceNote(d.status === 200 ? "notHeard" : "off");
+      })
+      .catch(function () { micState(""); voiceNote("off"); });
+  }
+  function wav16(chunks, len, rate) { // Float32 at the device rate → 16 kHz 16-bit mono WAV, base64
+    var all = new Float32Array(len), o = 0;
+    chunks.forEach(function (c) { all.set(c, o); o += c.length; });
+    var ratio = rate / 16000, n = Math.floor(len / ratio), out = new DataView(new ArrayBuffer(44 + n * 2));
+    var str = function (p, s) { for (var i = 0; i < s.length; i++) out.setUint8(p + i, s.charCodeAt(i)); };
+    str(0, "RIFF"); out.setUint32(4, 36 + n * 2, true); str(8, "WAVE"); str(12, "fmt ");
+    out.setUint32(16, 16, true); out.setUint16(20, 1, true); out.setUint16(22, 1, true); out.setUint32(24, 16000, true);
+    out.setUint32(28, 32000, true); out.setUint16(32, 2, true); out.setUint16(34, 16, true); str(36, "data"); out.setUint32(40, n * 2, true);
+    for (var i = 0; i < n; i++) { // average each 16 kHz step (a simple low-pass so it doesn't alias)
+      var a = Math.floor(i * ratio), b = Math.min(len, Math.floor((i + 1) * ratio)), s = 0;
+      for (var j = a; j < b; j++) s += all[j];
+      var v = Math.max(-1, Math.min(1, b > a ? s / (b - a) : all[a] || 0));
+      out.setInt16(44 + i * 2, v < 0 ? v * 32768 : v * 32767, true);
+    }
+    var bytes = new Uint8Array(out.buffer), bin = "";
+    for (var k = 0; k < bytes.length; k += 0x8000) bin += String.fromCharCode.apply(null, bytes.subarray(k, k + 0x8000));
+    return btoa(bin);
   }
 
   function init() {

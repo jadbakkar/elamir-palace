@@ -162,6 +162,32 @@
 .amc-send:focus-visible{outline:2px solid var(--amc-ink);outline-offset:2px}
 .amc-send svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 [dir=rtl] .amc-send svg{transform:scaleX(-1)}
+
+/* ---------- voice: 🎤 in the input row, 🔊 on answers ---------- */
+.amc-mic{position:relative;display:grid;place-items:center;flex:none;width:48px;height:48px;padding:0;border:1px solid var(--amc-stone);border-radius:50%;
+  background:#fff;color:var(--amc-wine);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background-color .2s,color .2s,border-color .2s}
+.amc-mic:hover{border-color:var(--amc-wine)}
+.amc-mic:focus-visible{outline:2px solid var(--amc-ink);outline-offset:2px}
+.amc-mic svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.amc-mic.is-rec{background:#C0392B;border-color:#C0392B;color:#fff}
+.amc-mic.is-rec::after{content:"";position:absolute;inset:-5px;border-radius:50%;border:2px solid rgba(192,57,43,.55);animation:amc-ring 1.2s ease-out infinite}
+@keyframes amc-ring{from{transform:scale(.9);opacity:1}to{transform:scale(1.25);opacity:0}}
+.amc-mic.is-busy{color:var(--amc-ink-2);cursor:wait}
+.amc-mic.is-busy svg{animation:amc-dot 1s ease-in-out infinite}
+.amc-say{display:inline-grid;place-items:center;width:30px;height:30px;margin:4px 0 -4px;margin-inline-start:6px;vertical-align:middle;padding:0;border:0;border-radius:50%;
+  background:transparent;color:var(--amc-ink-2);cursor:pointer;opacity:.75;-webkit-tap-highlight-color:transparent;transition:opacity .2s,background-color .2s,color .2s}
+.amc-say:hover{opacity:1;background:var(--amc-marble)}
+.amc-say:focus-visible{outline:2px solid var(--amc-wine);outline-offset:1px;opacity:1}
+.amc-say svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+[dir=rtl] .amc-say svg{transform:scaleX(-1)}
+.amc-say.is-load{opacity:1;color:var(--amc-gold)}
+.amc-say.is-load svg{animation:amc-dot 1s ease-in-out infinite}
+.amc-say.is-on{opacity:1;color:var(--amc-wine);background:var(--amc-marble)}
+.amc-say.is-on .w1{animation:amc-wave 1s ease-in-out infinite}
+.amc-say.is-on .w2{animation:amc-wave 1s ease-in-out .2s infinite}
+@keyframes amc-wave{50%{opacity:.25}}
+.amc-say.is-off{color:#C0392B;opacity:1}
+@media (prefers-reduced-motion:reduce){.amc-mic.is-rec::after,.amc-mic.is-busy svg,.amc-say svg,.amc-say .w1,.amc-say .w2{animation:none!important}}
 .amc-note{margin:0;padding:0 14px 10px;background:var(--amc-paper);font-size:11px;line-height:1.35;color:var(--amc-ink-2);text-align:center}
 
 /* ---------- teaser bubble above the button ---------- */
