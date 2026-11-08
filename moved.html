@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="es" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El Amir Palace ahora está en elamirpalace.com</title>
+<!-- Shown on the OLD domain (elamirpalace.online) by middleware.js: tells visitors about the new
+     domain, then sends them to the same page on www.elamirpalace.com. Not for search engines. -->
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://www.elamirpalace.com/">
+<meta name="theme-color" content="#7A1F2B">
+<meta http-equiv="refresh" content="10;url=https://www.elamirpalace.com/">
+<link rel="icon" href="/favicon.ico" sizes="32x32">
+<link rel="icon" href="/img/brand/favicon.svg" type="image/svg+xml">
+<style>
+  @font-face{font-family:"Manrope";font-weight:400 800;font-display:swap;src:url(/assets/v3/fonts/manrope-latin.woff2) format("woff2")}
+  @font-face{font-family:"Instrument Serif";font-display:swap;src:url(/assets/v3/fonts/instrument-serif-latin.woff2) format("woff2")}
+  @font-face{font-family:"IBM Plex Sans Arabic";font-weight:400;font-display:swap;src:url(/assets/fonts/ibm-plex-sans-arabic-400-arabic.woff2) format("woff2")}
+  :root{--paper:#FBF8F3;--marble:#F2ECE3;--ink:#1E1A18;--ink-2:#5F564F;--wine:#7A1F2B;--wine-2:#5E1621;--gold:#B8915A}
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%}
+  body{min-height:100vh;min-height:100dvh;display:grid;place-items:center;padding:32px 16px calc(32px + env(safe-area-inset-bottom));
+    background:var(--paper) url(/img/brand/star-pattern-cream.svg) center/180px repeat;color:var(--ink);font:400 16px/1.55 "Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-text-size-adjust:100%}
+  .card{width:100%;max-width:480px;padding:40px 28px 32px;border-radius:24px;background:var(--paper);text-align:center;
+    box-shadow:0 30px 70px -30px rgba(30,26,24,.4),0 0 0 1px rgba(184,145,90,.45)}
+  .emblem{width:84px;height:84px;margin:0 auto 18px;display:block}
+  .k{margin:0;font:700 11px/1.2 "Manrope",sans-serif;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+  h1{margin:10px 0 6px;font:400 clamp(30px,8vw,40px)/1.1 "Instrument Serif",Georgia,serif;color:var(--wine)}
+  .domain{display:inline-block;margin:4px 0 18px;padding:6px 16px;border-radius:999px;background:var(--marble);font-weight:700;font-size:17px;letter-spacing:.01em;color:var(--ink);direction:ltr;unicode-bidi:isolate}
+  p{margin:0 0 6px;color:var(--ink-2)}
+  .other{margin:18px 0 0;padding-top:16px;border-top:1px solid rgba(184,145,90,.35);font-size:14.5px}
+  .other p{margin:0 0 6px}
+  [lang=ar]{font-family:"IBM Plex Sans Arabic","Manrope",sans-serif}
+  .go{display:flex;align-items:center;justify-content:center;gap:10px;min-height:52px;margin:22px 0 10px;padding:12px 24px;border-radius:999px;
+    background:var(--wine);color:#fff;font:700 16px/1.2 "Manrope",sans-serif;text-decoration:none;box-shadow:0 12px 26px -12px rgba(74,17,25,.75);transition:background-color .2s}
+  .go:hover{background:var(--wine-2)}
+  .go:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+  .go svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .count{min-height:1.5em;margin:0;font-size:13.5px;color:var(--ink-2)}
+  @media (prefers-reduced-motion:reduce){.go{transition:none}}
+</style>
+</head>
+<body>
+<main class="card">
+  <img class="emblem" src="/img/brand/emblem.svg" alt="El Amir Palace" width="84" height="84">
+  <p class="k">El Amir Palace</p>
+  <h1>¡Tenemos nueva dirección web!</h1>
+  <p>Ahora nos encuentras en</p>
+  <span class="domain">www.elamirpalace.com</span>
+  <p>Guárdala en tus favoritos: la carta, los pedidos y todo lo demás siguen igual.</p>
+
+  <a class="go" id="go" href="https://www.elamirpalace.com/">Ir a elamirpalace.com
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+  <p class="count" id="count" aria-live="polite">Te llevamos en unos segundos…</p>
+
+  <div class="other">
+    <p lang="en">We have a new website address: <b dir="ltr">www.elamirpalace.com</b></p>
+    <p lang="ar" dir="rtl">عنواننا الجديد على الإنترنت: <b dir="ltr">www.elamirpalace.com</b></p>
+  </div>
+</main>
+<script>
+(function () {
+  "use strict";
+  var NEW = "https://www.elamirpalace.com", SECONDS = 6;
+  // same page on the new domain: elamirpalace.online/pedir.html → www.elamirpalace.com/pedir.html
+  var path = location.pathname === "/moved.html" ? "/" : location.pathname;
+  var target = NEW + path + location.search.replace(/[?&]_moved=1/, "").replace(/^&/, "?") + location.hash;
+  document.getElementById("go").href = target;
+  var canon = document.querySelector('link[rel="canonical"]'); if (canon) canon.href = NEW + path;
+  var en = /^\/en(\/|$)/.test(path), ar = /^\/ar(\/|$)/.test(path);
+  var msg = function (s) { return ar ? "سننقلك خلال " + s + " ثوانٍ…" : en ? "Taking you there in " + s + " s…" : "Te llevamos en " + s + " s…"; };
+  var left = SECONDS, out = document.getElementById("count");
+  out.textContent = msg(left);
+  var t = setInterval(function () {
+    left -= 1;
+    if (left <= 0) { clearInterval(t); location.replace(target); return; }
+    out.textContent = msg(left);
+  }, 1000);
+})();
+</script>
+</body>
+</html>
