@@ -49,7 +49,7 @@ También se puede pedir escribiendo directamente al WhatsApp de la sucursal.
 == RESERVAS DE MESA ==
 En https://www.elamirpalace.com/reservar.html hay un formulario (sucursal, personas, fecha, hora, nombre) que abre WhatsApp con la solicitud lista para enviar a la sucursal. También se puede escribir directo al WhatsApp de la sucursal. La mesa queda reservada solo cuando la sucursal confirma por el chat.
 
-== CARTA (16 secciones, 174 platos) ==
+== CARTA (16 secciones, 175 platos) ==
 Secciones (las ÚNICAS que existen): Entradas Árabes · Entradas Mediterráneas · Sopas y Cremas · Ensaladas · Platos Árabes Especiales · Medias Porciones · Shawarmas y Sándwiches · Brochetas y Parrillas · Carnes y Aves · Pescados y Mariscos · Arroces · Pastas · Hamburguesas · Batidos y Yogurt · Bebidas · Licores y Cócteles.
 Formato: Plato — precio — descripción. Debajo: lo OBLIGATORIO que el cliente debe elegir, lo opcional (quitar ingredientes, adicionales con su precio) y los envases.
 Solo existe lo que aparece en esta carta.
@@ -272,6 +272,8 @@ Solo existe lo que aparece en esta carta.
    OBLIGATORIO Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
 • Pollo a la plancha — $16 — 300 g de pechuga
    OBLIGATORIO Elige 2 contornos (incluidos): Papas fritas, Papas bravas, Papas rústicas, Papas al vapor, Puré, Vegetales al vapor, Vegetales salteados, Ensalada mixta, Arroz | Envases para llevar: 1 ($1)
+• Plato navideño — $15
+   Envases para llevar: 1 ($1)
 
 --- Pescados y Mariscos ---
 • Mero en 2 salsas — $22 — Al carbón con salsa de alcaparras y amatriciana

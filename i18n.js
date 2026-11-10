@@ -359,6 +359,8 @@
     "wa.clientLang": "*Idioma del cliente:* {lang}",
     "wa.res.title": "*Reserva · {name}*",
     "wa.res.name": "*Nombre:* {v}",
+    "wa.res.phone": "*Teléfono:* {v}",
+    "wa.res.id": "*C.I / RIF:* {v}",
     "wa.res.branch": "*Sucursal:* {v}",
     "wa.res.area": "*Zona:* {v}",
     "wa.res.people": "*Personas:* {v}",
@@ -1185,6 +1187,7 @@
   D("Pollo al champiñón", "Pechuga de pollo en salsa de champiñones.", ["Chicken in Mushroom Sauce", "Chicken breast in mushroom sauce."], ["دجاج بصلصة الفطر", "صدر دجاج بصلصة الفطر."]);
   D("Pollo a la plancha", "300 g de pechuga",
     ["Pan-Seared Chicken Breast", "300 g breast"], ["صدر دجاج على الصاج", "300 غ صدر دجاج"]);
+  D("Plato navideño", null, ["Christmas Plate"], ["طبق عيد الميلاد"]);
 
   /* ---- 9. Pescados y Mariscos ---- */
   C("Pescados y Mariscos", "Fish & Seafood", "أسماك ومأكولات بحرية");
@@ -1660,6 +1663,8 @@
     if (r.branch && wx(r.branch)) L.push(E("wa.res.branch", { v: wx(r.branch) })); /* optional: Spanish branch name */
     if (r.area && wx(r.area)) L.push(E("wa.res.area", { v: wx(r.area) })); /* optional: Spanish seating area (Terraza, Planta baja…) */
     L.push(E("wa.res.name", { v: wx(r.name) }));
+    if (r.phone && wx(r.phone)) L.push(E("wa.res.phone", { v: wx(r.phone) }));
+    if (r.docid && wx(r.docid)) L.push(E("wa.res.id", { v: wx(r.docid) }));
     var cl = clientLangLine(r.lang == null ? I18N.lang : r.lang); if (cl) L.push(cl);
     L.push(E("wa.res.people", { v: r.people }), E("wa.res.date", { v: d }), E("wa.res.time", { v: I18N.time12(r.time, "es") }));
     if (r.notes && wx(r.notes)) L.push(E("wa.res.notes", { v: wx(r.notes) }));

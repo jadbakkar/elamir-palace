@@ -28,7 +28,10 @@
       "rv.area": "¿Dónde prefieres sentarte?", "rv.zone": "Zona",
       "rv.area.terraza": "Terraza", "rv.area.terrazaD": "Al aire libre, bajo toldo",
       "rv.area.baja": "Planta baja", "rv.area.bajaD": "Junto a la barra",
-      "rv.area.alta": "Piso superior", "rv.area.altaD": "El salón grande, ideal para grupos",
+      "rv.area.alta": "Piso 1", "rv.area.altaD": "El salón grande, ideal para grupos",
+      "rv.phone": "Teléfono (WhatsApp)", "rv.docid": "C.I / RIF", "rv.docidPh": "V-12345678 o J-12345678-9",
+      "rv.err.phone": "Escribe un teléfono válido, con código de área.",
+      "rv.err.docid": "Escribe tu C.I o RIF (ej. V-12345678 o J-12345678-9).",
       "rv.area.terrazaSup": "Terraza superior", "rv.area.terrazaSupD": "Al aire libre, en el piso de arriba",
       "rv.area.any": "Donde haya sitio", "rv.area.anyD": "La sucursal te ubica",
       "rv.area.hint": "Es una preferencia: la sucursal te confirma la zona según disponibilidad.",
@@ -53,7 +56,10 @@
       "rv.area": "Where would you like to sit?", "rv.zone": "Area",
       "rv.area.terraza": "Terrace", "rv.area.terrazaD": "Outdoors, under an awning",
       "rv.area.baja": "Ground floor", "rv.area.bajaD": "By the bar",
-      "rv.area.alta": "Upper floor", "rv.area.altaD": "The big room, great for groups",
+      "rv.area.alta": "Floor 1", "rv.area.altaD": "The big room, great for groups",
+      "rv.phone": "Phone (WhatsApp)", "rv.docid": "ID (C.I / RIF)", "rv.docidPh": "V-12345678 or J-12345678-9",
+      "rv.err.phone": "Enter a valid phone number, with area code.",
+      "rv.err.docid": "Enter your C.I or RIF (e.g. V-12345678 or J-12345678-9).",
       "rv.area.terrazaSup": "Upper terrace", "rv.area.terrazaSupD": "Outdoors, upstairs",
       "rv.area.any": "Wherever is free", "rv.area.anyD": "The restaurant seats you",
       "rv.area.hint": "This is a preference: the restaurant confirms the area depending on availability.",
@@ -78,7 +84,10 @@
       "rv.area": "أين تفضّل الجلوس؟", "rv.zone": "المكان",
       "rv.area.terraza": "التراس", "rv.area.terrazaD": "في الهواء الطلق تحت المظلة",
       "rv.area.baja": "الطابق الأرضي", "rv.area.bajaD": "بجانب البار",
-      "rv.area.alta": "الطابق العلوي", "rv.area.altaD": "الصالة الكبيرة، مثالية للمجموعات",
+      "rv.area.alta": "الطابق الأول", "rv.area.altaD": "الصالة الكبيرة، مثالية للمجموعات",
+      "rv.phone": "الهاتف (واتساب)", "rv.docid": "C.I / RIF", "rv.docidPh": "V-12345678 أو J-12345678-9",
+      "rv.err.phone": "اكتب رقم هاتف صالحاً مع رمز المنطقة.",
+      "rv.err.docid": "اكتب رقم هويتك C.I أو RIF (مثال: V-12345678 أو J-12345678-9).",
       "rv.area.terrazaSup": "التراس العلوي", "rv.area.terrazaSupD": "في الهواء الطلق في الطابق العلوي",
       "rv.area.any": "أي مكان متاح", "rv.area.anyD": "يختار لك الفرع المكان",
       "rv.area.hint": "هذا تفضيل فقط: يؤكد لك الفرع المكان حسب التوفر.",
@@ -138,7 +147,7 @@
   /* ---------- errors (kept as keys, so they follow a language switch) ---------- */
   var errs = {};
   function paintErrs() {
-    ["date", "time", "name"].forEach(function (n) {
+    ["date", "time", "name", "phone", "docid"].forEach(function (n) {
       var el = F[n], f = el.closest(".f"), key = errs[n] || "";
       f.classList.toggle("bad", !!key);
       f.querySelector(".err").textContent = key ? I.t(key) : "";
@@ -147,10 +156,14 @@
     $("#branchG").classList.toggle("bad", !!errs.branch);
     $("#eBranch").textContent = errs.branch ? I.t(errs.branch) : "";
   }
+  /* "v-12.345.678" -> "V-12345678" (what the branch sees) */
+  function normDocid(s) { var d = String(s).replace(/[\s.-]/g, "").toUpperCase(); return /^[VEJGP]/.test(d) ? d[0] + "-" + d.slice(1) : d; }
   function check(n) {
     var key = "";
     if (n === "branch") key = F.branch.value ? "" : "rv.err.branch";
     if (n === "name") key = F.name.value.trim().length >= 2 ? "" : "rv.err.name";
+    if (n === "phone") { var ph = F.phone.value.replace(/\D/g, ""); key = ph.length >= 10 && ph.length <= 13 ? "" : "rv.err.phone"; }
+    if (n === "docid") key = /^[VEJGP]?\d{6,12}$/.test(F.docid.value.replace(/[\s.-]/g, "").toUpperCase()) ? "" : "rv.err.docid";
     if (n === "date") {
       var iso = F.date.value, s = validISO(iso) ? slots(iso) : null;
       key = !validISO(iso) ? "rv.err.date" : iso < now().iso ? "rv.err.past" : s === null ? "rv.err.closed" : !s.length ? "rv.err.noSlots" : "";
@@ -201,12 +214,12 @@
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-    var bad = ["branch", "date", "time", "name"].filter(function (n) { return !check(n); });
+    var bad = ["branch", "date", "time", "name", "phone", "docid"].filter(function (n) { return !check(n); });
     paintErrs();
     if (bad.length) { (bad[0] === "branch" ? F.branch[0] : F[bad[0]]).focus(); return; }
     var b = branchOf(F.branch.value) || { nombre: "", whatsapp: "" }, people = F.people.value, area = F.area.value;
     var msg = I.buildReservationMessage({
-      name: F.name.value.trim(), people: people === "+8" ? I.tEs("res.more8") : people,
+      name: F.name.value.trim(), phone: F.phone.value.trim(), docid: normDocid(F.docid.value), people: people === "+8" ? I.tEs("res.more8") : people,
       dateISO: F.date.value, time: F.time.value, notes: F.notes.value, branch: b.nombre,
       area: area ? I.tEs("rv.area." + area) : ""
     });

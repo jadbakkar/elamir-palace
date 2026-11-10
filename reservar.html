@@ -100,8 +100,7 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
           <input type="radio" name="area" id="aTer" value="terraza"><label for="aTer" class="rv-area"><img src="img/salon/terraza-400.webp" alt="" width="400" height="225" loading="lazy" decoding="async"><b data-i18n="rv.area.terraza">Terraza</b><span data-i18n="rv.area.terrazaD">Al aire libre, bajo toldo</span></label>
           <input type="radio" name="area" id="aBaja" value="baja"><label for="aBaja" class="rv-area"><img src="img/salon/baja-bar-400.webp" alt="" width="400" height="225" loading="lazy" decoding="async"><b data-i18n="rv.area.baja">Planta baja</b><span data-i18n="rv.area.bajaD">Junto a la barra</span></label>
           <input type="radio" name="area" id="aAlta" value="alta"><label for="aAlta" class="rv-area"><img src="img/salon/alta-salon-400.webp" alt="" width="400" height="225" loading="lazy" decoding="async"><b data-i18n="rv.area.alta">Piso superior</b><span data-i18n="rv.area.altaD">El salón grande, ideal para grupos</span></label>
-          <!-- TODO(owner): upper terrace — add img/salon/terraza-superior-400.webp, put it in the <img> below and remove both "hidden" -->
-          <input type="radio" name="area" id="aTerSup" value="terrazaSup" hidden><label for="aTerSup" class="rv-area" hidden><img src="img/salon/terraza-400.webp" alt="" width="400" height="225" loading="lazy" decoding="async"><b data-i18n="rv.area.terrazaSup">Terraza superior</b><span data-i18n="rv.area.terrazaSupD">Al aire libre, en el piso de arriba</span></label>
+          <input type="radio" name="area" id="aTerSup" value="terrazaSup"><label for="aTerSup" class="rv-area"><img src="img/salon/terraza-superior-400.webp" alt="" width="400" height="225" loading="lazy" decoding="async"><b data-i18n="rv.area.terrazaSup">Terraza superior</b><span data-i18n="rv.area.terrazaSupD">Al aire libre, en el piso de arriba</span></label>
           <input type="radio" name="area" id="aAny" value="" checked><label for="aAny" class="rv-area rv-area--any"><i aria-hidden="true"></i><b data-i18n="rv.area.any">Donde haya sitio</b><span data-i18n="rv.area.anyD">La sucursal te ubica</span></label>
         </div>
         <p class="rv-hint" id="areaH" data-i18n="rv.area.hint">Es una preferencia: la sucursal te confirma la zona según disponibilidad.</p>
@@ -120,6 +119,8 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
       </div>
 
       <div class="f"><label for="rName" data-i18n="res.name">Nombre</label><input id="rName" name="name" autocomplete="name" autocapitalize="words" enterkeyhint="next" dir="auto" maxlength="60" aria-describedby="eName"><span class="err" id="eName" role="alert"></span></div>
+      <div class="f"><label for="rPhone" data-i18n="rv.phone">Teléfono (WhatsApp)</label><input id="rPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" enterkeyhint="next" placeholder="0414-0000000" data-i18n-attr="placeholder:f.phonePh" aria-describedby="ePhone"><span class="err" id="ePhone" role="alert"></span></div>
+      <div class="f"><label for="rDocid" data-i18n="rv.docid">C.I / RIF</label><input id="rDocid" name="docid" autocomplete="off" autocapitalize="characters" enterkeyhint="next" maxlength="20" placeholder="V-12345678" data-i18n-attr="placeholder:rv.docidPh" aria-describedby="eDocid"><span class="err" id="eDocid" role="alert"></span></div>
       <div class="f"><label for="rNotes" data-i18n="res.notes">Ocasión o notas (opcional)</label><textarea id="rNotes" name="notes" rows="2" dir="auto" maxlength="240" placeholder="Cumpleaños, mesa con arguile…" data-i18n-attr="placeholder:res.notesPh"></textarea></div>
 
       <button class="btn btn--wine btn-block rv-send" type="submit">
@@ -200,9 +201,9 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
 <!-- page scripts start after the first paint, in this order (same loader as pedir.html) -->
 <script type="late" src="assets/v4/bnav.js?v=f89ce426"></script>
 <script type="late" src="assets/v8/transition.js?v=a218c1a0"></script>
-<script type="late" src="i18n.js?v=36b90919"></script>
+<script type="late" src="i18n.js?v=c5582378"></script>
 <script type="late" src="config.js?v=00856b6c"></script>
-<script type="late" src="assets/reservar/reservar.js?v=9d6ef347"></script>
+<script type="late" src="assets/reservar/reservar.js?v=abd8153f"></script>
 <script type="late" src="assets/chat/chat.js?v=2dfd7742"></script>
 <script>
 (function(d){var done=0;function go(){if(done)return;done=1;d.querySelectorAll("script[type=late]").forEach(function(o){var s=d.createElement("script");s.src=o.src;s.async=false;d.body.appendChild(s)})}

@@ -76,7 +76,7 @@ const MENU = [
   ["Pollo a la canasta",16,"Escalopines empanizados con papas"],["Tenders de pollo crispy",16,"Con salsa rosa o sweet chili y papas",OPT_SALSA_TENDERS],
   ["Suprema de pollo crispy",24,"300 g en salsa blanca con camarones"],["Filet mignon",24,"Lomito con tocineta y salsa de champiñones"],
   ["Cordon bleu de lomito",23,"Lomito relleno de jamón y queso, empanizado, con salsa blanca."],["Cordon bleu de pollo",22,"Pollo relleno de jamón y queso, empanizado, con salsa blanca."],["Centro de lomito a la plancha",20,"300 g"],
-  ["Pollo a la milanesa",19,"Gratinado con mozzarella, parmesano y salsa napoli"],["Pollo al champiñón",20,"Pechuga de pollo en salsa de champiñones."],["Pollo a la plancha",16,"300 g de pechuga"]]],
+  ["Pollo a la milanesa",19,"Gratinado con mozzarella, parmesano y salsa napoli"],["Pollo al champiñón",20,"Pechuga de pollo en salsa de champiñones."],["Pollo a la plancha",16,"300 g de pechuga"],["Plato navideño",15]]],
  ["Pescados y Mariscos","",[
   ["Mero en 2 salsas",22,"Al carbón con salsa de alcaparras y amatriciana"],["Mero a la plancha",24],["Mero al ajillo",24],
   ["Cazuela de mariscos",17],["Dynamite shrimp",21,"Cóctel de camarones con toques asiáticos y papas"],
@@ -151,7 +151,9 @@ const NO_EXTRAS_SANDWICH = ["Fajita","Philadelphia","Tawook","Camarón","Lomito"
 const NO_EXTRAS = ["Fatte","Fatte de berenjena","Arroz libanés con pollo o cordero","Kibbe al yogurt","Plato de shawarma","Medio plato de shawarma",
   "Parrilla El Amir","Parrilla mar y tierra","Parrilla de mariscos","Parrilla de pollo","Parrilla de lomito","Parrilla mixta"];
 /* Lleva 2 contornos a elegir: los de "Carnes y Aves" (salvo los que ya traen su guarnición en la descripción) y los que dicen "2 contornos" */
-const CON_CONTORNOS = (cat, it) => /2 contornos/i.test(it[2] || "") || (cat === "Carnes y Aves" && !/papas|arroz/i.test(it[2] || ""));
+/* platos que no llevan contornos aunque sean de "Carnes y Aves" */
+const SIN_CONTORNOS = ["Plato navideño"];
+const CON_CONTORNOS = (cat, it) => !SIN_CONTORNOS.includes(it[0]) && (/2 contornos/i.test(it[2] || "") || (cat === "Carnes y Aves" && !/papas|arroz/i.test(it[2] || "")));
 /* Adicionales que no se ofrecen en un plato */
 const PROTE_NOMBRES = PROTEINAS.map(k => ADDON[k][0]);
 const YA_LO_TRAE = (cat, it, n) => {
