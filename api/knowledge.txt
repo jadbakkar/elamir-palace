@@ -1,5 +1,5 @@
 EL AMIR PALACE · INFORMACIÓN PARA EL ASISTENTE
-(Archivo generado automáticamente por scripts/build-knowledge.js el 2026-11-08. No editar a mano: editar config.js / menu.js y volver a generar.)
+(Archivo generado automáticamente por scripts/build-knowledge.js el 2026-11-10. No editar a mano: editar config.js / menu.js y volver a generar.)
 
 == RESTAURANTE ==
 Nombre: El Amir Palace (en árabe: قصر الأمير)
@@ -47,7 +47,7 @@ Envases para llevar/delivery: algunos platos suman envases a $1 cada uno (el nú
 También se puede pedir escribiendo directamente al WhatsApp de la sucursal.
 
 == RESERVAS DE MESA ==
-Se piden por WhatsApp a la sucursal (no hay formulario de reservas en la web). La sucursal confirma la reserva.
+En https://www.elamirpalace.com/reservar.html hay un formulario (sucursal, personas, fecha, hora, nombre) que abre WhatsApp con la solicitud lista para enviar a la sucursal. También se puede escribir directo al WhatsApp de la sucursal. La mesa queda reservada solo cuando la sucursal confirma por el chat.
 
 == CARTA (16 secciones, 174 platos) ==
 Secciones (las ÚNICAS que existen): Entradas Árabes · Entradas Mediterráneas · Sopas y Cremas · Ensaladas · Platos Árabes Especiales · Medias Porciones · Shawarmas y Sándwiches · Brochetas y Parrillas · Carnes y Aves · Pescados y Mariscos · Arroces · Pastas · Hamburguesas · Batidos y Yogurt · Bebidas · Licores y Cócteles.

@@ -22,6 +22,7 @@
     { "source": "/img/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800, must-revalidate" }] },
     { "source": "/assets/(v4|v7|v8)/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, must-revalidate" }] },
     { "source": "/assets/pedir/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }] },
+    { "source": "/assets/reservar/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }] },
     { "source": "/(i18n\\.js|i18n\\.css)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600, must-revalidate" }] },
     { "source": "/config.js", "headers": [{ "key": "Cache-Control", "value": "public, max-age=300, must-revalidate" }] },
     { "source": "/(robots\\.txt|sitemap\\.xml)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=3600" }] },

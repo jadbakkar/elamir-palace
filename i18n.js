@@ -360,6 +360,7 @@
     "wa.res.title": "*Reserva · {name}*",
     "wa.res.name": "*Nombre:* {v}",
     "wa.res.branch": "*Sucursal:* {v}",
+    "wa.res.area": "*Zona:* {v}",
     "wa.res.people": "*Personas:* {v}",
     "wa.res.date": "*Fecha:* {v}",
     "wa.res.time": "*Hora:* {v}",
@@ -1533,10 +1534,10 @@
       if (on) btns[i].setAttribute("aria-current", "true"); else btns[i].removeAttribute("aria-current");
     }
   }
-  /* links to the order page carry the language (?lang=en|ar): a guest who lands on /en/ or /ar/
-     has no saved choice yet, and pedir.html would otherwise open in Spanish */
+  /* links to the order and reservation pages carry the language (?lang=en|ar): a guest who lands on /en/ or /ar/
+     has no saved choice yet, and pedir.html / reservar.html would otherwise open in Spanish */
   function syncOrderLinks() {
-    var links = global.document.querySelectorAll('a[href*="pedir.html"]');
+    var links = global.document.querySelectorAll('a[href*="pedir.html"],a[href*="reservar.html"]');
     for (var i = 0; i < links.length; i++) {
       var h = links[i].getAttribute("href"), j = h.indexOf("#"), hash = j < 0 ? "" : h.slice(j);
       var p = (j < 0 ? h : h.slice(0, j)).replace(/([?&])lang=[a-z]{2}(&|$)/, function (m, a, b) { return b ? a : ""; });
@@ -1651,12 +1652,13 @@
     (o.lines || []).forEach(function (l) { L.push(E("wa.order.line", { qty: l.qty, name: wx(l.name), price: M(l.total) })); });
     return L.join("\n");
   };
-  /* r = { name, people:"2".."8"|"Más de 8", dateISO:"2026-10-20", time:"19:30", notes?, lang?, branch? (e.g. "Lechería") } */
+  /* r = { name, people:"2".."8"|"Más de 8", dateISO:"2026-10-20", time:"19:30", notes?, lang?, branch? (e.g. "Lechería"), area? (e.g. "Terraza") } */
   I18N.buildReservationMessage = function (r) {
     var E = I18N.tEs, wx = I18N.wx;
     var d = new Date(r.dateISO + "T12:00").toLocaleDateString("es-VE", { weekday: "long", day: "numeric", month: "long" });
     var L = [E("wa.res.title", { name: (global.CONFIG && global.CONFIG.nombre) || "El Amir Palace" }), ""];
     if (r.branch && wx(r.branch)) L.push(E("wa.res.branch", { v: wx(r.branch) })); /* optional: Spanish branch name */
+    if (r.area && wx(r.area)) L.push(E("wa.res.area", { v: wx(r.area) })); /* optional: Spanish seating area (Terraza, Planta baja…) */
     L.push(E("wa.res.name", { v: wx(r.name) }));
     var cl = clientLangLine(r.lang == null ? I18N.lang : r.lang); if (cl) L.push(cl);
     L.push(E("wa.res.people", { v: r.people }), E("wa.res.date", { v: d }), E("wa.res.time", { v: I18N.time12(r.time, "es") }));

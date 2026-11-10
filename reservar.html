@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="es" dir="ltr" data-i18n-page="reservar">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,interactive-widget=resizes-content">
+<title>Reservar mesa | El Amir Palace Lechería y Puerto La Cruz</title>
+<meta name="description" content="Reserva tu mesa en El Amir Palace, Lechería o Puerto La Cruz. Elige sucursal, fecha y hora; la sucursal te confirma por WhatsApp.">
+<meta name="theme-color" content="#FBF8F3">
+<link rel="canonical" href="https://www.elamirpalace.com/reservar.html">
+<link rel="alternate" hreflang="es" href="https://www.elamirpalace.com/reservar.html">
+<link rel="alternate" hreflang="en" href="https://www.elamirpalace.com/reservar.html?lang=en">
+<link rel="alternate" hreflang="ar" href="https://www.elamirpalace.com/reservar.html?lang=ar">
+<link rel="alternate" hreflang="x-default" href="https://www.elamirpalace.com/reservar.html">
+<link rel="icon" href="img/brand/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="img/brand/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_VE">
+<meta property="og:site_name" content="El Amir Palace">
+<meta property="og:title" content="Reservar mesa | El Amir Palace Lechería y Puerto La Cruz">
+<meta property="og:description" content="Reserva tu mesa en El Amir Palace, Lechería o Puerto La Cruz. Elige sucursal, fecha y hora; la sucursal te confirma por WhatsApp.">
+<meta property="og:url" content="https://www.elamirpalace.com/reservar.html">
+<meta property="og:image" content="https://www.elamirpalace.com/img/brand/og-1200x630.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<script>
+/* language before first paint (same order as I18N.detect: ?lang → saved → es; never the browser language, or it paints a language I18N then undoes) */
+(function(d){var h=d.documentElement,L=["es","en","ar"],l="es";h.classList.add("js");
+try{var m=/[?&]lang=(es|en|ar)(?:&|#|$)/.exec(location.search);if(m)l=m[1];else{var s=localStorage.getItem("amir-lang");if(L.indexOf(s)>-1)l=s}}catch(e){}
+h.lang=l;h.dir=l==="ar"?"rtl":"ltr";if(l!=="es")h.classList.add("i18n-wait");
+if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("data-ar-fonts","");k.href="/assets/fonts/arabic-pedir.css";d.head.appendChild(k)}})(document);
+</script>
+<!-- Latin fonts are self-hosted (assets/v4/tokens.css); Arabic fonts (assets/fonts/) load only for ?lang=ar -->
+<link rel="preload" as="font" type="font/woff2" href="assets/v7/fonts/fraunces-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="assets/v3/fonts/manrope-latin.woff2" crossorigin>
+<!-- same shell as pedir.html (header, intro banner, form fields, footer, bottom nav) + assets/reservar/reservar.css for this page -->
+<link rel="stylesheet" href="assets/v4/tokens.css?v=40353260">
+<link rel="stylesheet" href="assets/v4/pedir.css?v=37e95d12">
+<link rel="stylesheet" href="assets/v4/bnav.css?v=f59b223e">
+<link rel="stylesheet" href="assets/v8/transition.css?v=31015f1d">
+<link rel="stylesheet" href="assets/v4/polish.css?v=185c080d">
+<link rel="stylesheet" href="assets/v7/pedir-v7.css?v=454ffb55">
+<link rel="stylesheet" href="assets/v7/pedir-decor.css?v=faf9c792">
+<link rel="stylesheet" href="assets/v8/pedir-ds.css?v=c3d097f7">
+<link rel="stylesheet" href="assets/reservar/reservar.css?v=ec7fb72a">
+<!-- in <head>, not deferred: its pagereveal listener must exist before the first render (page transition from the homepage) -->
+<script src="assets/v4/polish.js?v=1b1cdac6"></script>
+</head>
+<body>
+<a class="skip" href="#reservar" data-i18n="rv.skip">Saltar al formulario</a>
+<div id="app">
+<header class="hd">
+  <a class="brand" href="./" aria-label="El Amir Palace, inicio" data-i18n-attr="aria-label:nav.homeAria"><img src="img/brand/emblem.svg" alt="" width="30" height="30"><b class="latin">El Amir Palace</b></a>
+  <ul class="nav">
+    <li><a href="./" data-i18n="bnav.home">Inicio</a></li>
+    <li><a href="./#carta" data-i18n="bnav.menu">Carta</a></li>
+    <li><a href="./#sucursales" data-i18n="bnav.branches">Sucursales</a></li>
+  </ul>
+  <div class="hd-r">
+    <div class="lang" role="group" aria-label="Idioma" data-i18n-attr="aria-label:lang.label">
+      <button type="button" data-set-lang="es" lang="es" aria-label="Español" aria-pressed="true">ES</button>
+      <button type="button" data-set-lang="en" lang="en" aria-label="English" aria-pressed="false">EN</button>
+      <button type="button" data-set-lang="ar" lang="ar" aria-label="العربية" aria-pressed="false">ع</button>
+    </div>
+    <a class="icon-btn" data-wa href="https://wa.me/584248060218" target="_blank" rel="noopener" aria-label="Escríbenos por WhatsApp" data-i18n-attr="aria-label:pedir.waTop"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.1-4.7-4.1-4.9-4.3-.1-.2-1.2-1.6-1.2-3 0-1.4.7-2.1 1-2.4.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.6 2.1 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.2 1.3Z"/></svg></a>
+    <a class="btn btn--wine btn--sm hd-order" href="pedir.html" data-i18n="nav.pedir">Pedir</a>
+  </div>
+</header>
+
+<section class="intro rv-intro" aria-labelledby="h1">
+  <div class="cover" aria-hidden="true">
+    <picture>
+      <img src="img/salon/alta-bar-1600.webp" srcset="img/salon/alta-bar-800.webp 800w, img/salon/alta-bar-1600.webp 1600w" sizes="(min-width:1470px) 1320px, 92vw" alt="" width="1600" height="900" fetchpriority="high" decoding="async">
+    </picture>
+  </div>
+  <div class="intro-in">
+    <div>
+      <h1 id="h1" data-i18n="res.title">Reserva tu mesa</h1>
+      <p class="lead" data-i18n="res.lead">Cuéntanos cuándo vienes y cuántos son. Te confirmamos la reserva por WhatsApp.</p>
+    </div>
+  </div>
+</section>
+
+<main id="reservar" class="rv" tabindex="-1">
+  <div class="rv-main">
+    <form class="rv-card" id="resForm" novalidate>
+      <div class="rv-g" id="branchG" role="radiogroup" aria-labelledby="branchL" aria-describedby="eBranch">
+        <p class="rv-lbl" id="branchL" data-i18n="rv.branch">Sucursal</p>
+        <div class="seg">
+          <input type="radio" name="branch" id="bLech" value="lecheria"><label for="bLech">Lechería</label>
+          <input type="radio" name="branch" id="bPlc" value="plc"><label for="bPlc">Puerto La Cruz</label>
+        </div>
+        <p class="err-b" id="eBranch" role="alert"></p>
+      </div>
+
+      <!-- seating area: a preference sent in the WhatsApp message (the branch confirms it) -->
+      <div class="rv-g" role="radiogroup" aria-labelledby="areaL" aria-describedby="areaH">
+        <p class="rv-lbl" id="areaL" data-i18n="rv.area">¿Dónde prefieres sentarte?</p>
+        <div class="rv-areas">
+          <input type="radio" name="area" id="aTer" value="terraza"><label for="aTer" class="rv-area"><img src="img/salon/terraza-400.webp" alt="" width="400" height="225" loading="lazy" decoding="async"><b data-i18n="rv.area.terraza">Terraza</b><span data-i18n="rv.area.terrazaD">Al aire libre, bajo toldo</span></label>
+          <input type="radio" name="area" id="aBaja" value="baja"><label for="aBaja" class="rv-area"><img src="img/salon/baja-bar-400.webp" alt="" width="400" height="225" loading="lazy" decoding="async"><b data-i18n="rv.area.baja">Planta baja</b><span data-i18n="rv.area.bajaD">Junto a la barra</span></label>
+          <input type="radio" name="area" id="aAlta" value="alta"><label for="aAlta" class="rv-area"><img src="img/salon/alta-salon-400.webp" alt="" width="400" height="225" loading="lazy" decoding="async"><b data-i18n="rv.area.alta">Piso superior</b><span data-i18n="rv.area.altaD">El salón grande, ideal para grupos</span></label>
+          <!-- TODO(owner): upper terrace — add img/salon/terraza-superior-400.webp, put it in the <img> below and remove both "hidden" -->
+          <input type="radio" name="area" id="aTerSup" value="terrazaSup" hidden><label for="aTerSup" class="rv-area" hidden><img src="img/salon/terraza-400.webp" alt="" width="400" height="225" loading="lazy" decoding="async"><b data-i18n="rv.area.terrazaSup">Terraza superior</b><span data-i18n="rv.area.terrazaSupD">Al aire libre, en el piso de arriba</span></label>
+          <input type="radio" name="area" id="aAny" value="" checked><label for="aAny" class="rv-area rv-area--any"><i aria-hidden="true"></i><b data-i18n="rv.area.any">Donde haya sitio</b><span data-i18n="rv.area.anyD">La sucursal te ubica</span></label>
+        </div>
+        <p class="rv-hint" id="areaH" data-i18n="rv.area.hint">Es una preferencia: la sucursal te confirma la zona según disponibilidad.</p>
+      </div>
+
+      <div class="rv-row">
+        <div class="f rv-people"><label for="rPeople" data-i18n="res.people">Personas</label>
+          <select id="rPeople" name="people">
+            <option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option>
+            <option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option>
+            <option value="+8" data-i18n="res.more8">Más de 8</option>
+          </select>
+        </div>
+        <div class="f"><label for="rDate" data-i18n="res.date">Fecha</label><input type="date" id="rDate" name="date" aria-describedby="eDate"><span class="err" id="eDate" role="alert"></span></div>
+        <div class="f"><label for="rTime" data-i18n="res.time">Hora</label><select id="rTime" name="time" aria-describedby="eTime"><option value="" data-i18n="rv.timePh">Elige la hora</option></select><span class="err" id="eTime" role="alert"></span></div>
+      </div>
+
+      <div class="f"><label for="rName" data-i18n="res.name">Nombre</label><input id="rName" name="name" autocomplete="name" autocapitalize="words" enterkeyhint="next" dir="auto" maxlength="60" aria-describedby="eName"><span class="err" id="eName" role="alert"></span></div>
+      <div class="f"><label for="rNotes" data-i18n="res.notes">Ocasión o notas (opcional)</label><textarea id="rNotes" name="notes" rows="2" dir="auto" maxlength="240" placeholder="Cumpleaños, mesa con arguile…" data-i18n-attr="placeholder:res.notesPh"></textarea></div>
+
+      <button class="btn btn--wine btn-block rv-send" type="submit">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.1-4.7-4.1-4.9-4.3-.1-.2-1.2-1.6-1.2-3 0-1.4.7-2.1 1-2.4.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.6 2.1 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.2 1.3Z"/></svg>
+        <span data-i18n="res.submit">Reservar por WhatsApp</span>
+      </button>
+      <p class="rv-note" data-i18n="rv.note">Se abrirá WhatsApp con tu solicitud lista. La mesa queda reservada cuando la sucursal te confirma.</p>
+    </form>
+
+    <section class="rv-card rv-done" id="resDone" aria-labelledby="doneT" tabindex="-1" hidden>
+      <span class="rv-ok" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></span>
+      <h2 id="doneT" data-i18n="rv.done.t">Solicitud lista</h2>
+      <p id="doneP"></p>
+      <dl class="rv-sum" id="doneSum"></dl>
+      <p class="rv-note" data-i18n="done.notOpened">¿No se abrió? Usa el botón:</p>
+      <a class="btn btn--wine btn-block" id="doneOpen" href="https://wa.me/584248060218" target="_blank" rel="noopener">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.1-4.7-4.1-4.9-4.3-.1-.2-1.2-1.6-1.2-3 0-1.4.7-2.1 1-2.4.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.6 2.1 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.2 1.3Z"/></svg>
+        <span data-i18n="done.openWa">Abrir WhatsApp</span>
+      </a>
+      <button type="button" class="linkbtn" id="doneEdit" data-i18n="rv.done.edit">Cambiar datos</button>
+    </section>
+  </div>
+
+  <aside class="rv-side" aria-labelledby="howT">
+    <h2 id="howT" data-i18n="rv.how.t">Cómo funciona</h2>
+    <ol class="rv-steps">
+      <li data-i18n="rv.how.1">Elige sucursal, fecha y hora.</li>
+      <li data-i18n="rv.how.2">Envía el mensaje que se abre en WhatsApp.</li>
+      <li data-i18n="rv.how.3">La sucursal te confirma la mesa por el chat.</li>
+    </ol>
+    <div class="rv-group">
+      <h3 data-i18n="rv.group.t">¿Grupo grande o celebración?</h3>
+      <p data-i18n="rv.group.p">Para más de 8 personas o un evento, escribe directo a la sucursal y lo organizamos contigo.</p>
+      <ul>
+        <li><a href="https://wa.me/584248060218" data-br="lecheria" target="_blank" rel="noopener"><b>Lechería</b><span class="num" dir="ltr">0424-806 0218</span></a></li>
+        <li><a href="https://wa.me/584127505025" data-br="plc" target="_blank" rel="noopener"><b>Puerto La Cruz</b><span class="num" dir="ltr">0412-750 5025</span></a></li>
+      </ul>
+    </div>
+  </aside>
+</main>
+
+<footer class="ft" id="contacto">
+  <div class="ft-in">
+    <div class="ft-brand">
+      <i class="ft-mark" aria-hidden="true"></i><b>El Amir Palace</b>
+      <p data-i18n="brand.cuisine">Cocina libanesa y mediterránea</p>
+    </div>
+    <nav aria-labelledby="ft-nav-t"><h2 id="ft-nav-t" data-i18n="footer.explore">Explorar</h2><ul>
+      <li><a href="./" data-i18n="rv.backHome">Volver al inicio</a></li>
+      <li><a href="./#carta" data-i18n="bnav.menu">Carta</a></li>
+      <li><a href="pedir.html" data-i18n="nav.pedir">Pedir</a></li>
+      <li><a href="menu.pdf" data-i18n="rv.menuPdf">Carta en PDF</a></li>
+      <li><a href="./#sucursales" data-i18n="bnav.branches">Sucursales</a></li>
+    </ul></nav>
+    <div><h2 data-i18n="footer.contact">Contacto</h2>
+      <h3>Lechería</h3><ul><li><a class="latin" href="tel:+584248060218" dir="ltr">0424-806 0218</a></li><li><a href="https://wa.me/584248060218" target="_blank" rel="noopener" data-i18n="visit.whatsapp">WhatsApp</a></li></ul>
+      <h3 class="ft-sub">Puerto La Cruz</h3><ul><li><a class="latin" href="tel:+584127505025" dir="ltr">0412-750 5025</a></li><li><a href="https://wa.me/584127505025" target="_blank" rel="noopener" data-i18n="visit.whatsapp">WhatsApp</a></li></ul>
+    </div>
+    <div><h2 data-i18n="footer.hours">Horario</h2><dl id="ftHours" class="ft-hours"><dt>Lunes</dt><dd><span class="num">11:30 am – 12:00 am</span></dd><dt>Martes</dt><dd><span class="num">11:30 am – 12:00 am</span></dd><dt>Miércoles</dt><dd><span class="num">11:30 am – 12:00 am</span></dd><dt>Jueves</dt><dd><span class="num">11:30 am – 12:00 am</span></dd><dt>Viernes</dt><dd><span class="num">11:30 am – 12:00 am</span></dd><dt>Sábado</dt><dd><span class="num">11:30 am – 12:00 am</span></dd><dt>Domingo</dt><dd><span class="num">11:30 am – 12:00 am</span></dd></dl></div>
+  </div>
+  <nav class="ft-bot" aria-label="Pie de página" data-i18n-attr="aria-label:nav.footerAria">
+    <span class="latin">© 2026 El Amir Palace · Lechería · Puerto La Cruz</span>
+    <a class="ft-top" href="#"><span data-i18n="rv.top">Volver arriba</span> <span aria-hidden="true">↑</span></a>
+  </nav>
+</footer>
+</div>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebPage","@id":"https://www.elamirpalace.com/reservar.html#webpage","url":"https://www.elamirpalace.com/reservar.html","name":"Reservar mesa | El Amir Palace Lechería y Puerto La Cruz","inLanguage":"es","isPartOf":{"@type":"WebSite","@id":"https://www.elamirpalace.com/#website","url":"https://www.elamirpalace.com/","name":"El Amir Palace"},"about":{"@id":"https://www.elamirpalace.com/#org"},"breadcrumb":{"@id":"https://www.elamirpalace.com/reservar.html#breadcrumb"}},{"@type":"BreadcrumbList","@id":"https://www.elamirpalace.com/reservar.html#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://www.elamirpalace.com/"},{"@type":"ListItem","position":2,"name":"Reservar mesa","item":"https://www.elamirpalace.com/reservar.html"}]}]}</script>
+
+<nav class="bnav" id="bnav" aria-label="Navegación principal" data-i18n-attr="aria-label:bnav.aria">
+  <a href="index.html#top" data-k="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11l8-7 8 7v9a1 1 0 0 1-1 1h-4v-6h-6v6H5a1 1 0 0 1-1-1z"/></svg><span data-i18n="bnav.home">Inicio</span></a>
+  <a href="index.html#carta" data-k="carta"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5C6.5 4 9.5 4 12 5.5 14.5 4 17.5 4 20 5.5V19c-2.5-1.5-5.5-1.5-8 0-2.5-1.5-5.5-1.5-8 0zM12 5.5V19"/></svg><span data-i18n="bnav.menu">Carta</span></a>
+  <a href="pedir.html" class="bnav-order" data-k="order"><span class="bnav-o"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2.5l2.2 10.5h9.6L19.5 8H6.4M9.5 19.5h.01M16.5 19.5h.01"/></svg></span><span data-i18n="bnav.order">Pedir</span></a>
+  <a href="./#sucursales" data-k="branches"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0C18.5 15.4 12 21 12 21z"/><circle cx="12" cy="10" r="2.4"/></svg><span data-i18n="bnav.branches">Sucursales</span></a>
+  <a href="https://wa.me/584248060218" data-wa target="_blank" rel="noopener" data-k="wa"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 19.5l1.2-3.6A7.8 7.8 0 1 1 8.6 18.6z"/><path d="M9.2 9.3c.2 2.3 2.2 4.4 4.6 4.8l1-1.1 1.6.8c-.2 1-1 1.7-2 1.6-3.2-.3-5.8-2.9-6-6.1 0-1 .7-1.8 1.6-2l.9 1.5z"/></svg><span data-i18n="bnav.wa">WhatsApp</span></a>
+  <i class="bnav-ind" aria-hidden="true"></i>
+</nav>
+<!-- page scripts start after the first paint, in this order (same loader as pedir.html) -->
+<script type="late" src="assets/v4/bnav.js?v=f89ce426"></script>
+<script type="late" src="assets/v8/transition.js?v=a218c1a0"></script>
+<script type="late" src="i18n.js?v=36b90919"></script>
+<script type="late" src="config.js?v=00856b6c"></script>
+<script type="late" src="assets/reservar/reservar.js?v=9d6ef347"></script>
+<script type="late" src="assets/chat/chat.js?v=2dfd7742"></script>
+<script>
+(function(d){var done=0;function go(){if(done)return;done=1;d.querySelectorAll("script[type=late]").forEach(function(o){var s=d.createElement("script");s.src=o.src;s.async=false;d.body.appendChild(s)})}
+/* start once the browser reports the largest paint; Safari has no LCP entries (next frame instead), a hidden tab gets no paint (now), 1.5 s cap either way */
+var lcp=window.PerformanceObserver&&PerformanceObserver.supportedEntryTypes&&PerformanceObserver.supportedEntryTypes.indexOf("largest-contentful-paint")>-1;
+if(d.visibilityState==="hidden")go();else if(lcp)new PerformanceObserver(function(l,o){o.disconnect();setTimeout(go,0)}).observe({type:"largest-contentful-paint",buffered:true});else requestAnimationFrame(function(){setTimeout(go,0)});
+setTimeout(go,1500)})(document);
+</script>
+</body>
+</html>

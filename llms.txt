@@ -21,4 +21,5 @@
 - [Home (English)](https://www.elamirpalace.com/en/)
 - [Home (Arabic)](https://www.elamirpalace.com/ar/)
 - [Full menu with prices and online ordering](https://www.elamirpalace.com/pedir.html)
+- [Table reservations (request form, confirmed by the branch on WhatsApp)](https://www.elamirpalace.com/reservar.html)
 - [Printable menu (PDF)](https://www.elamirpalace.com/menu.pdf)

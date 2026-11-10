@@ -1,0 +1,78 @@
+/* =====================================================================
+   El Amir Palace · reservar.html
+   Loads after the pedir.html layers (tokens, pedir, pedir-v7, pedir-ds) and
+   reuses their header, intro banner, form fields (.f, .seg), buttons, footer
+   and bottom nav. Only what this page adds lives here.
+   ===================================================================== */
+.rv{width:var(--box);margin-inline:auto;padding:var(--s-2) 0 var(--s-12);display:grid;gap:var(--s-8)}
+.rv:focus{outline:none}
+
+/* the form (and the "request ready" panel that replaces it) */
+.rv-card{padding:var(--s-5) var(--s-4) var(--s-6);border:1px solid var(--border);border-radius:var(--r-lg);background:var(--surface);box-shadow:var(--sh-1)}
+.rv-card[hidden]{display:none}
+.rv-card:focus{outline:none}
+.rv-lbl{font-size:13.5px;font-weight:700;margin-bottom:6px}
+/* seating area cards: photo, name, one line; the whole card is the radio's label */
+.rv-g+.rv-g{margin-top:var(--s-6)}
+.rv-areas{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-2)}
+.rv-areas input{position:absolute;opacity:0;width:1px;height:1px}
+.rv-area{position:relative;display:flex;flex-direction:column;gap:2px;height:100%;padding:0 0 var(--s-3);border:1px solid var(--border-2);border-radius:var(--r-md);background:var(--bg);overflow:hidden;cursor:pointer;transition:border-color var(--t-fast) var(--ease-ui),box-shadow var(--t-fast) var(--ease-ui)}
+.rv-area img,.rv-area>i{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;margin-bottom:var(--s-2);background:var(--surface-3)}
+.rv-area--any>i{background:var(--primary-50) url(../../img/brand/star-pattern-cream.svg) center/90px}
+.rv-area b{padding-inline:var(--s-3);font-size:14.5px;line-height:1.3}
+.rv-area span{padding-inline:var(--s-3);font-size:12.5px;line-height:1.4;color:var(--text-2)}
+.rv-area::after{content:"";position:absolute;top:8px;inset-inline-end:8px;width:24px;height:24px;border-radius:50%;background:var(--primary) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12.5l4 4 8-9'/%3E%3C/svg%3E") center/14px no-repeat;box-shadow:0 0 0 2px #fff;opacity:0;transform:scale(.6);transition:opacity var(--t-fast) var(--ease-ui),transform var(--t-fast) var(--ease-ui)}
+.rv-areas input:checked+.rv-area{border-color:var(--primary);box-shadow:0 0 0 1px var(--primary)}
+.rv-areas input:checked+.rv-area::after{opacity:1;transform:none}
+.rv-areas input:focus-visible+.rv-area{outline:2px solid var(--primary);outline-offset:2px}
+.rv-area[hidden]{display:none}
+.rv-hint{margin-top:var(--s-2);font-size:12.5px;line-height:1.45;color:var(--text-3)}
+@media (prefers-reduced-motion:reduce){.rv-area::after{transition:none}}
+.rv-g+.rv-row{margin-top:var(--s-2)}
+.rv-row{display:grid;grid-template-columns:1fr 1fr;gap:0 var(--s-3)}
+.rv-row .f{min-width:0}
+.rv-people{grid-column:1/-1}
+.rv .f input[type=date]{min-width:0;max-width:100%}
+#branchG.bad .seg{box-shadow:0 0 0 1px var(--primary)}
+.rv-send{margin-top:var(--s-6)}
+.rv-note{margin-top:var(--s-3);font-size:13px;line-height:1.5;color:var(--text-2);text-align:center}
+
+.rv-done{text-align:center}
+.rv-ok{display:inline-grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--primary-50);color:var(--primary)}
+.rv-done h2{margin-top:var(--s-3);font:600 26px/1.15 var(--f-display);letter-spacing:-.02em}
+.rv-done>p{margin-top:var(--s-2);color:var(--text-2)}
+.rv-sum{display:grid;grid-template-columns:auto 1fr;margin:var(--s-5) 0 var(--s-4);padding:var(--s-1) var(--s-4);border-radius:var(--r-md);background:var(--bg);text-align:start}
+.rv-sum dt,.rv-sum dd{padding:10px 0;border-bottom:1px solid var(--border);font-size:14.5px}
+.rv-sum dt{padding-inline-end:var(--s-4);color:var(--text-2)}
+.rv-sum dd{font-weight:700;text-align:end}
+.rv-sum dt:last-of-type,.rv-sum dd:last-of-type{border-bottom:0}
+.rv-done .linkbtn{margin-top:var(--s-3)}
+
+/* side column: how it works + direct lines for big groups */
+.rv-side h2{font:600 24px/1.15 var(--f-display);letter-spacing:-.02em}
+.rv-steps{list-style:none;counter-reset:rv;margin-top:var(--s-4);display:grid;gap:var(--s-3)}
+.rv-steps li{counter-increment:rv;display:flex;align-items:flex-start;gap:var(--s-3);font-size:15px;line-height:1.5;padding-top:2px}
+.rv-steps li::before{content:counter(rv);flex:none;display:grid;place-items:center;width:28px;height:28px;margin-top:-3px;border-radius:50%;background:var(--primary-50);color:var(--primary);font:800 13px/1 var(--f-body);font-variant-numeric:lining-nums}
+.rv-group{margin-top:var(--s-8);padding-top:var(--s-6);border-top:1px solid var(--border-2)}
+.rv-group h3{font:700 16px/1.3 var(--f-body)}
+.rv-group p{margin-top:6px;font-size:14.5px;line-height:1.55;color:var(--text-2)}
+.rv-group ul{list-style:none;margin-top:var(--s-4);display:grid;gap:var(--s-2)}
+.rv-group a{display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);min-height:52px;padding:0 var(--s-4);border:1px solid var(--border-2);border-radius:var(--r-md);background:var(--surface);color:var(--text);font-size:14.5px;text-decoration:none;transition:border-color var(--t-fast) var(--ease-ui)}
+.rv-group a:hover,.rv-group a:focus-visible{border-color:var(--primary)}
+.rv-group a span{color:var(--primary);font-weight:700}
+html[lang=ar] :is(.rv-done h2,.rv-side h2){font-family:var(--f-ar);font-weight:700;letter-spacing:0}
+
+/* phone: a shorter banner than the order page, so the form starts on the first screen */
+@media (max-width:859px){
+  .rv-intro .cover{height:clamp(220px,62vw,340px)}
+}
+@media (min-width:600px){
+  .rv-areas{grid-template-columns:repeat(auto-fit,minmax(140px,1fr))}
+  .rv-row{grid-template-columns:.8fr 1.2fr 1fr}
+  .rv-people{grid-column:auto}
+}
+@media (min-width:960px){
+  .rv{grid-template-columns:minmax(0,1.25fr) minmax(300px,400px);gap:clamp(40px,5vw,72px);align-items:start}
+  .rv-card{padding:var(--s-8)}
+  .rv-side{position:sticky;top:calc(var(--hd) + var(--s-6));padding-top:var(--s-2)}
+}

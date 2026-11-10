@@ -57,7 +57,7 @@ if(l==="ar"&&!d.getElementById("i18n-ar-fonts")){var k=d.createElement("link");k
 <link rel="preload" href="../assets/v7/fonts/fraunces-loader.woff2" as="font" type="font/woff2" crossorigin fetchpriority="high">
 <link rel="preload" href="../assets/v7/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="../assets/v7/fonts/allura-mesa.woff2" as="font" type="font/woff2" crossorigin><link rel="preload" href="../assets/fonts/allura-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="../assets/v7/v7.css?v=c6c14221">
+<link rel="stylesheet" href="../assets/v7/v7.css?v=1e4a8287">
 <link rel="stylesheet" href="../assets/v4/bnav.css?v=f59b223e">
 <link rel="stylesheet" href="../assets/v7/motion-x.css?v=8dbff1c9">
 <link rel="stylesheet" href="../assets/v7/decor.css?v=f6b6a0a2">
@@ -419,7 +419,7 @@ var sk=function(){h.classList.add("fr","loader-skip")};["pointerdown","keydown",
     <p class="hero-l" data-hero-in data-i18n="v7.hero.l">مطبخ عائلي في ليتشيريا وبويرتو لا كروز منذ 1997.</p>
     <div class="hero-cta">
       <a class="btn btn--light btn--solid" href="../pedir.html"><span data-i18n="v7.btn.order">اطلب</span><svg class="arw" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
-      <a class="btn btn--ghost" href="#carta"><span data-i18n="v7.btn.menu">تصفّح القائمة</span><svg class="arw" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
+      <a class="btn btn--ghost" href="../reservar.html"><span data-i18n="hero.ctaReserve">احجز طاولة</span><svg class="arw" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
     </div>
   </div>
 </section>
@@ -491,12 +491,13 @@ var sk=function(){h.classList.add("fr","loader-skip")};["pointerdown","keydown",
           <li><b data-i18n="v7.salon.b1">منذ 1997</b><span data-i18n="v7.salon.b1s">فرعان · ليتشيريا وبويرتو لا كروز</span></li>
           <li><b data-i18n="v7.salon.b2">العائلة</b><span data-i18n="v7.salon.b2s">طاولات للمجموعات والاحتفالات</span></li>
         </ul>
+        <a class="btn btn--wine btn--solid salon-cta" href="../reservar.html" data-reveal><span data-i18n="v7.salon.cta">احجز طاولة</span><svg class="arw" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
       </div>
       <ul class="salon-ph">
-        <li class="salon-i salon-i--1" data-reveal style="--i:0"><img src="../img/salon/salon-1-1600.webp" srcset="../img/salon/salon-1-800.webp 800w, ../img/salon/salon-1-1600.webp 1600w" sizes="(min-width:900px) 45vw, 80vw" width="1600" height="900" data-i18n-attr="alt:v7.alt.salon1" alt="صالة El Amir Palace بجدران ذات نقوش ذهبية وطاولات من الرخام الأبيض" loading="lazy" decoding="async" draggable="false"></li>
-        <li class="salon-i salon-i--2" data-reveal style="--i:1"><img src="../img/salon/salon-2-1600.webp" srcset="../img/salon/salon-2-800.webp 800w, ../img/salon/salon-2-1600.webp 1600w" sizes="(min-width:900px) 55vw, 92vw" width="1600" height="900" data-i18n-attr="alt:v7.alt.salon2" alt="طاولات رخامية وكراسٍ ملوّنة بجانب نوافذ الصالة" loading="lazy" decoding="async" draggable="false"></li>
-        <li class="salon-i salon-i--3" data-reveal style="--i:2"><img src="../img/salon/salon-3-1600.webp" srcset="../img/salon/salon-3-800.webp 800w, ../img/salon/salon-3-1600.webp 1600w" sizes="(min-width:900px) 25vw, 40vw" width="1600" height="900" data-i18n-attr="alt:v7.alt.salon3" alt="صالة بأعمدة وطاولات رخامية وكراسٍ رمادية وخضراء وخردلية" loading="lazy" decoding="async" draggable="false"></li>
-        <li class="salon-i salon-i--4" data-reveal style="--i:3"><img src="../img/salon/salon-4-1600.webp" srcset="../img/salon/salon-4-800.webp 800w, ../img/salon/salon-4-1600.webp 1600w" sizes="(min-width:900px) 55vw, 92vw" width="1600" height="900" data-i18n-attr="alt:v7.alt.salon4" alt="منظر للصالة مع طاولات مُعدّة وأرضية من البورسلين" loading="lazy" decoding="async" draggable="false"></li>
+        <li class="salon-i salon-i--1" data-reveal style="--i:0"><img src="../img/salon/alta-salon-1600.webp" srcset="../img/salon/alta-salon-800.webp 800w, ../img/salon/alta-salon-1600.webp 1600w" sizes="(min-width:900px) 45vw, 80vw" width="1600" height="1200" data-i18n-attr="alt:v7.alt.salon1" alt="صالة الطابق العلوي بطاولات من الرخام الأبيض وكراسٍ رمادية وخمرية وخردلية" loading="lazy" decoding="async" draggable="false"></li>
+        <li class="salon-i salon-i--2" data-reveal style="--i:1"><img src="../img/salon/baja-bar-1600.webp" srcset="../img/salon/baja-bar-800.webp 800w, ../img/salon/baja-bar-1600.webp 1600w" sizes="(min-width:900px) 55vw, 92vw" width="1600" height="1066" data-i18n-attr="alt:v7.alt.salon2" alt="الطابق الأرضي مع بار مضاء وطاولات رخامية ونوافذ تطل على التراس" loading="lazy" decoding="async" draggable="false"></li>
+        <li class="salon-i salon-i--3" data-reveal style="--i:2"><img src="../img/salon/terraza-1600.webp" srcset="../img/salon/terraza-800.webp 800w, ../img/salon/terraza-1600.webp 1600w" sizes="(min-width:900px) 25vw, 40vw" width="1600" height="900" data-i18n-attr="alt:v7.alt.salon3" alt="تراس مسقوف بمظلة وطاولات خشبية ونباتات بجانب الشارع" loading="lazy" decoding="async" draggable="false"></li>
+        <li class="salon-i salon-i--4" data-reveal style="--i:3"><img src="../img/salon/alta-lamparas-1600.webp" srcset="../img/salon/alta-lamparas-800.webp 800w, ../img/salon/alta-lamparas-1600.webp 1600w" sizes="(min-width:900px) 55vw, 92vw" width="1600" height="900" data-i18n-attr="alt:v7.alt.salon4" alt="ثريات كروية ذهبية فوق الدرج، وخلفها صالة الطابق العلوي" loading="lazy" decoding="async" draggable="false"></li>
       </ul>
     </div>
   </div>
@@ -718,13 +719,13 @@ var sk=function(){h.classList.add("fr","loader-skip")};["pointerdown","keydown",
 <script src="../assets/v3/vendor/gsap.min.js?v=47da594c" defer></script>
 <script src="../assets/v3/vendor/ScrollTrigger.min.js?v=ba1fa78e" defer></script>
 <script src="../assets/v3/vendor/lenis.min.js?v=cd6dd334" defer></script>
-<script src="../i18n.js?v=338b4d22" defer></script>
+<script src="../i18n.js?v=36b90919" defer></script>
 <script src="../assets/v3/i18n-v3.js?v=f39abd48" defer></script>
-<script src="../assets/v7/i18n-v7.js?v=2c82df2b" defer></script>
-<script src="../assets/v7/v7.js?v=dff8cffd" defer></script>
+<script src="../assets/v7/i18n-v7.js?v=c76be876" defer></script>
+<script src="../assets/v7/v7.js?v=c4bbe600" defer></script>
 <script src="../assets/v7/motion-x.js?v=d160bc51" defer></script>
 <script src="../assets/v4/bnav.js?v=f89ce426" defer></script>
 <script src="../assets/v8/transition.js?v=a218c1a0" defer></script>
-<script src="../assets/chat/chat.js?v=a7e10f0c" defer></script>
+<script src="../assets/chat/chat.js?v=2dfd7742" defer></script>
 </body>
 </html>

@@ -164,7 +164,7 @@ p{text-wrap:pretty}
   .hero-in{padding-bottom:calc(56px + var(--bnav-h,0px))}
   .hero-t{font-size:18vw}
   .hero-cta{width:100%;max-width:360px}
-  .hero-cta .btn{flex:1 1 0;padding:0 16px}
+  .hero-cta .btn{flex:1 1 auto;padding:0 20px} /* sized by their own label, then share the rest: "Reservar mesa" is twice as long as "Pedir" */
 }
 
 /* ---------- 2 · intro ---------- */
@@ -550,6 +550,7 @@ a[href^="tel:"],.q-count,.amt{direction:ltr;unicode-bidi:isolate}
 .salon-facts li{display:flex;flex-direction:column;gap:6px;max-width:16ch}
 .salon-facts b{font:400 clamp(30px,3.6vw,52px)/1 var(--f-display);color:var(--gold)}
 .salon-facts span{font-size:13px;line-height:1.45;opacity:.75}
+.salon-cta{margin-top:clamp(28px,3.4vw,44px)}
 .salon-ph{list-style:none;margin:0;padding:0 14% 20% 0;padding-inline:0 14%;position:relative}
 .salon-ph::before{content:"1997";position:absolute;z-index:2;inset-inline-start:-14px;top:-14px;width:clamp(72px,8vw,104px);aspect-ratio:1;border-radius:50%;display:grid;place-items:center;background:var(--wine);color:var(--gold);font:400 clamp(18px,2vw,26px)/1 var(--f-display);box-shadow:0 12px 28px -12px rgba(31,26,25,.5)}
 .salon-i{margin:0;overflow:hidden;background:var(--shell)}
