@@ -4,6 +4,8 @@
    reuses their header, intro banner, form fields (.f, .seg), buttons, footer
    and bottom nav. Only what this page adds lives here.
    ===================================================================== */
+/* language switch: the active language sits on a dark pill, as on pedir.html (its default pill is white, so the light text vanished) */
+[data-i18n-page=reservar] .lang{--pill-bg:var(--ink)}
 .rv{width:var(--box);margin-inline:auto;padding:var(--s-2) 0 var(--s-12);display:grid;gap:var(--s-8)}
 .rv:focus{outline:none}
 
@@ -26,6 +28,34 @@
 .rv-areas input:checked+.rv-area::after{opacity:1;transform:none}
 .rv-areas input:focus-visible+.rv-area{outline:2px solid var(--primary);outline-offset:2px}
 .rv-area[hidden]{display:none}
+/* table picker: area photo with a numbered dot on each table */
+.rv-tbl[hidden]{display:none}
+.rv-plan{position:relative;border-radius:var(--r-md);overflow:hidden;background:var(--surface-3);line-height:0}
+.rv-plan img{display:block;width:100%;height:auto}
+.rv-swipe{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-radius:var(--r-md)}
+.rv-swipe::-webkit-scrollbar{display:none}
+.rv-slide{flex:0 0 100%;align-self:flex-start;scroll-snap-align:start}
+.rv-dots{position:absolute;inset:0}
+.rv-dot{position:absolute;transform:translate(-50%,-50%);width:26px;height:26px;border-radius:50%;background:#fff;color:var(--primary);border:2px solid var(--primary);font:800 12px/1 var(--f-body);font-variant-numeric:lining-nums;display:grid;place-items:center;padding:0;cursor:pointer;box-shadow:0 2px 6px rgba(17,17,17,.35);transition:background-color var(--t-fast) var(--ease-ui),color var(--t-fast) var(--ease-ui),transform var(--t-fast) var(--ease-ui)}
+.rv-dot::after{content:"";position:absolute;inset:-8px}
+/* far tables: a small pin on the table and a thin line up to the numbered label */
+.rv-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.rv-lines line{stroke:#fff;stroke-width:1.25px;vector-effect:non-scaling-stroke;stroke-linecap:round;filter:drop-shadow(0 0 1.5px rgba(0,0,0,.85))}
+.rv-pin{position:absolute;transform:translate(-50%,-50%);width:9px;height:9px;box-sizing:border-box;border-radius:50%;background:#fff;border:2px solid var(--primary);box-shadow:0 0 0 1px rgba(0,0,0,.35);pointer-events:none;transition:background-color var(--t-fast) var(--ease-ui),transform var(--t-fast) var(--ease-ui)}
+.rv-pin.on{background:var(--primary);transform:translate(-50%,-50%) scale(1.35)}
+.rv-dot:hover{transform:translate(-50%,-50%) scale(1.12)}
+.rv-dot[aria-pressed=true]{background:var(--primary);color:#fff;transform:translate(-50%,-50%) scale(1.18);box-shadow:0 0 0 3px #fff,0 2px 8px rgba(17,17,17,.5)}
+.rv-dot:focus-visible{outline:2px solid #fff;outline-offset:2px;box-shadow:0 0 0 5px var(--primary)}
+.rv-tbl .rv-hint{line-height:1.45}
+.rv-tbl .linkbtn{margin-top:var(--s-1)}
+@media (prefers-reduced-motion:reduce){.rv-dot{transition:none}}
+/* phones: dots half the desktop size so crowded photos stay readable; the ::after keeps a finger-sized tap area */
+@media (max-width:599px){
+  .rv-dot{width:13px;height:13px;border-width:1px;font-size:7px}
+  .rv-dot::after{inset:-9px}
+  .rv-dot[aria-pressed=true]{box-shadow:0 0 0 2px #fff,0 1px 4px rgba(17,17,17,.5)}
+  .rv-pin{width:5px;height:5px;border-width:1px}
+}
 .rv-hint{margin-top:var(--s-2);font-size:12.5px;line-height:1.45;color:var(--text-3)}
 @media (prefers-reduced-motion:reduce){.rv-area::after{transition:none}}
 .rv-g+.rv-row{margin-top:var(--s-2)}
@@ -34,6 +64,42 @@
 .rv-people{grid-column:1/-1}
 .rv .f input[type=date]{min-width:0;max-width:100%}
 #branchG.bad .seg{box-shadow:0 0 0 1px var(--primary)}
+/* the presupuesto "Sí" is locked until the form is complete */
+.rv-quote{margin-top:var(--s-5)}
+.rv-quote .seg input:disabled+label{opacity:.45;cursor:not-allowed}
+/* date field = a button that opens our own calendar (the real value is a hidden input) */
+.rv-datewrap{position:relative}
+.rv-datebtn{display:flex;align-items:center;justify-content:space-between;gap:10px;width:100%;min-height:50px;padding:12px 14px;border:1px solid var(--field);border-radius:var(--r-sm,12px);background:var(--card,#fff);font:inherit;font-size:16px;line-height:1.4;color:var(--ink);text-align:start;cursor:pointer;transition:border-color var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
+.rv-datebtn svg{flex:none;color:var(--primary)}
+.rv-datebtn span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rv-datebtn .ph{color:var(--ink-3)}
+.rv-datebtn:focus-visible,.rv-datebtn[aria-expanded=true]{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--wine-ring)}
+.f.bad .rv-datebtn{border-color:var(--primary);background-color:#FFFBFA}
+.f.shake .rv-datebtn{animation:shake 320ms var(--ease-out)}
+.rv-cal{position:absolute;z-index:40;inset-inline-start:0;top:calc(100% + 6px);width:min(312px,calc(100vw - 32px));padding:14px;border:1px solid var(--border-2);border-radius:18px;background:var(--card,#fff);box-shadow:0 18px 44px rgba(17,17,17,.2),0 2px 6px rgba(17,17,17,.08);direction:ltr;animation:rv-cal-in 160ms var(--ease-out)}
+.rv-cal[hidden]{display:none}
+@keyframes rv-cal-in{from{opacity:0;transform:translateY(-6px) scale(.98)}}
+.rv-cal-h{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:10px}
+.rv-cal-h b{flex:1;text-align:center;font:700 15px/1.2 var(--f-body);color:var(--ink)}
+.rv-cal-h b::first-letter{text-transform:uppercase}
+.rv-cal-nav{display:grid;place-items:center;width:36px;height:36px;padding:0;border:1px solid var(--border-2);border-radius:50%;background:transparent;color:var(--primary);cursor:pointer;transition:background-color var(--t-fast) var(--ease-ui),border-color var(--t-fast) var(--ease-ui)}
+.rv-cal-nav:hover:not(:disabled){background:var(--wine-tint);border-color:var(--primary)}
+.rv-cal-nav:disabled{opacity:.3;cursor:not-allowed}
+.rv-cal-nav:focus-visible,.rv-day:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.rv-cal-w,.rv-cal-g{display:grid;grid-template-columns:repeat(7,1fr);gap:2px}
+.rv-cal-g i{aspect-ratio:1}
+.rv-cal-w span{padding:4px 0;text-align:center;font:700 11px/1 var(--f-body);letter-spacing:.04em;text-transform:uppercase;color:var(--text-3)}
+.rv-day{display:grid;place-items:center;aspect-ratio:1;padding:0;border:1px solid transparent;border-radius:50%;background:transparent;font:600 14px/1 var(--f-body);font-variant-numeric:lining-nums;color:var(--ink);cursor:pointer;transition:background-color var(--t-fast) var(--ease-ui),color var(--t-fast) var(--ease-ui)}
+.rv-day:hover:not(:disabled){background:var(--wine-tint)}
+.rv-day.today{border-color:var(--gold,var(--primary))}
+.rv-day.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+.rv-day:disabled{color:var(--ink-3);opacity:.38;cursor:not-allowed}
+.rv-day.closed:disabled{text-decoration:line-through}
+@media (max-width:599px){.rv-cal{position:fixed;inset-inline:16px;top:auto;bottom:calc(92px + env(safe-area-inset-bottom,0px));width:auto;max-width:360px;margin-inline:auto;z-index:60}}
+@media (prefers-reduced-motion:reduce){.rv-cal{animation:none}.rv-datebtn,.rv-cal-nav,.rv-day{transition:none}.f.shake .rv-datebtn{animation:none}}
+/* a missing field: the order page's shake (@keyframes shake + .f.shake live in assets/v4/polish.css); only the branch choice needs its own selector */
+#branchG.shake .seg{animation:shake 320ms var(--ease-out)}
+@media (prefers-reduced-motion:reduce){#branchG.shake .seg{animation:none}}
 .rv-send{margin-top:var(--s-6)}
 .rv-note{margin-top:var(--s-3);font-size:13px;line-height:1.5;color:var(--text-2);text-align:center}
 

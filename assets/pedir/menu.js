@@ -71,12 +71,13 @@ const MENU = [
   ["Parrilla El Amir",26,"Pechuga, churrasco de lomito, 2 ruedas de kafta, makanek y papas"],
   ["Parrilla mar y tierra",26,"Parrilla de carnes y mariscos."],["Parrilla de mariscos",26,"Parrilla con mariscos variados."],["Parrilla de pollo",20,"Parrilla con pollo.",null,EXTRA_SIDES],["Parrilla de lomito",24,"Parrilla con lomito."],["Parrilla mixta",24,"Parrilla con pollo y lomito."]]],
  ["Carnes y Aves","Acompañados con 2 contornos: papas fritas, bravas, rústicas, puré, papas al vapor, vegetales al vapor, ensalada mixta o arroz",[
+  ["Plato navideño",15],
   ["Pollo a la brasa El Amir",34,"Con chorizos, pimentones asados, papas, ensalada rallada y arroz especial"],
   ["Envoltini de pollo",20,"Relleno de espinaca, pimentón y mozzarella con salsa de ajo porro"],["Pollo a la brasa",17,"300 g de pechuga deshuesada"],
   ["Pollo a la canasta",16,"Escalopines empanizados con papas"],["Tenders de pollo crispy",16,"Con salsa rosa o sweet chili y papas",OPT_SALSA_TENDERS],
   ["Suprema de pollo crispy",24,"300 g en salsa blanca con camarones"],["Filet mignon",24,"Lomito con tocineta y salsa de champiñones"],
   ["Cordon bleu de lomito",23,"Lomito relleno de jamón y queso, empanizado, con salsa blanca."],["Cordon bleu de pollo",22,"Pollo relleno de jamón y queso, empanizado, con salsa blanca."],["Centro de lomito a la plancha",20,"300 g"],
-  ["Pollo a la milanesa",19,"Gratinado con mozzarella, parmesano y salsa napoli"],["Pollo al champiñón",20,"Pechuga de pollo en salsa de champiñones."],["Pollo a la plancha",16,"300 g de pechuga"],["Plato navideño",15]]],
+  ["Pollo a la milanesa",19,"Gratinado con mozzarella, parmesano y salsa napoli"],["Pollo al champiñón",20,"Pechuga de pollo en salsa de champiñones."],["Pollo a la plancha",16,"300 g de pechuga"]]],
  ["Pescados y Mariscos","",[
   ["Mero en 2 salsas",22,"Al carbón con salsa de alcaparras y amatriciana"],["Mero a la plancha",24],["Mero al ajillo",24],
   ["Cazuela de mariscos",17],["Dynamite shrimp",21,"Cóctel de camarones con toques asiáticos y papas"],
@@ -207,6 +208,7 @@ const PHOTOS_OFF = {
   "shawarmas-y-sandwiches--shawarma": "img/photos/shawarma-wrap-640",
   "brochetas-y-parrillas--brochetas-el-amir": "img/brochetas-el-amir-480",
   "brochetas-y-parrillas--parrilla-mixta": "img/photos/parrilla-mixta-640",
+  "carnes-y-aves--plato-navideno": "img/plato-navideno-480",
   "carnes-y-aves--pollo-a-la-brasa-el-amir": "img/pollo-brasa-el-amir-480",
   "pescados-y-mariscos--mero-en-2-salsas": "img/mero-2-salsas-480",
   "pescados-y-mariscos--dynamite-shrimp": "img/photos/dynamite-shrimp-640",

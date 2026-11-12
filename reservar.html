@@ -42,7 +42,7 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
 <link rel="stylesheet" href="assets/v7/pedir-v7.css?v=454ffb55">
 <link rel="stylesheet" href="assets/v7/pedir-decor.css?v=faf9c792">
 <link rel="stylesheet" href="assets/v8/pedir-ds.css?v=c3d097f7">
-<link rel="stylesheet" href="assets/reservar/reservar.css?v=ec7fb72a">
+<link rel="stylesheet" href="assets/reservar/reservar.css?v=ad4644fc">
 <!-- in <head>, not deferred: its pagereveal listener must exist before the first render (page transition from the homepage) -->
 <script src="assets/v4/polish.js?v=1b1cdac6"></script>
 </head>
@@ -87,23 +87,31 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
       <div class="rv-g" id="branchG" role="radiogroup" aria-labelledby="branchL" aria-describedby="eBranch">
         <p class="rv-lbl" id="branchL" data-i18n="rv.branch">Sucursal</p>
         <div class="seg">
-          <input type="radio" name="branch" id="bLech" value="lecheria"><label for="bLech">Lechería</label>
+          <input type="radio" name="branch" id="bLech" value="lecheria" checked><label for="bLech">Lechería</label>
           <input type="radio" name="branch" id="bPlc" value="plc"><label for="bPlc">Puerto La Cruz</label>
         </div>
         <p class="err-b" id="eBranch" role="alert"></p>
       </div>
 
       <!-- seating area: a preference sent in the WhatsApp message (the branch confirms it) -->
-      <div class="rv-g" role="radiogroup" aria-labelledby="areaL" aria-describedby="areaH">
+      <div class="rv-g" id="areaG" role="radiogroup" aria-labelledby="areaL" aria-describedby="areaH">
         <p class="rv-lbl" id="areaL" data-i18n="rv.area">¿Dónde prefieres sentarte?</p>
         <div class="rv-areas">
           <input type="radio" name="area" id="aTer" value="terraza"><label for="aTer" class="rv-area"><img src="img/salon/terraza-400.webp" alt="" width="400" height="225" loading="lazy" decoding="async"><b data-i18n="rv.area.terraza">Terraza</b><span data-i18n="rv.area.terrazaD">Al aire libre, bajo toldo</span></label>
-          <input type="radio" name="area" id="aBaja" value="baja"><label for="aBaja" class="rv-area"><img src="img/salon/baja-bar-400.webp" alt="" width="400" height="225" loading="lazy" decoding="async"><b data-i18n="rv.area.baja">Planta baja</b><span data-i18n="rv.area.bajaD">Junto a la barra</span></label>
-          <input type="radio" name="area" id="aAlta" value="alta"><label for="aAlta" class="rv-area"><img src="img/salon/alta-salon-400.webp" alt="" width="400" height="225" loading="lazy" decoding="async"><b data-i18n="rv.area.alta">Piso superior</b><span data-i18n="rv.area.altaD">El salón grande, ideal para grupos</span></label>
+          <input type="radio" name="area" id="aBaja" value="baja"><label for="aBaja" class="rv-area"><img src="img/salon/baja-crop-400.webp" alt="" width="400" height="225" loading="lazy" decoding="async"><b data-i18n="rv.area.baja">Planta baja</b><span data-i18n="rv.area.bajaD">Junto a la barra</span></label>
+          <input type="radio" name="area" id="aAlta" value="alta"><label for="aAlta" class="rv-area"><img src="img/salon/alta-pano-400.webp" alt="" width="400" height="225" loading="lazy" decoding="async"><b data-i18n="rv.area.alta">Piso superior</b><span data-i18n="rv.area.altaD">El salón grande, ideal para grupos</span></label>
           <input type="radio" name="area" id="aTerSup" value="terrazaSup"><label for="aTerSup" class="rv-area"><img src="img/salon/terraza-superior-400.webp" alt="" width="400" height="225" loading="lazy" decoding="async"><b data-i18n="rv.area.terrazaSup">Terraza superior</b><span data-i18n="rv.area.terrazaSupD">Al aire libre, en el piso de arriba</span></label>
           <input type="radio" name="area" id="aAny" value="" checked><label for="aAny" class="rv-area rv-area--any"><i aria-hidden="true"></i><b data-i18n="rv.area.any">Donde haya sitio</b><span data-i18n="rv.area.anyD">La sucursal te ubica</span></label>
         </div>
         <p class="rv-hint" id="areaH" data-i18n="rv.area.hint">Es una preferencia: la sucursal te confirma la zona según disponibilidad.</p>
+      </div>
+
+      <!-- table picker: the chosen area's photos (swipe sideways) with the restaurant's table numbers on them; filled by reservar.js from assets/reservar/tables.json -->
+      <div class="rv-g rv-tbl" id="tableG" hidden aria-labelledby="tableL">
+        <p class="rv-lbl" id="tableL" data-i18n="rv.table">Elige tu mesa (opcional)</p>
+        <div class="rv-swipe" id="planSwipe" dir="ltr"></div>
+        <p class="rv-hint" id="tableH" role="status" aria-live="polite"></p>
+        <button type="button" class="linkbtn" id="tableClear" data-i18n="rv.table.clear" hidden>Quitar mesa</button>
       </div>
 
       <div class="rv-row">
@@ -114,18 +122,36 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
             <option value="+8" data-i18n="res.more8">Más de 8</option>
           </select>
         </div>
-        <div class="f"><label for="rDate" data-i18n="res.date">Fecha</label><input type="date" id="rDate" name="date" aria-describedby="eDate"><span class="err" id="eDate" role="alert"></span></div>
-        <div class="f"><label for="rTime" data-i18n="res.time">Hora</label><select id="rTime" name="time" aria-describedby="eTime"><option value="" data-i18n="rv.timePh">Elige la hora</option></select><span class="err" id="eTime" role="alert"></span></div>
+        <div class="f"><label for="rDateBtn" data-i18n="res.date">Fecha</label>
+          <!-- our own calendar (reservar.js): the real value is the hidden ISO date, so everything else reads it as before -->
+          <input type="hidden" id="rDate" name="date">
+          <div class="rv-datewrap">
+            <button type="button" class="rv-datebtn" id="rDateBtn" aria-haspopup="dialog" aria-expanded="false" aria-controls="rCal" aria-describedby="eDate"><span id="rDateTxt"></span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></button>
+            <div class="rv-cal" id="rCal" role="dialog" aria-modal="false" hidden></div>
+          </div>
+          <span class="err" id="eDate" role="alert"></span></div>
+        <div class="f"><label for="rTime" data-i18n="res.time">Hora</label><select id="rTime" name="time" aria-describedby="eTime"><option value="" data-i18n="rv.timePh" disabled hidden selected>Elige la hora</option></select><span class="err" id="eTime" role="alert"></span></div>
       </div>
 
+      <div class="f"><label for="rHours" data-i18n="rv.hours">¿Cuánto tiempo?</label><select id="rHours" name="hours" aria-describedby="eHours"></select><span class="err" id="eHours" role="alert"></span></div>
       <div class="f"><label for="rName" data-i18n="res.name">Nombre</label><input id="rName" name="name" autocomplete="name" autocapitalize="words" enterkeyhint="next" dir="auto" maxlength="60" aria-describedby="eName"><span class="err" id="eName" role="alert"></span></div>
       <div class="f"><label for="rPhone" data-i18n="rv.phone">Teléfono (WhatsApp)</label><input id="rPhone" name="phone" type="tel" autocomplete="tel" inputmode="tel" enterkeyhint="next" placeholder="0414-0000000" data-i18n-attr="placeholder:f.phonePh" aria-describedby="ePhone"><span class="err" id="ePhone" role="alert"></span></div>
       <div class="f"><label for="rDocid" data-i18n="rv.docid">C.I / RIF</label><input id="rDocid" name="docid" autocomplete="off" autocapitalize="characters" enterkeyhint="next" maxlength="20" placeholder="V-12345678" data-i18n-attr="placeholder:rv.docidPh" aria-describedby="eDocid"><span class="err" id="eDocid" role="alert"></span></div>
-      <div class="f"><label for="rNotes" data-i18n="res.notes">Ocasión o notas (opcional)</label><textarea id="rNotes" name="notes" rows="2" dir="auto" maxlength="240" placeholder="Cumpleaños, mesa con arguile…" data-i18n-attr="placeholder:res.notesPh"></textarea></div>
+      <div class="f"><label for="rNotes" data-i18n="res.notes">Ocasión o notas</label><textarea id="rNotes" name="notes" rows="2" dir="auto" maxlength="240" required aria-describedby="eNotes" placeholder="Cumpleaños, mesa con arguile…" data-i18n-attr="placeholder:res.notesPh"></textarea><span class="err" id="eNotes" role="alert"></span></div>
+
+      <!-- presupuesto: "No" (default) = a normal reservation. "Sí" is locked until every field above is valid; picking it IS the submit:
+           reservar.js saves the data (sessionStorage amir-presupuesto) and opens the menu, pedir.js sends reservation + order to WhatsApp -->
+      <div class="rv-g rv-quote" role="radiogroup" aria-labelledby="quoteL" aria-describedby="quoteH">
+        <p class="rv-lbl" id="quoteL" data-i18n="rv.quote">¿Quieres un presupuesto?</p>
+        <div class="seg">
+          <input type="radio" name="quote" id="qNo" value="no" checked><label for="qNo" data-i18n="rv.quote.no">No</label>
+          <input type="radio" name="quote" id="qYes" value="yes" disabled><label for="qYes" data-i18n="rv.quote.yes">Sí</label>
+        </div>
+        <p class="rv-hint" id="quoteH" data-i18n="rv.quote.lock">Completa todos los datos para poder pedir un presupuesto.</p>
+      </div>
 
       <button class="btn btn--wine btn-block rv-send" type="submit">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.4-.7-2.9-1.1-4.7-4.1-4.9-4.3-.1-.2-1.2-1.6-1.2-3 0-1.4.7-2.1 1-2.4.3-.3.6-.3.8-.3h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.6 2.1 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.7-.2 1.3Z"/></svg>
-        <span data-i18n="res.submit">Reservar por WhatsApp</span>
+        <span data-i18n="res.submit">Reservar</span>
       </button>
       <p class="rv-note" data-i18n="rv.note">Se abrirá WhatsApp con tu solicitud lista. La mesa queda reservada cuando la sucursal te confirma.</p>
     </form>
@@ -201,9 +227,9 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
 <!-- page scripts start after the first paint, in this order (same loader as pedir.html) -->
 <script type="late" src="assets/v4/bnav.js?v=f89ce426"></script>
 <script type="late" src="assets/v8/transition.js?v=a218c1a0"></script>
-<script type="late" src="i18n.js?v=c5582378"></script>
+<script type="late" src="i18n.js?v=b602b8d2"></script>
 <script type="late" src="config.js?v=00856b6c"></script>
-<script type="late" src="assets/reservar/reservar.js?v=abd8153f"></script>
+<script type="late" src="assets/reservar/reservar.js?v=1e378050"></script>
 <script type="late" src="assets/chat/chat.js?v=2dfd7742"></script>
 <script>
 (function(d){var done=0;function go(){if(done)return;done=1;d.querySelectorAll("script[type=late]").forEach(function(o){var s=d.createElement("script");s.src=o.src;s.async=false;d.body.appendChild(s)})}

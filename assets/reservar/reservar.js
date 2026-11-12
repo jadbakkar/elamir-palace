@@ -17,7 +17,7 @@
   var STEP = 30;          /* minutes between the times offered */
   var BEFORE_CLOSE = 60;  /* last time offered = closing time minus this */
   var LEAD = 30;          /* for today: earliest time offered = now plus this */
-  var MAX_DAYS = 90;      /* how far ahead the calendar goes */
+  var LAST_DATE = "2028-12-31"; /* the last day the calendar offers */
 
   /* ---------- page strings (the form labels themselves are the "res.*" keys in i18n.js) ---------- */
   var RV = {
@@ -34,9 +34,18 @@
       "rv.err.docid": "Escribe tu C.I o RIF (ej. V-12345678 o J-12345678-9).",
       "rv.area.terrazaSup": "Terraza superior", "rv.area.terrazaSupD": "Al aire libre, en el piso de arriba",
       "rv.area.any": "Donde haya sitio", "rv.area.anyD": "La sucursal te ubica",
+      "rv.hours": "¿Cuánto tiempo?", "rv.min": "min",
+      "rv.datePh": "Elige la fecha", "rv.cal.label": "Elige la fecha", "rv.cal.prev": "Mes anterior", "rv.cal.next": "Mes siguiente",
+      "rv.cal.closed": "Cerrado", "rv.cal.noTimes": "Sin horas disponibles hoy",
+      "rv.quote": "¿Quieres un presupuesto?", "rv.quote.no": "No", "rv.quote.yes": "Sí",
+      "rv.quote.hint": "Si dices sí, te llevamos al menú con tus datos guardados y tu pedido se envía por WhatsApp junto con tu reserva.",
+      "rv.quote.lock": "Completa todos los datos para poder pedir un presupuesto.",
+      "rv.quote.fail": "No pudimos guardar tus datos en este navegador. Usa el botón Reservar.",
+      "rv.table": "Elige tu mesa (opcional)", "rv.table.hint": "Toca el número de una mesa en la foto. Es una preferencia: la sucursal te confirma la mesa.",
+      "rv.table.sel": "Mesa {n} elegida. La sucursal te confirma si está libre.", "rv.table.clear": "Quitar mesa", "rv.table.aria": "Mesa {n}", "rv.table.row": "Mesa",
       "rv.area.hint": "Es una preferencia: la sucursal te confirma la zona según disponibilidad.",
       "rv.note": "Se abrirá WhatsApp con tu solicitud lista. La mesa queda reservada cuando la sucursal te confirma.",
-      "rv.err.branch": "Elige una sucursal.", "rv.err.name": "Escribe tu nombre.",
+      "rv.err.branch": "Elige una sucursal.", "rv.err.name": "Escribe tu nombre.", "rv.err.notes": "Escribe la ocasión o una nota para la mesa.",
       "rv.err.date": "Elige una fecha.", "rv.err.past": "Esa fecha ya pasó.",
       "rv.err.closed": "Ese día estamos cerrados. Elige otra fecha.",
       "rv.err.noSlots": "Hoy ya no quedan horas para reservar. Elige otra fecha.",
@@ -62,9 +71,18 @@
       "rv.err.docid": "Enter your C.I or RIF (e.g. V-12345678 or J-12345678-9).",
       "rv.area.terrazaSup": "Upper terrace", "rv.area.terrazaSupD": "Outdoors, upstairs",
       "rv.area.any": "Wherever is free", "rv.area.anyD": "The restaurant seats you",
+      "rv.hours": "How long will you stay?", "rv.min": "min",
+      "rv.datePh": "Choose a date", "rv.cal.label": "Choose a date", "rv.cal.prev": "Previous month", "rv.cal.next": "Next month",
+      "rv.cal.closed": "Closed", "rv.cal.noTimes": "No times left today",
+      "rv.quote": "Would you like a quote?", "rv.quote.no": "No", "rv.quote.yes": "Yes",
+      "rv.quote.hint": "If you say yes, we take you to the menu with your details saved, and your order goes to WhatsApp together with your booking.",
+      "rv.quote.lock": "Fill in all the details to ask for a quote.",
+      "rv.quote.fail": "We couldn't save your details in this browser. Use the Book button.",
+      "rv.table": "Choose your table (optional)", "rv.table.hint": "Tap a table number on the photo. It's a preference: the restaurant confirms your table.",
+      "rv.table.sel": "Table {n} selected. The restaurant confirms if it's free.", "rv.table.clear": "Clear table", "rv.table.aria": "Table {n}", "rv.table.row": "Table",
       "rv.area.hint": "This is a preference: the restaurant confirms the area depending on availability.",
       "rv.note": "WhatsApp will open with your request ready to send. Your table is booked once the restaurant confirms.",
-      "rv.err.branch": "Choose a location.", "rv.err.name": "Enter your name.",
+      "rv.err.branch": "Choose a location.", "rv.err.name": "Enter your name.", "rv.err.notes": "Enter the occasion or a note for the table.",
       "rv.err.date": "Choose a date.", "rv.err.past": "That date has already passed.",
       "rv.err.closed": "We are closed that day. Choose another date.",
       "rv.err.noSlots": "There are no times left to book today. Choose another date.",
@@ -90,9 +108,18 @@
       "rv.err.docid": "اكتب رقم هويتك C.I أو RIF (مثال: V-12345678 أو J-12345678-9).",
       "rv.area.terrazaSup": "التراس العلوي", "rv.area.terrazaSupD": "في الهواء الطلق في الطابق العلوي",
       "rv.area.any": "أي مكان متاح", "rv.area.anyD": "يختار لك الفرع المكان",
+      "rv.hours": "كم المدة؟", "rv.min": "د",
+      "rv.datePh": "اختر التاريخ", "rv.cal.label": "اختر التاريخ", "rv.cal.prev": "الشهر السابق", "rv.cal.next": "الشهر التالي",
+      "rv.cal.closed": "مغلق", "rv.cal.noTimes": "لا توجد أوقات متاحة اليوم",
+      "rv.quote": "هل تريد عرض سعر؟", "rv.quote.no": "لا", "rv.quote.yes": "نعم",
+      "rv.quote.hint": "إذا اخترت نعم ننقلك إلى القائمة مع حفظ بياناتك، ويُرسل طلبك عبر واتساب مع حجزك.",
+      "rv.quote.lock": "أكمل جميع البيانات لتتمكن من طلب عرض سعر.",
+      "rv.quote.fail": "تعذّر حفظ بياناتك في هذا المتصفح. استخدم زر احجز.",
+      "rv.table": "اختر طاولتك (اختياري)", "rv.table.hint": "اضغط على رقم طاولة في الصورة. هذا تفضيل فقط: يؤكد لك الفرع الطاولة.",
+      "rv.table.sel": "تم اختيار الطاولة {n}. يؤكد لك الفرع إن كانت متاحة.", "rv.table.clear": "إلغاء الطاولة", "rv.table.aria": "الطاولة {n}", "rv.table.row": "الطاولة",
       "rv.area.hint": "هذا تفضيل فقط: يؤكد لك الفرع المكان حسب التوفر.",
       "rv.note": "سيفتح واتساب وطلبك جاهز للإرسال. يُعتبر الحجز مؤكداً عندما يؤكده الفرع.",
-      "rv.err.branch": "اختر الفرع.", "rv.err.name": "اكتب اسمك.",
+      "rv.err.branch": "اختر الفرع.", "rv.err.name": "اكتب اسمك.", "rv.err.notes": "اكتب المناسبة أو ملاحظة للطاولة.",
       "rv.err.date": "اختر التاريخ.", "rv.err.past": "هذا التاريخ قد مضى.",
       "rv.err.closed": "نحن مغلقون في ذلك اليوم. اختر تاريخاً آخر.",
       "rv.err.noSlots": "لم تعد هناك أوقات متاحة للحجز اليوم. اختر تاريخاً آخر.",
@@ -139,7 +166,9 @@
   function fillTimes() {
     var sel = F.time, keep = sel.value, iso = F.date.value, list = validISO(iso) ? slots(iso) || [] : [];
     sel.textContent = "";
-    var first = doc.createElement("option"); first.value = ""; first.textContent = I.t("rv.timePh"); sel.appendChild(first);
+    var first = doc.createElement("option"); first.value = ""; first.textContent = I.t("rv.timePh");
+    first.disabled = true; first.hidden = true; first.selected = true; /* a hint, not a time: it shows until a time is picked but isn't in the list */
+    sel.appendChild(first);
     list.forEach(function (v) { var o = doc.createElement("option"); o.value = v; o.textContent = I.time12(v); sel.appendChild(o); });
     sel.value = list.indexOf(keep) > -1 ? keep : "";
   }
@@ -147,8 +176,8 @@
   /* ---------- errors (kept as keys, so they follow a language switch) ---------- */
   var errs = {};
   function paintErrs() {
-    ["date", "time", "name", "phone", "docid"].forEach(function (n) {
-      var el = F[n], f = el.closest(".f"), key = errs[n] || "";
+    ["date", "time", "name", "phone", "docid", "notes"].forEach(function (n) {
+      var el = n === "date" ? calBtn : F[n], f = el.closest(".f"), key = errs[n] || "";
       f.classList.toggle("bad", !!key);
       f.querySelector(".err").textContent = key ? I.t(key) : "";
       if (key) el.setAttribute("aria-invalid", "true"); else el.removeAttribute("aria-invalid");
@@ -162,6 +191,7 @@
     var key = "";
     if (n === "branch") key = F.branch.value ? "" : "rv.err.branch";
     if (n === "name") key = F.name.value.trim().length >= 2 ? "" : "rv.err.name";
+    if (n === "notes") key = F.notes.value.trim() ? "" : "rv.err.notes";
     if (n === "phone") { var ph = F.phone.value.replace(/\D/g, ""); key = ph.length >= 10 && ph.length <= 13 ? "" : "rv.err.phone"; }
     if (n === "docid") key = /^[VEJGP]?\d{6,12}$/.test(F.docid.value.replace(/[\s.-]/g, "").toUpperCase()) ? "" : "rv.err.docid";
     if (n === "date") {
@@ -171,6 +201,94 @@
     if (n === "time") key = errs.date ? "" : F.time.value ? "" : "rv.err.time"; /* a bad date already explains the empty list */
     errs[n] = key;
     return !key;
+  }
+
+  /* ---------- table picker: the chosen area's photos (swiped sideways) with a numbered dot on each table ----------
+     The table positions and numbers live in assets/reservar/tables.json (edit them with scripts/table-editor.html:
+     pick an area and a photo, click the photo to add a table, drag to move, set the number, save). Each area is a
+     list of photos, {"img", "h", "dots"}; the same table can appear on several photos of one area, with the same number.
+     If the file can't be loaded the picker simply stays hidden and the form still works.
+       [number, x%, y%]                   near table: the numbered dot sits on the table
+       [number, x%, y%, labelX%, labelY%]  far table: a small pin sits on the table and a thin line runs up to the
+                                          numbered label in the empty space above it */
+  var PLANS = {};
+  var plansReady = fetch("assets/reservar/tables.json")
+    .then(function (r) { return r.ok ? r.json() : {}; })
+    .then(function (j) { PLANS = j || {}; })
+    .catch(function () { PLANS = {}; });
+  var table = "";
+  function paintTable() {
+    $("#tableH").textContent = table ? I.t("rv.table.sel", { n: table }) : I.t("rv.table.hint");
+    $("#tableClear").hidden = !table;
+    [].forEach.call(doc.querySelectorAll(".rv-pin"), function (p) { p.classList.toggle("on", p.getAttribute("data-n") === table); });
+    [].forEach.call(doc.querySelectorAll(".rv-dot"), function (b) {
+      b.setAttribute("aria-pressed", b.textContent === table ? "true" : "false");
+      b.setAttribute("aria-label", I.t("rv.table.aria", { n: b.textContent }));
+    });
+  }
+  /* one floor = one row of photos the guest swipes sideways; each photo carries its own dots */
+  function renderPlan() {
+    var g = $("#tableG"), photos = PLANS[F.area.value], row = $("#planSwipe");
+    table = ""; row.textContent = "";
+    if (!photos || !photos.length || F.branch.value === "plc") { g.hidden = true; return; } /* the table photos are Lechería's: no picker for Puerto La Cruz */
+    var NS = "http://www.w3.org/2000/svg";
+    photos.forEach(function (p) {
+      var slide = doc.createElement("div"), img = doc.createElement("img"), box = doc.createElement("div"), svg = doc.createElementNS(NS, "svg");
+      slide.className = "rv-plan rv-slide";
+      img.alt = ""; img.decoding = "async"; img.loading = "lazy"; img.addEventListener("load", sizeSwipe);
+      img.src = "img/salon/" + p.img + "-800.webp";
+      img.srcset = "img/salon/" + p.img + "-800.webp 800w, img/salon/" + p.img + "-1600.webp 1600w";
+      img.sizes = "(min-width:960px) 600px, 92vw"; img.width = 1600; img.height = p.h;
+      box.className = "rv-dots";
+      svg.setAttribute("class", "rv-lines"); svg.setAttribute("viewBox", "0 0 100 100"); svg.setAttribute("preserveAspectRatio", "none"); svg.setAttribute("aria-hidden", "true");
+      box.appendChild(svg); /* first, so the pins and labels draw over the lines */
+      p.dots.forEach(function (d) {
+        var far = d[3] != null, b = doc.createElement("button");
+        if (far) { /* far table: pin on the table, thin line up to the label */
+          var ln = doc.createElementNS(NS, "line");
+          ln.setAttribute("x1", d[3]); ln.setAttribute("y1", d[4]); ln.setAttribute("x2", d[1]); ln.setAttribute("y2", d[2]);
+          svg.appendChild(ln);
+          var pin = doc.createElement("i");
+          pin.className = "rv-pin"; pin.setAttribute("data-n", d[0]); pin.style.left = d[1] + "%"; pin.style.top = d[2] + "%";
+          box.appendChild(pin);
+        }
+        b.type = "button"; b.className = "rv-dot"; b.textContent = d[0];
+        b.style.left = (far ? d[3] : d[1]) + "%"; b.style.top = (far ? d[4] : d[2]) + "%";
+        box.appendChild(b);
+      });
+      slide.appendChild(img); slide.appendChild(box);
+      row.appendChild(slide);
+    });
+    row.scrollLeft = 0;
+    g.hidden = false; paintTable(); sizeSwipe();
+  }
+  /* the row takes the height of the photo on screen, so a shorter photo leaves no blank space */
+  function sizeSwipe() {
+    var row = $("#planSwipe"), i = row.clientWidth ? Math.round(row.scrollLeft / row.clientWidth) : 0, s = row.children[i];
+    if (s) row.style.height = s.offsetHeight + "px";
+  }
+  $("#planSwipe").addEventListener("scroll", function () { sizeSwipe(); }, { passive: true });
+  window.addEventListener("resize", function () { sizeSwipe(); });
+  function showPlan() { plansReady.then(renderPlan); }
+  /* picking a floor must not scroll the page: the radios are visually hidden, so focusing one on click made the browser
+     scroll to wherever it sits ("centering" the cards). Cancelling the mousedown skips that focus; the click still selects the floor. */
+  [].forEach.call(doc.querySelectorAll(".rv-area"), function (l) { l.addEventListener("mousedown", function (e) { e.preventDefault(); }); });
+  $("#planSwipe").addEventListener("click", function (e) {
+    var b = e.target.closest ? e.target.closest(".rv-dot") : null; if (!b) return;
+    table = table === b.textContent ? "" : b.textContent; paintTable();
+  });
+  $("#tableClear").addEventListener("click", function () { table = ""; paintTable(); });
+  form.addEventListener("change", function (e) { if (e.target.name === "area") showPlan(); });
+
+  /* ---------- how long they stay: 10 to 240 minutes, every 10 (default 1 hour) ---------- */
+  function fillDurations() {
+    var sel = F.hours, keep = sel.value || "60";
+    sel.textContent = "";
+    for (var m = 10; m <= 240; m += 10) {
+      var o = doc.createElement("option"); o.value = String(m); o.textContent = m + " " + I.t("rv.min");
+      if (String(m) === keep) o.selected = true;
+      sel.appendChild(o);
+    }
   }
 
   /* ---------- footer hours, WhatsApp links ---------- */
@@ -199,45 +317,191 @@
     [["rv.branch", sent.branch],
      ["res.people", sent.people === "+8" ? I.t("res.more8") : sent.people],
      ["res.date", noon(sent.date).toLocaleDateString(LOCALES[I.lang] || "es-VE", { weekday: "long", day: "numeric", month: "long" })],
-     ["res.time", I.time12(sent.time)]].concat(sent.area ? [["rv.zone", I.t("rv.area." + sent.area)]] : []).forEach(function (r) {
+     ["res.time", I.time12(sent.time)]].concat(sent.area ? [["rv.zone", I.t("rv.area." + sent.area)]] : []).concat(sent.table ? [["rv.table.row", sent.table]] : []).forEach(function (r) {
       var dt = doc.createElement("dt"), dd = doc.createElement("dd");
       dt.textContent = I.t(r[0]); dd.textContent = r[1]; dl.appendChild(dt); dl.appendChild(dd);
     });
     $("#doneOpen").href = sent.url;
   }
 
+  /* ---------- our own calendar ----------
+     Shows one month at a time, from this month to the last bookable one: earlier months (and years) can't be reached.
+     Days that are past, beyond the booking limit, closed, or already out of times today are greyed out and can't be picked.
+     The chosen date lives in the hidden #rDate as "YYYY-MM-DD"; the button only shows it. */
+  var dMin = "", dMax = "";
+  var calBtn = $("#rDateBtn"), calTxt = $("#rDateTxt"), cal = $("#rCal"), calIsOpen = false, viewY = 0, viewM = 0;
+  var calLocale = function () { return LOCALES[I.lang] || "es-VE"; };
+  function paintDate() {
+    var iso = F.date.value;
+    /* the year only when it isn't this year: keeps "jue, 12 nov" inside the narrow phone column */
+    var fmt = { weekday: "short", day: "numeric", month: "short" }; if (validISO(iso) && iso.slice(0, 4) !== now().iso.slice(0, 4)) fmt.year = "numeric";
+    calTxt.textContent = validISO(iso) ? noon(iso).toLocaleDateString(calLocale(), fmt) : I.t("rv.datePh");
+    calTxt.classList.toggle("ph", !validISO(iso));
+  }
+  function dayWhy(iso) { /* "" = bookable; else why not */
+    if (iso < dMin || iso > dMax) return "out";
+    var s = slots(iso); return s === null ? "closed" : !s.length ? "noTimes" : "";
+  }
+  function calBtnEl(cls, label, nav, disabled, glyph) {
+    var b = doc.createElement("button"); b.type = "button"; b.className = cls; b.setAttribute("aria-label", label); b.setAttribute("data-nav", nav);
+    b.innerHTML = glyph; b.disabled = disabled; return b;
+  }
+  function renderCal() {
+    var loc = calLocale(), lo = +dMin.slice(0, 4) * 12 + (+dMin.slice(5, 7) - 1), hi = +dMax.slice(0, 4) * 12 + (+dMax.slice(5, 7) - 1), cur = viewY * 12 + viewM;
+    cal.textContent = ""; cal.setAttribute("aria-label", I.t("rv.cal.label"));
+    var head = doc.createElement("div"); head.className = "rv-cal-h";
+    var title = doc.createElement("b"); title.setAttribute("aria-live", "polite");
+    title.textContent = new Date(viewY, viewM, 1, 12).toLocaleDateString(loc, { month: "long", year: "numeric" });
+    var chev = function (d) { return '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + d + '"/></svg>'; };
+    head.appendChild(calBtnEl("rv-cal-nav", I.t("rv.cal.prev"), "-1", cur <= lo, chev("M15 6l-6 6 6 6")));
+    head.appendChild(title);
+    head.appendChild(calBtnEl("rv-cal-nav", I.t("rv.cal.next"), "1", cur >= hi, chev("M9 6l6 6-6 6")));
+    cal.appendChild(head);
+    var wk = doc.createElement("div"); wk.className = "rv-cal-w"; wk.setAttribute("aria-hidden", "true");
+    for (var i = 0; i < 7; i++) { var s = doc.createElement("span"); s.textContent = new Date(2024, 0, 1 + i, 12).toLocaleDateString(loc, { weekday: "narrow" }); wk.appendChild(s); } /* Monday first */
+    cal.appendChild(wk);
+    var grid = doc.createElement("div"), lead = (new Date(viewY, viewM, 1, 12).getDay() + 6) % 7, n = new Date(viewY, viewM + 1, 0, 12).getDate();
+    grid.className = "rv-cal-g";
+    for (var k = 0; k < lead; k++) grid.appendChild(doc.createElement("i"));
+    for (var d = 1; d <= n; d++) {
+      var iso = viewY + "-" + pad(viewM + 1) + "-" + pad(d), why = dayWhy(iso), b = doc.createElement("button");
+      b.type = "button"; b.className = "rv-day" + (iso === F.date.value ? " on" : "") + (iso === now().iso ? " today" : "") + (why === "closed" ? " closed" : "");
+      b.textContent = d; b.setAttribute("data-iso", iso); b.disabled = !!why;
+      b.setAttribute("aria-label", new Date(viewY, viewM, d, 12).toLocaleDateString(loc, { weekday: "long", day: "numeric", month: "long", year: "numeric" }) + (why === "closed" ? ", " + I.t("rv.cal.closed") : why === "noTimes" ? ", " + I.t("rv.cal.noTimes") : ""));
+      if (why === "closed" || why === "noTimes") b.title = I.t(why === "closed" ? "rv.cal.closed" : "rv.cal.noTimes");
+      if (iso === F.date.value) b.setAttribute("aria-pressed", "true");
+      grid.appendChild(b);
+    }
+    while (grid.children.length < 42) grid.appendChild(doc.createElement("i")); /* always 6 rows: a shorter month would shrink the page under the cursor and move the arrows */
+    cal.appendChild(grid);
+  }
+  function focusDay(prefer) {
+    var el = (prefer && cal.querySelector('.rv-day[data-iso="' + prefer + '"]:not(:disabled)')) || cal.querySelector(".rv-day.on") || cal.querySelector(".rv-day:not(:disabled)");
+    if (el) el.focus({ preventScroll: true });
+  }
+  function openCal() {
+    var v = validISO(F.date.value) ? F.date.value : dMin;
+    viewY = +v.slice(0, 4); viewM = +v.slice(5, 7) - 1;
+    renderCal(); cal.hidden = false; calIsOpen = true; calBtn.setAttribute("aria-expanded", "true"); focusDay();
+  }
+  function closeCal(back) { cal.hidden = true; calIsOpen = false; calBtn.setAttribute("aria-expanded", "false"); if (back) calBtn.focus({ preventScroll: true }); }
+  calBtn.addEventListener("click", function () { if (calIsOpen) closeCal(); else openCal(); });
+  cal.addEventListener("click", function (e) {
+    var b = e.target.closest ? e.target.closest("button") : null; if (!b || b.disabled) return;
+    if (b.hasAttribute("data-nav")) {
+      var m = viewY * 12 + viewM + (+b.getAttribute("data-nav")); viewY = Math.floor(m / 12); viewM = m % 12; renderCal();
+      var again = cal.querySelector('[data-nav="' + b.getAttribute("data-nav") + '"]:not(:disabled)') || cal.querySelector(".rv-day:not(:disabled)"); if (again) again.focus({ preventScroll: true });
+      return;
+    }
+    if (b.hasAttribute("data-iso")) {
+      F.date.value = b.getAttribute("data-iso");
+      F.date.dispatchEvent(new Event("change", { bubbles: true })); /* fills the times and clears the date error, as the native picker did */
+      paintDate(); closeCal(true);
+    }
+  });
+  /* the path is read from the event itself: a month arrow redraws the calendar, so by now e.target is detached and cal.contains(e.target) would be false */
+  doc.addEventListener("click", function (e) {
+    if (!calIsOpen) return;
+    var path = e.composedPath ? e.composedPath() : [];
+    if (path.indexOf(cal) > -1 || path.indexOf(calBtn) > -1) return;
+    if (!path.length && (cal.contains(e.target) || calBtn.contains(e.target))) return;
+    closeCal();
+  });
+  doc.addEventListener("keydown", function (e) {
+    if (!calIsOpen) return;
+    if (e.key === "Escape") { e.preventDefault(); closeCal(true); return; }
+    var day = e.target && e.target.classList && e.target.classList.contains("rv-day") ? e.target : null, step = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -7, ArrowDown: 7 }[e.key];
+    if (!day || !step) return;
+    e.preventDefault();
+    var days = [].slice.call(cal.querySelectorAll(".rv-day")), i = days.indexOf(day) + step;
+    while (i >= 0 && i < days.length && days[i].disabled) i += step > 0 ? 1 : -1;
+    if (i >= 0 && i < days.length) days[i].focus({ preventScroll: true });
+  });
+
   /* ---------- events ---------- */
   F.date.addEventListener("change", function () { check("date"); fillTimes(); if (errs.time) check("time"); paintErrs(); });
   F.time.addEventListener("change", function () { if (errs.time) { check("time"); paintErrs(); } });
   F.name.addEventListener("input", function () { if (errs.name) { check("name"); paintErrs(); } });
-  form.addEventListener("change", function (e) { if (e.target.name === "branch") { check("branch"); paintErrs(); } });
+  F.notes.addEventListener("input", function () { if (errs.notes) { check("notes"); paintErrs(); } });
+  /* Puerto La Cruz has no seating areas or table photos on the page: hide them and drop any zone/table already chosen */
+  function syncBranch() {
+    var plc = F.branch.value === "plc";
+    $("#areaG").hidden = plc;
+    if (plc) { $("#aAny").checked = true; table = ""; }
+    showPlan();
+  }
+  form.addEventListener("change", function (e) { if (e.target.name === "branch") { check("branch"); paintErrs(); syncBranch(); } });
+  /* ---------- "¿Quieres un presupuesto?" (last question of the form) ----------
+     "No" (default) = the normal reservation, sent with the Reservar button. "Sí" stays locked until every field is valid, and choosing
+     it IS the submit: the reservation is saved (sessionStorage "amir-presupuesto") and the guest goes to the menu; pedir.js prefills
+     their name, phone and branch and sends the reservation together with the order to WhatsApp. */
+  var REQUIRED = ["branch", "date", "time", "name", "phone", "docid", "notes"];
+  function isOk(n) { var keep = errs[n], ok = check(n); errs[n] = keep; return ok; } /* check() without changing the error on screen */
+  function paintQuote() {
+    var ok = REQUIRED.every(isOk), h = $("#quoteH"), key = ok ? "rv.quote.hint" : "rv.quote.lock";
+    $("#qYes").disabled = !ok; h.setAttribute("data-i18n", key); h.textContent = I.t(key);
+  }
+  function quoteOff() { if (F.quote) F.quote.value = "no"; }
+  /* every missing field shows its error and shakes (the same .shake as the order page, styled in assets/v4/polish.css); true if anything was missing */
+  function flagMissing() {
+    var bad = REQUIRED.filter(function (n) { return !check(n); });
+    paintErrs();
+    if (!bad.length) return false;
+    bad.forEach(function (n) {
+      var box = n === "branch" ? $("#branchG") : F[n].closest(".f"); if (!box) return;
+      box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
+      box.addEventListener("animationend", function end(ev) { if (ev.animationName !== "shake") return; box.classList.remove("shake"); box.removeEventListener("animationend", end); });
+    });
+    (bad[0] === "branch" ? F.branch[0] : bad[0] === "date" ? calBtn : F[bad[0]]).focus();
+    return true;
+  }
+  function startQuote() {
+    if (flagMissing()) { quoteOff(); paintQuote(); return; }
+    var E = I.tEs, wx = I.wx, people = F.people.value, area = F.area.value, notes = F.notes.value.trim(), L = [];
+    var day = noon(F.date.value).toLocaleDateString("es-VE", { weekday: "long", day: "numeric", month: "long" });
+    if (area) L.push(E("wa.res.area", { v: wx(E("rv.area." + area)) }));
+    if (table) L.push(E("wa.res.table", { v: wx(table) }));
+    L.push(E("wa.res.people", { v: people === "+8" ? E("res.more8") : people }), E("wa.res.date", { v: day }), E("wa.res.time", { v: I.time12(F.time.value, "es") }), E("wa.res.hours", { v: F.hours.value + " " + E("rv.min") }));
+    L.push(E("wa.res.id", { v: wx(normDocid(F.docid.value)) }));
+    if (notes) L.push(E("wa.res.notes", { v: wx(notes) }));
+    try { sessionStorage.setItem("amir-presupuesto", JSON.stringify({ branch: F.branch.value, name: F.name.value.trim(), phone: F.phone.value.trim(), lines: L })); }
+    catch (er) { quoteOff(); $("#quoteH").textContent = I.t("rv.quote.fail"); return; } /* storage blocked: nothing to carry over, so stay and let them use Reservar */
+    location.href = "pedir.html#entradas-arabes"; /* straight to the first menu section, so they start ordering */
+  }
+  form.addEventListener("input", paintQuote);
+  form.addEventListener("change", function (e) {
+    if (e.target.name === "quote") { if (e.target.value === "yes") startQuote(); return; }
+    paintQuote();
+  });
+  /* tapping the locked "Sí" shows what is missing instead of doing nothing */
+  $("#qYes").nextElementSibling.addEventListener("click", function () { if ($("#qYes").disabled) flagMissing(); });
+  window.addEventListener("pageshow", function () { quoteOff(); syncBranch(); paintQuote(); }); /* Back button: reset the answer, re-apply the restored branch */
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-    var bad = ["branch", "date", "time", "name", "phone", "docid"].filter(function (n) { return !check(n); });
-    paintErrs();
-    if (bad.length) { (bad[0] === "branch" ? F.branch[0] : F[bad[0]]).focus(); return; }
+    if (flagMissing()) return;
     var b = branchOf(F.branch.value) || { nombre: "", whatsapp: "" }, people = F.people.value, area = F.area.value;
     var msg = I.buildReservationMessage({
       name: F.name.value.trim(), phone: F.phone.value.trim(), docid: normDocid(F.docid.value), people: people === "+8" ? I.tEs("res.more8") : people,
       dateISO: F.date.value, time: F.time.value, notes: F.notes.value, branch: b.nombre,
-      area: area ? I.tEs("rv.area." + area) : ""
+      area: area ? I.tEs("rv.area." + area) : "", hours: F.hours.value + " " + I.tEs("rv.min"), table: table
     });
-    sent = { branch: b.nombre, area: area, people: people, date: F.date.value, time: F.time.value, url: "https://wa.me/" + (b.whatsapp || C.whatsapp) + "?text=" + encodeURIComponent(msg) };
+    sent = { branch: b.nombre, area: area, table: table, people: people, date: F.date.value, time: F.time.value, url: "https://wa.me/" + (b.whatsapp || C.whatsapp) + "?text=" + encodeURIComponent(msg) };
     var win = window.open(sent.url, "_blank");
     if (win) { try { win.opener = null; } catch (er) { /* ignore */ } }
     paintDone();
     form.hidden = true; done.hidden = false;
     done.focus({ preventScroll: true }); done.scrollIntoView({ block: "start" });
   });
-  $("#doneEdit").addEventListener("click", function () { done.hidden = true; form.hidden = false; F.date.focus(); });
-  doc.addEventListener("langchange", function () { fillTimes(); paintErrs(); hours(); paintDone(); });
+  $("#doneEdit").addEventListener("click", function () { done.hidden = true; form.hidden = false; calBtn.focus(); });
+  doc.addEventListener("langchange", function () { paintDate(); if (calIsOpen) renderCal(); paintQuote(); fillTimes(); fillDurations(); paintErrs(); hours(); paintTable(); paintDone(); });
 
   /* ---------- start: today if there is still a time to offer, otherwise tomorrow ---------- */
   var t0 = now().iso, s0 = slots(t0);
-  F.date.min = t0; F.date.max = addDays(t0, MAX_DAYS);
+  dMin = t0; dMax = LAST_DATE;
   if (!F.date.value) F.date.value = s0 && s0.length ? t0 : addDays(t0, 1);
+  paintDate();
   I.apply(doc);
-  fillTimes(); hours();
+  fillTimes(); fillDurations(); hours(); paintQuote();
   reveal();
 })();

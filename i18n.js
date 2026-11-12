@@ -157,9 +157,9 @@
     "res.more8": "Más de 8",
     "res.date": "Fecha",
     "res.time": "Hora",
-    "res.notes": "Ocasión o notas (opcional)",
+    "res.notes": "Ocasión o notas",
     "res.notesPh": "Cumpleaños, mesa con arguile…",
-    "res.submit": "Reservar por WhatsApp",
+    "res.submit": "Reservar",
     "res.err": "Completa nombre, fecha y hora para reservar.",
     "send.spanishNote": "",
 
@@ -244,6 +244,7 @@
     "cart.max": "Máximo {max} por plato",
     "cart.cleared": "Pedido vaciado",
     "cart.clearedThanks": "Carrito vaciado. ¡Gracias!",
+    "px.quote.toast": "Tus datos de reserva están guardados. Arma tu pedido y lo enviamos por WhatsApp junto con tu reserva y tu solicitud de presupuesto.",
     "cart.undo": "Deshacer",
     "cart.removeLine": "Quitar {name} del pedido",
     "cart.removed": "Quitado: {name}",
@@ -356,6 +357,8 @@
     "wa.order.totalBs": " (≈ {bs} a tasa BCV {rate})",
     "wa.order.pay": "*Pago:* {pay}",
     "wa.order.notes": "*Notas:* {notes}",
+    "wa.order.quote": "*PRESUPUESTO SOLICITADO:* el cliente pidió un presupuesto junto con su reserva, atenderlo por WhatsApp",
+    "wa.order.rsvHead": "*DATOS DE LA RESERVA:*",
     "wa.clientLang": "*Idioma del cliente:* {lang}",
     "wa.res.title": "*Reserva · {name}*",
     "wa.res.name": "*Nombre:* {v}",
@@ -363,7 +366,9 @@
     "wa.res.id": "*C.I / RIF:* {v}",
     "wa.res.branch": "*Sucursal:* {v}",
     "wa.res.area": "*Zona:* {v}",
+    "wa.res.table": "*Mesa:* {v}",
     "wa.res.people": "*Personas:* {v}",
+    "wa.res.hours": "*Duración:* {v}",
     "wa.res.date": "*Fecha:* {v}",
     "wa.res.time": "*Hora:* {v}",
     "wa.res.notes": "*Notas:* {v}",
@@ -465,9 +470,9 @@
     "res.more8": "More than 8",
     "res.date": "Date",
     "res.time": "Time",
-    "res.notes": "Occasion or notes (optional)",
+    "res.notes": "Occasion or notes",
     "res.notesPh": "Birthday, table with hookah…",
-    "res.submit": "Book via WhatsApp",
+    "res.submit": "Book",
     "res.err": "Please fill in your name, date and time to book.",
     "send.spanishNote": "Heads-up: your message to the restaurant is written in Spanish so our team can read it.",
 
@@ -545,6 +550,7 @@
     "cart.max": "Maximum {max} per dish",
     "cart.cleared": "Order cleared",
     "cart.clearedThanks": "Cart cleared. Thank you!",
+    "px.quote.toast": "Your booking details are saved. Build your order and we send it on WhatsApp together with your booking and quote request.",
     "cart.undo": "Undo",
     "cart.removeLine": "Remove {name} from order",
     "cart.removed": "Removed: {name}",
@@ -725,9 +731,9 @@
     "res.more8": "أكثر من 8",
     "res.date": "التاريخ",
     "res.time": "الوقت",
-    "res.notes": "المناسبة أو ملاحظات (اختياري)",
+    "res.notes": "المناسبة أو ملاحظات",
     "res.notesPh": "عيد ميلاد، طاولة مع أرجيلة…",
-    "res.submit": "احجز عبر واتساب",
+    "res.submit": "احجز",
     "res.err": "يرجى إدخال الاسم والتاريخ والوقت لإتمام الحجز.",
     "send.spanishNote": "تنبيه: رسالتك إلى المطعم تُكتب بالإسبانية ليتمكن فريقنا من قراءتها.",
 
@@ -809,6 +815,7 @@
     "cart.max": "الحد الأقصى {max} لكل طبق",
     "cart.cleared": "تم إفراغ الطلب",
     "cart.clearedThanks": "تم إفراغ السلة. شكراً لك!",
+    "px.quote.toast": "تم حفظ بيانات حجزك. جهّز طلبك ونرسله عبر واتساب مع حجزك وطلب عرض السعر.",
     "cart.undo": "تراجع",
     "cart.removeLine": "إزالة {name} من الطلب",
     "cart.removed": "تمت إزالة {name}",
@@ -1662,11 +1669,13 @@
     var L = [E("wa.res.title", { name: (global.CONFIG && global.CONFIG.nombre) || "El Amir Palace" }), ""];
     if (r.branch && wx(r.branch)) L.push(E("wa.res.branch", { v: wx(r.branch) })); /* optional: Spanish branch name */
     if (r.area && wx(r.area)) L.push(E("wa.res.area", { v: wx(r.area) })); /* optional: Spanish seating area (Terraza, Planta baja…) */
+    if (r.table && wx(r.table)) L.push(E("wa.res.table", { v: wx(r.table) })); /* optional: table number picked on the area photo */
     L.push(E("wa.res.name", { v: wx(r.name) }));
     if (r.phone && wx(r.phone)) L.push(E("wa.res.phone", { v: wx(r.phone) }));
     if (r.docid && wx(r.docid)) L.push(E("wa.res.id", { v: wx(r.docid) }));
     var cl = clientLangLine(r.lang == null ? I18N.lang : r.lang); if (cl) L.push(cl);
     L.push(E("wa.res.people", { v: r.people }), E("wa.res.date", { v: d }), E("wa.res.time", { v: I18N.time12(r.time, "es") }));
+    if (r.hours) L.push(E("wa.res.hours", { v: r.hours }));
     if (r.notes && wx(r.notes)) L.push(E("wa.res.notes", { v: wx(r.notes) }));
     return L.join("\n");
   };

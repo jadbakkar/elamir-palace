@@ -448,12 +448,12 @@
   function refreshAll() { renderLines(); renderTotals(); save(); }
 
   let tt0;
-  function toast(msg, undo) {
+  function toast(msg, undo, ms) {
     const el = $("#toast"); el.textContent = "";
     const s = doc.createElement("span"); s.textContent = msg; el.append(s);
     el.classList.toggle("has-btn", !!undo);
     if (undo) { const b = doc.createElement("button"); b.type = "button"; b.textContent = t("cart.undo"); b.onclick = () => { undo(); el.classList.remove("show"); }; el.append(b); }
-    el.classList.add("show"); clearTimeout(tt0); tt0 = setTimeout(() => el.classList.remove("show"), undo ? 6000 : 1800);
+    el.classList.add("show"); clearTimeout(tt0); tt0 = setTimeout(() => el.classList.remove("show"), undo ? 6000 : (ms || 1800));
   }
   function bump(el) { if (!el || reduce.matches) return; el.classList.remove("bump"); void el.offsetWidth; el.classList.add("bump"); }
   /* quantity roll: the new number slides in while the old one slides out (styled in assets/v4/polish.css) */
@@ -1018,8 +1018,13 @@
     try { crypto.getRandomValues(r); } catch (e) { r.forEach((x, i) => { r[i] = Math.random() * 2 ** 32; }); }
     return `AP-${n.mm}${n.dd}-${Array.from(r, x => ID_ABC[x % ID_ABC.length]).join("")}`;
   }
+  /* the guest said "Sí" to "¿Quieres un presupuesto?" on reservar.html, which saved { branch, name, phone, lines } (the reservation, already in Spanish):
+     the order goes to WhatsApp with the reservation on top and flagged as a presupuesto, so the branch handles both there */
+  const QUOTE_KEY = "amir-presupuesto";
+  const quoteData = () => { try { const v = JSON.parse(sessionStorage.getItem(QUOTE_KEY) || "null"); return v && Array.isArray(v.lines) ? v : null; } catch (e) { return null; } };
   function buildMessage(id) {
-    const b = curBranch(), L = buildBaseMessage(id).split("\n");
+    const b = curBranch(), L = buildBaseMessage(id).split("\n"), q = quoteData();
+    if (q) L.splice(2, 0, I.tEs("wa.order.quote"), I.tEs("wa.order.rsvHead"), ...q.lines); /* right under the title and the time stamp */
     /* "*Sucursal:*" right after "*Tipo:*" */
     if (b) { const typeP = I.tEs("wa.order.type", { type: "" }).trim(), i = L.findIndex(l => l.startsWith(typeP)); L.splice(i < 0 ? 2 : i + 1, 0, `*Sucursal:* ${I.wx(b.nombre)}`); }
     /* "*Ubicación:*" right after the address (or right before the dishes) */
@@ -1070,6 +1075,7 @@
     order = { id, msg, url: w.url, cut: w.cut, total: tt.total, pay: form.elements.pay.value, branch: (curBranch() || {}).nombre || "", del: isDel() };
     const win = window.open(w.url, "_blank");
     if (win) { try { win.opener = null; } catch (er) { /* ignore */ } }
+    try { sessionStorage.removeItem(QUOTE_KEY); } catch (er) { /* ignore */ } /* the flag belongs to this one order */
     if ($("#remember").checked) {
       const v = k => form.elements[k].value.trim();
       try { localStorage.setItem("amir-customer", JSON.stringify({ name: v("name"), phone: v("phone"), lat: loc ? loc.lat : null, lng: loc ? loc.lng : null })); } catch (er) { /* ignore */ }
@@ -1156,6 +1162,22 @@
   doc.addEventListener("langchange", setHomeLinks);
   setHomeLinks();
   renderAll(true);
+  const qd = quoteData();
+  if (qd) { /* coming from the reservation form: everything they typed there is already filled in */
+    const FE = form.elements;
+    if (qd.name) FE.name.value = qd.name;
+    if (qd.phone) FE.phone.value = qd.phone;
+    const br = qd.branch && form.querySelector(`input[name="branch"][value="${qd.branch}"]`);
+    if (br) { br.checked = true; br.dispatchEvent(new Event("change", { bubbles: true })); }
+    toast(t("px.quote.toast"), null, 7000);
+    /* land on the first menu section (the link says #entradas-arabes). English / Arabic redraw the menu and fonts load after the
+       first scroll, which shifts the page, so align again once things settle, unless the guest already started scrolling */
+    let touched = false;
+    ["wheel", "touchstart", "keydown", "mousedown"].forEach(ev => addEventListener(ev, () => { touched = true; }, { once: true, passive: true }));
+    const land = () => { const s = doc.getElementById("entradas-arabes"); if (s && !touched) s.scrollIntoView({ block: "start", behavior: "instant" }); };
+    const t0 = performance.now();
+    (function keep() { land(); if (!touched && performance.now() - t0 < 4000) setTimeout(keep, 100); })();   /* about 4 s: until the menu and its images stop moving the page */
+  }
   setInterval(updateStatus, 30000);
   doc.addEventListener("visibilitychange", () => { if (!doc.hidden) updateStatus(); });
   if (doc.fonts && doc.fonts.ready) doc.fonts.ready.then(measure);

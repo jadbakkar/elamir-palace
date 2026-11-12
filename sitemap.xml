@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.elamirpalace.com/</loc>
-    <lastmod>2026-11-10</lastmod>
+    <lastmod>2026-11-12</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.elamirpalace.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.elamirpalace.com/en/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.elamirpalace.com/ar/"/>
@@ -10,7 +10,7 @@
   </url>
   <url>
     <loc>https://www.elamirpalace.com/en/</loc>
-    <lastmod>2026-11-10</lastmod>
+    <lastmod>2026-11-12</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.elamirpalace.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.elamirpalace.com/en/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.elamirpalace.com/ar/"/>
@@ -18,7 +18,7 @@
   </url>
   <url>
     <loc>https://www.elamirpalace.com/ar/</loc>
-    <lastmod>2026-11-10</lastmod>
+    <lastmod>2026-11-12</lastmod>
     <xhtml:link rel="alternate" hreflang="es" href="https://www.elamirpalace.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.elamirpalace.com/en/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.elamirpalace.com/ar/"/>
@@ -26,10 +26,10 @@
   </url>
   <url>
     <loc>https://www.elamirpalace.com/pedir.html</loc>
-    <lastmod>2026-11-10</lastmod>
+    <lastmod>2026-11-12</lastmod>
   </url>
   <url>
     <loc>https://www.elamirpalace.com/reservar.html</loc>
-    <lastmod>2026-11-10</lastmod>
+    <lastmod>2026-11-12</lastmod>
   </url>
 </urlset>
