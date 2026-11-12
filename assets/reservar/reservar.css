@@ -32,7 +32,7 @@
 .rv-tbl[hidden]{display:none}
 .rv-plan{position:relative;border-radius:var(--r-md);overflow:hidden;background:var(--surface-3);line-height:0}
 .rv-plan img{display:block;width:100%;height:auto}
-.rv-swipe{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-radius:var(--r-md)}
+.rv-swipe{overscroll-behavior-x:contain;display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;border-radius:var(--r-md)}
 .rv-swipe::-webkit-scrollbar{display:none}
 .rv-slide{flex:0 0 100%;align-self:flex-start;scroll-snap-align:start}
 .rv-dots{position:absolute;inset:0}
@@ -64,6 +64,27 @@
 .rv-people{grid-column:1/-1}
 .rv .f input[type=date]{min-width:0;max-width:100%}
 #branchG.bad .seg{box-shadow:0 0 0 1px var(--primary)}
+/* zoom: a button on each photo opens the full-screen viewer (reservar.js openViewer) */
+.rv-slide img{cursor:zoom-in}
+.rv-zoom{position:absolute;z-index:2;inset-inline-end:10px;bottom:10px;display:grid;place-items:center;width:36px;height:36px;padding:0;border:0;border-radius:50%;background:rgba(17,17,17,.58);color:#fff;cursor:pointer;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.rv-zoom:hover{background:rgba(17,17,17,.78)}
+.rv-zoom:focus-visible,.rv-lb button:focus-visible{outline:2px solid #fff;outline-offset:2px}
+.rv-lb{position:fixed;inset:0;z-index:200;background:rgba(12,9,9,.96);overscroll-behavior:contain;animation:rv-lb-in 160ms var(--ease-out)}
+@keyframes rv-lb-in{from{opacity:0}}
+.rv-lb-stage{position:absolute;inset:0;overflow:hidden;touch-action:none;cursor:grab;-webkit-user-select:none;user-select:none}
+.rv-lb-stage:active{cursor:grabbing}
+.rv-lb-pan{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform;overflow:visible;border-radius:0;background:none;line-height:0}
+.rv-lb-pan img{display:block;width:100%;height:100%;max-width:none;pointer-events:none;-webkit-user-drag:none}
+/* table numbers keep one readable size however far you zoom (--z is the zoom, set by the script) */
+.rv-lb .rv-dot{width:26px;height:26px;border-width:2px;font-size:12px;scale:calc(.85 / var(--z,1))}
+.rv-lb .rv-pin{width:9px;height:9px;border-width:2px;scale:calc(1 / var(--z,1))}
+.rv-lb .rv-dot::after{inset:-10px}
+.rv-lb-x,.rv-lb-b{display:grid;place-items:center;width:46px;height:46px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;cursor:pointer;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.rv-lb-x:hover,.rv-lb-b:hover{background:rgba(255,255,255,.28)}
+.rv-lb-x{position:absolute;top:max(14px,env(safe-area-inset-top));inset-inline-end:14px}
+.rv-lb-ctl{position:absolute;bottom:max(20px,calc(12px + env(safe-area-inset-bottom)));left:50%;translate:-50% 0;display:flex;gap:10px}
+.rv-lb-hint{position:absolute;top:max(18px,calc(6px + env(safe-area-inset-top)));inset-inline:16px 76px;margin:0;font-size:13px;line-height:1.4;color:rgba(255,255,255,.82);pointer-events:none}
+@media (prefers-reduced-motion:reduce){.rv-lb{animation:none}}
 /* the presupuesto "Sí" is locked until the form is complete */
 .rv-quote{margin-top:var(--s-5)}
 .rv-quote .seg input:disabled+label{opacity:.45;cursor:not-allowed}

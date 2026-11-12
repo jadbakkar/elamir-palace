@@ -37,6 +37,8 @@
       "rv.hours": "¿Cuánto tiempo?", "rv.min": "min",
       "rv.datePh": "Elige la fecha", "rv.cal.label": "Elige la fecha", "rv.cal.prev": "Mes anterior", "rv.cal.next": "Mes siguiente",
       "rv.cal.closed": "Cerrado", "rv.cal.noTimes": "Sin horas disponibles hoy",
+      "rv.zoom": "Ampliar foto", "rv.zoom.close": "Cerrar", "rv.zoom.in": "Acercar", "rv.zoom.out": "Alejar",
+      "rv.zoom.hint": "Pellizca o toca dos veces para acercar. Toca una mesa para elegirla.",
       "rv.quote": "¿Quieres un presupuesto?", "rv.quote.no": "No", "rv.quote.yes": "Sí",
       "rv.quote.hint": "Si dices sí, te llevamos al menú con tus datos guardados y tu pedido se envía por WhatsApp junto con tu reserva.",
       "rv.quote.lock": "Completa todos los datos para poder pedir un presupuesto.",
@@ -74,6 +76,8 @@
       "rv.hours": "How long will you stay?", "rv.min": "min",
       "rv.datePh": "Choose a date", "rv.cal.label": "Choose a date", "rv.cal.prev": "Previous month", "rv.cal.next": "Next month",
       "rv.cal.closed": "Closed", "rv.cal.noTimes": "No times left today",
+      "rv.zoom": "Enlarge photo", "rv.zoom.close": "Close", "rv.zoom.in": "Zoom in", "rv.zoom.out": "Zoom out",
+      "rv.zoom.hint": "Pinch or double-tap to zoom. Tap a table to pick it.",
       "rv.quote": "Would you like a quote?", "rv.quote.no": "No", "rv.quote.yes": "Yes",
       "rv.quote.hint": "If you say yes, we take you to the menu with your details saved, and your order goes to WhatsApp together with your booking.",
       "rv.quote.lock": "Fill in all the details to ask for a quote.",
@@ -111,6 +115,8 @@
       "rv.hours": "كم المدة؟", "rv.min": "د",
       "rv.datePh": "اختر التاريخ", "rv.cal.label": "اختر التاريخ", "rv.cal.prev": "الشهر السابق", "rv.cal.next": "الشهر التالي",
       "rv.cal.closed": "مغلق", "rv.cal.noTimes": "لا توجد أوقات متاحة اليوم",
+      "rv.zoom": "تكبير الصورة", "rv.zoom.close": "إغلاق", "rv.zoom.in": "تكبير", "rv.zoom.out": "تصغير",
+      "rv.zoom.hint": "اضغط بإصبعين أو انقر مرتين للتكبير. اضغط على طاولة لاختيارها.",
       "rv.quote": "هل تريد عرض سعر؟", "rv.quote.no": "لا", "rv.quote.yes": "نعم",
       "rv.quote.hint": "إذا اخترت نعم ننقلك إلى القائمة مع حفظ بياناتك، ويُرسل طلبك عبر واتساب مع حجزك.",
       "rv.quote.lock": "أكمل جميع البيانات لتتمكن من طلب عرض سعر.",
@@ -227,38 +233,51 @@
     });
   }
   /* one floor = one row of photos the guest swipes sideways; each photo carries its own dots */
-  function renderPlan() {
-    var g = $("#tableG"), photos = PLANS[F.area.value], row = $("#planSwipe");
-    table = ""; row.textContent = "";
-    if (!photos || !photos.length || F.branch.value === "plc") { g.hidden = true; return; } /* the table photos are Lechería's: no picker for Puerto La Cruz */
-    var NS = "http://www.w3.org/2000/svg";
-    photos.forEach(function (p) {
-      var slide = doc.createElement("div"), img = doc.createElement("img"), box = doc.createElement("div"), svg = doc.createElementNS(NS, "svg");
-      slide.className = "rv-plan rv-slide";
-      img.alt = ""; img.decoding = "async"; img.loading = "lazy"; img.addEventListener("load", sizeSwipe);
+  var curPhotos = [];
+  /* one photo with its dots: the picker row uses it small (with a zoom button), the zoom viewer uses it large */
+  function buildSlide(p, large) {
+    var NS = "http://www.w3.org/2000/svg", slide = doc.createElement("div"), img = doc.createElement("img"), box = doc.createElement("div"), svg = doc.createElementNS(NS, "svg");
+    slide.className = large ? "rv-plan" : "rv-plan rv-slide";
+    img.alt = ""; img.decoding = "async"; img.draggable = false;
+    if (large) img.src = "img/salon/" + p.img + "-1600.webp";
+    else {
+      img.loading = "lazy"; img.addEventListener("load", sizeSwipe);
       img.src = "img/salon/" + p.img + "-800.webp";
       img.srcset = "img/salon/" + p.img + "-800.webp 800w, img/salon/" + p.img + "-1600.webp 1600w";
-      img.sizes = "(min-width:960px) 600px, 92vw"; img.width = 1600; img.height = p.h;
-      box.className = "rv-dots";
-      svg.setAttribute("class", "rv-lines"); svg.setAttribute("viewBox", "0 0 100 100"); svg.setAttribute("preserveAspectRatio", "none"); svg.setAttribute("aria-hidden", "true");
-      box.appendChild(svg); /* first, so the pins and labels draw over the lines */
-      p.dots.forEach(function (d) {
-        var far = d[3] != null, b = doc.createElement("button");
-        if (far) { /* far table: pin on the table, thin line up to the label */
-          var ln = doc.createElementNS(NS, "line");
-          ln.setAttribute("x1", d[3]); ln.setAttribute("y1", d[4]); ln.setAttribute("x2", d[1]); ln.setAttribute("y2", d[2]);
-          svg.appendChild(ln);
-          var pin = doc.createElement("i");
-          pin.className = "rv-pin"; pin.setAttribute("data-n", d[0]); pin.style.left = d[1] + "%"; pin.style.top = d[2] + "%";
-          box.appendChild(pin);
-        }
-        b.type = "button"; b.className = "rv-dot"; b.textContent = d[0];
-        b.style.left = (far ? d[3] : d[1]) + "%"; b.style.top = (far ? d[4] : d[2]) + "%";
-        box.appendChild(b);
-      });
-      slide.appendChild(img); slide.appendChild(box);
-      row.appendChild(slide);
+      img.sizes = "(min-width:960px) 600px, 92vw";
+    }
+    img.width = 1600; img.height = p.h;
+    box.className = "rv-dots";
+    svg.setAttribute("class", "rv-lines"); svg.setAttribute("viewBox", "0 0 100 100"); svg.setAttribute("preserveAspectRatio", "none"); svg.setAttribute("aria-hidden", "true");
+    box.appendChild(svg); /* first, so the pins and labels draw over the lines */
+    p.dots.forEach(function (d) {
+      var far = d[3] != null, b = doc.createElement("button");
+      if (far) { /* far table: pin on the table, thin line up to the label */
+        var ln = doc.createElementNS(NS, "line");
+        ln.setAttribute("x1", d[3]); ln.setAttribute("y1", d[4]); ln.setAttribute("x2", d[1]); ln.setAttribute("y2", d[2]);
+        svg.appendChild(ln);
+        var pin = doc.createElement("i");
+        pin.className = "rv-pin"; pin.setAttribute("data-n", d[0]); pin.style.left = d[1] + "%"; pin.style.top = d[2] + "%";
+        box.appendChild(pin);
+      }
+      b.type = "button"; b.className = "rv-dot"; b.textContent = d[0];
+      b.style.left = (far ? d[3] : d[1]) + "%"; b.style.top = (far ? d[4] : d[2]) + "%";
+      box.appendChild(b);
     });
+    slide.appendChild(img); slide.appendChild(box);
+    if (!large) {
+      var z = doc.createElement("button"); z.type = "button"; z.className = "rv-zoom"; z.setAttribute("aria-label", I.t("rv.zoom"));
+      z.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21M10.5 7.5v6M7.5 10.5h6"/></svg>';
+      slide.appendChild(z);
+    }
+    return slide;
+  }
+  function renderPlan() {
+    var g = $("#tableG"), photos = PLANS[F.area.value], row = $("#planSwipe");
+    table = ""; row.textContent = ""; curPhotos = [];
+    if (!photos || !photos.length || F.branch.value === "plc") { g.hidden = true; return; } /* the table photos are Lechería's: no picker for Puerto La Cruz */
+    curPhotos = photos;
+    photos.forEach(function (p) { row.appendChild(buildSlide(p, false)); });
     row.scrollLeft = 0;
     g.hidden = false; paintTable(); sizeSwipe();
   }
@@ -273,10 +292,98 @@
   /* picking a floor must not scroll the page: the radios are visually hidden, so focusing one on click made the browser
      scroll to wherever it sits ("centering" the cards). Cancelling the mousedown skips that focus; the click still selects the floor. */
   [].forEach.call(doc.querySelectorAll(".rv-area"), function (l) { l.addEventListener("mousedown", function (e) { e.preventDefault(); }); });
+  function pickDot(b) { table = table === b.textContent ? "" : b.textContent; paintTable(); }
   $("#planSwipe").addEventListener("click", function (e) {
-    var b = e.target.closest ? e.target.closest(".rv-dot") : null; if (!b) return;
-    table = table === b.textContent ? "" : b.textContent; paintTable();
+    var b = e.target.closest ? e.target.closest(".rv-dot") : null;
+    if (b) { pickDot(b); return; }
+    var slide = e.target.closest ? e.target.closest(".rv-slide") : null; /* a tap on the photo (or its zoom button) opens the viewer */
+    if (slide) openViewer([].indexOf.call($("#planSwipe").children, slide), slide.querySelector(".rv-zoom"));
   });
+
+  /* ---------- zoom viewer ----------
+     Full-screen photo you can pinch, drag and double-tap to zoom (wheel and +/- on a computer). The table numbers stay on the photo,
+     at a constant size, and can still be tapped to pick a table. It only exists in the page while open (no hidden full-screen layer left behind). */
+  var viewer = null;
+  function openViewer(index, opener) {
+    var p = curPhotos[index]; if (!p || viewer) return;
+    var wrap = doc.createElement("div"), stage = doc.createElement("div"), pan = buildSlide(p, true);
+    wrap.className = "rv-lb"; wrap.setAttribute("role", "dialog"); wrap.setAttribute("aria-modal", "true"); wrap.setAttribute("aria-label", I.t("rv.zoom"));
+    stage.className = "rv-lb-stage"; pan.classList.add("rv-lb-pan"); stage.appendChild(pan); wrap.appendChild(stage);
+    var icon = function (d) { return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="' + d + '"/></svg>'; };
+    var btn = function (cls, label, d) { var b = doc.createElement("button"); b.type = "button"; b.className = cls; b.setAttribute("aria-label", label); b.innerHTML = icon(d); return b; };
+    var closeB = btn("rv-lb-x", I.t("rv.zoom.close"), "M6 6l12 12M18 6L6 18"), outB = btn("rv-lb-b", I.t("rv.zoom.out"), "M5 12h14"), inB = btn("rv-lb-b", I.t("rv.zoom.in"), "M5 12h14M12 5v14");
+    var hint = doc.createElement("p"); hint.className = "rv-lb-hint"; hint.textContent = I.t("rv.zoom.hint");
+    var ctl = doc.createElement("div"); ctl.className = "rv-lb-ctl"; ctl.appendChild(outB); ctl.appendChild(inB);
+    wrap.appendChild(hint); wrap.appendChild(ctl); wrap.appendChild(closeB);
+    doc.body.appendChild(wrap);
+    paintTable(); /* the chosen table (if any) is already highlighted when the viewer opens */
+
+    var SW = 0, SH = 0, W = 0, H = 0, minS = 1, MAX = 6, s = 1, tx = 0, ty = 0, pts = {}, g = { moved: false, onDot: false, sx: 0, sy: 0 }, lastTap = { t: 0, x: 0, y: 0 };
+    function clamp() {
+      var cw = W * s, ch = H * s;
+      tx = cw <= SW ? (SW - cw) / 2 : Math.min(0, Math.max(SW - cw, tx));
+      ty = ch <= SH ? (SH - ch) / 2 : Math.min(0, Math.max(SH - ch, ty));
+    }
+    function apply() { clamp(); pan.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + s + ")"; pan.style.setProperty("--z", s); }
+    function zoomAt(cx, cy, ns) { ns = Math.min(MAX, Math.max(minS, ns)); tx = cx - (cx - tx) * (ns / s); ty = cy - (cy - ty) * (ns / s); s = ns; apply(); }
+    function layout() { /* fit the photo to the screen (also after a rotation) */
+      SW = stage.clientWidth; SH = stage.clientHeight; W = SW; H = SW * p.h / 1600; minS = Math.min(1, SH / H);
+      pan.style.width = W + "px"; pan.style.height = H + "px"; s = Math.max(minS, Math.min(s, MAX)); apply();
+    }
+    layout();
+    var keys = Object.keys, mid = function () { var k = keys(pts), a = pts[k[0]], b = pts[k[1]]; return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 }; };
+    var dist = function () { var k = keys(pts), a = pts[k[0]], b = pts[k[1]]; return Math.hypot(a.x - b.x, a.y - b.y); };
+    var box = function () { return stage.getBoundingClientRect(); };
+    stage.addEventListener("pointerdown", function (e) {
+      pts[e.pointerId] = { x: e.clientX, y: e.clientY };
+      if (keys(pts).length === 1) g = { moved: false, onDot: !!(e.target.closest && e.target.closest(".rv-dot")), sx: e.clientX, sy: e.clientY };
+      else g.moved = true; /* a second finger = a pinch, never a tap */
+    });
+    function onMove(e) {
+      var pt = pts[e.pointerId]; if (!pt) return;
+      if (keys(pts).length === 1) {
+        tx += e.clientX - pt.x; ty += e.clientY - pt.y; pt.x = e.clientX; pt.y = e.clientY;
+        if (Math.hypot(e.clientX - g.sx, e.clientY - g.sy) > 8) g.moved = true;
+        apply();
+      } else if (keys(pts).length === 2) {
+        var m0 = mid(), d0 = dist(); pt.x = e.clientX; pt.y = e.clientY; var m1 = mid(), d1 = dist(), r = box();
+        tx += m1.x - m0.x; ty += m1.y - m0.y;
+        if (d0 > 0) zoomAt(m1.x - r.left, m1.y - r.top, s * d1 / d0); else apply();
+      }
+    }
+    function onUp(e) {
+      if (!pts[e.pointerId]) return; delete pts[e.pointerId];
+      if (keys(pts).length || g.moved || g.onDot || e.type === "pointercancel") return;
+      var now = Date.now(), r = box(); /* two quick taps in the same spot: zoom in there, or back out */
+      if (now - lastTap.t < 320 && Math.hypot(e.clientX - lastTap.x, e.clientY - lastTap.y) < 30) { lastTap.t = 0; zoomAt(e.clientX - r.left, e.clientY - r.top, s > minS * 1.3 ? minS : Math.min(MAX, Math.max(minS * 2.5, 2.5))); }
+      else lastTap = { t: now, x: e.clientX, y: e.clientY };
+    }
+    stage.addEventListener("click", function (e) { /* a drag or pinch that ends on a table number must not pick it */
+      if (g.moved) { e.stopPropagation(); e.preventDefault(); return; }
+      var d = e.target.closest ? e.target.closest(".rv-dot") : null; if (d) pickDot(d);
+    }, true);
+    stage.addEventListener("wheel", function (e) { e.preventDefault(); var r = box(); zoomAt(e.clientX - r.left, e.clientY - r.top, s * Math.exp(-e.deltaY * 0.0015)); }, { passive: false });
+    var step = function (f) { var r = box(); zoomAt(r.width / 2, r.height / 2, s * f); };
+    inB.addEventListener("click", function () { step(1.6); }); outB.addEventListener("click", function () { step(1 / 1.6); });
+    function close() {
+      window.removeEventListener("pointermove", onMove); window.removeEventListener("pointerup", onUp); window.removeEventListener("pointercancel", onUp);
+      window.removeEventListener("resize", layout); doc.removeEventListener("keydown", onKey, true);
+      wrap.remove(); viewer = null; if (opener && opener.focus) opener.focus({ preventScroll: true });
+    }
+    function onKey(e) {
+      if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); close(); return; }
+      if (e.key === "+" || e.key === "=") { step(1.6); return; }
+      if (e.key === "-") { step(1 / 1.6); return; }
+      if (e.key === "Tab") { /* keep the focus inside the viewer */
+        var f = [].slice.call(wrap.querySelectorAll("button")), i = f.indexOf(doc.activeElement);
+        e.preventDefault(); f[(i + (e.shiftKey ? -1 : 1) + f.length) % f.length].focus();
+      }
+    }
+    window.addEventListener("pointermove", onMove); window.addEventListener("pointerup", onUp); window.addEventListener("pointercancel", onUp);
+    window.addEventListener("resize", layout); doc.addEventListener("keydown", onKey, true);
+    closeB.addEventListener("click", close);
+    viewer = { close: close }; closeB.focus({ preventScroll: true });
+  }
   $("#tableClear").addEventListener("click", function () { table = ""; paintTable(); });
   form.addEventListener("change", function (e) { if (e.target.name === "area") showPlan(); });
 
@@ -494,7 +601,7 @@
     done.focus({ preventScroll: true }); done.scrollIntoView({ block: "start" });
   });
   $("#doneEdit").addEventListener("click", function () { done.hidden = true; form.hidden = false; calBtn.focus(); });
-  doc.addEventListener("langchange", function () { paintDate(); if (calIsOpen) renderCal(); paintQuote(); fillTimes(); fillDurations(); paintErrs(); hours(); paintTable(); paintDone(); });
+  doc.addEventListener("langchange", function () { [].forEach.call(doc.querySelectorAll(".rv-zoom"), function (b) { b.setAttribute("aria-label", I.t("rv.zoom")); }); paintDate(); if (calIsOpen) renderCal(); paintQuote(); fillTimes(); fillDurations(); paintErrs(); hours(); paintTable(); paintDone(); });
 
   /* ---------- start: today if there is still a time to offer, otherwise tomorrow ---------- */
   var t0 = now().iso, s0 = slots(t0);
