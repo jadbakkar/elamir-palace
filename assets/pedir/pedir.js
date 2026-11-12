@@ -282,6 +282,10 @@
   const dishes = {};
   MENU.forEach(([cat, , list]) => list.forEach(([name, price, desc, opts, extras, pick]) => { dishes[R.dishId(cat, name)] = { name, price, cat, desc: desc || "", opts: opts || null, extras: extras || null, pick: pick || null }; }));
   const APARTE = "Servir aparte (fuera del pan)";   /* included extras (shawarma especial) travel in the extras part of the key, at $0 */
+  /* "presupuesto" pick mode: the reservation form (reservar.js) sends the guest here, with ?presupuesto=1, only to choose dishes.
+     No checkout: the picks live in their own storage key (a real cart is never touched) and a "Listo" bar takes them back to the reservation. */
+  const PICK = (() => { try { return /[?&]presupuesto=1(?:&|#|$)/.test(location.search) && !!JSON.parse(sessionStorage.getItem("amir-presupuesto") || "null"); } catch (e) { return false; } })();
+  const CART_KEY = PICK ? "amir-presupuesto-cart" : "amir-cart-v2";
   let cart = {};   /* key = dishId or dishId|opción|extra~extra|nota del cliente (Spanish) → qty */
   const parseKey = k => { const [id, opt, ex, note] = k.split("|"); return { id, opt, extras: ex ? ex.split("~") : [], note: note || "" }; };
   const cleanNote = s => String(s || "").replace(/[|~\n\r]+/g, " ").replace(/\s+/g, " ").trim().slice(0, 120);
@@ -299,7 +303,7 @@
     return !!d && (d.opts ? d.opts.choices.includes(opt) : !opt) && extras.every(known) && (!d.pick || extras.filter(n => d.pick.items.includes(n)).length === d.pick.n);
   };
   try {
-    const raw = JSON.parse(localStorage.getItem("amir-cart-v2")) || {};
+    const raw = JSON.parse(localStorage.getItem(CART_KEY)) || {};
     Object.entries(raw).forEach(([k, q]) => {
       if (Number.isInteger(q) && q > 0 && validKey(k)) cart[k] = Math.min(q, MAXQ);
     });
@@ -444,7 +448,7 @@
     updateBlock();
   }
   function renderLines() { const h = linesHTML(); $("#ledgerLines").innerHTML = h; $("#sheetLines").innerHTML = count() ? h : ""; }
-  function save() { try { localStorage.setItem("amir-cart-v2", JSON.stringify(cart)); } catch (e) { /* ignore */ } doc.dispatchEvent(new Event("amir-cart")); }
+  function save() { try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) { /* ignore */ } doc.dispatchEvent(new Event("amir-cart")); }
   function refreshAll() { renderLines(); renderTotals(); save(); }
 
   let tt0;
@@ -1000,6 +1004,7 @@
   /* AI chat assistant (assets/chat/chat.js) adds dishes to the saved cart: reload it here when it does,
      and "pedir.html#carrito" (its "see my cart" link) opens the order */
   doc.addEventListener("amir-cart-external", () => {
+    if (PICK) return; /* the chat writes to the real cart; in pick mode the guest's picks are kept apart */
     try {
       const raw = JSON.parse(localStorage.getItem("amir-cart-v2")) || {}, next = {};
       Object.entries(raw).forEach(([k, q]) => { if (Number.isInteger(q) && q > 0 && validKey(k)) next[k] = Math.min(q, MAXQ); });
@@ -1007,7 +1012,7 @@
     } catch (e) { return; }
     $$(".dish").forEach(li => renderOne(li.dataset.id)); refreshAll();
   });
-  const cartHash = () => { if (location.hash === "#carrito" && count()) { history.replaceState(null, "", location.pathname + location.search); openSheet(0); } };
+  const cartHash = () => { if (!PICK && location.hash === "#carrito" && count()) { history.replaceState(null, "", location.pathname + location.search); openSheet(0); } };
   window.addEventListener("hashchange", cartHash); cartHash();
 
   /* "AP-1030-K7QX": date + 4 random characters. A counter would live on each guest's phone, so every guest's
@@ -1018,13 +1023,8 @@
     try { crypto.getRandomValues(r); } catch (e) { r.forEach((x, i) => { r[i] = Math.random() * 2 ** 32; }); }
     return `AP-${n.mm}${n.dd}-${Array.from(r, x => ID_ABC[x % ID_ABC.length]).join("")}`;
   }
-  /* the guest said "Sí" to "¿Quieres un presupuesto?" on reservar.html, which saved { branch, name, phone, lines } (the reservation, already in Spanish):
-     the order goes to WhatsApp with the reservation on top and flagged as a presupuesto, so the branch handles both there */
-  const QUOTE_KEY = "amir-presupuesto";
-  const quoteData = () => { try { const v = JSON.parse(sessionStorage.getItem(QUOTE_KEY) || "null"); return v && Array.isArray(v.lines) ? v : null; } catch (e) { return null; } };
   function buildMessage(id) {
-    const b = curBranch(), L = buildBaseMessage(id).split("\n"), q = quoteData();
-    if (q) L.splice(2, 0, I.tEs("wa.order.quote"), I.tEs("wa.order.rsvHead"), ...q.lines); /* right under the title and the time stamp */
+    const b = curBranch(), L = buildBaseMessage(id).split("\n");
     /* "*Sucursal:*" right after "*Tipo:*" */
     if (b) { const typeP = I.tEs("wa.order.type", { type: "" }).trim(), i = L.findIndex(l => l.startsWith(typeP)); L.splice(i < 0 ? 2 : i + 1, 0, `*Sucursal:* ${I.wx(b.nombre)}`); }
     /* "*Ubicación:*" right after the address (or right before the dishes) */
@@ -1075,7 +1075,6 @@
     order = { id, msg, url: w.url, cut: w.cut, total: tt.total, pay: form.elements.pay.value, branch: (curBranch() || {}).nombre || "", del: isDel() };
     const win = window.open(w.url, "_blank");
     if (win) { try { win.opener = null; } catch (er) { /* ignore */ } }
-    try { sessionStorage.removeItem(QUOTE_KEY); } catch (er) { /* ignore */ } /* the flag belongs to this one order */
     if ($("#remember").checked) {
       const v = k => form.elements[k].value.trim();
       try { localStorage.setItem("amir-customer", JSON.stringify({ name: v("name"), phone: v("phone"), lat: loc ? loc.lat : null, lng: loc ? loc.lng : null })); } catch (er) { /* ignore */ }
@@ -1162,14 +1161,29 @@
   doc.addEventListener("langchange", setHomeLinks);
   setHomeLinks();
   renderAll(true);
-  const qd = quoteData();
-  if (qd) { /* coming from the reservation form: everything they typed there is already filled in */
-    const FE = form.elements;
-    if (qd.name) FE.name.value = qd.name;
-    if (qd.phone) FE.phone.value = qd.phone;
-    const br = qd.branch && form.querySelector(`input[name="branch"][value="${qd.branch}"]`);
-    if (br) { br.checked = true; br.dispatchEvent(new Event("change", { bubbles: true })); }
-    toast(t("px.quote.toast"), null, 7000);
+  if (PICK) { /* "presupuesto" pick mode: choose dishes, then "Listo" goes back to the reservation (reservar.js restores the form and shows the picks) */
+    doc.documentElement.classList.add("pick");
+    const bar = doc.createElement("div"); bar.className = "pickbar"; bar.setAttribute("role", "region");
+    bar.innerHTML = '<div class="pk-t"><b id="pkN"></b><span id="pkSub"></span></div><button type="button" class="btn btn--wine" id="pkDone"></button>';
+    doc.body.appendChild(bar);
+    const paintBar = () => {
+      const c = count(); bar.setAttribute("aria-label", t("px.pick.bar"));
+      $("#pkN").textContent = c ? I.tp("cart.dishes", c) : t("px.pick.none"); $("#pkSub").textContent = c ? money(totals().sub) : ""; $("#pkDone").textContent = t("px.pick.done");
+      const bo = $(".bnav-order"); if (bo) { const lbl = bo.querySelector("[data-i18n]"), bt = $("#bnavTot"); if (lbl) lbl.hidden = false; if (bt) bt.hidden = true; } /* the nav keeps its plain "Pedir": its total/badge are for the real cart */
+    };
+    paintBar(); doc.addEventListener("amir-cart", paintBar); doc.addEventListener("langchange", paintBar);
+    $("#pkDone").addEventListener("click", () => {
+      let v = null; try { v = JSON.parse(sessionStorage.getItem("amir-presupuesto") || "null"); } catch (e) { /* ignore */ }
+      if (v) {
+        v.dishes = Object.keys(cart).map(k => ({ qty: cart[k], name: lineName(k), ui: lineNameUI(k), total: unitPrice(k) * cart[k] })); /* name = Spanish (WhatsApp), ui = the guest's language (on screen) */
+        v.sub = totals().sub;
+        try { sessionStorage.setItem("amir-presupuesto", JSON.stringify(v)); } catch (e) { /* ignore */ }
+      }
+      location.href = "reservar.html#presupuesto";
+    });
+    /* the bottom-bar PEDIR button would open the checkout: here it only reminds them what to do */
+    doc.addEventListener("click", e => { if (e.target.closest && e.target.closest(".bnav-order") && count()) { e.preventDefault(); e.stopImmediatePropagation(); toast(t("px.pick.hint")); } }, true);
+    toast(t("px.pick.toast"), null, 7000);
     /* land on the first menu section (the link says #entradas-arabes). English / Arabic redraw the menu and fonts load after the
        first scroll, which shifts the page, so align again once things settle, unless the guest already started scrolling */
     let touched = false;

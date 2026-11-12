@@ -71,7 +71,7 @@ const MENU = [
   ["Parrilla El Amir",26,"Pechuga, churrasco de lomito, 2 ruedas de kafta, makanek y papas"],
   ["Parrilla mar y tierra",26,"Parrilla de carnes y mariscos."],["Parrilla de mariscos",26,"Parrilla con mariscos variados."],["Parrilla de pollo",20,"Parrilla con pollo.",null,EXTRA_SIDES],["Parrilla de lomito",24,"Parrilla con lomito."],["Parrilla mixta",24,"Parrilla con pollo y lomito."]]],
  ["Carnes y Aves","Acompañados con 2 contornos: papas fritas, bravas, rústicas, puré, papas al vapor, vegetales al vapor, ensalada mixta o arroz",[
-  ["Plato navideño",15],
+  ["Plato navideño",16],
   ["Pollo a la brasa El Amir",34,"Con chorizos, pimentones asados, papas, ensalada rallada y arroz especial"],
   ["Envoltini de pollo",20,"Relleno de espinaca, pimentón y mozzarella con salsa de ajo porro"],["Pollo a la brasa",17,"300 g de pechuga deshuesada"],
   ["Pollo a la canasta",16,"Escalopines empanizados con papas"],["Tenders de pollo crispy",16,"Con salsa rosa o sweet chili y papas",OPT_SALSA_TENDERS],

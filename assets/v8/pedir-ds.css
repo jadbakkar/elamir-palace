@@ -346,3 +346,15 @@ html{scroll-padding-top:calc(var(--hd) + var(--bar) + 12px)}
 .ln .rm{width:32px;height:32px;border-radius:50%;display:inline-grid;place-items:center;color:var(--ink-2);flex:none;transition:background-color var(--dur) var(--ease)}
 .ln .rm:hover{background:var(--marble)}
 .ln .rm svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+
+/* "presupuesto" pick mode (pedir.html?presupuesto=1, pedir.js): choose dishes, no checkout; one "Listo" bar goes back to the reservation */
+.pick .pill,.pick #hdCart,.pick #ledgerGo,.pick #ledgerWhy,.pick #ledgerMin{display:none!important}
+.pickbar{position:fixed;z-index:70;inset-inline:12px 88px;bottom:calc(78px + env(safe-area-inset-bottom,0px));display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 8px 8px 18px;border-radius:999px;background:var(--ink,#111);color:#fff;box-shadow:0 12px 32px rgba(17,17,17,.32)}
+.pk-t{display:flex;flex-direction:column;min-width:0;line-height:1.2;font-size:13px}
+.pk-t b{font-size:15px;font-weight:700;white-space:nowrap}
+.pk-t span{opacity:.78}
+.pickbar .btn{flex:none;min-height:44px;padding-inline:24px;border-radius:999px;white-space:nowrap}
+@media (min-width:860px){.pickbar{inset-inline:auto 96px;bottom:26px;min-width:360px}}
+.pick .bnav-n{display:none!important}
+.pick #bnavTot{display:none!important}
+.pick .bnav-order>[data-i18n][hidden]{display:block!important}

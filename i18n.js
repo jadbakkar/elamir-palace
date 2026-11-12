@@ -244,7 +244,9 @@
     "cart.max": "Máximo {max} por plato",
     "cart.cleared": "Pedido vaciado",
     "cart.clearedThanks": "Carrito vaciado. ¡Gracias!",
-    "px.quote.toast": "Tus datos de reserva están guardados. Arma tu pedido y lo enviamos por WhatsApp junto con tu reserva y tu solicitud de presupuesto.",
+    "px.pick.toast": "Elige los platos para tu presupuesto y toca «Listo» para volver a tu reserva.",
+    "px.pick.done": "Listo", "px.pick.none": "Aún sin platos", "px.pick.bar": "Platos del presupuesto",
+    "px.pick.hint": "Toca «Listo» para volver a tu reserva.",
     "cart.undo": "Deshacer",
     "cart.removeLine": "Quitar {name} del pedido",
     "cart.removed": "Quitado: {name}",
@@ -357,8 +359,8 @@
     "wa.order.totalBs": " (≈ {bs} a tasa BCV {rate})",
     "wa.order.pay": "*Pago:* {pay}",
     "wa.order.notes": "*Notas:* {notes}",
-    "wa.order.quote": "*PRESUPUESTO SOLICITADO:* el cliente pidió un presupuesto junto con su reserva, atenderlo por WhatsApp",
-    "wa.order.rsvHead": "*DATOS DE LA RESERVA:*",
+    "wa.res.quote": "*PRESUPUESTO SOLICITADO:* el cliente quiere un presupuesto con estos platos, atenderlo por WhatsApp",
+    "wa.res.quoteSub": "Subtotal estimado: {amount}",
     "wa.clientLang": "*Idioma del cliente:* {lang}",
     "wa.res.title": "*Reserva · {name}*",
     "wa.res.name": "*Nombre:* {v}",
@@ -550,7 +552,9 @@
     "cart.max": "Maximum {max} per dish",
     "cart.cleared": "Order cleared",
     "cart.clearedThanks": "Cart cleared. Thank you!",
-    "px.quote.toast": "Your booking details are saved. Build your order and we send it on WhatsApp together with your booking and quote request.",
+    "px.pick.toast": "Choose the dishes for your quote, then tap “Done” to return to your booking.",
+    "px.pick.done": "Done", "px.pick.none": "No dishes yet", "px.pick.bar": "Quote dishes",
+    "px.pick.hint": "Tap “Done” to go back to your booking.",
     "cart.undo": "Undo",
     "cart.removeLine": "Remove {name} from order",
     "cart.removed": "Removed: {name}",
@@ -815,7 +819,9 @@
     "cart.max": "الحد الأقصى {max} لكل طبق",
     "cart.cleared": "تم إفراغ الطلب",
     "cart.clearedThanks": "تم إفراغ السلة. شكراً لك!",
-    "px.quote.toast": "تم حفظ بيانات حجزك. جهّز طلبك ونرسله عبر واتساب مع حجزك وطلب عرض السعر.",
+    "px.pick.toast": "اختر الأطباق لعرض السعر ثم اضغط «تم» للعودة إلى حجزك.",
+    "px.pick.done": "تم", "px.pick.none": "لا أطباق بعد", "px.pick.bar": "أطباق عرض السعر",
+    "px.pick.hint": "اضغط «تم» للعودة إلى حجزك.",
     "cart.undo": "تراجع",
     "cart.removeLine": "إزالة {name} من الطلب",
     "cart.removed": "تمت إزالة {name}",
@@ -1677,6 +1683,12 @@
     L.push(E("wa.res.people", { v: r.people }), E("wa.res.date", { v: d }), E("wa.res.time", { v: I18N.time12(r.time, "es") }));
     if (r.hours) L.push(E("wa.res.hours", { v: r.hours }));
     if (r.notes && wx(r.notes)) L.push(E("wa.res.notes", { v: wx(r.notes) }));
+    /* r.quote = { dishes: [{ qty, name (Spanish), total }], sub }: the guest also asked for a presupuesto of these dishes */
+    if (r.quote && r.quote.dishes && r.quote.dishes.length) {
+      L.push("", E("wa.res.quote"));
+      r.quote.dishes.forEach(function (d) { L.push(E("wa.order.line", { qty: d.qty, name: wx(d.name), price: I18N.money(d.total) })); });
+      L.push(E("wa.res.quoteSub", { amount: I18N.money(r.quote.sub) }));
+    }
     return L.join("\n");
   };
 

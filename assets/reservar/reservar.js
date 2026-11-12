@@ -14,9 +14,9 @@
   var C = CONFIG;
 
   /* ---------- how the time list is built (owner can tune) ---------- */
-  var STEP = 30;          /* minutes between the times offered */
-  var BEFORE_CLOSE = 60;  /* last time offered = closing time minus this */
-  var LEAD = 30;          /* for today: earliest time offered = now plus this */
+  var STEP = 15;          /* minutes between the times offered */
+  var BEFORE_CLOSE = 30;  /* last time offered = closing time minus this (they close at 12 am, so the last reservation is 11:30 pm) */
+  var LEAD = 0;           /* for today: earliest time offered = now, rounded up to the next slot (1:03 pm -> 1:15 pm) */
   var LAST_DATE = "2028-12-31"; /* the last day the calendar offers */
 
   /* ---------- page strings (the form labels themselves are the "res.*" keys in i18n.js) ---------- */
@@ -34,13 +34,15 @@
       "rv.err.docid": "Escribe tu C.I o RIF (ej. V-12345678 o J-12345678-9).",
       "rv.area.terrazaSup": "Terraza superior", "rv.area.terrazaSupD": "Al aire libre, en el piso de arriba",
       "rv.area.any": "Donde haya sitio", "rv.area.anyD": "La sucursal te ubica",
-      "rv.hours": "¿Cuánto tiempo?", "rv.min": "min",
+      "rv.hours": "Tiempo estimado de estadía", "rv.min": "min",
       "rv.datePh": "Elige la fecha", "rv.cal.label": "Elige la fecha", "rv.cal.prev": "Mes anterior", "rv.cal.next": "Mes siguiente",
       "rv.cal.closed": "Cerrado", "rv.cal.noTimes": "Sin horas disponibles hoy",
       "rv.zoom": "Ampliar foto", "rv.zoom.close": "Cerrar", "rv.zoom.in": "Acercar", "rv.zoom.out": "Alejar",
       "rv.zoom.hint": "Pellizca o toca dos veces para acercar. Toca una mesa para elegirla.",
       "rv.quote": "¿Quieres un presupuesto?", "rv.quote.no": "No", "rv.quote.yes": "Sí",
-      "rv.quote.hint": "Si dices sí, te llevamos al menú con tus datos guardados y tu pedido se envía por WhatsApp junto con tu reserva.",
+      "rv.quote.hint": "Si dices sí, vas al menú a elegir tus platos. Al terminar vuelves aquí y presionas Reservar.",
+      "rv.quote.ready": "Listo: tus platos viajan con tu reserva. Presiona Reservar para enviarla.",
+      "rv.quote.edit": "Editar platos", "rv.quote.sub": "Subtotal estimado: {amount}",
       "rv.quote.lock": "Completa todos los datos para poder pedir un presupuesto.",
       "rv.quote.fail": "No pudimos guardar tus datos en este navegador. Usa el botón Reservar.",
       "rv.table": "Elige tu mesa (opcional)", "rv.table.hint": "Toca el número de una mesa en la foto. Es una preferencia: la sucursal te confirma la mesa.",
@@ -51,7 +53,7 @@
       "rv.err.date": "Elige una fecha.", "rv.err.past": "Esa fecha ya pasó.",
       "rv.err.closed": "Ese día estamos cerrados. Elige otra fecha.",
       "rv.err.noSlots": "Hoy ya no quedan horas para reservar. Elige otra fecha.",
-      "rv.err.time": "Elige una hora.",
+      "rv.err.time": "Escribe una hora.", "rv.err.timeBad": "Escribe una hora cada 15 minutos, dentro del horario (por ejemplo 7:30 pm).", "rv.hours.range": "Horario: {from} – {to}",
       "rv.how.t": "Cómo funciona", "rv.how.1": "Elige sucursal, fecha y hora.",
       "rv.how.2": "Envía el mensaje que se abre en WhatsApp.", "rv.how.3": "La sucursal te confirma la mesa por el chat.",
       "rv.group.t": "¿Grupo grande o celebración?",
@@ -73,13 +75,15 @@
       "rv.err.docid": "Enter your C.I or RIF (e.g. V-12345678 or J-12345678-9).",
       "rv.area.terrazaSup": "Upper terrace", "rv.area.terrazaSupD": "Outdoors, upstairs",
       "rv.area.any": "Wherever is free", "rv.area.anyD": "The restaurant seats you",
-      "rv.hours": "How long will you stay?", "rv.min": "min",
+      "rv.hours": "Estimated length of stay", "rv.min": "min",
       "rv.datePh": "Choose a date", "rv.cal.label": "Choose a date", "rv.cal.prev": "Previous month", "rv.cal.next": "Next month",
       "rv.cal.closed": "Closed", "rv.cal.noTimes": "No times left today",
       "rv.zoom": "Enlarge photo", "rv.zoom.close": "Close", "rv.zoom.in": "Zoom in", "rv.zoom.out": "Zoom out",
       "rv.zoom.hint": "Pinch or double-tap to zoom. Tap a table to pick it.",
       "rv.quote": "Would you like a quote?", "rv.quote.no": "No", "rv.quote.yes": "Yes",
-      "rv.quote.hint": "If you say yes, we take you to the menu with your details saved, and your order goes to WhatsApp together with your booking.",
+      "rv.quote.hint": "If you say yes, you pick your dishes on the menu. When you're done you come back here and press Book.",
+      "rv.quote.ready": "Done: your dishes go with your booking. Press Book to send it.",
+      "rv.quote.edit": "Edit dishes", "rv.quote.sub": "Estimated subtotal: {amount}",
       "rv.quote.lock": "Fill in all the details to ask for a quote.",
       "rv.quote.fail": "We couldn't save your details in this browser. Use the Book button.",
       "rv.table": "Choose your table (optional)", "rv.table.hint": "Tap a table number on the photo. It's a preference: the restaurant confirms your table.",
@@ -90,7 +94,7 @@
       "rv.err.date": "Choose a date.", "rv.err.past": "That date has already passed.",
       "rv.err.closed": "We are closed that day. Choose another date.",
       "rv.err.noSlots": "There are no times left to book today. Choose another date.",
-      "rv.err.time": "Choose a time.",
+      "rv.err.time": "Type a time.", "rv.err.timeBad": "Type a time every 15 minutes, within opening hours (for example 7:30 pm).", "rv.hours.range": "Open: {from} – {to}",
       "rv.how.t": "How it works", "rv.how.1": "Choose a location, date and time.",
       "rv.how.2": "Send the message that opens in WhatsApp.", "rv.how.3": "The restaurant confirms your table in the chat.",
       "rv.group.t": "Large group or celebration?",
@@ -112,13 +116,15 @@
       "rv.err.docid": "اكتب رقم هويتك C.I أو RIF (مثال: V-12345678 أو J-12345678-9).",
       "rv.area.terrazaSup": "التراس العلوي", "rv.area.terrazaSupD": "في الهواء الطلق في الطابق العلوي",
       "rv.area.any": "أي مكان متاح", "rv.area.anyD": "يختار لك الفرع المكان",
-      "rv.hours": "كم المدة؟", "rv.min": "د",
+      "rv.hours": "مدة الإقامة المتوقعة", "rv.min": "د",
       "rv.datePh": "اختر التاريخ", "rv.cal.label": "اختر التاريخ", "rv.cal.prev": "الشهر السابق", "rv.cal.next": "الشهر التالي",
       "rv.cal.closed": "مغلق", "rv.cal.noTimes": "لا توجد أوقات متاحة اليوم",
       "rv.zoom": "تكبير الصورة", "rv.zoom.close": "إغلاق", "rv.zoom.in": "تكبير", "rv.zoom.out": "تصغير",
       "rv.zoom.hint": "اضغط بإصبعين أو انقر مرتين للتكبير. اضغط على طاولة لاختيارها.",
       "rv.quote": "هل تريد عرض سعر؟", "rv.quote.no": "لا", "rv.quote.yes": "نعم",
-      "rv.quote.hint": "إذا اخترت نعم ننقلك إلى القائمة مع حفظ بياناتك، ويُرسل طلبك عبر واتساب مع حجزك.",
+      "rv.quote.hint": "إذا اخترت نعم تنتقل إلى القائمة لاختيار أطباقك. عند الانتهاء تعود إلى هنا وتضغط احجز.",
+      "rv.quote.ready": "تم: أطباقك مرفقة بحجزك. اضغط احجز لإرساله.",
+      "rv.quote.edit": "تعديل الأطباق", "rv.quote.sub": "المجموع التقديري: {amount}",
       "rv.quote.lock": "أكمل جميع البيانات لتتمكن من طلب عرض سعر.",
       "rv.quote.fail": "تعذّر حفظ بياناتك في هذا المتصفح. استخدم زر احجز.",
       "rv.table": "اختر طاولتك (اختياري)", "rv.table.hint": "اضغط على رقم طاولة في الصورة. هذا تفضيل فقط: يؤكد لك الفرع الطاولة.",
@@ -129,7 +135,7 @@
       "rv.err.date": "اختر التاريخ.", "rv.err.past": "هذا التاريخ قد مضى.",
       "rv.err.closed": "نحن مغلقون في ذلك اليوم. اختر تاريخاً آخر.",
       "rv.err.noSlots": "لم تعد هناك أوقات متاحة للحجز اليوم. اختر تاريخاً آخر.",
-      "rv.err.time": "اختر الوقت.",
+      "rv.err.time": "اكتب الوقت.", "rv.err.timeBad": "اكتب وقتاً كل 15 دقيقة ضمن ساعات العمل (مثلاً 7:30 م).", "rv.hours.range": "ساعات العمل: {from} – {to}",
       "rv.how.t": "كيف يتم الحجز", "rv.how.1": "اختر الفرع والتاريخ والوقت.",
       "rv.how.2": "أرسل الرسالة التي تُفتح في واتساب.", "rv.how.3": "يؤكد لك الفرع الطاولة عبر المحادثة.",
       "rv.group.t": "مجموعة كبيرة أو مناسبة؟",
@@ -169,14 +175,58 @@
     for (var t = open; t <= close - BEFORE_CLOSE && t < 1440; t += STEP) if (t >= from) out.push(pad(Math.floor(t / 60)) + ":" + pad(t % 60));
     return out;
   }
-  function fillTimes() {
-    var sel = F.time, keep = sel.value, iso = F.date.value, list = validISO(iso) ? slots(iso) || [] : [];
-    sel.textContent = "";
-    var first = doc.createElement("option"); first.value = ""; first.textContent = I.t("rv.timePh");
-    first.disabled = true; first.hidden = true; first.selected = true; /* a hint, not a time: it shows until a time is picked but isn't in the list */
-    sel.appendChild(first);
-    list.forEach(function (v) { var o = doc.createElement("option"); o.value = v; o.textContent = I.time12(v); sel.appendChild(o); });
-    sel.value = list.indexOf(keep) > -1 ? keep : "";
+  /* the guest types the time; fillTimes only sets the hints (min / max / 15-minute steps) for the chosen date */
+  /* hybrid time field: a text box the guest can type in, plus the site's own list of the day's times (opens on focus or tap,
+     filters as they type, arrows / Enter / Esc on a keyboard). Styled like the other dropdowns, not the browser's. */
+  var tBox = $("#rTimeBox"), tOpen = false, tItems = [], tOn = -1;
+  function dayList() { var iso = F.date.value; return validISO(iso) ? slots(iso) || [] : []; }
+  function tClose() { tBox.hidden = true; tOpen = false; tOn = -1; F.time.setAttribute("aria-expanded", "false"); F.time.removeAttribute("aria-activedescendant"); }
+  function tPaint() { tItems.forEach(function (li, i) { var on = i === tOn; li.classList.toggle("on", on); li.setAttribute("aria-selected", on ? "true" : "false"); }); }
+  function tOpenList(typed) {
+    var f = String(typed || "").trim().toLowerCase().replace(/\s+/g, "");
+    tBox.textContent = ""; tItems = [];
+    dayList().forEach(function (v) {
+      var label = I.time12(v);
+      if (f && label.toLowerCase().replace(/\s+/g, "").indexOf(f) < 0) return; /* match what the guest sees ("7:30 pm"), not the 24-hour value */
+      var li = doc.createElement("li"); li.id = "rTimeOpt" + tItems.length; li.setAttribute("role", "option"); li.setAttribute("data-v", v); li.textContent = label;
+      tBox.appendChild(li); tItems.push(li);
+    });
+    if (!tItems.length) { tClose(); return; }
+    tOn = -1; tBox.hidden = false; tOpen = true; F.time.setAttribute("aria-expanded", "true"); tPaint();
+  }
+  function tPick(v) { showTime(v); tClose(); F.time.dispatchEvent(new Event("change", { bubbles: true })); }
+  function tMove(step) {
+    if (!tOpen) { tOpenList(""); return; }
+    if (!tItems.length) return;
+    tOn = (tOn + step + tItems.length) % tItems.length; tPaint();
+    F.time.setAttribute("aria-activedescendant", tItems[tOn].id); tItems[tOn].scrollIntoView({ block: "nearest" });
+  }
+  function fillTimes() { if (tOpen) tOpenList(""); } /* a new date (or language) while the list is open: redraw it with the day's times */
+  /* any reasonable typing -> "HH:MM" (or "" if it isn't a time): "19:30", "7:30 pm", "730pm", "7:30" (evening if that is the time offered), "11:30" */
+  function parseTime(text, iso) {
+    var s = String(text || "").trim().toLowerCase().replace(/\./g, "").replace(/\s+/g, " ");
+    var m = /^(\d{1,2})(?::?(\d{2}))?\s?(am|pm|a|p)?$/.exec(s); if (!m) return "";
+    var h = +m[1], mi = m[2] != null ? +m[2] : 0, sfx = m[3];
+    if (mi > 59) return "";
+    if (sfx) {
+      if (h < 1 || h > 12) return "";
+      if (sfx[0] === "p" && h < 12) h += 12; if (sfx[0] === "a" && h === 12) h = 0;
+    } else if (h > 23) return "";
+    else if (h >= 1 && h <= 12 && m[1][0] !== "0" && validISO(iso)) { /* no am/pm: take the one of the two that is offered that day ("7:30" -> 7:30 pm) */
+      var list = slots(iso) || [], am = pad(h % 12) + ":" + pad(mi), pm = pad((h % 12) + 12) + ":" + pad(mi);
+      var inAm = list.indexOf(am) > -1, inPm = list.indexOf(pm) > -1;
+      h = inPm && (!inAm || h < 11) ? (h % 12) + 12 : h % 12;
+    }
+    return pad(h) + ":" + pad(mi);
+  }
+  function timeVal() { return parseTime(F.time.value, F.date.value); }
+  function showTime(hhmm) { F.time.value = hhmm ? I.time12(hhmm) : ""; } /* shown the way the suggestions read: "7:30 pm" */
+  /* "11:30 am – 11:30 pm" for the chosen day, from the opening hours (the last time = closing minus BEFORE_CLOSE) */
+  function dayRange(iso) {
+    var h = (C.horario || {})[I.dayKeys[noon(iso).getDay()]]; if (!h) return "";
+    var open = toMin(h[0]), close = toMin(h[1]); if (close <= open) close += 1440;
+    var last = (close - BEFORE_CLOSE) % 1440;
+    return I.t("rv.hours.range", { from: I.time12(h[0]), to: I.time12(pad(Math.floor(last / 60)) + ":" + pad(last % 60)) });
   }
 
   /* ---------- errors (kept as keys, so they follow a language switch) ---------- */
@@ -185,7 +235,9 @@
     ["date", "time", "name", "phone", "docid", "notes"].forEach(function (n) {
       var el = n === "date" ? calBtn : F[n], f = el.closest(".f"), key = errs[n] || "";
       f.classList.toggle("bad", !!key);
-      f.querySelector(".err").textContent = key ? I.t(key) : "";
+      var txt = key ? I.t(key) : "";
+      if (key === "rv.err.timeBad") txt += " " + dayRange(F.date.value); /* say the real hours for that day */
+      f.querySelector(".err").textContent = txt;
       if (key) el.setAttribute("aria-invalid", "true"); else el.removeAttribute("aria-invalid");
     });
     $("#branchG").classList.toggle("bad", !!errs.branch);
@@ -204,7 +256,10 @@
       var iso = F.date.value, s = validISO(iso) ? slots(iso) : null;
       key = !validISO(iso) ? "rv.err.date" : iso < now().iso ? "rv.err.past" : s === null ? "rv.err.closed" : !s.length ? "rv.err.noSlots" : "";
     }
-    if (n === "time") key = errs.date ? "" : F.time.value ? "" : "rv.err.time"; /* a bad date already explains the empty list */
+    if (n === "time") { /* a typed time must be one of the times offered that day: inside the opening hours, every 15 minutes, and not already past */
+      var tv = timeVal(), tl = validISO(F.date.value) ? slots(F.date.value) : null;
+      key = errs.date ? "" : !F.time.value.trim() ? "rv.err.time" : !tl || tl.indexOf(tv) < 0 ? "rv.err.timeBad" : "";
+    }
     errs[n] = key;
     return !key;
   }
@@ -527,7 +582,19 @@
 
   /* ---------- events ---------- */
   F.date.addEventListener("change", function () { check("date"); fillTimes(); if (errs.time) check("time"); paintErrs(); });
-  F.time.addEventListener("change", function () { if (errs.time) { check("time"); paintErrs(); } });
+  F.time.addEventListener("change", function () { var c = timeVal(); if (c) showTime(c); if (errs.time) { check("time"); paintErrs(); } });
+  F.time.addEventListener("focus", function () { tOpenList(""); });
+  F.time.addEventListener("click", function () { if (!tOpen) tOpenList(""); });
+  F.time.addEventListener("input", function () { tOpenList(F.time.value); }); /* typing narrows the list */
+  F.time.addEventListener("blur", function () { setTimeout(tClose, 120); });
+  F.time.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowDown") { e.preventDefault(); tMove(1); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); tMove(-1); }
+    else if (e.key === "Enter" && tOpen && tOn > -1) { e.preventDefault(); tPick(tItems[tOn].getAttribute("data-v")); }
+    else if (e.key === "Escape" && tOpen) { e.preventDefault(); e.stopPropagation(); tClose(); }
+  });
+  tBox.addEventListener("mousedown", function (e) { e.preventDefault(); }); /* keeps the focus in the field while the guest taps a time */
+  tBox.addEventListener("click", function (e) { var li = e.target.closest ? e.target.closest("li") : null; if (li) tPick(li.getAttribute("data-v")); });
   F.name.addEventListener("input", function () { if (errs.name) { check("name"); paintErrs(); } });
   F.notes.addEventListener("input", function () { if (errs.notes) { check("notes"); paintErrs(); } });
   /* Puerto La Cruz has no seating areas or table photos on the page: hide them and drop any zone/table already chosen */
@@ -544,11 +611,44 @@
      their name, phone and branch and sends the reservation together with the order to WhatsApp. */
   var REQUIRED = ["branch", "date", "time", "name", "phone", "docid", "notes"];
   function isOk(n) { var keep = errs[n], ok = check(n); errs[n] = keep; return ok; } /* check() without changing the error on screen */
-  function paintQuote() {
-    var ok = REQUIRED.every(isOk), h = $("#quoteH"), key = ok ? "rv.quote.hint" : "rv.quote.lock";
-    $("#qYes").disabled = !ok; h.setAttribute("data-i18n", key); h.textContent = I.t(key);
+  /* the guest's pending presupuesto: sessionStorage "amir-presupuesto" = { form: {every field}, dishes: [{qty,name,ui,total}] | null, sub }.
+     "Sí" saves the form and sends them to pedir.html?presupuesto=1 to pick dishes; "Listo" there adds dishes and brings them back here. */
+  var PEND_KEY = "amir-presupuesto", PICK_KEY = "amir-presupuesto-cart", picks = null;
+  function readPending() { try { var v = JSON.parse(sessionStorage.getItem(PEND_KEY) || "null"); return v && v.form ? v : null; } catch (e) { return null; } }
+  function writePending(v) { try { sessionStorage.setItem(PEND_KEY, JSON.stringify(v)); return true; } catch (e) { return false; } }
+  function clearPending() { try { sessionStorage.removeItem(PEND_KEY); localStorage.removeItem(PICK_KEY); } catch (e) { /* ignore */ } }
+  function formState() {
+    return { branch: F.branch.value, area: F.area.value, table: table, people: F.people.value, date: F.date.value, time: timeVal(), hours: F.hours.value,
+      name: F.name.value, phone: F.phone.value, docid: F.docid.value, notes: F.notes.value };
   }
-  function quoteOff() { if (F.quote) F.quote.value = "no"; }
+  function paintQuote() {
+    var ok = REQUIRED.every(isOk), h = $("#quoteH"), key = picks ? "rv.quote.ready" : ok ? "rv.quote.hint" : "rv.quote.lock";
+    $("#qYes").disabled = !ok && !picks; h.setAttribute("data-i18n", key); h.textContent = I.t(key);
+    paintPicks();
+  }
+  function paintPicks() { /* the dishes they chose, under the question (Spanish names are stored for WhatsApp; the on-screen name is in the language they used) */
+    var box = $("#picks"); box.hidden = !picks; if (!picks) return;
+    var ul = $("#picksList"); ul.textContent = "";
+    picks.dishes.forEach(function (d) { var li = doc.createElement("li"), a = doc.createElement("span"), b = doc.createElement("span"); a.textContent = d.qty + "× " + (d.ui || d.name); b.textContent = I.money(d.total); li.appendChild(a); li.appendChild(b); ul.appendChild(li); });
+    $("#picksSub").textContent = I.t("rv.quote.sub", { amount: I.money(picks.sub) });
+  }
+  function quoteOff() { if (F.quote) F.quote.value = picks ? "yes" : "no"; }
+  function dropPicks() { /* "No" again, or the reservation was sent: forget the dishes */
+    picks = null; try { localStorage.removeItem(PICK_KEY); } catch (e) { /* ignore */ }
+    var v = readPending(); if (v) { v.dishes = null; v.sub = 0; writePending(v); }
+    quoteOff(); paintQuote();
+  }
+  /* back from the menu (or the Back button): put every field as they left it, and show the dishes if they chose some */
+  function restoreForm() {
+    var v = readPending(); if (!v) return; var f = v.form, radio = function (name, val) { var r = [].filter.call(form.querySelectorAll('input[name="' + name + '"]'), function (i) { return i.value === val; })[0]; if (r) r.checked = true; };
+    radio("branch", f.branch); radio("area", f.area || "");
+    if (validISO(f.date) && f.date >= dMin && f.date <= dMax) F.date.value = f.date;
+    paintDate(); fillTimes(); if (f.time) showTime(f.time);
+    F.people.value = f.people; F.hours.value = f.hours; F.name.value = f.name; F.phone.value = f.phone; F.docid.value = f.docid; F.notes.value = f.notes;
+    syncBranch(); /* shows/hides the floors and the table photos for the restored branch and floor */
+    if (f.table) plansReady.then(function () { table = f.table; paintTable(); }); /* after the picker has been redrawn (that clears the table) */
+    if (v.dishes && v.dishes.length) picks = { dishes: v.dishes, sub: v.sub || 0 };
+  }
   /* every missing field shows its error and shakes (the same .shake as the order page, styled in assets/v4/polish.css); true if anything was missing */
   function flagMissing() {
     var bad = REQUIRED.filter(function (n) { return !check(n); });
@@ -564,25 +664,20 @@
   }
   function startQuote() {
     if (flagMissing()) { quoteOff(); paintQuote(); return; }
-    var E = I.tEs, wx = I.wx, people = F.people.value, area = F.area.value, notes = F.notes.value.trim(), L = [];
-    var day = noon(F.date.value).toLocaleDateString("es-VE", { weekday: "long", day: "numeric", month: "long" });
-    if (area) L.push(E("wa.res.area", { v: wx(E("rv.area." + area)) }));
-    if (table) L.push(E("wa.res.table", { v: wx(table) }));
-    L.push(E("wa.res.people", { v: people === "+8" ? E("res.more8") : people }), E("wa.res.date", { v: day }), E("wa.res.time", { v: I.time12(F.time.value, "es") }), E("wa.res.hours", { v: F.hours.value + " " + E("rv.min") }));
-    L.push(E("wa.res.id", { v: wx(normDocid(F.docid.value)) }));
-    if (notes) L.push(E("wa.res.notes", { v: wx(notes) }));
-    try { sessionStorage.setItem("amir-presupuesto", JSON.stringify({ branch: F.branch.value, name: F.name.value.trim(), phone: F.phone.value.trim(), lines: L })); }
-    catch (er) { quoteOff(); $("#quoteH").textContent = I.t("rv.quote.fail"); return; } /* storage blocked: nothing to carry over, so stay and let them use Reservar */
-    location.href = "pedir.html#entradas-arabes"; /* straight to the first menu section, so they start ordering */
+    var prev = readPending(), keep = prev && prev.dishes && prev.dishes.length; /* editing dishes already chosen: they stay selected on the menu */
+    if (!keep) { try { localStorage.removeItem(PICK_KEY); } catch (e) { /* ignore */ } }
+    if (!writePending({ form: formState(), dishes: keep ? prev.dishes : null, sub: keep ? prev.sub : 0 })) { quoteOff(); $("#quoteH").textContent = I.t("rv.quote.fail"); return; } /* storage blocked: stay, they can use Reservar */
+    location.href = "pedir.html?presupuesto=1#entradas-arabes"; /* the menu, in "pick dishes" mode, at the first section */
   }
   form.addEventListener("input", paintQuote);
   form.addEventListener("change", function (e) {
-    if (e.target.name === "quote") { if (e.target.value === "yes") startQuote(); return; }
+    if (e.target.name === "quote") { if (e.target.value === "yes") startQuote(); else if (picks) dropPicks(); return; }
     paintQuote();
   });
+  $("#picksEdit").addEventListener("click", startQuote);
   /* tapping the locked "Sí" shows what is missing instead of doing nothing */
   $("#qYes").nextElementSibling.addEventListener("click", function () { if ($("#qYes").disabled) flagMissing(); });
-  window.addEventListener("pageshow", function () { quoteOff(); syncBranch(); paintQuote(); }); /* Back button: reset the answer, re-apply the restored branch */
+  window.addEventListener("pageshow", function () { quoteOff(); syncBranch(); paintQuote(); }); /* Back button: keep "Sí" only if they have dishes, re-apply the restored branch */
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -590,12 +685,19 @@
     var b = branchOf(F.branch.value) || { nombre: "", whatsapp: "" }, people = F.people.value, area = F.area.value;
     var msg = I.buildReservationMessage({
       name: F.name.value.trim(), phone: F.phone.value.trim(), docid: normDocid(F.docid.value), people: people === "+8" ? I.tEs("res.more8") : people,
-      dateISO: F.date.value, time: F.time.value, notes: F.notes.value, branch: b.nombre,
-      area: area ? I.tEs("rv.area." + area) : "", hours: F.hours.value + " " + I.tEs("rv.min"), table: table
+      dateISO: F.date.value, time: timeVal(), notes: F.notes.value, branch: b.nombre,
+      area: area ? I.tEs("rv.area." + area) : "", hours: F.hours.value + " " + I.tEs("rv.min"), table: table,
+      quote: picks && F.quote.value === "yes" ? picks : null /* the dishes of the presupuesto, if they asked for one */
     });
-    sent = { branch: b.nombre, area: area, table: table, people: people, date: F.date.value, time: F.time.value, url: "https://wa.me/" + (b.whatsapp || C.whatsapp) + "?text=" + encodeURIComponent(msg) };
+    var base = "https://wa.me/" + (b.whatsapp || C.whatsapp) + "?text=";
+    if ((base + encodeURIComponent(msg)).length > 1900) { /* a very long dish list: cut from the end (the reservation details come first) */
+      var ls = msg.split("\n"); while (ls.length > 12 && (base + encodeURIComponent(ls.join("\n") + "\n…")).length > 1900) ls.pop();
+      msg = ls.join("\n") + "\n…";
+    }
+    sent = { branch: b.nombre, area: area, table: table, people: people, date: F.date.value, time: timeVal(), url: base + encodeURIComponent(msg) };
     var win = window.open(sent.url, "_blank");
     if (win) { try { win.opener = null; } catch (er) { /* ignore */ } }
+    clearPending(); picks = null; quoteOff(); paintQuote(); /* the presupuesto went with this reservation */
     paintDone();
     form.hidden = true; done.hidden = false;
     done.focus({ preventScroll: true }); done.scrollIntoView({ block: "start" });
@@ -609,6 +711,13 @@
   if (!F.date.value) F.date.value = s0 && s0.length ? t0 : addDays(t0, 1);
   paintDate();
   I.apply(doc);
-  fillTimes(); fillDurations(); hours(); paintQuote();
+  fillTimes(); fillDurations(); hours();
+  restoreForm(); quoteOff(); paintQuote(); /* back from the menu: everything as they left it, plus their dishes */
+  (function landOnQuote() { /* "reservar.html#presupuesto" (the menu's Listo): show the question with their dishes, and hold it there while the page settles */
+    if (location.hash !== "#presupuesto" || !picks) return;
+    var touched = false, t0 = Date.now();
+    ["wheel", "touchstart", "keydown", "mousedown"].forEach(function (ev) { addEventListener(ev, function () { touched = true; }, { once: true, passive: true }); });
+    (function keep() { var q = $(".rv-quote"); if (q && !touched) q.scrollIntoView({ block: "center", behavior: "instant" }); if (!touched && Date.now() - t0 < 2500) setTimeout(keep, 120); })();
+  })();
   reveal();
 })();
