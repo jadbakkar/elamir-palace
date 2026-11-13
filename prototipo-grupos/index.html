@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FBF8F3">
+<title>Grupos de diciembre | El Amir Palace (prototipo)</title>
+<link rel="stylesheet" href="grupos.css">
+</head>
+<body>
+
+<header class="top no-print">
+  <span class="brand">El Amir Palace</span>
+  <span class="proto">Prototipo para revisión</span>
+</header>
+
+<main class="wrap">
+
+  <section class="intro">
+    <p class="kicker">Diciembre en grupo</p>
+    <h1>Reserva para tu grupo</h1>
+    <p>Para 20 a 40 personas. Elige cómo va a pedir el grupo, arma el presupuesto y envíalo al restaurante por WhatsApp.</p>
+    <p class="proto-note"><b>Prototipo:</b> cada opción tiene una letra (A, B, C…) o un número (1, 2, 3…). Dinos cuáles conservar.</p>
+  </section>
+
+  <section class="hero-feat" aria-label="Plato destacado">
+    <div>
+      <p class="kicker">Destacado</p>
+      <h2>Plato navideño</h2>
+      <p>Va primero en todas las listas. Precio: <b data-usd="16"></b> por plato.</p>
+    </div>
+  </section>
+
+  <div class="layout">
+
+    <form id="form" class="col" novalidate>
+
+      <!-- 1. datos -->
+      <section class="card" aria-labelledby="h-datos">
+        <h2 id="h-datos">1. Datos del grupo</h2>
+        <div class="grid2">
+          <label class="field"><span>Nombre de quien reserva *</span>
+            <input id="name" type="text" autocomplete="name" maxlength="80"></label>
+          <label class="field"><span>Teléfono *</span>
+            <input id="phone" type="tel" autocomplete="tel" placeholder="0424-000 0000" maxlength="20"></label>
+          <label class="field"><span>Fecha *</span>
+            <input id="date" type="date"></label>
+          <label class="field"><span>Número de personas *</span>
+            <input id="people" type="number" inputmode="numeric" min="1" max="300" step="1" value="30">
+            <small class="hint">Pensado para 20 a 40 personas.</small></label>
+          <label class="field"><span>Sucursal</span>
+            <select id="branch">
+              <option value="Lechería">Lechería</option>
+              <option value="Puerto La Cruz">Puerto La Cruz</option>
+            </select></label>
+        </div>
+        <label class="field"><span>Notas para el restaurante (opcional)</span>
+          <textarea id="notes" rows="2" maxlength="300"></textarea></label>
+      </section>
+
+      <!-- 2. modos -->
+      <section class="card" aria-labelledby="h-modo">
+        <h2 id="h-modo">2. ¿Cómo va a pedir el grupo?</h2>
+        <div class="modes">
+          <label class="mode"><input type="radio" name="modo" value="carta">
+            <span class="mode-card"><b class="letter">A</b>
+              <span><strong>À la carta</strong>
+              <small>Cada invitado pide de la carta completa en la mesa. Puedes poner un estimado por persona.</small></span></span></label>
+          <label class="mode"><input type="radio" name="modo" value="presupuesto" checked>
+            <span class="mode-card"><b class="letter">B</b>
+              <span><strong>Presupuesto por persona</strong>
+              <small>Pones cuánto puede gastar cada persona. Solo se ofrecen los platos y bebidas que caben.</small></span></span></label>
+          <label class="mode"><input type="radio" name="modo" value="limitado">
+            <span class="mode-card"><b class="letter">C</b>
+              <span><strong>Menú limitado</strong>
+              <small>Marcas los platos y bebidas permitidos del menú completo. Sale un rango por persona.</small></span></span></label>
+          <label class="mode"><input type="radio" name="modo" value="paquete">
+            <span class="mode-card"><b class="letter">D</b>
+              <span><strong>Paquete fijo</strong>
+              <small>Todos reciben lo mismo: plato navideño y bebida por persona, más botellas de vino. Total exacto.</small></span></span></label>
+          <label class="mode"><input type="radio" name="modo" value="exactas">
+            <span class="mode-card"><b class="letter">E</b>
+              <span><strong>Cantidades exactas</strong>
+              <small>Escribes cuántas unidades de cada plato o bebida. El total se suma solo.</small></span></span></label>
+        </div>
+
+        <!-- panel A -->
+        <div class="panel" data-mode="carta" hidden>
+          <p class="hint">Cada invitado pide de la carta completa en su mesa y paga lo que consume. El estimado es opcional y solo sirve de referencia.</p>
+          <label class="field narrow"><span>Estimado por persona ($, opcional)</span>
+            <input id="cartaBudget" type="text" inputmode="decimal" placeholder="ej. 25"></label>
+        </div>
+
+        <!-- panel B -->
+        <div class="panel" data-mode="presupuesto">
+          <p class="hint">Escribe cuánto puede gastar cada persona. Solo aparecen los platos y bebidas que caben en ese monto. Marca los que los invitados podrán elegir.</p>
+          <label class="field narrow"><span>Presupuesto por persona ($)</span>
+            <input id="budgetPP" type="text" inputmode="decimal" value="20"></label>
+          <div class="bar">
+            <button type="button" class="btn-line" id="budgetAll">Marcar todas</button>
+            <button type="button" class="btn-line" id="budgetNone">Quitar todas</button>
+          </div>
+          <div id="budgetList" class="picks"></div>
+        </div>
+
+        <!-- panel C -->
+        <div class="panel" data-mode="limitado" hidden>
+          <p class="hint">Marca los platos y bebidas que el grupo puede pedir, sin límite de presupuesto. El rango por persona va del más barato al más caro que marques.</p>
+          <div class="bar">
+            <button type="button" class="btn-line" id="limitAll">Marcar todos</button>
+            <button type="button" class="btn-line" id="limitNone">Quitar todos</button>
+          </div>
+          <div id="limitList" class="picks"></div>
+        </div>
+
+        <!-- panel D -->
+        <div class="panel" data-mode="paquete" hidden>
+          <p class="hint">Todos reciben lo mismo y el total es exacto. Ajusta las cantidades.</p>
+          <div class="grid2">
+            <label class="field"><span>Plato navideño por persona</span>
+              <input id="pkPlato" type="number" inputmode="numeric" min="0" max="10" step="1" value="1"></label>
+            <label class="field"><span>Bebida por persona</span>
+              <select id="pkDrink"></select></label>
+            <label class="field"><span>Cantidad de bebida por persona</span>
+              <input id="pkDrinkQty" type="number" inputmode="numeric" min="0" max="10" step="1" value="1"></label>
+            <label class="field"><span>Botellas de vino</span>
+              <input id="pkWine" type="number" inputmode="numeric" min="0" max="999" step="1" value="0"></label>
+          </div>
+          <fieldset class="opt">
+            <legend>Las botellas son</legend>
+            <label class="radio"><input type="radio" name="pkWineUnit" value="mesa" checked> <span>Por mesa</span></label>
+            <label class="radio"><input type="radio" name="pkWineUnit" value="total"> <span>En total</span></label>
+          </fieldset>
+          <div class="grid2">
+            <label class="field"><span>Mesas</span>
+              <input id="pkTables" type="number" inputmode="numeric" min="1" max="300" step="1" value="4" data-auto="1">
+              <small class="hint">Calculado: una mesa por cada 8 personas. Puedes cambiarlo.</small></label>
+            <label class="field"><span>Precio por botella ($)</span>
+              <input id="pkWinePrice" type="text" inputmode="decimal" placeholder="por confirmar">
+              <small class="hint">El vino no está en la carta. Escribe su precio para sumarlo.</small></label>
+          </div>
+        </div>
+
+        <!-- panel E -->
+        <div class="panel" data-mode="exactas" hidden>
+          <p class="hint">Escribe cuántas unidades quieres de cada plato o bebida. El total se actualiza solo.</p>
+          <div id="exactList" class="qlist"></div>
+        </div>
+      </section>
+
+      <!-- 3. opciones del prototipo -->
+      <section class="card" aria-labelledby="h-opc">
+        <h2 id="h-opc">3. Opciones del prototipo</h2>
+        <p class="hint">Compara las opciones y dinos cuáles conservar. El presupuesto cambia al instante.</p>
+
+        <fieldset class="opt">
+          <legend>IVA 16%</legend>
+          <label class="radio"><input type="radio" name="iva" value="add" checked> <span><b>1.</b> Se suma encima del precio</span></label>
+          <label class="radio"><input type="radio" name="iva" value="incl"> <span><b>2.</b> Ya viene incluido en los precios</span></label>
+        </fieldset>
+
+        <fieldset class="opt">
+          <legend>Servicio</legend>
+          <label class="check"><input type="checkbox" id="optServicio"> <span><b>3.</b> Cobrar servicio del 10% (se calcula antes del IVA)</span></label>
+        </fieldset>
+
+        <fieldset class="opt">
+          <legend>Modo B: el presupuesto por persona cubre</legend>
+          <label class="radio"><input type="radio" name="scope" value="food"> <span><b>4.</b> Solo la comida (las bebidas van aparte)</span></label>
+          <label class="radio"><input type="radio" name="scope" value="all" checked> <span><b>5.</b> Comida y bebida (incluye combos plato + bebida)</span></label>
+        </fieldset>
+
+        <fieldset class="opt">
+          <legend>Moneda</legend>
+          <label class="radio"><input type="radio" name="moneda" value="usd" checked> <span><b>6.</b> Solo dólares ($)</span></label>
+          <label class="radio"><input type="radio" name="moneda" value="bs"> <span><b>7.</b> Dólares y bolívares (Bs)</span></label>
+          <label class="field narrow"><span>Tasa: Bs por cada $1</span>
+            <input id="rate" type="text" inputmode="decimal" placeholder="ej. 480"></label>
+          <p class="hint" id="rateHint"></p>
+        </fieldset>
+      </section>
+
+    </form>
+
+    <!-- 4. presupuesto en vivo -->
+    <section id="presupuesto" class="card quote" aria-labelledby="h-quote">
+      <p class="kicker">Presupuesto en vivo</p>
+      <h2 id="h-quote">Resumen del grupo</h2>
+      <div id="qClient" class="q-client"></div>
+      <h3>Detalle</h3>
+      <ul id="qLines" class="q-lines"></ul>
+      <div id="qOpts"></div>
+      <div id="qTot"></div>
+      <div id="qWarn"></div>
+      <div class="q-actions no-print">
+        <button id="btnWa" type="button" class="btn-primary">Enviar por WhatsApp al restaurante</button>
+        <button id="btnPrint" type="button" class="btn-line">Imprimir / guardar PDF</button>
+        <div id="formErr" class="form-err" aria-live="polite"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <p class="hint no-print">Prototipo sin servidor: el botón de WhatsApp abre el chat con el mensaje listo. Los precios son los de la carta vigente.</p>
+</main>
+
+<script src="grupos.js"></script>
+</body>
+</html>
