@@ -53,7 +53,7 @@
       "rv.err.date": "Elige una fecha.", "rv.err.past": "Esa fecha ya pasó.",
       "rv.err.closed": "Ese día estamos cerrados. Elige otra fecha.",
       "rv.err.noSlots": "Hoy ya no quedan horas para reservar. Elige otra fecha.",
-      "rv.err.time": "Escribe una hora.", "rv.err.timeBad": "Escribe una hora cada 15 minutos, dentro del horario (por ejemplo 7:30 pm).", "rv.hours.range": "Horario: {from} – {to}",
+      "rv.err.time": "Escribe una hora.", "rv.err.ampm": "Elige AM o PM.","rv.err.timeBad": "Escribe una hora cada 15 minutos, dentro del horario (por ejemplo 7:30 pm).", "rv.hours.range": "Horario: {from} – {to}",
       "rv.how.t": "Cómo funciona", "rv.how.1": "Elige sucursal, fecha y hora.",
       "rv.how.2": "Envía el mensaje que se abre en WhatsApp.", "rv.how.3": "La sucursal te confirma la mesa por el chat.",
       "rv.group.t": "¿Grupo grande o celebración?",
@@ -94,7 +94,7 @@
       "rv.err.date": "Choose a date.", "rv.err.past": "That date has already passed.",
       "rv.err.closed": "We are closed that day. Choose another date.",
       "rv.err.noSlots": "There are no times left to book today. Choose another date.",
-      "rv.err.time": "Type a time.", "rv.err.timeBad": "Type a time every 15 minutes, within opening hours (for example 7:30 pm).", "rv.hours.range": "Open: {from} – {to}",
+      "rv.err.time": "Type a time.", "rv.err.ampm": "Choose AM or PM.","rv.err.timeBad": "Type a time every 15 minutes, within opening hours (for example 7:30 pm).", "rv.hours.range": "Open: {from} – {to}",
       "rv.how.t": "How it works", "rv.how.1": "Choose a location, date and time.",
       "rv.how.2": "Send the message that opens in WhatsApp.", "rv.how.3": "The restaurant confirms your table in the chat.",
       "rv.group.t": "Large group or celebration?",
@@ -135,7 +135,7 @@
       "rv.err.date": "اختر التاريخ.", "rv.err.past": "هذا التاريخ قد مضى.",
       "rv.err.closed": "نحن مغلقون في ذلك اليوم. اختر تاريخاً آخر.",
       "rv.err.noSlots": "لم تعد هناك أوقات متاحة للحجز اليوم. اختر تاريخاً آخر.",
-      "rv.err.time": "اكتب الوقت.", "rv.err.timeBad": "اكتب وقتاً كل 15 دقيقة ضمن ساعات العمل (مثلاً 7:30 م).", "rv.hours.range": "ساعات العمل: {from} – {to}",
+      "rv.err.time": "اكتب الوقت.", "rv.err.ampm": "اختر ص أو م.","rv.err.timeBad": "اكتب وقتاً كل 15 دقيقة ضمن ساعات العمل (مثلاً 7:30 م).", "rv.hours.range": "ساعات العمل: {from} – {to}",
       "rv.how.t": "كيف يتم الحجز", "rv.how.1": "اختر الفرع والتاريخ والوقت.",
       "rv.how.2": "أرسل الرسالة التي تُفتح في واتساب.", "rv.how.3": "يؤكد لك الفرع الطاولة عبر المحادثة.",
       "rv.group.t": "مجموعة كبيرة أو مناسبة؟",
@@ -175,38 +175,28 @@
     for (var t = open; t <= close - BEFORE_CLOSE && t < 1440; t += STEP) if (t >= from) out.push(pad(Math.floor(t / 60)) + ":" + pad(t % 60));
     return out;
   }
-  /* the guest types the time; fillTimes only sets the hints (min / max / 15-minute steps) for the chosen date */
-  /* hybrid time field: a text box the guest can type in, plus the site's own list of the day's times (opens on focus or tap,
-     filters as they type, arrows / Enter / Esc on a keyboard). Styled like the other dropdowns, not the browser's. */
-  var tBox = $("#rTimeBox"), tOpen = false, tItems = [], tOn = -1;
-  function dayList() { var iso = F.date.value; return validISO(iso) ? slots(iso) || [] : []; }
-  function tClose() { tBox.hidden = true; tOpen = false; tOn = -1; F.time.setAttribute("aria-expanded", "false"); F.time.removeAttribute("aria-activedescendant"); }
-  function tPaint() { tItems.forEach(function (li, i) { var on = i === tOn; li.classList.toggle("on", on); li.setAttribute("aria-selected", on ? "true" : "false"); }); }
-  function tOpenList(typed) {
-    var f = String(typed || "").trim().toLowerCase().replace(/\s+/g, "");
-    tBox.textContent = ""; tItems = [];
-    dayList().forEach(function (v) {
-      var label = I.time12(v);
-      if (f && label.toLowerCase().replace(/\s+/g, "").indexOf(f) < 0) return; /* match what the guest sees ("7:30 pm"), not the 24-hour value */
-      var li = doc.createElement("li"); li.id = "rTimeOpt" + tItems.length; li.setAttribute("role", "option"); li.setAttribute("data-v", v); li.textContent = label;
-      tBox.appendChild(li); tItems.push(li);
-    });
-    if (!tItems.length) { tClose(); return; }
-    tOn = -1; tBox.hidden = false; tOpen = true; F.time.setAttribute("aria-expanded", "true"); tPaint();
+  /* the guest types the time by hand (no dropdown): only digits and ":" are kept, at most 5 characters.
+     The ":" is added by itself: after "13" (or a first digit 2-9, like "2" -> "2:"), and "1350" / a pasted "1320" -> "13:50" / "13:20".
+     A "." is read as ":" ("13.50" -> "13:50"). Nothing is added while deleting, so Backspace still works. */
+  function timeKeys(e) {
+    var raw = F.time.value.replace(/\./g, ":").replace(/[^\d:]/g, "");
+    var deleting = e && String(e.inputType || "").indexOf("delete") > -1;
+    var i = raw.indexOf(":"), mins = i < 0 ? "" : raw.slice(i + 1);
+    if (i < 0 || mins.length > 2) { /* no colon yet, or too many digits after it: rebuild from the digits */
+      var d = raw.replace(/:/g, "");
+      if (d.length === 3) d = d.slice(0, 1) + ":" + d.slice(1);   /* 140 -> 1:40 */
+      else if (d.length >= 4) d = d.slice(0, 2) + ":" + d.slice(2); /* 1400 -> 14:00, 1350 -> 13:50 */
+      else if (i < 0 && !deleting && d.length === 1 && +d >= 2) d += ":"; /* 2 -> 2: (a single 2-9 can only be the hour) */
+      raw = d;
+    }
+    raw = raw.slice(0, 5);
+    if (raw !== F.time.value) F.time.value = raw;
   }
-  function tPick(v) { showTime(v); tClose(); F.time.dispatchEvent(new Event("change", { bubbles: true })); }
-  function tMove(step) {
-    if (!tOpen) { tOpenList(""); return; }
-    if (!tItems.length) return;
-    tOn = (tOn + step + tItems.length) % tItems.length; tPaint();
-    F.time.setAttribute("aria-activedescendant", tItems[tOn].id); tItems[tOn].scrollIntoView({ block: "nearest" });
-  }
-  function fillTimes() { if (tOpen) tOpenList(""); } /* a new date (or language) while the list is open: redraw it with the day's times */
   /* any reasonable typing -> "HH:MM" (or "" if it isn't a time): "19:30", "7:30 pm", "730pm", "7:30" (evening if that is the time offered), "11:30" */
-  function parseTime(text, iso) {
+  function parseTime(text, iso, ampm) {
     var s = String(text || "").trim().toLowerCase().replace(/\./g, "").replace(/\s+/g, " ");
     var m = /^(\d{1,2})(?::?(\d{2}))?\s?(am|pm|a|p)?$/.exec(s); if (!m) return "";
-    var h = +m[1], mi = m[2] != null ? +m[2] : 0, sfx = m[3];
+    var h = +m[1], mi = m[2] != null ? +m[2] : 0, sfx = m[3] || (ampm && h >= 1 && h <= 12 ? ampm : ""); /* the AM / PM choice counts for hours 1-12 (13:40 ignores it) */
     if (mi > 59) return "";
     if (sfx) {
       if (h < 1 || h > 12) return "";
@@ -219,8 +209,14 @@
     }
     return pad(h) + ":" + pad(mi);
   }
-  function timeVal() { return parseTime(F.time.value, F.date.value); }
-  function showTime(hhmm) { F.time.value = hhmm ? I.time12(hhmm) : ""; } /* shown the way the suggestions read: "7:30 pm" */
+  function timeVal() { return parseTime(F.time.value, F.date.value, F.ampm.value); }
+  /* the box shows the hour as the guest reads it ("7:30") and the AM / PM choice shows the rest: "19:30" -> "7:30" + PM */
+  function showTime(hhmm) {
+    if (!hhmm) { F.time.value = ""; return; }
+    var h = +hhmm.slice(0, 2);
+    F.time.value = (h % 12 || 12) + ":" + hhmm.slice(3, 5);
+    F.ampm.value = h < 12 ? "am" : "pm";
+  }
   /* "11:30 am – 11:30 pm" for the chosen day, from the opening hours (the last time = closing minus BEFORE_CLOSE) */
   function dayRange(iso) {
     var h = (C.horario || {})[I.dayKeys[noon(iso).getDay()]]; if (!h) return "";
@@ -258,7 +254,7 @@
     }
     if (n === "time") { /* a typed time must be one of the times offered that day: inside the opening hours, every 15 minutes, and not already past */
       var tv = timeVal(), tl = validISO(F.date.value) ? slots(F.date.value) : null;
-      key = errs.date ? "" : !F.time.value.trim() ? "rv.err.time" : !tl || tl.indexOf(tv) < 0 ? "rv.err.timeBad" : "";
+      key = errs.date ? "" : !F.time.value.trim() ? "rv.err.time" : !F.ampm.value ? "rv.err.ampm" : !tl || tl.indexOf(tv) < 0 ? "rv.err.timeBad" : "";
     }
     errs[n] = key;
     return !key;
@@ -581,20 +577,11 @@
   });
 
   /* ---------- events ---------- */
-  F.date.addEventListener("change", function () { check("date"); fillTimes(); if (errs.time) check("time"); paintErrs(); });
+  F.date.addEventListener("change", function () { check("date"); if (errs.time) check("time"); paintErrs(); });
   F.time.addEventListener("change", function () { var c = timeVal(); if (c) showTime(c); if (errs.time) { check("time"); paintErrs(); } });
-  F.time.addEventListener("focus", function () { tOpenList(""); });
-  F.time.addEventListener("click", function () { if (!tOpen) tOpenList(""); });
-  F.time.addEventListener("input", function () { tOpenList(F.time.value); }); /* typing narrows the list */
-  F.time.addEventListener("blur", function () { setTimeout(tClose, 120); });
-  F.time.addEventListener("keydown", function (e) {
-    if (e.key === "ArrowDown") { e.preventDefault(); tMove(1); }
-    else if (e.key === "ArrowUp") { e.preventDefault(); tMove(-1); }
-    else if (e.key === "Enter" && tOpen && tOn > -1) { e.preventDefault(); tPick(tItems[tOn].getAttribute("data-v")); }
-    else if (e.key === "Escape" && tOpen) { e.preventDefault(); e.stopPropagation(); tClose(); }
-  });
-  tBox.addEventListener("mousedown", function (e) { e.preventDefault(); }); /* keeps the focus in the field while the guest taps a time */
-  tBox.addEventListener("click", function (e) { var li = e.target.closest ? e.target.closest("li") : null; if (li) tPick(li.getAttribute("data-v")); });
+  F.time.addEventListener("input", timeKeys);
+  F.ampm.addEventListener("change", function () { if (errs.time) { check("time"); paintErrs(); } });
+
   F.name.addEventListener("input", function () { if (errs.name) { check("name"); paintErrs(); } });
   F.notes.addEventListener("input", function () { if (errs.notes) { check("notes"); paintErrs(); } });
   /* Puerto La Cruz has no seating areas or table photos on the page: hide them and drop any zone/table already chosen */
@@ -643,7 +630,7 @@
     var v = readPending(); if (!v) return; var f = v.form, radio = function (name, val) { var r = [].filter.call(form.querySelectorAll('input[name="' + name + '"]'), function (i) { return i.value === val; })[0]; if (r) r.checked = true; };
     radio("branch", f.branch); radio("area", f.area || "");
     if (validISO(f.date) && f.date >= dMin && f.date <= dMax) F.date.value = f.date;
-    paintDate(); fillTimes(); if (f.time) showTime(f.time);
+    paintDate(); if (f.time) showTime(f.time);
     F.people.value = f.people; F.hours.value = f.hours; F.name.value = f.name; F.phone.value = f.phone; F.docid.value = f.docid; F.notes.value = f.notes;
     syncBranch(); /* shows/hides the floors and the table photos for the restored branch and floor */
     if (f.table) plansReady.then(function () { table = f.table; paintTable(); }); /* after the picker has been redrawn (that clears the table) */
@@ -703,7 +690,7 @@
     done.focus({ preventScroll: true }); done.scrollIntoView({ block: "start" });
   });
   $("#doneEdit").addEventListener("click", function () { done.hidden = true; form.hidden = false; calBtn.focus(); });
-  doc.addEventListener("langchange", function () { [].forEach.call(doc.querySelectorAll(".rv-zoom"), function (b) { b.setAttribute("aria-label", I.t("rv.zoom")); }); paintDate(); if (calIsOpen) renderCal(); paintQuote(); fillTimes(); fillDurations(); paintErrs(); hours(); paintTable(); paintDone(); });
+  doc.addEventListener("langchange", function () { [].forEach.call(doc.querySelectorAll(".rv-zoom"), function (b) { b.setAttribute("aria-label", I.t("rv.zoom")); }); paintDate(); if (calIsOpen) renderCal(); paintQuote(); fillDurations(); paintErrs(); hours(); paintTable(); paintDone(); });
 
   /* ---------- start: today if there is still a time to offer, otherwise tomorrow ---------- */
   var t0 = now().iso, s0 = slots(t0);
@@ -711,7 +698,7 @@
   if (!F.date.value) F.date.value = s0 && s0.length ? t0 : addDays(t0, 1);
   paintDate();
   I.apply(doc);
-  fillTimes(); fillDurations(); hours();
+  fillDurations(); hours();
   restoreForm(); quoteOff(); paintQuote(); /* back from the menu: everything as they left it, plus their dishes */
   (function landOnQuote() { /* "reservar.html#presupuesto" (the menu's Listo): show the question with their dishes, and hold it there while the page settles */
     if (location.hash !== "#presupuesto" || !picks) return;

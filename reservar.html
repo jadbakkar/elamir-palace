@@ -130,7 +130,7 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
             <div class="rv-cal" id="rCal" role="dialog" aria-modal="false" hidden></div>
           </div>
           <span class="err" id="eDate" role="alert"></span></div>
-        <div class="f"><label for="rTime" data-i18n="res.time">Hora</label><div class="rv-twrap"><input type="text" id="rTime" name="time" autocomplete="off" inputmode="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="rTimeBox" placeholder="7:30 pm" aria-describedby="eTime"><ul class="rv-tlist" id="rTimeBox" role="listbox" aria-label="Hora" hidden></ul></div><span class="err" id="eTime" role="alert"></span></div>
+        <div class="f"><label for="rTime" data-i18n="res.time">Hora</label><div class="rv-trow"><input type="text" id="rTime" name="time" autocomplete="off" inputmode="numeric" maxlength="5" placeholder="11:30, 4:00" aria-describedby="eTime"><select id="rAmpm" name="ampm" class="rv-ampm" aria-label="am / pm"><option value="">--</option><option value="am">AM</option><option value="pm">PM</option></select></div><span class="err" id="eTime" role="alert"></span></div>
       </div>
 
       <div class="f"><label for="rHours" data-i18n="rv.hours">Tiempo estimado de estadía</label><select id="rHours" name="hours" aria-describedby="eHours"></select><span class="err" id="eHours" role="alert"></span></div>

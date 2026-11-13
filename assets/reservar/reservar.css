@@ -63,6 +63,10 @@
 .rv-row .f{min-width:0}
 .rv-people{grid-column:1/-1}
 .rv .f input[type=date]{min-width:0;max-width:100%}
+/* the time box and its small AM / PM choice, side by side */
+.rv-trow{display:flex;gap:8px;align-items:stretch}
+.rv-trow #rTime{flex:1;min-width:0}
+.rv .rv-ampm{flex:0 0 auto;width:auto;min-width:88px}
 #branchG.bad .seg{box-shadow:0 0 0 1px var(--primary)}
 /* zoom: a button on each photo opens the full-screen viewer (reservar.js openViewer) */
 .rv-slide img{cursor:zoom-in}
@@ -171,15 +175,3 @@ html[lang=ar] :is(.rv-done h2,.rv-side h2){font-family:var(--f-ar);font-weight:7
   .rv-side{position:sticky;top:calc(var(--hd) + var(--s-6));padding-top:var(--s-2)}
 }
 
-/* the time box looks like the other dropdowns: same arrow and spacing (it is a text box so guests can type a time too) */
-#rTime{padding-inline-end:42px;background:var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%237A1F2B' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 16px center}
-[dir=rtl] #rTime{background-position:left 16px center}
-
-/* the time field's own list (reservar.js tOpenList): the same look as the site's other dropdowns, not the browser's */
-.rv-twrap{position:relative}
-#rTime::-webkit-calendar-picker-indicator,#rTime::-webkit-list-button{display:none!important}
-.rv-tlist{position:absolute;z-index:40;inset-inline:0;top:calc(100% + 6px);max-height:260px;overflow-y:auto;overscroll-behavior:contain;margin:0;padding:6px;list-style:none;background:var(--card,#fff);border:1px solid var(--border-2);border-radius:14px;box-shadow:0 14px 36px rgba(17,17,17,.18)}
-.rv-tlist[hidden]{display:none}
-.rv-tlist li{padding:11px 12px;border-radius:10px;font:600 15px/1.3 var(--f-body);color:var(--ink);cursor:pointer;font-variant-numeric:lining-nums;transition:background-color var(--t-fast) var(--ease-ui)}
-.rv-tlist li.on,.rv-tlist li:hover{background:var(--wine-tint,#F8EEEC);color:var(--primary)}
-.rv-tlist li[aria-selected=true]{font-weight:700}
