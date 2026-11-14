@@ -270,7 +270,7 @@
     if (c.opts.length) { /* last: if the list is very long, it is the only thing that gets shortened (names only, to keep the link short) */
       var names = c.opts.map(function (o) { return o.name; }), shown = maxPlates && names.length > maxPlates ? names.slice(0, maxPlates) : names;
       L2.push("", "*Platos que pueden elegir los invitados (" + names.length + ")*",
-        shown.join(", ") + (shown.length < names.length ? " … y " + (names.length - shown.length) + " más (lista completa en el PDF del presupuesto)" : ""));
+        shown.join(", ") + (shown.length < names.length ? " … y " + (names.length - shown.length) + " más (lista completa en el presupuesto adjunto)" : ""));
     }
     L2.push("", "Precios en dólares. Presupuesto sujeto a confirmación del restaurante.");
     return L2.join("\n");
@@ -410,6 +410,51 @@
     if (!win) location.href = url;
   });
   $("#btnPrint").addEventListener("click", function () { update(); window.print(); });
+
+  /* the quote as a PNG: the same document as the PDF, drawn off screen. The drawing library loads only when it is needed.
+     On a phone the share sheet opens (save to the gallery, or send it on WhatsApp); on a computer the file is downloaded. */
+  var H2C = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js";
+  function loadH2C() {
+    if (window.html2canvas) return Promise.resolve(window.html2canvas);
+    return new Promise(function (res, rej) {
+      var s = document.createElement("script"); s.src = H2C;
+      s.onload = function () { window.html2canvas ? res(window.html2canvas) : rej(new Error("no library")); };
+      s.onerror = function () { rej(new Error("library not loaded")); };
+      document.head.appendChild(s);
+    });
+  }
+  function saveImage() {
+    var btn = $("#btnImg"), label = btn.textContent;
+    update();
+    btn.disabled = true; btn.textContent = T("g.img.busy"); showErr([]);
+    var wrap = document.createElement("div");
+    wrap.setAttribute("aria-hidden", "true");
+    wrap.style.cssText = "position:fixed;left:-10000px;top:0;width:794px;padding:40px;background:#fff;color:#111;box-sizing:border-box";
+    var page = document.createElement("div"); page.className = "doc"; page.style.display = "block"; page.innerHTML = $("#doc").innerHTML;
+    wrap.appendChild(page); document.body.appendChild(wrap);
+    var slug = $("#name").value.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 30);
+    var file = "presupuesto-el-amir-palace" + (slug ? "-" + slug : "") + ".png";
+    /* the logo is an SVG without a fixed size, which the drawing library skips: give it one (and its colour) as a data address */
+    var logoReady = fetch("logo.svg").then(function (r) { return r.text(); }).then(function (t) {
+      var img = page.querySelector(".doc-brand img"); if (!img) return;
+      img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(t.replace("<svg ", '<svg width="128" height="128" '));
+      return img.decode ? img.decode().catch(function () {}) : null;
+    }).catch(function () { /* without the logo the image is still fine */ });
+    Promise.all([loadH2C(), document.fonts && document.fonts.ready, logoReady]).then(function (r) {
+      return r[0](wrap, { scale: 2, backgroundColor: "#ffffff", useCORS: true, logging: false });
+    }).then(function (canvas) {
+      return new Promise(function (res) { canvas.toBlob(res, "image/png"); });
+    }).then(function (blob) {
+      if (!blob) throw new Error("no image");
+      var f = typeof File === "function" ? new File([blob], file, { type: "image/png" }) : null;
+      if (f && navigator.canShare && navigator.canShare({ files: [f] }) && window.matchMedia("(pointer:coarse)").matches) {
+        return navigator.share({ files: [f] }).catch(function (e) { if (!e || e.name !== "AbortError") throw e; });   /* closing the share sheet is not an error */
+      }
+      var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = file; document.body.appendChild(a); a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+    }).catch(function () { showErr([T("g.img.fail")]); }).then(function () { wrap.remove(); btn.disabled = false; btn.textContent = label; });
+  }
+  $("#btnImg").addEventListener("click", saveImage);
 
   /* footer hours, in the language on screen (same as the reservation page; config.js holds the hours) */
   function hours() {
