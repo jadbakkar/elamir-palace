@@ -357,4 +357,6 @@ html{scroll-padding-top:calc(var(--hd) + var(--bar) + 12px)}
 @media (min-width:860px){.pickbar{inset-inline:auto 96px;bottom:26px;min-width:360px}}
 .pick .bnav-n{display:none!important}
 .pick #bnavTot{display:none!important}
+/* group booking pick mode (?grupo=1): the search and the "Destacados" rail could show dishes outside what the host may choose, and the delivery banner does not apply */
+.pick-grupo .search,.pick-grupo #destacados,.pick-grupo .intro{display:none!important}
 .pick .bnav-order>[data-i18n][hidden]{display:block!important}

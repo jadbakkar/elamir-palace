@@ -58,6 +58,7 @@
       "rv.how.2": "Envía el mensaje que se abre en WhatsApp.", "rv.how.3": "La sucursal te confirma la mesa por el chat.",
       "rv.group.t": "¿Grupo grande o celebración?",
       "rv.group.p": "Para más de 8 personas o un evento, escribe directo a la sucursal y lo organizamos contigo.",
+      "rv.group.btn": "Reserva para tu grupo",
       "rv.done.t": "Solicitud lista", "rv.done.p": "Envía el mensaje en WhatsApp. {branch} te confirma la mesa por el chat.",
       "rv.done.edit": "Cambiar datos",
       "rv.backHome": "Volver al inicio", "rv.menuPdf": "Carta en PDF", "rv.top": "Volver arriba"
@@ -99,6 +100,7 @@
       "rv.how.2": "Send the message that opens in WhatsApp.", "rv.how.3": "The restaurant confirms your table in the chat.",
       "rv.group.t": "Large group or celebration?",
       "rv.group.p": "For more than 8 guests or an event, message the restaurant directly and we will plan it with you.",
+      "rv.group.btn": "Book for your group",
       "rv.done.t": "Request ready", "rv.done.p": "Send the message in WhatsApp. {branch} will confirm your table in the chat.",
       "rv.done.edit": "Change details",
       "rv.backHome": "Back to home", "rv.menuPdf": "Menu (PDF)", "rv.top": "Back to top"
@@ -140,6 +142,7 @@
       "rv.how.2": "أرسل الرسالة التي تُفتح في واتساب.", "rv.how.3": "يؤكد لك الفرع الطاولة عبر المحادثة.",
       "rv.group.t": "مجموعة كبيرة أو مناسبة؟",
       "rv.group.p": "لأكثر من 8 أشخاص أو لمناسبة خاصة، راسل الفرع مباشرة وسنرتبها معك.",
+      "rv.group.btn": "احجز لمجموعتك",
       "rv.done.t": "الطلب جاهز", "rv.done.p": "أرسل الرسالة عبر واتساب، وسيؤكد لك فرع {branch} الطاولة عبر المحادثة.",
       "rv.done.edit": "تعديل البيانات",
       "rv.backHome": "العودة إلى الرئيسية", "rv.menuPdf": "القائمة (PDF)", "rv.top": "العودة إلى الأعلى"

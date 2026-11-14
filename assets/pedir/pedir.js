@@ -284,8 +284,15 @@
   const APARTE = "Servir aparte (fuera del pan)";   /* included extras (shawarma especial) travel in the extras part of the key, at $0 */
   /* "presupuesto" pick mode: the reservation form (reservar.js) sends the guest here, with ?presupuesto=1, only to choose dishes.
      No checkout: the picks live in their own storage key (a real cart is never touched) and a "Listo" bar takes them back to the reservation. */
-  const PICK = (() => { try { return /[?&]presupuesto=1(?:&|#|$)/.test(location.search) && !!JSON.parse(sessionStorage.getItem("amir-presupuesto") || "null"); } catch (e) { return false; } })();
-  const CART_KEY = PICK ? "amir-presupuesto-cart" : "amir-cart-v2";
+  /* ?grupo=1 (with presupuesto=1) is the group booking page (grupos/): same pick mode, but only the plates (food sections) or only the drinks sections are shown,
+     with their own storage keys, and "Listo" goes back to the page saved in the stored object (v.back) */
+  const GROUP = /[?&]grupo=1(?:&|#|$)/.test(location.search);
+  const PKEY = GROUP ? "amir-grupo" : "amir-presupuesto";
+  const PICK = (() => { try { return /[?&]presupuesto=1(?:&|#|$)/.test(location.search) && !!JSON.parse(sessionStorage.getItem(PKEY) || "null"); } catch (e) { return false; } })();
+  const GMODE = GROUP && /[?&]modo=platos(?:&|#|$)/.test(location.search) ? "platos" : "bebidas";   /* what the host chooses: plates (options for the guests) or drinks (by quantity) */
+  const GMAX = GROUP && GMODE === "platos" ? (+((/[?&]max=([\d.]+)/.exec(location.search) || [])[1]) || 0) : 0;   /* plates: only those that fit the budget per person */
+  const CART_KEY = PICK ? (GROUP ? (GMODE === "platos" ? "amir-grupo-platos-cart" : "amir-grupo-cart") : "amir-presupuesto-cart") : "amir-cart-v2";
+  const ONLY_GROUP = PICK && GROUP && typeof DRINK_CATS !== "undefined";
   let cart = {};   /* key = dishId or dishId|opción|extra~extra|nota del cliente (Spanish) → qty */
   const parseKey = k => { const [id, opt, ex, note] = k.split("|"); return { id, opt, extras: ex ? ex.split("~") : [], note: note || "" }; };
   const cleanNote = s => String(s || "").replace(/[|~\n\r]+/g, " ").replace(/\s+/g, " ").trim().slice(0, 120);
@@ -322,15 +329,17 @@
   const lineNameUI = k => { const { id, opt, extras, note } = parseKey(k); return lineFmt(tr(id).name, opt, extras, note, x => I.opt(x)); };  /* on screen */
 
   /* ---------- menu ---------- */
-  const catsEl = $("#cats"), chips = $("#chips"), SIG = R.sig(MENU, PH);
+  const VIEW = !ONLY_GROUP ? MENU : GMODE === "bebidas" ? MENU.filter(c => DRINK_CATS.includes(c[0]))
+    : MENU.filter(c => !DRINK_CATS.includes(c[0])).map(c => GMAX ? [c[0], c[1], c[2].filter(it => it[1] <= GMAX)] : c).filter(c => c[2].length);   /* the sections shown on the page */
+  const catsEl = $("#cats"), chips = $("#chips"), SIG = ONLY_GROUP ? "grupo-" + GMODE + GMAX : R.sig(MENU, PH);   /* another signature: the prerendered full menu must not be reused */
   const ctlFor = (id, pop) => R.ctl(id, dishes[id], qtyFor(id), I, pop);
   /* a dish can be on the page twice (Destacados + its section): update every copy */
   function renderOne(id, pop) { $$(`.dish[data-id="${id}"] .ctl`).forEach(c => { c.innerHTML = ctlFor(id, pop); }); }
   function renderMenu(keep) {
     let anchor = null;
     if (keep) { const a = currentCat(); const el = a && doc.getElementById(a); if (el) anchor = [a, el.getBoundingClientRect().top]; }
-    chips.innerHTML = R.chips(MENU, I, PH);
-    catsEl.innerHTML = R.cats(MENU, I, PH, qtyFor);
+    chips.innerHTML = R.chips(VIEW, I, PH);
+    catsEl.innerHTML = R.cats(VIEW, I, PH, qtyFor);
     catsEl.dataset.sig = SIG;
     lastCur = undefined;
     if (q.value) doSearch(true);
@@ -1163,32 +1172,41 @@
   renderAll(true);
   if (PICK) { /* "presupuesto" pick mode: choose dishes, then "Listo" goes back to the reservation (reservar.js restores the form and shows the picks) */
     doc.documentElement.classList.add("pick");
+    if (GROUP) doc.documentElement.classList.add("pick-grupo");
+    const px = k => t(GROUP ? k.replace("px.pick.", GMODE === "platos" ? "px.grpp." : "px.grp.") : k);   /* the group page has its own wording (plates / drinks) */
+    const grpPlates = GROUP && GMODE === "platos";
     const bar = doc.createElement("div"); bar.className = "pickbar"; bar.setAttribute("role", "region");
     bar.innerHTML = '<div class="pk-t"><b id="pkN"></b><span id="pkSub"></span></div><button type="button" class="btn btn--wine" id="pkDone"></button>';
     doc.body.appendChild(bar);
     const paintBar = () => {
-      const c = count(); bar.setAttribute("aria-label", t("px.pick.bar"));
-      $("#pkN").textContent = c ? I.tp("cart.dishes", c) : t("px.pick.none"); $("#pkSub").textContent = c ? money(totals().sub) : ""; $("#pkDone").textContent = t("px.pick.done");
+      const c = count(); bar.setAttribute("aria-label", px("px.pick.bar"));
+      const n = grpPlates ? new Set(Object.keys(cart).map(k => parseKey(k).id)).size : c;   /* plates are options for the guests: count the different dishes, not the units */
+      $("#pkN").textContent = n ? (GROUP ? t(grpPlates ? "px.grpp.count" : "px.grp.count", { n }) : I.tp("cart.dishes", c)) : px("px.pick.none"); $("#pkSub").textContent = c && !grpPlates ? money(totals().sub) : ""; $("#pkDone").textContent = t("px.pick.done");
       const bo = $(".bnav-order"); if (bo) { const lbl = bo.querySelector("[data-i18n]"), bt = $("#bnavTot"); if (lbl) lbl.hidden = false; if (bt) bt.hidden = true; } /* the nav keeps its plain "Pedir": its total/badge are for the real cart */
     };
     paintBar(); doc.addEventListener("amir-cart", paintBar); doc.addEventListener("langchange", paintBar);
     $("#pkDone").addEventListener("click", () => {
-      let v = null; try { v = JSON.parse(sessionStorage.getItem("amir-presupuesto") || "null"); } catch (e) { /* ignore */ }
+      let v = null; try { v = JSON.parse(sessionStorage.getItem(PKEY) || "null"); } catch (e) { /* ignore */ }
       if (v) {
-        v.dishes = Object.keys(cart).map(k => ({ qty: cart[k], name: lineName(k), ui: lineNameUI(k), total: unitPrice(k) * cart[k] })); /* name = Spanish (WhatsApp), ui = the guest's language (on screen) */
-        v.sub = totals().sub;
-        try { sessionStorage.setItem("amir-presupuesto", JSON.stringify(v)); } catch (e) { /* ignore */ }
+        if (grpPlates) { /* options for the guests: each different dish once (the quantity does not matter) */
+          const seen = new Set(); v.plates = [];
+          Object.keys(cart).forEach(k => { const id = parseKey(k).id; if (!seen.has(id)) { seen.add(id); v.plates.push({ id, name: dishes[id].name, ui: tr(id).name, price: dishes[id].price }); } });
+        } else {
+          v.dishes = Object.keys(cart).map(k => ({ qty: cart[k], name: lineName(k), ui: lineNameUI(k), total: unitPrice(k) * cart[k] })); /* name = Spanish (WhatsApp), ui = the guest's language (on screen) */
+          v.sub = totals().sub;
+        }
+        try { sessionStorage.setItem(PKEY, JSON.stringify(v)); } catch (e) { /* ignore */ }
       }
-      location.href = "reservar.html#presupuesto";
+      location.href = GROUP && v && v.back ? v.back : "reservar.html#presupuesto";
     });
     /* the bottom-bar PEDIR button would open the checkout: here it only reminds them what to do */
-    doc.addEventListener("click", e => { if (e.target.closest && e.target.closest(".bnav-order") && count()) { e.preventDefault(); e.stopImmediatePropagation(); toast(t("px.pick.hint")); } }, true);
-    toast(t("px.pick.toast"), null, 7000);
+    doc.addEventListener("click", e => { if (e.target.closest && e.target.closest(".bnav-order") && count()) { e.preventDefault(); e.stopImmediatePropagation(); toast(px("px.pick.hint")); } }, true);
+    toast(px("px.pick.toast"), null, 7000);
     /* land on the first menu section (the link says #entradas-arabes). English / Arabic redraw the menu and fonts load after the
        first scroll, which shifts the page, so align again once things settle, unless the guest already started scrolling */
     let touched = false;
     ["wheel", "touchstart", "keydown", "mousedown"].forEach(ev => addEventListener(ev, () => { touched = true; }, { once: true, passive: true }));
-    const land = () => { const s = doc.getElementById("entradas-arabes"); if (s && !touched) s.scrollIntoView({ block: "start", behavior: "instant" }); };
+    const land = () => { if (GROUP) return; const s = doc.getElementById("entradas-arabes"); if (s && !touched) s.scrollIntoView({ block: "start", behavior: "instant" }); };
     const t0 = performance.now();
     (function keep() { land(); if (!touched && performance.now() - t0 < 4000) setTimeout(keep, 100); })();   /* about 4 s: until the menu and its images stop moving the page */
   }
