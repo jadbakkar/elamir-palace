@@ -63,6 +63,10 @@
 .rv-row .f{min-width:0}
 .rv-people{grid-column:1/-1}
 .rv .f input[type=date]{min-width:0;max-width:100%}
+/* phone: the time field takes the whole row (the date stays on its own line beside it) */
+@media (max-width:599px){
+  .rv-row .rv-hora{grid-column:1/-1}
+}
 /* the time box and its small AM / PM choice, side by side */
 .rv-trow{display:flex;gap:8px;align-items:stretch}
 .rv-trow #rTime{flex:1;min-width:0}
