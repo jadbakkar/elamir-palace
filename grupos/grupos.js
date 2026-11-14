@@ -283,7 +283,7 @@
   }
 
   /* ---------- branded presupuesto document (print / PDF) ---------- */
-  var BIZ = { name: "El Amir Palace C.A.", rif: "J-304241330", addr: "Av. Monagas, calle 5, Lechería, Edo. Anzoátegui", tel: "0424-806 0218", mail: "elamirpalace.syh@gmail.com", web: "www.elamirpalace.com" };
+  var BIZ = { name: "El Amir Palace C.A.", rif: "J-304241330", addr: "Av. Monagas, calle 5, Lechería, Edo. Anzoátegui", tel: "0424-806 0218", mail: "elamirpalace25@gmail.com", web: "www.elamirpalace.com" };
   /* amount in Spanish words, like the restaurant's own documents ("CIENTO CUARENTA CON 36/100"); only on the Spanish document */
   function words(n) {
     var U = ["", "UNO", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "OCHO", "NUEVE", "DIEZ", "ONCE", "DOCE", "TRECE", "CATORCE", "QUINCE", "DIECISÉIS", "DIECISIETE", "DIECIOCHO", "DIECINUEVE", "VEINTE", "VEINTIUNO", "VEINTIDÓS", "VEINTITRÉS", "VEINTICUATRO", "VEINTICINCO", "VEINTISÉIS", "VEINTISIETE", "VEINTIOCHO", "VEINTINUEVE"];
