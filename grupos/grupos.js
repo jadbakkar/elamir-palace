@@ -28,7 +28,6 @@
   var drinks = [];                  /* [{ qty, name (Spanish), ui, total }]: drinks and bottles by quantity, chosen on the order page */
   var pending = null;               /* select values to put back after a trip to the order page */
   var drinksPP = [];                /* [{ key, per, name (Spanish), ui, unit }]: a drink for each person, chosen on the order page (per = how many per person) */
-  var ppTouched = false;            /* the host chose it himself: stop changing it when he switches mode */
 
   /* ---------- language helpers ---------- */
   function L() { return I.lang || "es"; }
@@ -155,7 +154,7 @@
         localStorage.setItem(CART_P, JSON.stringify(pre));
       } else if (where === "porpersona") { /* the drinks already chosen come selected, with their quantity per person */
         var pp = {}; drinksPP.forEach(function (d) { pp[d.key] = d.per; });
-        localStorage.setItem(CART_D, JSON.stringify(pp)); ppTouched = true;
+        localStorage.setItem(CART_D, JSON.stringify(pp));
       } else if (!drinks.length) localStorage.removeItem(CART);
     } catch (e) { return; } /* storage blocked: the form could not be kept, so stay here */
     location.href = new URL($("#btnDrinks").getAttribute("data-href"), location.href).href + "?presupuesto=1&grupo=1" +
@@ -176,7 +175,6 @@
     $("#optServicio").checked = !!f.serv;
     var r = $('input[name="modo"][value="' + f.mode + '"]'); if (r) r.checked = true;
     pending = { time: f.time || "", area: f.area || "" };   /* the selects are filled first, then these are put back */
-    ppTouched = true;
     plates = Array.isArray(v.plates) ? v.plates.filter(function (p) { return p && p.id; }) : [];
     drinks = Array.isArray(v.dishes) ? v.dishes.filter(function (d) { return d && d.qty > 0; }) : [];
     drinksPP = Array.isArray(v.drinksPP) ? v.drinksPP.filter(function (d) { return d && d.per > 0 && d.unit > 0; }) : [];
@@ -210,7 +208,7 @@
     } else priced = false;   /* a la carta: no price up front */
 
     /* a drink for each person (optional, picked on the order page): each one times the number of guests */
-    if (m !== "carta") drinksPP.forEach(function (d) {
+    if (m === "presupuesto") drinksPP.forEach(function (d) {
       var dAmt = r2(N * d.per * d.unit);
       lines.push({ t: "pk", drink: true, name: d.name, per: d.per, n: N, qty: N * d.per, unit: d.unit, amount: dAmt });
       base = r2(base + dAmt);
@@ -386,10 +384,6 @@
   });
   document.addEventListener("change", function (e) {
     var id = e.target.id;
-    if (e.target.name === "modo" && !ppTouched) { /* the package comes with a soda each; the budget mode starts without one */
-      var sd = ITEMS["bebidas--refresco-de-lata"];
-      drinksPP = e.target.value === "paquete" && sd ? [{ key: sd.id, per: 1, name: sd.name, ui: sd.name, unit: sd.price }] : [];
-    }
     if (id === "date") renderTimes();
     if (id === "branch") renderAreas();
     update();
