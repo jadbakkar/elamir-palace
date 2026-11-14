@@ -1,5 +1,5 @@
 EL AMIR PALACE · INFORMACIÓN PARA EL ASISTENTE
-(Archivo generado automáticamente por scripts/build-knowledge.js el 2026-11-12. No editar a mano: editar config.js / menu.js y volver a generar.)
+(Archivo generado automáticamente por scripts/build-knowledge.js el 2026-11-14. No editar a mano: editar config.js / menu.js y volver a generar.)
 
 == RESTAURANTE ==
 Nombre: El Amir Palace (en árabe: قصر الأمير)
@@ -49,8 +49,8 @@ También se puede pedir escribiendo directamente al WhatsApp de la sucursal.
 == RESERVAS DE MESA ==
 En https://www.elamirpalace.com/reservar.html hay un formulario (sucursal, personas, fecha, hora, nombre) que abre WhatsApp con la solicitud lista para enviar a la sucursal. También se puede escribir directo al WhatsApp de la sucursal. La mesa queda reservada solo cuando la sucursal confirma por el chat.
 
-== CARTA (16 secciones, 175 platos) ==
-Secciones (las ÚNICAS que existen): Entradas Árabes · Entradas Mediterráneas · Sopas y Cremas · Ensaladas · Platos Árabes Especiales · Medias Porciones · Shawarmas y Sándwiches · Brochetas y Parrillas · Carnes y Aves · Pescados y Mariscos · Arroces · Pastas · Hamburguesas · Batidos y Yogurt · Bebidas · Licores y Cócteles.
+== CARTA (17 secciones, 183 platos) ==
+Secciones (las ÚNICAS que existen): Entradas Árabes · Entradas Mediterráneas · Sopas y Cremas · Ensaladas · Platos Árabes Especiales · Medias Porciones · Shawarmas y Sándwiches · Brochetas y Parrillas · Carnes y Aves · Pescados y Mariscos · Arroces · Pastas · Hamburguesas · Postres · Batidos y Yogurt · Bebidas · Licores y Cócteles.
 Formato: Plato — precio — descripción. Debajo: lo OBLIGATORIO que el cliente debe elegir, lo opcional (quitar ingredientes, adicionales con su precio) y los envases.
 Solo existe lo que aparece en esta carta.
 
@@ -352,6 +352,16 @@ Solo existe lo que aparece en esta carta.
    Envases para llevar: 1 ($1)
 • Gordon burger — $13 — Pollo crispy relleno de jamón y queso, tocineta y salsa de la casa
    Envases para llevar: 1 ($1)
+
+--- Postres ---
+• Baklawa — $12 — Hojaldre crujiente relleno de frutos secos y bañado en almíbar.
+• Galleta árabe — $10 — Galletas árabes de la casa.
+• Brownie — $8 — Brownie de chocolate suave y húmedo.
+• Chocolate Dubai — $8 — Chocolate al estilo Dubai con pistacho.
+• Pie de limón — $8 — Pie con crema de limón y merengue.
+• Pie de parchita — $8 — Pie cremoso de parchita.
+• Quesillo — $8 — Flan venezolano de leche y caramelo.
+• Torta de chocolate — $8 — Torta de chocolate.
 
 --- Batidos y Yogurt ---
 • Batido de fresa — $4

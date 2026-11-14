@@ -96,6 +96,10 @@ const MENU = [
   ["Cheeseburger",13,"150 g de solomo, pan de mantequilla, mozzarella frita y salsa rosa"],
   ["Oh My Burger!",13,"150 g de solomo, mozzarella frita, mermelada de pimentón y tocineta"],
   ["Pollo crispy",13,"Pollo frito crocante, tocineta, queso americano y mostaza miel"],["Gordon burger",13,"Pollo crispy relleno de jamón y queso, tocineta y salsa de la casa"]]],
+ ["Postres","",[
+  ["Baklawa",12,"Hojaldre crujiente relleno de frutos secos y bañado en almíbar."],["Galleta árabe",10,"Galletas árabes de la casa."],["Brownie",8,"Brownie de chocolate suave y húmedo."],
+  ["Chocolate Dubai",8,"Chocolate al estilo Dubai con pistacho."],
+  ["Pie de limón",8,"Pie con crema de limón y merengue."],["Pie de parchita",8,"Pie cremoso de parchita."],["Quesillo",8,"Flan venezolano de leche y caramelo."],["Torta de chocolate",8,"Torta de chocolate."]]],
  ["Batidos y Yogurt","",[
   ["Batido de fresa",4,"",OPT_BAT],["Batido de melón",4,"",OPT_BAT],["Batido de piña",4,"",OPT_BAT],["Batido de melocotón",4,"",OPT_BAT],["Batido de guanábana",4,"",OPT_BAT],["Batido de lechosa",4,"",OPT_BAT],
   ["Batido de parchita",4,"",OPT_BAT],["Batido de mora",4,"",OPT_BAT],["Limonada",4],["Limonada con hierbabuena",4],["Merengada de frutas",6],
@@ -342,6 +346,15 @@ const PHOTOS_OFF = {
   "pescados-y-mariscos--asopado-de-mariscos-2-personas": "img/pya/pescados-y-mariscos--asopado-de-mariscos.jpg",
   "pescados-y-mariscos--calamares-al-ajillo": "img/pya/pescados-y-mariscos--calamares-al-ajillo.jpg",
   "pescados-y-mariscos--camarones-al-ajillo": "img/pya/pescados-y-mariscos--camarones-al-ajillo.jpg",
-  "pescados-y-mariscos--mero-a-la-plancha": "img/pya/pescados-y-mariscos--mero-a-la-plancha.jpg"
+  "pescados-y-mariscos--mero-a-la-plancha": "img/pya/pescados-y-mariscos--mero-a-la-plancha.jpg",
+  /* Postres (fotos de internet, 640×480 + -th 240×180) */
+  "postres--baklawa": "img/postres/postres--baklawa.jpg",
+  "postres--brownie": "img/postres/postres--brownie.jpg",
+  "postres--chocolate-dubai": "img/postres/postres--chocolate-dubai.jpg",
+  "postres--pie-de-limon": "img/postres/postres--pie-de-limon.jpg",
+  "postres--quesillo": "img/postres/postres--quesillo.jpg",
+  "postres--torta-de-chocolate": "img/postres/postres--torta-de-chocolate.jpg",
+  "postres--galleta-arabe": "img/postres/postres--galleta-arabe.jpg",
+  "postres--pie-de-parchita": "img/postres/postres--pie-de-parchita.jpg"
 };
 const PHOTOS = PHOTOS_OFF;

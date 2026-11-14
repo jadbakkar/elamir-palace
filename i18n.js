@@ -1285,6 +1285,17 @@
   D("Gordon burger", "Pollo crispy relleno de jamón y queso, tocineta y salsa de la casa",
     ["Gordon Burger", "Crispy chicken stuffed with ham and cheese, bacon and house sauce"], ["غوردون برغر", "دجاج مقرمش محشو بالجبن والجامبون مع لحم مقدّد وصلصة البيت"]);
 
+  /* ---- 12b. Postres ---- */
+  C("Postres", "Desserts", "حلويات");
+  D("Baklawa", "Hojaldre crujiente relleno de frutos secos y bañado en almíbar.", ["Baklava", "Crispy layered pastry filled with nuts and soaked in syrup."], ["بقلاوة", "عجين رقائقي مقرمش محشو بالمكسرات ومغمور بالقطر."]);
+  D("Galleta árabe", "Galletas árabes de la casa.", ["Arabic Cookies", "House-made Arabic cookies."], ["كعك عربي", "كعك عربي من صنع البيت."]);
+  D("Brownie", "Brownie de chocolate suave y húmedo.", ["Brownie", "Soft, moist chocolate brownie."], ["براوني", "براوني شوكولاتة طري وغني."]);
+  D("Chocolate Dubai", "Chocolate al estilo Dubai con pistacho.", ["Dubai Chocolate", "Dubai-style chocolate with pistachio."], ["شوكولاتة دبي", "شوكولاتة على طريقة دبي بالفستق."]);
+  D("Pie de limón", "Pie con crema de limón y merengue.", ["Lemon Pie", "Pie with lemon cream and meringue."], ["فطيرة الليمون", "فطيرة بكريمة الليمون والمرينغ."]);
+  D("Pie de parchita", "Pie cremoso de parchita.", ["Passion Fruit Pie", "Creamy passion fruit pie."], ["فطيرة فاكهة الآلام", "فطيرة كريمية بفاكهة الآلام."]);
+  D("Quesillo", "Flan venezolano de leche y caramelo.", ["Quesillo (Venezuelan flan)", "Venezuelan milk flan with caramel."], ["كيسيّو (فلان فنزويلي)", "فلان فنزويلي بالحليب والكراميل."]);
+  D("Torta de chocolate", "Torta de chocolate.", ["Chocolate Cake", "Chocolate cake."], ["كعكة الشوكولاتة", "كعكة الشوكولاتة."]);
+
   /* ---- 13. Batidos y Yogurt ---- */
   C("Batidos y Yogurt", "Shakes & Yogurt", "عصائر مخفوقة وزبادي");
   D("Batido de fresa", "", ["Strawberry Shake", ""], ["مخفوق الفراولة", ""]);
