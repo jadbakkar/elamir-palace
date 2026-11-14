@@ -141,12 +141,18 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
         <button type="button" class="btn btn--wine btn-block" id="btnPlates"></button>
       </section>
 
-      <!-- plato navideño + bebida -->
+      <!-- plato navideño para todos -->
       <section class="rv-card gcard" data-modes="paquete" aria-labelledby="h-pk">
-        <h2 id="h-pk" data-i18n="g.s5">Plato navideño + bebida</h2>
+        <h2 id="h-pk" data-i18n="g.s5">Plato navideño para todos</h2>
         <p class="hint" id="pkHint"></p>
+      </section>
+
+      <!-- una bebida para cada persona (opcional): la misma para todos, por el número de personas -->
+      <section class="rv-card gcard" data-modes="presupuesto paquete" aria-labelledby="h-pd">
+        <h2 id="h-pd" data-i18n="g.s6">Una bebida para cada persona</h2>
+        <p class="hint" data-i18n="g.s6.hint">Una bebida individual para cada invitado (por ejemplo, un refresco). Se multiplica por el número de personas.</p>
         <div class="grid2">
-          <label class="field"><span data-i18n="g.pk.drink">Bebida para cada persona</span>
+          <label class="field"><span data-i18n="g.pk.drink">Bebida</span>
             <select id="pkDrink"></select></label>
           <label class="field"><span data-i18n="g.pk.qty">Bebidas por persona</span>
             <input id="pkQty" type="number" inputmode="numeric" min="0" max="10" step="1" value="1"></label>
@@ -155,8 +161,8 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
 
       <!-- bebidas y botellas: se eligen en la página de pedidos (solo sus secciones de bebidas) y vuelven aquí -->
       <section class="rv-card gcard" data-modes="presupuesto paquete" id="bebidas" aria-labelledby="h-dr">
-        <h2 id="h-dr" data-i18n="g.s4">Bebidas y botellas</h2>
-        <p class="hint" data-i18n="g.s4.hint">Elige en la carta las bebidas y botellas para la mesa (refrescos, jarras, whisky, anís…). Se cobran por unidad, no por persona.</p>
+        <h2 id="h-dr" data-i18n="g.s4">Botellas para la mesa</h2>
+        <p class="hint" data-i18n="g.s4.hint">Elige en la carta las botellas o bebidas que quieras para toda la mesa: 1, 2, 3 o las que sean (refrescos grandes, jarras, whisky, anís…). Se cobran por unidad, no por persona.</p>
         <ul id="drinkSummary" class="q-lines"></ul>
         <button type="button" class="btn btn--wine btn-block" id="btnDrinks" data-href="../pedir.html"></button>
       </section>

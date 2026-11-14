@@ -28,6 +28,7 @@
   var plates = [];                  /* [{ id, name (Spanish), ui, price }]: the dishes the guests can order, chosen on the order page */
   var drinks = [];                  /* [{ qty, name (Spanish), ui, total }]: drinks and bottles by quantity, chosen on the order page */
   var pending = null;               /* select values to put back after a trip to the order page */
+  var pkTouched = false;            /* the host chose a drink himself: stop changing it when he switches mode */
 
   /* ---------- language helpers ---------- */
   function L() { return I.lang || "es"; }
@@ -110,8 +111,8 @@
     sel.value = lech ? keep : "";
   }
   function renderPkDrinks() {
-    var sel = $("#pkDrink"), keep = sel.value || "bebidas--refresco-de-lata";
-    sel.innerHTML = PK_DRINKS.filter(function (id) { return ITEMS[id]; }).map(function (id) { return '<option value="' + esc(id) + '">' + esc(dn(ITEMS[id].name) + " (" + usd(ITEMS[id].price) + ")") + "</option>"; }).join("");
+    var sel = $("#pkDrink"), keep = sel.value;
+    sel.innerHTML = '<option value="">' + esc(T("g.pk.none")) + "</option>" + PK_DRINKS.filter(function (id) { return ITEMS[id]; }).map(function (id) { return '<option value="' + esc(id) + '">' + esc(dn(ITEMS[id].name) + " (" + usd(ITEMS[id].price) + ")") + "</option>"; }).join("");
     sel.value = keep;
   }
   /* only the cards of the chosen way of ordering are shown */
@@ -171,6 +172,7 @@
     $("#optServicio").checked = !!f.serv;
     var r = $('input[name="modo"][value="' + f.mode + '"]'); if (r) r.checked = true;
     pending = { time: f.time || "", area: f.area || "", pkDrink: f.pkDrink || "" };   /* the selects are filled first, then these are put back */
+    pkTouched = true;
     plates = Array.isArray(v.plates) ? v.plates.filter(function (p) { return p && p.id; }) : [];
     drinks = Array.isArray(v.dishes) ? v.dishes.filter(function (d) { return d && d.qty > 0; }) : [];
     return true;
@@ -197,13 +199,18 @@
         if (over.length) warn.push(T("g.warn.over", { b: usd(b), names: over.map(function (o) { return dn(o.name); }).join(", ") }));
       }
     } else if (m === "paquete") {
-      var plate = ITEMS[FEATURED], dk = ITEMS[$("#pkDrink").value] || ITEMS["bebidas--refresco-de-lata"], qEl = $("#pkQty"), per = num(qEl, 0, 10, true);
-      flag(qEl, per === null);
-      if (per === null) errs.push(T("g.err.pkqty"));
+      var plate = ITEMS[FEATURED];
       lines.push({ t: "pk", name: plate.name, per: 1, n: N, qty: N, unit: plate.price, amount: r2(N * plate.price) });
       base = r2(N * plate.price);
-      if (per) { lines.push({ t: "pk", name: dk.name, per: per, n: N, qty: N * per, unit: dk.price, amount: r2(N * per * dk.price) }); base = r2(base + N * per * dk.price); }
     } else priced = false;   /* a la carta: no price up front */
+
+    /* a drink for each person (optional): the same drink for every guest, multiplied by the number of guests */
+    if (m !== "carta") {
+      var dk = ITEMS[$("#pkDrink").value], qEl = $("#pkQty"), per = num(qEl, 0, 10, true);
+      flag(qEl, !!dk && per === null);
+      if (dk && per === null) errs.push(T("g.err.pkqty"));
+      if (dk && per) { var dAmt = r2(N * per * dk.price); lines.push({ t: "pk", drink: true, name: dk.name, per: per, n: N, qty: N * per, unit: dk.price, amount: dAmt }); base = r2(base + dAmt); }
+    }
 
     /* drinks and bottles from the order page: counted by quantity, on top of the per-person total */
     if (m !== "carta") drinks.forEach(function (d) {
@@ -263,10 +270,12 @@
       L2.push("", E("g.carta.lines"), "", "Presupuesto sujeto a confirmación del restaurante.");
       return L2.join("\n");
     }
-    var main = c.lines.filter(function (l) { return l.t !== "x"; }), ex = c.lines.filter(function (l) { return l.t === "x"; });
+    var pers = function (l) { return "- " + l.name + ": " + E("g.line.pk", { per: l.per, n: l.n }) + " = " + U(l.amount); };
+    var main = c.lines.filter(function (l) { return l.t === "pp" || (l.t === "pk" && !l.drink); }), dr = c.lines.filter(function (l) { return l.drink; }), ex = c.lines.filter(function (l) { return l.t === "x"; });
     if (c.mode === "presupuesto") L2.push("", "*Presupuesto por persona*", E("g.line.ppd", { amount: U(c.b), n: c.N }) + ": " + U(main[0].amount));
-    else { L2.push("", "*Plato navideño + bebida para todos*"); main.forEach(function (l) { L2.push("- " + l.name + ": " + E("g.line.pk", { per: l.per, n: l.n }) + " = " + U(l.amount)); }); }
-    if (ex.length) { L2.push("", "*Bebidas y botellas (por mesa, no por persona)*"); ex.forEach(function (l) { L2.push("- " + l.name + ": " + l.qty + " × " + U(l.unit) + " = " + U(l.amount)); }); }
+    else { L2.push("", "*Plato navideño para todos*"); main.forEach(function (l) { L2.push(pers(l)); }); }
+    if (dr.length) { L2.push("", "*Bebida para cada persona*"); dr.forEach(function (l) { L2.push(pers(l)); }); }
+    if (ex.length) { L2.push("", "*Botellas y bebidas para la mesa (por unidad, no por persona)*"); ex.forEach(function (l) { L2.push("- " + l.name + ": " + l.qty + " × " + U(l.unit) + " = " + U(l.amount)); }); }
     L2.push("", "*Total*");
     if (c.hasServ) L2.push("Servicio 10%: " + U(c.serv));
     L2.push("*Total: " + U(c.total) + "*");
@@ -373,6 +382,8 @@
   });
   document.addEventListener("change", function (e) {
     var id = e.target.id;
+    if (id === "pkDrink" || id === "pkQty") pkTouched = true;
+    if (e.target.name === "modo" && !pkTouched) { $("#pkDrink").value = e.target.value === "paquete" ? "bebidas--refresco-de-lata" : ""; $("#pkQty").value = "1"; }   /* the package comes with a soda each; the budget mode starts without one */
     if (id === "date") renderTimes();
     if (id === "branch") renderAreas();
     update();
@@ -444,7 +455,7 @@
     if (pending) { /* back from the order page: the selects as they were */
       if (pending.time) $("#time").value = pending.time;
       if ($("#branch").value === "Lechería") $("#area").value = pending.area;
-      if (pending.pkDrink && ITEMS[pending.pkDrink]) $("#pkDrink").value = pending.pkDrink;
+      $("#pkDrink").value = ITEMS[pending.pkDrink] ? pending.pkDrink : "";
     }
     update(); hours();
     var h = location.hash === "#platos" ? $("#h-pl") : location.hash === "#bebidas" ? $("#h-dr") : null;
