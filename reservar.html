@@ -122,6 +122,11 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
             <option value="+8" data-i18n="res.more8">Más de 8</option>
           </select>
         </div>
+        <!-- "Más de 8": offers the group page (its own quote builder), right under the Personas field; shown by reservar.js paintBig() -->
+        <div class="rv-big" id="bigBox" hidden>
+          <p data-i18n="rv.big.t">¿Son más de 8? Arma el presupuesto de tu grupo aquí</p>
+          <a class="btn btn--wine btn--sm" href="grupos/" data-i18n="rv.group.btn">Reserva para tu grupo</a>
+        </div>
         <div class="f"><label for="rDateBtn" data-i18n="res.date">Fecha</label>
           <!-- our own calendar (reservar.js): the real value is the hidden ISO date, so everything else reads it as before -->
           <input type="hidden" id="rDate" name="date">

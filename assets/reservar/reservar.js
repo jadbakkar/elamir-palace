@@ -59,6 +59,7 @@
       "rv.group.t": "¿Grupo grande o celebración?",
       "rv.group.p": "Para más de 8 personas o un evento, escribe directo a la sucursal y lo organizamos contigo.",
       "rv.group.btn": "Reserva para tu grupo",
+      "rv.big.t": "¿Son más de 8? Arma el presupuesto de tu grupo aquí",
       "rv.done.t": "Solicitud lista", "rv.done.p": "Envía el mensaje en WhatsApp. {branch} te confirma la mesa por el chat.",
       "rv.done.edit": "Cambiar datos",
       "rv.backHome": "Volver al inicio", "rv.menuPdf": "Carta en PDF", "rv.top": "Volver arriba"
@@ -101,6 +102,7 @@
       "rv.group.t": "Large group or celebration?",
       "rv.group.p": "For more than 8 guests or an event, message the restaurant directly and we will plan it with you.",
       "rv.group.btn": "Book for your group",
+      "rv.big.t": "More than 8 guests? Build your group's quote here",
       "rv.done.t": "Request ready", "rv.done.p": "Send the message in WhatsApp. {branch} will confirm your table in the chat.",
       "rv.done.edit": "Change details",
       "rv.backHome": "Back to home", "rv.menuPdf": "Menu (PDF)", "rv.top": "Back to top"
@@ -143,6 +145,7 @@
       "rv.group.t": "مجموعة كبيرة أو مناسبة؟",
       "rv.group.p": "لأكثر من 8 أشخاص أو لمناسبة خاصة، راسل الفرع مباشرة وسنرتبها معك.",
       "rv.group.btn": "احجز لمجموعتك",
+      "rv.big.t": "أكثر من 8 أشخاص؟ أعدّ عرض سعر مجموعتك هنا",
       "rv.done.t": "الطلب جاهز", "rv.done.p": "أرسل الرسالة عبر واتساب، وسيؤكد لك فرع {branch} الطاولة عبر المحادثة.",
       "rv.done.edit": "تعديل البيانات",
       "rv.backHome": "العودة إلى الرئيسية", "rv.menuPdf": "القائمة (PDF)", "rv.top": "العودة إلى الأعلى"
@@ -594,6 +597,9 @@
     showPlan();
   }
   form.addEventListener("change", function (e) { if (e.target.name === "branch") { check("branch"); paintErrs(); syncBranch(); } });
+  /* "Más de 8": offer the group page (its own quote builder) right under the Personas field */
+  function paintBig() { var b = $("#bigBox"); if (b) b.hidden = F.people.value !== "+8"; }
+  form.addEventListener("change", function (e) { if (e.target.name === "people") paintBig(); });
   /* ---------- "¿Quieres un presupuesto?" (last question of the form) ----------
      "No" (default) = the normal reservation, sent with the Reservar button. "Sí" stays locked until every field is valid, and choosing
      it IS the submit: the reservation is saved (sessionStorage "amir-presupuesto") and the guest goes to the menu; pedir.js prefills
@@ -666,7 +672,7 @@
   $("#picksEdit").addEventListener("click", startQuote);
   /* tapping the locked "Sí" shows what is missing instead of doing nothing */
   $("#qYes").nextElementSibling.addEventListener("click", function () { if ($("#qYes").disabled) flagMissing(); });
-  window.addEventListener("pageshow", function () { quoteOff(); syncBranch(); paintQuote(); }); /* Back button: keep "Sí" only if they have dishes, re-apply the restored branch */
+  window.addEventListener("pageshow", function () { quoteOff(); syncBranch(); paintQuote(); paintBig(); }); /* Back button: keep "Sí" only if they have dishes, re-apply the restored branch */
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -701,7 +707,7 @@
   paintDate();
   I.apply(doc);
   fillDurations(); hours();
-  restoreForm(); quoteOff(); paintQuote(); /* back from the menu: everything as they left it, plus their dishes */
+  restoreForm(); quoteOff(); paintQuote(); paintBig(); /* back from the menu: everything as they left it, plus their dishes */
   (function landOnQuote() { /* "reservar.html#presupuesto" (the menu's Listo): show the question with their dishes, and hold it there while the page settles */
     if (location.hash !== "#presupuesto" || !picks) return;
     var touched = false, t0 = Date.now();

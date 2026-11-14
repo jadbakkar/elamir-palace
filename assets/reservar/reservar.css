@@ -175,3 +175,9 @@ html[lang=ar] :is(.rv-done h2,.rv-side h2){font-family:var(--f-ar);font-weight:7
   .rv-side{position:sticky;top:calc(var(--hd) + var(--s-6));padding-top:var(--s-2)}
 }
 
+
+/* "Más de 8" offers the group page, right under the Personas field */
+.rv-big{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);flex-wrap:wrap;margin-top:var(--s-3);padding:var(--s-3) var(--s-4);border:1px solid var(--border-2);border-radius:var(--r-md);background:var(--primary-50)}
+.rv-big[hidden]{display:none}
+.rv-big p{flex:1 1 200px;margin:0;font-size:14px;line-height:1.4;font-weight:700}
+.rv-big .btn{flex:none}
