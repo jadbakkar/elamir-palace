@@ -8,15 +8,14 @@
   var MENU = [{"id":"entradas-arabes--hummus","cat":"Entradas Árabes","name":"Hummus","price":8},{"id":"entradas-arabes--mutabal","cat":"Entradas Árabes","name":"Mutabal","price":8},{"id":"entradas-arabes--muhammara","cat":"Entradas Árabes","name":"Muhammara","price":8},{"id":"entradas-arabes--labne","cat":"Entradas Árabes","name":"Labne","price":8},{"id":"entradas-arabes--cremas-mixtas","cat":"Entradas Árabes","name":"Cremas mixtas","price":11},{"id":"entradas-arabes--makanek","cat":"Entradas Árabes","name":"Makanek","price":11},{"id":"entradas-arabes--basterma","cat":"Entradas Árabes","name":"Basterma","price":11},{"id":"entradas-arabes--sawda-djaj","cat":"Entradas Árabes","name":"Sawda Djaj","price":11},{"id":"entradas-arabes--garbanzo-con-lomito","cat":"Entradas Árabes","name":"Garbanzo con lomito","price":15},{"id":"entradas-arabes--kibbe-crudo","cat":"Entradas Árabes","name":"Kibbe crudo","price":12},{"id":"entradas-arabes--kibbe-frito","cat":"Entradas Árabes","name":"Kibbe frito","price":12},{"id":"entradas-arabes--kibbe-horneado","cat":"Entradas Árabes","name":"Kibbe horneado","price":13},{"id":"entradas-arabes--falafel","cat":"Entradas Árabes","name":"Falafel","price":8},{"id":"entradas-arabes--falafel-especial","cat":"Entradas Árabes","name":"Falafel especial","price":10},{"id":"entradas-arabes--tabaquitos-de-uva","cat":"Entradas Árabes","name":"Tabaquitos de uva","price":12},{"id":"entradas-arabes--tabaquitos-de-repollo","cat":"Entradas Árabes","name":"Tabaquitos de repollo","price":12},{"id":"entradas-arabes--tabaquitos-mixtos","cat":"Entradas Árabes","name":"Tabaquitos mixtos","price":12},{"id":"entradas-mediterraneas--carpaccio-de-lomito","cat":"Entradas Mediterráneas","name":"Carpaccio de lomito","price":17},{"id":"entradas-mediterraneas--ceviche-de-camaron","cat":"Entradas Mediterráneas","name":"Ceviche de camarón","price":17},{"id":"entradas-mediterraneas--berenjena-frita","cat":"Entradas Mediterráneas","name":"Berenjena frita","price":10},{"id":"entradas-mediterraneas--dedos-de-mozzarella","cat":"Entradas Mediterráneas","name":"Dedos de mozzarella","price":9},{"id":"entradas-mediterraneas--tequenos","cat":"Entradas Mediterráneas","name":"Tequeños","price":9},{"id":"entradas-mediterraneas--papas-fritas","cat":"Entradas Mediterráneas","name":"Papas fritas","price":6},{"id":"sopas-y-cremas--fosforera","cat":"Sopas y Cremas","name":"Fosforera","price":17},{"id":"sopas-y-cremas--sopa-de-pollo-con-vegetales","cat":"Sopas y Cremas","name":"Sopa de pollo con vegetales","price":12},{"id":"sopas-y-cremas--crema-de-pollo","cat":"Sopas y Cremas","name":"Crema de pollo","price":12},{"id":"sopas-y-cremas--crema-de-auyama","cat":"Sopas y Cremas","name":"Crema de auyama","price":12},{"id":"ensaladas--tabbule","cat":"Ensaladas","name":"Tabbule","price":11},{"id":"ensaladas--fattoush","cat":"Ensaladas","name":"Fattoush","price":17},{"id":"ensaladas--libanesa","cat":"Ensaladas","name":"Libanesa","price":15},{"id":"ensaladas--armenia","cat":"Ensaladas","name":"Armenia","price":12},{"id":"ensaladas--yogurt-con-pepino","cat":"Ensaladas","name":"Yogurt con pepino","price":11},{"id":"ensaladas--ensalada-de-cangrejo","cat":"Ensaladas","name":"Ensalada de cangrejo","price":16},{"id":"ensaladas--ensalada-de-burrata","cat":"Ensaladas","name":"Ensalada de burrata","price":17},{"id":"ensaladas--ensalada-cesar","cat":"Ensaladas","name":"Ensalada César","price":13},{"id":"ensaladas--ensalada-cesar-con-pollo","cat":"Ensaladas","name":"Ensalada César con pollo","price":19},{"id":"ensaladas--ensalada-cesar-con-berro-y-pollo","cat":"Ensaladas","name":"Ensalada César con berro y pollo","price":19},{"id":"ensaladas--ensalada-cesar-con-camaron","cat":"Ensaladas","name":"Ensalada César con camarón","price":20},{"id":"ensaladas--rugula-de-la-casa","cat":"Ensaladas","name":"Rúgula de la casa","price":13},{"id":"ensaladas--ensalada-de-palmitos","cat":"Ensaladas","name":"Ensalada de palmitos","price":12},{"id":"ensaladas--ensalada-mixta","cat":"Ensaladas","name":"Ensalada mixta","price":8},{"id":"ensaladas--ensalada-de-camarones","cat":"Ensaladas","name":"Ensalada de camarones","price":16},{"id":"platos-arabes-especiales--fatte","cat":"Platos Árabes Especiales","name":"Fatte","price":15},{"id":"platos-arabes-especiales--fatte-de-berenjena","cat":"Platos Árabes Especiales","name":"Fatte de berenjena","price":15},{"id":"platos-arabes-especiales--plato-mixto","cat":"Platos Árabes Especiales","name":"Plato mixto","price":19},{"id":"platos-arabes-especiales--plato-mixto-con-lomito","cat":"Platos Árabes Especiales","name":"Plato mixto con lomito","price":21},{"id":"platos-arabes-especiales--plato-vegetariano-arabe","cat":"Platos Árabes Especiales","name":"Plato vegetariano árabe","price":18},{"id":"platos-arabes-especiales--plato-de-shawarma","cat":"Platos Árabes Especiales","name":"Plato de shawarma","price":35},{"id":"platos-arabes-especiales--kibbe-al-yogurt","cat":"Platos Árabes Especiales","name":"Kibbe al yogurt","price":17},{"id":"platos-arabes-especiales--arroz-libanes-con-pollo-o-cordero","cat":"Platos Árabes Especiales","name":"Arroz libanés con pollo o cordero","price":19},{"id":"platos-arabes-especiales--bandeja-arabe-2-personas","cat":"Platos Árabes Especiales","name":"Bandeja árabe (2 personas)","price":50},{"id":"platos-arabes-especiales--bandeja-arabe-3-personas","cat":"Platos Árabes Especiales","name":"Bandeja árabe (3 personas)","price":65},{"id":"platos-arabes-especiales--bandeja-arabe-4-personas","cat":"Platos Árabes Especiales","name":"Bandeja árabe (4 personas)","price":75},{"id":"medias-porciones--medio-hummus","cat":"Medias Porciones","name":"Medio hummus","price":4},{"id":"medias-porciones--medio-mutabal","cat":"Medias Porciones","name":"Medio mutabal","price":4},{"id":"medias-porciones--media-muhammara","cat":"Medias Porciones","name":"Media muhammara","price":4},{"id":"medias-porciones--medio-labne","cat":"Medias Porciones","name":"Medio labne","price":6},{"id":"medias-porciones--media-crema-mixta","cat":"Medias Porciones","name":"Media crema mixta","price":6},{"id":"medias-porciones--medio-kibbe-crudo","cat":"Medias Porciones","name":"Medio kibbe crudo","price":6},{"id":"medias-porciones--medio-kibbe-frito","cat":"Medias Porciones","name":"Medio kibbe frito","price":6},{"id":"medias-porciones--medio-kibbe-horneado","cat":"Medias Porciones","name":"Medio kibbe horneado","price":7},{"id":"medias-porciones--medio-falafel","cat":"Medias Porciones","name":"Medio falafel","price":5},{"id":"medias-porciones--medio-tabaquito-de-uva","cat":"Medias Porciones","name":"Medio tabaquito de uva","price":6},{"id":"medias-porciones--medio-tabaquito-de-repollo","cat":"Medias Porciones","name":"Medio tabaquito de repollo","price":6},{"id":"medias-porciones--medio-tabbule","cat":"Medias Porciones","name":"Medio tabbule","price":6},{"id":"medias-porciones--medio-plato-de-shawarma","cat":"Medias Porciones","name":"Medio plato de shawarma","price":18},{"id":"shawarmas-y-sandwiches--shawarma","cat":"Shawarmas y Sándwiches","name":"Shawarma","price":8},{"id":"shawarmas-y-sandwiches--shawarma-especial","cat":"Shawarmas y Sándwiches","name":"Shawarma especial","price":10},{"id":"shawarmas-y-sandwiches--shawarma-super-especial","cat":"Shawarmas y Sándwiches","name":"Shawarma súper especial","price":12},{"id":"shawarmas-y-sandwiches--shawarma-abierto","cat":"Shawarmas y Sándwiches","name":"Shawarma abierto","price":10},{"id":"shawarmas-y-sandwiches--shawarma-especial-abierto","cat":"Shawarmas y Sándwiches","name":"Shawarma especial abierto","price":12},{"id":"shawarmas-y-sandwiches--shawarma-super-especial-abierto","cat":"Shawarmas y Sándwiches","name":"Shawarma súper especial abierto","price":13},{"id":"shawarmas-y-sandwiches--salsa-de-ajo","cat":"Shawarmas y Sándwiches","name":"Salsa de ajo","price":1},{"id":"shawarmas-y-sandwiches--sandwich-de-falafel","cat":"Shawarmas y Sándwiches","name":"Sándwich de falafel","price":8},{"id":"shawarmas-y-sandwiches--fajita","cat":"Shawarmas y Sándwiches","name":"Fajita","price":14},{"id":"shawarmas-y-sandwiches--philadelphia","cat":"Shawarmas y Sándwiches","name":"Philadelphia","price":15},{"id":"shawarmas-y-sandwiches--tawook","cat":"Shawarmas y Sándwiches","name":"Tawook","price":13},{"id":"shawarmas-y-sandwiches--camaron","cat":"Shawarmas y Sándwiches","name":"Camarón","price":14},{"id":"shawarmas-y-sandwiches--lomito","cat":"Shawarmas y Sándwiches","name":"Lomito","price":14},{"id":"shawarmas-y-sandwiches--kebab","cat":"Shawarmas y Sándwiches","name":"Kebab","price":13},{"id":"shawarmas-y-sandwiches--makanek","cat":"Shawarmas y Sándwiches","name":"Makanek","price":13},{"id":"shawarmas-y-sandwiches--higado-de-pollo","cat":"Shawarmas y Sándwiches","name":"Hígado de pollo","price":13},{"id":"shawarmas-y-sandwiches--falafel-especial","cat":"Shawarmas y Sándwiches","name":"Falafel especial","price":10},{"id":"shawarmas-y-sandwiches--kibbe-frito","cat":"Shawarmas y Sándwiches","name":"Kibbe frito","price":11},{"id":"brochetas-y-parrillas--brochetas-el-amir","cat":"Brochetas y Parrillas","name":"Brochetas El Amir","price":65},{"id":"brochetas-y-parrillas--brocheta-de-kafta","cat":"Brochetas y Parrillas","name":"Brocheta de kafta","price":20},{"id":"brochetas-y-parrillas--brocheta-de-pollo","cat":"Brochetas y Parrillas","name":"Brocheta de pollo","price":21},{"id":"brochetas-y-parrillas--brocheta-de-lomito","cat":"Brochetas y Parrillas","name":"Brocheta de lomito","price":24},{"id":"brochetas-y-parrillas--brocheta-mixta","cat":"Brochetas y Parrillas","name":"Brocheta mixta","price":24},{"id":"brochetas-y-parrillas--parrilla-el-amir","cat":"Brochetas y Parrillas","name":"Parrilla El Amir","price":26},{"id":"brochetas-y-parrillas--parrilla-mar-y-tierra","cat":"Brochetas y Parrillas","name":"Parrilla mar y tierra","price":26},{"id":"brochetas-y-parrillas--parrilla-de-mariscos","cat":"Brochetas y Parrillas","name":"Parrilla de mariscos","price":26},{"id":"brochetas-y-parrillas--parrilla-de-pollo","cat":"Brochetas y Parrillas","name":"Parrilla de pollo","price":20},{"id":"brochetas-y-parrillas--parrilla-de-lomito","cat":"Brochetas y Parrillas","name":"Parrilla de lomito","price":24},{"id":"brochetas-y-parrillas--parrilla-mixta","cat":"Brochetas y Parrillas","name":"Parrilla mixta","price":24},{"id":"carnes-y-aves--plato-navideno","cat":"Carnes y Aves","name":"Plato navideño","price":16},{"id":"carnes-y-aves--pollo-a-la-brasa-el-amir","cat":"Carnes y Aves","name":"Pollo a la brasa El Amir","price":34},{"id":"carnes-y-aves--envoltini-de-pollo","cat":"Carnes y Aves","name":"Envoltini de pollo","price":20},{"id":"carnes-y-aves--pollo-a-la-brasa","cat":"Carnes y Aves","name":"Pollo a la brasa","price":17},{"id":"carnes-y-aves--pollo-a-la-canasta","cat":"Carnes y Aves","name":"Pollo a la canasta","price":16},{"id":"carnes-y-aves--tenders-de-pollo-crispy","cat":"Carnes y Aves","name":"Tenders de pollo crispy","price":16},{"id":"carnes-y-aves--suprema-de-pollo-crispy","cat":"Carnes y Aves","name":"Suprema de pollo crispy","price":24},{"id":"carnes-y-aves--filet-mignon","cat":"Carnes y Aves","name":"Filet mignon","price":24},{"id":"carnes-y-aves--cordon-bleu-de-lomito","cat":"Carnes y Aves","name":"Cordon bleu de lomito","price":23},{"id":"carnes-y-aves--cordon-bleu-de-pollo","cat":"Carnes y Aves","name":"Cordon bleu de pollo","price":22},{"id":"carnes-y-aves--centro-de-lomito-a-la-plancha","cat":"Carnes y Aves","name":"Centro de lomito a la plancha","price":20},{"id":"carnes-y-aves--pollo-a-la-milanesa","cat":"Carnes y Aves","name":"Pollo a la milanesa","price":19},{"id":"carnes-y-aves--pollo-al-champinon","cat":"Carnes y Aves","name":"Pollo al champiñón","price":20},{"id":"carnes-y-aves--pollo-a-la-plancha","cat":"Carnes y Aves","name":"Pollo a la plancha","price":16},{"id":"pescados-y-mariscos--mero-en-2-salsas","cat":"Pescados y Mariscos","name":"Mero en 2 salsas","price":22},{"id":"pescados-y-mariscos--mero-a-la-plancha","cat":"Pescados y Mariscos","name":"Mero a la plancha","price":24},{"id":"pescados-y-mariscos--mero-al-ajillo","cat":"Pescados y Mariscos","name":"Mero al ajillo","price":24},{"id":"pescados-y-mariscos--cazuela-de-mariscos","cat":"Pescados y Mariscos","name":"Cazuela de mariscos","price":17},{"id":"pescados-y-mariscos--dynamite-shrimp","cat":"Pescados y Mariscos","name":"Dynamite shrimp","price":21},{"id":"pescados-y-mariscos--camarones-a-la-plancha","cat":"Pescados y Mariscos","name":"Camarones a la plancha","price":20},{"id":"pescados-y-mariscos--camarones-al-ajillo","cat":"Pescados y Mariscos","name":"Camarones al ajillo","price":20},{"id":"pescados-y-mariscos--camarones-rebozados","cat":"Pescados y Mariscos","name":"Camarones rebozados","price":20},{"id":"pescados-y-mariscos--calamares-al-ajillo","cat":"Pescados y Mariscos","name":"Calamares al ajillo","price":18},{"id":"pescados-y-mariscos--calamares-rebozados","cat":"Pescados y Mariscos","name":"Calamares rebozados","price":20},{"id":"pescados-y-mariscos--pulpo-al-grill","cat":"Pescados y Mariscos","name":"Pulpo al grill","price":28},{"id":"pescados-y-mariscos--asopado-de-mariscos-2-personas","cat":"Pescados y Mariscos","name":"Asopado de mariscos (2 personas)","price":50},{"id":"arroces--risotto-al-pesto-con-escalopines-de-pollo","cat":"Arroces","name":"Risotto al pesto con escalopines de pollo","price":19},{"id":"arroces--risotto-con-calabaza-y-calamares-acevichados","cat":"Arroces","name":"Risotto con calabaza y calamares acevichados","price":19},{"id":"arroces--paella-2-personas","cat":"Arroces","name":"Paella (2 personas)","price":50},{"id":"arroces--paella-3-personas","cat":"Arroces","name":"Paella (3 personas)","price":60},{"id":"arroces--paella-4-personas","cat":"Arroces","name":"Paella (4 personas)","price":75},{"id":"arroces--fideua-2-personas","cat":"Arroces","name":"Fideuá (2 personas)","price":50},{"id":"arroces--fideua-3-personas","cat":"Arroces","name":"Fideuá (3 personas)","price":60},{"id":"arroces--fideua-4-personas","cat":"Arroces","name":"Fideuá (4 personas)","price":75},{"id":"arroces--arroz-a-la-marinera-2-personas","cat":"Arroces","name":"Arroz a la marinera (2 personas)","price":50},{"id":"pastas--fettuccine-con-ragu-de-mero","cat":"Pastas","name":"Fettuccine con ragú de mero","price":24},{"id":"pastas--cartoccio-de-lomito","cat":"Pastas","name":"Cartoccio de lomito","price":24},{"id":"pastas--rigatoni-cremoso-con-tocineta-y-champinones","cat":"Pastas","name":"Rigatoni cremoso con tocineta y champiñones","price":20},{"id":"pastas--linguini-con-camarones","cat":"Pastas","name":"Linguini con camarones","price":21},{"id":"pastas--linguini-al-fileto","cat":"Pastas","name":"Linguini al fileto","price":20},{"id":"pastas--linguini-marinera","cat":"Pastas","name":"Linguini marinera","price":21},{"id":"pastas--linguini-carbonara","cat":"Pastas","name":"Linguini carbonara","price":18},{"id":"pastas--pasta-bologna","cat":"Pastas","name":"Pasta bologna","price":11},{"id":"pastas--pasta-napoli","cat":"Pastas","name":"Pasta napoli","price":11},{"id":"pastas--pasticho-tradicional","cat":"Pastas","name":"Pasticho tradicional","price":11},{"id":"hamburguesas--cheeseburger","cat":"Hamburguesas","name":"Cheeseburger","price":13},{"id":"hamburguesas--oh-my-burger","cat":"Hamburguesas","name":"Oh My Burger!","price":13},{"id":"hamburguesas--pollo-crispy","cat":"Hamburguesas","name":"Pollo crispy","price":13},{"id":"hamburguesas--gordon-burger","cat":"Hamburguesas","name":"Gordon burger","price":13},{"id":"batidos-y-yogurt--batido-de-fresa","cat":"Batidos y Yogurt","name":"Batido de fresa","price":4},{"id":"batidos-y-yogurt--batido-de-melon","cat":"Batidos y Yogurt","name":"Batido de melón","price":4},{"id":"batidos-y-yogurt--batido-de-pina","cat":"Batidos y Yogurt","name":"Batido de piña","price":4},{"id":"batidos-y-yogurt--batido-de-melocoton","cat":"Batidos y Yogurt","name":"Batido de melocotón","price":4},{"id":"batidos-y-yogurt--batido-de-guanabana","cat":"Batidos y Yogurt","name":"Batido de guanábana","price":4},{"id":"batidos-y-yogurt--batido-de-lechosa","cat":"Batidos y Yogurt","name":"Batido de lechosa","price":4},{"id":"batidos-y-yogurt--batido-de-parchita","cat":"Batidos y Yogurt","name":"Batido de parchita","price":4},{"id":"batidos-y-yogurt--batido-de-mora","cat":"Batidos y Yogurt","name":"Batido de mora","price":4},{"id":"batidos-y-yogurt--limonada","cat":"Batidos y Yogurt","name":"Limonada","price":4},{"id":"batidos-y-yogurt--limonada-con-hierbabuena","cat":"Batidos y Yogurt","name":"Limonada con hierbabuena","price":4},{"id":"batidos-y-yogurt--merengada-de-frutas","cat":"Batidos y Yogurt","name":"Merengada de frutas","price":6},{"id":"batidos-y-yogurt--yogurt-con-hierbabuena","cat":"Batidos y Yogurt","name":"Yogurt con hierbabuena","price":6},{"id":"batidos-y-yogurt--yogurt-con-frutas","cat":"Batidos y Yogurt","name":"Yogurt con frutas","price":6},{"id":"bebidas--agua-mineral","cat":"Bebidas","name":"Agua mineral","price":1.5},{"id":"bebidas--nestea","cat":"Bebidas","name":"Nestea","price":2},{"id":"bebidas--jarra-de-nestea-x4","cat":"Bebidas","name":"Jarra de Nestea (x4)","price":12},{"id":"bebidas--te-lipton","cat":"Bebidas","name":"Té Lipton","price":3},{"id":"bebidas--gatorade","cat":"Bebidas","name":"Gatorade","price":3},{"id":"bebidas--refresco-de-lata","cat":"Bebidas","name":"Refresco de lata","price":2},{"id":"bebidas--refresco-1l","cat":"Bebidas","name":"Refresco 1L","price":3},{"id":"bebidas--refresco-1-5l","cat":"Bebidas","name":"Refresco 1.5L","price":4},{"id":"bebidas--sparkling","cat":"Bebidas","name":"Sparkling","price":3},{"id":"bebidas--soda","cat":"Bebidas","name":"Soda","price":3},{"id":"bebidas--agua-de-manzana","cat":"Bebidas","name":"Agua de manzana","price":2},{"id":"licores-y-cocteles--cerveza-nacional","cat":"Licores y Cócteles","name":"Cerveza nacional","price":1.5},{"id":"licores-y-cocteles--cerveza-importada","cat":"Licores y Cócteles","name":"Cerveza importada","price":5},{"id":"licores-y-cocteles--copa-de-vino","cat":"Licores y Cócteles","name":"Copa de vino","price":5},{"id":"licores-y-cocteles--botella-de-anis","cat":"Licores y Cócteles","name":"Botella de anís","price":30},{"id":"licores-y-cocteles--botella-de-whisky-8-anos","cat":"Licores y Cócteles","name":"Botella de whisky 8 años","price":45},{"id":"licores-y-cocteles--botella-de-whisky-12-anos","cat":"Licores y Cócteles","name":"Botella de whisky 12 años","price":60},{"id":"licores-y-cocteles--botella-de-whisky-18-anos","cat":"Licores y Cócteles","name":"Botella de whisky 18 años","price":115}];
   var FEATURED = "carnes-y-aves--plato-navideno";
   var DRINK_CATS = ["Bebidas", "Batidos y Yogurt", "Licores y Cócteles"];
-  /* drinks that can go with the Plato navideño for every guest (the single-serve ones of the menu's Bebidas section) */
-  var PK_DRINKS = ["bebidas--refresco-de-lata", "bebidas--nestea", "bebidas--agua-mineral", "bebidas--te-lipton", "bebidas--gatorade", "bebidas--sparkling", "bebidas--soda", "bebidas--agua-de-manzana"];
   var AREAS = ["", "terraza", "baja", "alta", "terrazaSup"];   /* "" = wherever there is room; only Lechería has areas */
   var SERV = 0.10;
   var TAX = 0.16;                    /* already inside every total; the page never names it */
   var STEP = 15, BEFORE_CLOSE = 30;  /* times every 15 minutes; the last one is 30 minutes before closing (like the reservation page) */
   var STORE = "amir-grupo";          /* sessionStorage: the form, saved while the host picks plates or drinks on the order page (pedir.js ?grupo=1) */
   var CART_P = "amir-grupo-platos-cart";   /* localStorage: the order page's own cart for the plates */
-  var CART = "amir-grupo-cart";      /* localStorage: that page's own cart for the drinks */
+  var CART = "amir-grupo-cart";      /* localStorage: that page's own cart for the bottles */
+  var CART_D = "amir-grupo-pp-cart"; /* localStorage: the order page's own cart for "a drink for each person" */
   var WA = { "Lechería": "584248060218", "Puerto La Cruz": "584127505025" }; /* mismos números que config.js */
   var CLIENT_LANG = { en: "English", ar: "العربية" };
 
@@ -28,7 +27,8 @@
   var plates = [];                  /* [{ id, name (Spanish), ui, price }]: the dishes the guests can order, chosen on the order page */
   var drinks = [];                  /* [{ qty, name (Spanish), ui, total }]: drinks and bottles by quantity, chosen on the order page */
   var pending = null;               /* select values to put back after a trip to the order page */
-  var pkTouched = false;            /* the host chose a drink himself: stop changing it when he switches mode */
+  var drinksPP = [];                /* [{ key, per, name (Spanish), ui, unit }]: a drink for each person, chosen on the order page (per = how many per person) */
+  var ppTouched = false;            /* the host chose it himself: stop changing it when he switches mode */
 
   /* ---------- language helpers ---------- */
   function L() { return I.lang || "es"; }
@@ -110,10 +110,12 @@
     $("#areaRow").hidden = !lech; $("#areaHint").hidden = !lech;
     sel.value = lech ? keep : "";
   }
-  function renderPkDrinks() {
-    var sel = $("#pkDrink"), keep = sel.value;
-    sel.innerHTML = '<option value="">' + esc(T("g.pk.none")) + "</option>" + PK_DRINKS.filter(function (id) { return ITEMS[id]; }).map(function (id) { return '<option value="' + esc(id) + '">' + esc(dn(ITEMS[id].name) + " (" + usd(ITEMS[id].price) + ")") + "</option>"; }).join("");
-    sel.value = keep;
+  function renderPP() {
+    var n = num($("#people"), 1, 300, true) || 0;
+    $("#ppSummary").innerHTML = drinksPP.length ? drinksPP.map(function (d) {
+      return "<li><span>" + esc(dn(d.name)) + "<small>" + esc(T("g.line.pk", { per: d.per, n: n }) + " · " + usd(d.unit)) + "</small></span><b>" + esc(usd(n * d.per * d.unit)) + "</b></li>";
+    }).join("") : '<li class="empty">' + esc(T("g.pp.empty")) + "</li>";
+    $("#btnPP").textContent = T(drinksPP.length ? "g.pp.edit" : "g.pp.pick");
   }
   /* only the cards of the chosen way of ordering are shown */
   function paintMode() {
@@ -139,27 +141,30 @@
   }
   function formState() {
     return { name: $("#name").value, phone: $("#phone").value, docid: $("#docid").value, date: $("#date").value, time: $("#time").value, people: $("#people").value,
-      branch: $("#branch").value, area: $("#area").value, notes: $("#notes").value, mode: mode(), budget: $("#budgetPP").value, serv: $("#optServicio").checked,
-      pkDrink: $("#pkDrink").value, pkQty: $("#pkQty").value };
+      branch: $("#branch").value, area: $("#area").value, notes: $("#notes").value, mode: mode(), budget: $("#budgetPP").value, serv: $("#optServicio").checked };
   }
   function readStore() { try { var v = JSON.parse(sessionStorage.getItem(STORE) || "null"); return v && v.form ? v : null; } catch (e) { return null; } }
   /* the plates and the drinks are chosen on the order page, which sends the host back here ("Listo") */
   function go(where) {
     var b = num($("#budgetPP"), 0.01, 5000, false);
-    var data = { form: formState(), plates: plates, dishes: drinks, sub: 0, back: location.pathname + "#" + where };
+    var data = { form: formState(), plates: plates, dishes: drinks, drinksPP: drinksPP, sub: 0, back: location.pathname + "#" + where };
     try {
       sessionStorage.setItem(STORE, JSON.stringify(data));
       if (where === "platos") { /* the plates already chosen come selected */
         var pre = {}; plates.forEach(function (p) { if (!b || p.price <= b) pre[p.id] = 1; });
         localStorage.setItem(CART_P, JSON.stringify(pre));
+      } else if (where === "porpersona") { /* the drinks already chosen come selected, with their quantity per person */
+        var pp = {}; drinksPP.forEach(function (d) { pp[d.key] = d.per; });
+        localStorage.setItem(CART_D, JSON.stringify(pp)); ppTouched = true;
       } else if (!drinks.length) localStorage.removeItem(CART);
     } catch (e) { return; } /* storage blocked: the form could not be kept, so stay here */
-    location.href = new URL($("#btnDrinks").getAttribute("data-href"), location.href).href + "?presupuesto=1&grupo=1" + (where === "platos" ? "&modo=platos" + (b ? "&max=" + b : "") : "");
+    location.href = new URL($("#btnDrinks").getAttribute("data-href"), location.href).href + "?presupuesto=1&grupo=1" +
+      (where === "platos" ? "&modo=platos" + (b ? "&max=" + b : "") : where === "porpersona" ? "&modo=porpersona" : "");
   }
   /* back from the order page: the form as it was, plus what was chosen (true when the host is coming back) */
   function restore() {
     var nav = performance.getEntriesByType ? performance.getEntriesByType("navigation")[0] : null;
-    var back = location.hash === "#platos" || location.hash === "#bebidas" || !!(nav && nav.type === "back_forward");   /* "Listo", or the browser's Back button */
+    var back = location.hash === "#platos" || location.hash === "#bebidas" || location.hash === "#porpersona" || !!(nav && nav.type === "back_forward");   /* "Listo", or the browser's Back button */
     if (!back) { try { sessionStorage.removeItem(STORE); } catch (e) { /* ignore */ } return false; }
     var v = readStore(); if (!v) return false;
     var f = v.form || {};
@@ -168,13 +173,13 @@
     if (f.people != null) $("#people").value = f.people;
     if (f.branch) $("#branch").value = f.branch;
     if (f.budget != null) $("#budgetPP").value = f.budget;
-    if (f.pkQty != null) $("#pkQty").value = f.pkQty;
     $("#optServicio").checked = !!f.serv;
     var r = $('input[name="modo"][value="' + f.mode + '"]'); if (r) r.checked = true;
-    pending = { time: f.time || "", area: f.area || "", pkDrink: f.pkDrink || "" };   /* the selects are filled first, then these are put back */
-    pkTouched = true;
+    pending = { time: f.time || "", area: f.area || "" };   /* the selects are filled first, then these are put back */
+    ppTouched = true;
     plates = Array.isArray(v.plates) ? v.plates.filter(function (p) { return p && p.id; }) : [];
     drinks = Array.isArray(v.dishes) ? v.dishes.filter(function (d) { return d && d.qty > 0; }) : [];
+    drinksPP = Array.isArray(v.drinksPP) ? v.drinksPP.filter(function (d) { return d && d.per > 0 && d.unit > 0; }) : [];
     return true;
   }
 
@@ -204,13 +209,12 @@
       base = r2(N * plate.price);
     } else priced = false;   /* a la carta: no price up front */
 
-    /* a drink for each person (optional): the same drink for every guest, multiplied by the number of guests */
-    if (m !== "carta") {
-      var dk = ITEMS[$("#pkDrink").value], qEl = $("#pkQty"), per = num(qEl, 0, 10, true);
-      flag(qEl, !!dk && per === null);
-      if (dk && per === null) errs.push(T("g.err.pkqty"));
-      if (dk && per) { var dAmt = r2(N * per * dk.price); lines.push({ t: "pk", drink: true, name: dk.name, per: per, n: N, qty: N * per, unit: dk.price, amount: dAmt }); base = r2(base + dAmt); }
-    }
+    /* a drink for each person (optional, picked on the order page): each one times the number of guests */
+    if (m !== "carta") drinksPP.forEach(function (d) {
+      var dAmt = r2(N * d.per * d.unit);
+      lines.push({ t: "pk", drink: true, name: d.name, per: d.per, n: N, qty: N * d.per, unit: d.unit, amount: dAmt });
+      base = r2(base + dAmt);
+    });
 
     /* drinks and bottles from the order page: counted by quantity, on top of the per-person total */
     if (m !== "carta") drinks.forEach(function (d) {
@@ -368,7 +372,7 @@
   function update() {
     $$("[data-usd]").forEach(function (el) { el.textContent = usd(Number(el.getAttribute("data-usd"))); });
     paintStatic(); paintMode();
-    renderPlates(); renderDrinks();
+    renderPlates(); renderPP(); renderDrinks();
     var c = calc();
     renderCard(c);
     renderDoc(c);
@@ -382,19 +386,22 @@
   });
   document.addEventListener("change", function (e) {
     var id = e.target.id;
-    if (id === "pkDrink" || id === "pkQty") pkTouched = true;
-    if (e.target.name === "modo" && !pkTouched) { $("#pkDrink").value = e.target.value === "paquete" ? "bebidas--refresco-de-lata" : ""; $("#pkQty").value = "1"; }   /* the package comes with a soda each; the budget mode starts without one */
+    if (e.target.name === "modo" && !ppTouched) { /* the package comes with a soda each; the budget mode starts without one */
+      var sd = ITEMS["bebidas--refresco-de-lata"];
+      drinksPP = e.target.value === "paquete" && sd ? [{ key: sd.id, per: 1, name: sd.name, ui: sd.name, unit: sd.price }] : [];
+    }
     if (id === "date") renderTimes();
     if (id === "branch") renderAreas();
     update();
   });
   /* the guest switched language: redraw the lists (dish names) and every text */
   document.addEventListener("langchange", function () {
-    renderAreas(); renderTimes(); renderPkDrinks();
+    renderAreas(); renderTimes();
     update(); hours();
   });
   $("#btnPlates").addEventListener("click", function () { go("platos"); });
   $("#btnDrinks").addEventListener("click", function () { go("bebidas"); });
+  $("#btnPP").addEventListener("click", function () { go("porpersona"); });
   $("#form").addEventListener("submit", function (e) { e.preventDefault(); });
 
   $("#btnWa").addEventListener("click", function () {
@@ -451,14 +458,13 @@
     if (!dEl.value) dEl.value = isoOf(dec);
     var back = restore();
     if (!back && ITEMS[FEATURED]) plates = [plateOf(ITEMS[FEATURED])];   /* the first time: the Plato navideño is already on the list */
-    renderPkDrinks(); renderAreas(); renderTimes();
+    renderAreas(); renderTimes();
     if (pending) { /* back from the order page: the selects as they were */
       if (pending.time) $("#time").value = pending.time;
       if ($("#branch").value === "Lechería") $("#area").value = pending.area;
-      $("#pkDrink").value = ITEMS[pending.pkDrink] ? pending.pkDrink : "";
     }
     update(); hours();
-    var h = location.hash === "#platos" ? $("#h-pl") : location.hash === "#bebidas" ? $("#h-dr") : null;
+    var h = location.hash === "#platos" ? $("#h-pl") : location.hash === "#bebidas" ? $("#h-dr") : location.hash === "#porpersona" ? $("#h-pd") : null;
     if (back && h) h.scrollIntoView({ block: "start" });
     document.documentElement.classList.remove("i18n-wait"); /* the page was held back until the texts were ready (non-Spanish visits) */
   }

@@ -289,9 +289,9 @@
   const GROUP = /[?&]grupo=1(?:&|#|$)/.test(location.search);
   const PKEY = GROUP ? "amir-grupo" : "amir-presupuesto";
   const PICK = (() => { try { return /[?&]presupuesto=1(?:&|#|$)/.test(location.search) && !!JSON.parse(sessionStorage.getItem(PKEY) || "null"); } catch (e) { return false; } })();
-  const GMODE = GROUP && /[?&]modo=platos(?:&|#|$)/.test(location.search) ? "platos" : "bebidas";   /* what the host chooses: plates (options for the guests) or drinks (by quantity) */
+  const GMODE = !GROUP ? "bebidas" : /[?&]modo=platos(?:&|#|$)/.test(location.search) ? "platos" : /[?&]modo=porpersona(?:&|#|$)/.test(location.search) ? "porpersona" : "bebidas";   /* what the host chooses: plates (options for the guests), a drink for each person (quantity = how many per person) or bottles for the table (by quantity) */
   const GMAX = GROUP && GMODE === "platos" ? (+((/[?&]max=([\d.]+)/.exec(location.search) || [])[1]) || 0) : 0;   /* plates: only those that fit the budget per person */
-  const CART_KEY = PICK ? (GROUP ? (GMODE === "platos" ? "amir-grupo-platos-cart" : "amir-grupo-cart") : "amir-presupuesto-cart") : "amir-cart-v2";
+  const CART_KEY = PICK ? (GROUP ? (GMODE === "platos" ? "amir-grupo-platos-cart" : GMODE === "porpersona" ? "amir-grupo-pp-cart" : "amir-grupo-cart") : "amir-presupuesto-cart") : "amir-cart-v2";
   const ONLY_GROUP = PICK && GROUP && typeof DRINK_CATS !== "undefined";
   let cart = {};   /* key = dishId or dishId|opción|extra~extra|nota del cliente (Spanish) → qty */
   const parseKey = k => { const [id, opt, ex, note] = k.split("|"); return { id, opt, extras: ex ? ex.split("~") : [], note: note || "" }; };
@@ -329,7 +329,9 @@
   const lineNameUI = k => { const { id, opt, extras, note } = parseKey(k); return lineFmt(tr(id).name, opt, extras, note, x => I.opt(x)); };  /* on screen */
 
   /* ---------- menu ---------- */
+  const BOTTLE = /^(Botella |Refresco 1(\.5)?L$|Jarra )/;   /* sold by the bottle for the table: not offered as "a drink for each person" */
   const VIEW = !ONLY_GROUP ? MENU : GMODE === "bebidas" ? MENU.filter(c => DRINK_CATS.includes(c[0]))
+    : GMODE === "porpersona" ? MENU.filter(c => DRINK_CATS.includes(c[0])).map(c => [c[0], c[1], c[2].filter(it => !BOTTLE.test(it[0]))]).filter(c => c[2].length)
     : MENU.filter(c => !DRINK_CATS.includes(c[0])).map(c => GMAX ? [c[0], c[1], c[2].filter(it => it[1] <= GMAX)] : c).filter(c => c[2].length);   /* the sections shown on the page */
   const catsEl = $("#cats"), chips = $("#chips"), SIG = ONLY_GROUP ? "grupo-" + GMODE + GMAX : R.sig(MENU, PH);   /* another signature: the prerendered full menu must not be reused */
   const ctlFor = (id, pop) => R.ctl(id, dishes[id], qtyFor(id), I, pop);
@@ -1173,7 +1175,7 @@
   if (PICK) { /* "presupuesto" pick mode: choose dishes, then "Listo" goes back to the reservation (reservar.js restores the form and shows the picks) */
     doc.documentElement.classList.add("pick");
     if (GROUP) doc.documentElement.classList.add("pick-grupo");
-    const px = k => t(GROUP ? k.replace("px.pick.", GMODE === "platos" ? "px.grpp." : "px.grp.") : k);   /* the group page has its own wording (plates / drinks) */
+    const px = k => t(GROUP ? k.replace("px.pick.", GMODE === "platos" ? "px.grpp." : GMODE === "porpersona" ? "px.grpd." : "px.grp.") : k);   /* the group page has its own wording (plates / a drink each / bottles) */
     const grpPlates = GROUP && GMODE === "platos";
     const bar = doc.createElement("div"); bar.className = "pickbar"; bar.setAttribute("role", "region");
     bar.innerHTML = '<div class="pk-t"><b id="pkN"></b><span id="pkSub"></span></div><button type="button" class="btn btn--wine" id="pkDone"></button>';
@@ -1181,7 +1183,7 @@
     const paintBar = () => {
       const c = count(); bar.setAttribute("aria-label", px("px.pick.bar"));
       const n = grpPlates ? new Set(Object.keys(cart).map(k => parseKey(k).id)).size : c;   /* plates are options for the guests: count the different dishes, not the units */
-      $("#pkN").textContent = n ? (GROUP ? t(grpPlates ? "px.grpp.count" : "px.grp.count", { n }) : I.tp("cart.dishes", c)) : px("px.pick.none"); $("#pkSub").textContent = c && !grpPlates ? money(totals().sub) : ""; $("#pkDone").textContent = t("px.pick.done");
+      $("#pkN").textContent = n ? (GROUP ? t(grpPlates ? "px.grpp.count" : GMODE === "porpersona" ? "px.grpd.count" : "px.grp.count", { n }) : I.tp("cart.dishes", c)) : px("px.pick.none"); $("#pkSub").textContent = c && !grpPlates ? money(totals().sub) : ""; $("#pkDone").textContent = t("px.pick.done");
       const bo = $(".bnav-order"); if (bo) { const lbl = bo.querySelector("[data-i18n]"), bt = $("#bnavTot"); if (lbl) lbl.hidden = false; if (bt) bt.hidden = true; } /* the nav keeps its plain "Pedir": its total/badge are for the real cart */
     };
     paintBar(); doc.addEventListener("amir-cart", paintBar); doc.addEventListener("langchange", paintBar);
@@ -1191,6 +1193,8 @@
         if (grpPlates) { /* options for the guests: each different dish once (the quantity does not matter) */
           const seen = new Set(); v.plates = [];
           Object.keys(cart).forEach(k => { const id = parseKey(k).id; if (!seen.has(id)) { seen.add(id); v.plates.push({ id, name: dishes[id].name, ui: tr(id).name, price: dishes[id].price }); } });
+        } else if (GROUP && GMODE === "porpersona") { /* a drink for each person: the quantity is how many per person, the price is per unit */
+          v.drinksPP = Object.keys(cart).map(k => ({ key: k, per: cart[k], name: lineName(k), ui: lineNameUI(k), unit: unitPrice(k) }));
         } else {
           v.dishes = Object.keys(cart).map(k => ({ qty: cart[k], name: lineName(k), ui: lineNameUI(k), total: unitPrice(k) * cart[k] })); /* name = Spanish (WhatsApp), ui = the guest's language (on screen) */
           v.sub = totals().sub;
