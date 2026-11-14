@@ -53,7 +53,7 @@
       "rv.err.date": "Elige una fecha.", "rv.err.past": "Esa fecha ya pasó.",
       "rv.err.closed": "Ese día estamos cerrados. Elige otra fecha.",
       "rv.err.noSlots": "Hoy ya no quedan horas para reservar. Elige otra fecha.",
-      "rv.err.time": "Escribe una hora.", "rv.err.ampm": "Elige AM o PM.","rv.err.timeBad": "Escribe una hora cada 15 minutos, dentro del horario (por ejemplo 7:30 pm).", "rv.hours.range": "Horario: {from} – {to}",
+      "rv.err.time": "Escribe una hora.", "rv.err.ampm": "Elige AM o PM.","rv.err.timeBad": "Escribe una hora válida (por ejemplo 7:30 pm).", "rv.err.timePast": "Esa hora ya pasó. Elige una hora más tarde.", "rv.hours.range": "Horario: {from} – {to}",
       "rv.how.t": "Cómo funciona", "rv.how.1": "Elige sucursal, fecha y hora.",
       "rv.how.2": "Envía el mensaje que se abre en WhatsApp.", "rv.how.3": "La sucursal te confirma la mesa por el chat.",
       "rv.group.t": "¿Grupo grande o celebración?",
@@ -95,7 +95,7 @@
       "rv.err.date": "Choose a date.", "rv.err.past": "That date has already passed.",
       "rv.err.closed": "We are closed that day. Choose another date.",
       "rv.err.noSlots": "There are no times left to book today. Choose another date.",
-      "rv.err.time": "Type a time.", "rv.err.ampm": "Choose AM or PM.","rv.err.timeBad": "Type a time every 15 minutes, within opening hours (for example 7:30 pm).", "rv.hours.range": "Open: {from} – {to}",
+      "rv.err.time": "Type a time.", "rv.err.ampm": "Choose AM or PM.","rv.err.timeBad": "Type a valid time (for example 7:30 pm).", "rv.err.timePast": "That time has already passed. Choose a later time.", "rv.hours.range": "Open: {from} – {to}",
       "rv.how.t": "How it works", "rv.how.1": "Choose a location, date and time.",
       "rv.how.2": "Send the message that opens in WhatsApp.", "rv.how.3": "The restaurant confirms your table in the chat.",
       "rv.group.t": "Large group or celebration?",
@@ -137,7 +137,7 @@
       "rv.err.date": "اختر التاريخ.", "rv.err.past": "هذا التاريخ قد مضى.",
       "rv.err.closed": "نحن مغلقون في ذلك اليوم. اختر تاريخاً آخر.",
       "rv.err.noSlots": "لم تعد هناك أوقات متاحة للحجز اليوم. اختر تاريخاً آخر.",
-      "rv.err.time": "اكتب الوقت.", "rv.err.ampm": "اختر ص أو م.","rv.err.timeBad": "اكتب وقتاً كل 15 دقيقة ضمن ساعات العمل (مثلاً 7:30 م).", "rv.hours.range": "ساعات العمل: {from} – {to}",
+      "rv.err.time": "اكتب الوقت.", "rv.err.ampm": "اختر ص أو م.","rv.err.timeBad": "اكتب وقتاً صحيحاً (مثلاً 7:30 م).", "rv.err.timePast": "هذا الوقت مضى بالفعل. اختر وقتاً لاحقاً.", "rv.hours.range": "ساعات العمل: {from} – {to}",
       "rv.how.t": "كيف يتم الحجز", "rv.how.1": "اختر الفرع والتاريخ والوقت.",
       "rv.how.2": "أرسل الرسالة التي تُفتح في واتساب.", "rv.how.3": "يؤكد لك الفرع الطاولة عبر المحادثة.",
       "rv.group.t": "مجموعة كبيرة أو مناسبة؟",
@@ -235,7 +235,6 @@
       var el = n === "date" ? calBtn : F[n], f = el.closest(".f"), key = errs[n] || "";
       f.classList.toggle("bad", !!key);
       var txt = key ? I.t(key) : "";
-      if (key === "rv.err.timeBad") txt += " " + dayRange(F.date.value); /* say the real hours for that day */
       f.querySelector(".err").textContent = txt;
       if (key) el.setAttribute("aria-invalid", "true"); else el.removeAttribute("aria-invalid");
     });
@@ -255,9 +254,9 @@
       var iso = F.date.value, s = validISO(iso) ? slots(iso) : null;
       key = !validISO(iso) ? "rv.err.date" : iso < now().iso ? "rv.err.past" : s === null ? "rv.err.closed" : !s.length ? "rv.err.noSlots" : "";
     }
-    if (n === "time") { /* a typed time must be one of the times offered that day: inside the opening hours, every 15 minutes, and not already past */
-      var tv = timeVal(), tl = validISO(F.date.value) ? slots(F.date.value) : null;
-      key = errs.date ? "" : !F.time.value.trim() ? "rv.err.time" : !F.ampm.value ? "rv.err.ampm" : !tl || tl.indexOf(tv) < 0 ? "rv.err.timeBad" : "";
+    if (n === "time") { /* any real time is fine: no opening-hours or 15-minute rule; only a time that already passed today is refused */
+      var tv = timeVal(), nw = now();
+      key = errs.date ? "" : !F.time.value.trim() ? "rv.err.time" : !F.ampm.value ? "rv.err.ampm" : !tv ? "rv.err.timeBad" : (F.date.value === nw.iso && toMin(tv) < nw.min) ? "rv.err.timePast" : "";
     }
     errs[n] = key;
     return !key;

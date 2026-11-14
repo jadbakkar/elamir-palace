@@ -11,7 +11,6 @@
   var AREAS = ["", "terraza", "baja", "alta", "terrazaSup"];   /* "" = wherever there is room; only Lechería has areas */
   var SERV = 0.10;
   var TAX = 0.16;                    /* already inside every total; the page never names it */
-  var STEP = 15, BEFORE_CLOSE = 30;  /* times every 15 minutes; the last one is 30 minutes before closing (like the reservation page) */
   var STORE = "amir-grupo";          /* sessionStorage: the form, saved while the host picks plates or drinks on the order page (pedir.js ?grupo=1) */
   var CART_P = "amir-grupo-platos-cart";   /* localStorage: the order page's own cart for the plates */
   var CART = "amir-grupo-cart";      /* localStorage: that page's own cart for the bottles */
@@ -82,25 +81,11 @@
   function normDocid(s) { var d = String(s).replace(/[\s.-]/g, "").toUpperCase(); return /^[VEJGP]/.test(d) ? d[0] + "-" + d.slice(1) : d; }
   function validDate(v) { return /^\d{4}-\d{2}-\d{2}$/.test(v) && v >= isoOf(new Date()); }
 
-  /* ---------- times (the opening hours come from config.js) ---------- */
-  function toMin(hhmm) { var p = String(hhmm).split(":"); return (+p[0]) * 60 + (+p[1] || 0); }
-  function fromMin(m) { m = m % 1440; return pad(Math.floor(m / 60)) + ":" + pad(m % 60); }
-  /* the times offered on a day: from opening to 30 minutes before closing, every 15 minutes, none already past today; null = closed that day */
-  function slots(iso) {
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return [];
-    var C = typeof CONFIG !== "undefined" ? CONFIG : null;
-    var d = new Date(iso + "T12:00:00"), h = C && C.horario ? C.horario[I.dayKeys[d.getDay()]] : ["11:30", "00:00"];
-    if (!h) return null;
-    var o = toMin(h[0]), c = toMin(h[1]); if (c <= o) c += 1440;
-    var out = [], now = new Date(), isToday = iso === isoOf(now), nowMin = now.getHours() * 60 + now.getMinutes();
-    for (var m = o; m <= c - BEFORE_CLOSE; m += STEP) { if (isToday && m < nowMin) continue; out.push(fromMin(m)); }
-    return out;
-  }
-  function renderTimes() {
-    var sel = $("#time"), keep = sel.value, list = slots($("#date").value);
-    sel.innerHTML = '<option value="">' + esc(T("g.time.ph")) + "</option>" + (list || []).map(function (t) { return '<option value="' + t + '">' + esc(I.time12(t)) + "</option>"; }).join("");
-    sel.disabled = !list || !list.length;
-    if (list && list.indexOf(keep) > -1) sel.value = keep;
+  /* ---------- time: any hour is fine; only a time that already passed today is refused ---------- */
+  function timePast(iso, hhmm) {
+    var now = new Date();
+    if (iso !== isoOf(now) || !/^\d{2}:\d{2}$/.test(hhmm)) return false;
+    return (+hhmm.slice(0, 2)) * 60 + (+hhmm.slice(3, 5)) < now.getHours() * 60 + now.getMinutes();
   }
   function renderAreas() {
     var sel = $("#area"), keep = sel.value;
@@ -379,18 +364,16 @@
   }
 
   document.addEventListener("input", function (e) {
-    if (e.target.id === "date") renderTimes();
     update();
   });
   document.addEventListener("change", function (e) {
     var id = e.target.id;
-    if (id === "date") renderTimes();
     if (id === "branch") renderAreas();
     update();
   });
   /* the guest switched language: redraw the lists (dish names) and every text */
   document.addEventListener("langchange", function () {
-    renderAreas(); renderTimes();
+    renderAreas();
     update(); hours();
   });
   $("#btnPlates").addEventListener("click", function () { go("platos"); });
@@ -401,21 +384,20 @@
   $("#btnWa").addEventListener("click", function () {
     var c = update(), errs = c.errs.slice();
     var nmEl = $("#name"), phEl = $("#phone"), ciEl = $("#docid"), dtEl = $("#date"), tmEl = $("#time");
-    var sl = slots(dtEl.value);
     var bad = {
       name: nmEl.value.trim().length < 2,
       phone: !validPhone(phEl.value),
       docid: !validDocid(ciEl.value),
-      date: !validDate(dtEl.value) || sl === null || !sl.length,
-      time: !tmEl.value || !sl || sl.indexOf(tmEl.value) < 0
+      date: !validDate(dtEl.value),
+      time: !tmEl.value || timePast(dtEl.value, tmEl.value)
     };
     flag(nmEl, bad.name); flag(phEl, bad.phone); flag(ciEl, bad.docid); flag(dtEl, bad.date); flag(tmEl, bad.time && !bad.date);
     var list = [];
     if (bad.name) list.push(T("g.err.name"));
     if (bad.phone) list.push(T("g.err.phone"));
     if (bad.docid) list.push(T("g.err.docid"));
-    if (bad.date) list.push(!validDate(dtEl.value) ? T("g.err.date") : sl === null ? T("g.err.closed") : T("g.err.nosl"));
-    else if (bad.time) list.push(T("g.err.time"));
+    if (bad.date) list.push(T("g.err.date"));
+    else if (bad.time) list.push(tmEl.value ? T("g.err.past") : T("g.err.time"));
     errs = list.concat(errs);
     if (errs.length) {
       showErr(errs);
@@ -452,7 +434,7 @@
     if (!dEl.value) dEl.value = isoOf(dec);
     var back = restore();
     if (!back && ITEMS[FEATURED]) plates = [plateOf(ITEMS[FEATURED])];   /* the first time: the Plato navideño is already on the list */
-    renderAreas(); renderTimes();
+    renderAreas();
     if (pending) { /* back from the order page: the selects as they were */
       if (pending.time) $("#time").value = pending.time;
       if ($("#branch").value === "Lechería") $("#area").value = pending.area;
