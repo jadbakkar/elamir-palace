@@ -125,7 +125,7 @@
   }
   function formState() {
     return { name: $("#name").value, phone: $("#phone").value, docid: $("#docid").value, date: $("#date").value, time: $("#time").value, people: $("#people").value,
-      branch: $("#branch").value, area: $("#area").value, notes: $("#notes").value, mode: mode(), budget: $("#budgetPP").value, serv: $("#optServicio").checked };
+      branch: $("#branch").value, area: $("#area").value, notes: $("#notes").value, mode: mode(), budget: $("#budgetPP").value, serv: $("#optServicio").checked, stay: $("#stay").value };
   }
   function readStore() { try { var v = JSON.parse(sessionStorage.getItem(STORE) || "null"); return v && v.form ? v : null; } catch (e) { return null; } }
   /* the plates and the drinks are chosen on the order page, which sends the host back here ("Listo") */
@@ -154,6 +154,7 @@
     var f = v.form || {};
     ["name", "phone", "docid", "notes"].forEach(function (k) { $("#" + k).value = f[k] || ""; });
     if (f.date) $("#date").value = f.date;
+    if (f.stay) $("#stay").value = f.stay;
     if (f.people != null) $("#people").value = f.people;
     if (f.branch) $("#branch").value = f.branch;
     if (f.budget != null) $("#budgetPP").value = f.budget;
@@ -193,7 +194,7 @@
     } else priced = false;   /* a la carta: no price up front */
 
     /* a drink for each person (optional, picked on the order page): each one times the number of guests */
-    if (m === "presupuesto") drinksPP.forEach(function (d) {
+    if (m !== "carta") drinksPP.forEach(function (d) {
       var dAmt = r2(N * d.per * d.unit);
       lines.push({ t: "pk", drink: true, name: d.name, per: d.per, n: N, qty: N * d.per, unit: d.unit, amount: dAmt });
       base = r2(base + dAmt);
@@ -219,6 +220,16 @@
   function timeText(lang) { var t = $("#time").value; return t ? I.time12(t, lang) : ""; }
   function areaText(lang) { var a = $("#area").value; return a && $("#branch").value === "Lechería" ? T("g.area." + a, null, lang) : ""; }
 
+  /* how long they stay: 10 to 240 minutes, every 10 (default 1 hour), same choices as the reservation page */
+  function stayText(lang) { var v = $("#stay").value; return v ? v + " " + T("g.min", null, lang) : ""; }
+  function fillStay() {
+    var s = $("#stay"), keep = s.value || "60"; s.textContent = "";
+    for (var m = 10; m <= 240; m += 10) {
+      var o = document.createElement("option"); o.value = String(m); o.textContent = m + " " + T("g.min");
+      if (String(m) === keep) o.selected = true;
+      s.appendChild(o);
+    }
+  }
   function renderCard(c) {
     var ds = fmtDate($("#date").value), tm = timeText(), nm = $("#name").value.trim(), ph = $("#phone").value.trim();
     $("#qClient").innerHTML = "<p><b>" + esc(nm || T("g.noname")) + "</b> · " + esc(ph || T("g.nophone")) + "</p>" +
@@ -249,7 +260,7 @@
       "Sucursal: " + $("#branch").value];
     if (areaText("es")) L2.push("Zona: " + areaText("es"));
     L2.push("Nombre: " + $("#name").value.trim(), "C.I / RIF: " + normDocid($("#docid").value), "Teléfono: " + $("#phone").value.trim(),
-      "Fecha: " + fmtDate($("#date").value, "es"), "Hora: " + timeText("es"), "Personas: " + c.N, "Modalidad: " + modeName(c.mode, "es"));
+      "Fecha: " + fmtDate($("#date").value, "es"), "Hora: " + timeText("es"), "Tiempo de estadía: " + stayText("es"), "Personas: " + c.N, "Modalidad: " + modeName(c.mode, "es"));
     if (CLIENT_LANG[L()]) L2.push("*Idioma del cliente:* " + CLIENT_LANG[L()]);
     var nt = $("#notes").value.trim();
     if (nt) L2.push("Notas: " + nt);
@@ -314,7 +325,7 @@
       '<div class="doc-no"><p class="doc-kind">' + esc(T("g.d.title")) + '</p><p class="doc-num">' + esc(T("g.d.no")) + " " + no + "</p>" +
       "<dl><div><dt>" + esc(T("g.d.issued")) + "</dt><dd>" + ddmmyyyy(now) + "</dd></div><div><dt>" + esc(T("g.d.valid")) + "</dt><dd>" + ddmmyyyy(due) + "</dd></div></dl></div></header>";
     h += '<section class="doc-client"><div><p class="doc-lbl">' + esc(T("g.d.client")) + '</p><p class="doc-big">' + esc(nm || "—") + '</p><p dir="ltr">' + esc([ph, ci].filter(Boolean).join(" · ")) + "</p></div>" +
-      '<div><p class="doc-lbl">' + esc(T("g.d.event")) + '</p><p class="doc-big">' + esc((fmtDate($("#date").value) || "—") + (tm ? " · " + tm : "")) + "</p><p>" +
+      '<div><p class="doc-lbl">' + esc(T("g.d.event")) + '</p><p class="doc-big">' + esc((fmtDate($("#date").value) || "—") + (tm ? " · " + tm : "") + (stayText() ? " · " + stayText() : "")) + "</p><p>" +
       esc((c.N ? T("g.guests", { n: c.N }) + " · " : "") + T("g.d.branch", { b: $("#branch").value }) + (ar ? " · " + ar : "")) + "</p></div>" +
       '<div><p class="doc-lbl">' + esc(T("g.d.mode")) + '</p><p class="doc-big">' + esc(modeName(c.mode)) + "</p><p>" + esc(c.mode === "presupuesto" && c.b !== null ? T("g.d.ppLine", { amount: usd(c.b) }) : "") + "</p></div></section>";
     if (c.mode === "carta") h += '<p class="doc-note">' + esc(T("g.carta.lines")) + "</p>";
@@ -477,6 +488,7 @@
     var dEl = $("#date");
     dEl.min = isoOf(today);
     if (!dEl.value) dEl.value = isoOf(dec);
+    fillStay();
     var back = restore();
     if (!back && ITEMS[FEATURED]) plates = [plateOf(ITEMS[FEATURED])];   /* the first time: the Plato navideño is already on the list */
     renderAreas();

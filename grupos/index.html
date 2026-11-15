@@ -28,6 +28,17 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
 <link rel="stylesheet" href="../assets/v8/pedir-ds.css">
 <link rel="stylesheet" href="../assets/reservar/reservar.css">
 <link rel="stylesheet" href="grupos.css">
+<style>
+/* embed mode (reservar.html shows this form inside its page, grupos/?embed=1): only the form, no site chrome */
+.embed .skip,.embed .hd,.embed .intro,.embed .hero-feat,.embed .ft,.embed .bnav,.embed #mbar{display:none!important}
+.embed main{padding-top:0}
+/* inside reservar's own card: no page background, decoration, margins or inner card frames (the outer card gives the frame) */
+.embed html,.embed body{background:transparent!important;background-image:none!important;padding:0!important;min-height:0!important;height:auto!important}
+.embed .gr{margin:0!important;padding:0!important}
+.embed .gcard{background:transparent!important;border:0!important;box-shadow:none!important;border-radius:0!important;padding:14px 0!important}
+.embed .gcard+.gcard{border-top:1px solid rgba(17,17,17,.08)!important}
+</style>
+<script>if(/[?&]embed=1(?:&|#|$)/.test(location.search))document.documentElement.classList.add("embed");</script>
 <script src="../assets/v4/polish.js"></script>
 </head>
 <body>
@@ -81,9 +92,9 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
 
       <!-- datos -->
       <section class="rv-card gcard" aria-labelledby="h-datos">
-        <h2 id="h-datos" data-i18n="g.s1">Datos del grupo</h2>
+        <h2 id="h-datos" data-i18n="g.s1">Razón social</h2>
         <div class="grid2">
-          <label class="field"><span data-i18n="g.name">Nombre de quien reserva *</span>
+          <label class="field"><span data-i18n="g.name">Empresa / Tu nombre *</span>
             <input id="name" type="text" autocomplete="name" maxlength="80"></label>
           <label class="field"><span data-i18n="g.phone">Teléfono *</span>
             <input id="phone" type="tel" dir="ltr" autocomplete="tel" placeholder="0424-000 0000" maxlength="20"></label>
@@ -95,6 +106,8 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
             <input id="date" type="date"></label>
           <label class="field"><span data-i18n="g.time">Hora *</span>
             <input id="time" type="time" dir="ltr"></label>
+          <label class="field"><span data-i18n="g.stay">Tiempo de estadía</span>
+            <select id="stay"></select></label>
           <label class="field"><span data-i18n="g.branch">Sucursal</span>
             <select id="branch">
               <option value="Lechería">Lechería</option>
@@ -148,7 +161,7 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
       </section>
 
       <!-- una bebida para cada persona (opcional): la misma para todos, por el número de personas -->
-      <section class="rv-card gcard" data-modes="presupuesto" id="porpersona" aria-labelledby="h-pd">
+      <section class="rv-card gcard" data-modes="presupuesto paquete" id="porpersona" aria-labelledby="h-pd">
         <h2 id="h-pd" data-i18n="g.s6">Una bebida para cada persona</h2>
         <p class="hint" data-i18n="g.s6.hint">Elige en la carta la bebida que recibirá cada invitado (por ejemplo, un refresco). La cantidad es cuántas por persona; se multiplica por el número de personas.</p>
         <ul id="ppSummary" class="q-lines"></ul>
@@ -236,5 +249,10 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
 <script src="../config.js"></script>
 <script src="grupos-i18n.js"></script>
 <script src="grupos.js"></script>
+<script>/* embed mode: tell the parent page how tall this form is, so its frame fits (no data sent, only the height) */
+if(document.documentElement.classList.contains("embed")&&window.parent!==window&&"ResizeObserver" in window){
+  var sendH=function(){window.parent.postMessage({type:"amir-grupos-h",h:Math.ceil(document.getElementById("app").getBoundingClientRect().height)},location.origin)};
+  new ResizeObserver(sendH).observe(document.getElementById("app"));sendH();
+}</script>
 </body>
 </html>

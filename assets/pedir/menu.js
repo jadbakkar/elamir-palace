@@ -64,7 +64,7 @@ const MENU = [
   ["Tawook",13,"Pollo a la brasa, salsa de ajo, pepinillo, papas"],["Camarón",14,"Camarón, lechuga, pepinillo, salsa rosada"],
   ["Lomito",14,"Lomito a la brasa, crema de garbanzo, cebolla, perejil, tomate, pepinillo"],["Kebab",13,"Kebab a la brasa, crema de garbanzo, vegetales"],
   ["Makanek",13,"Salchicha árabe, ajo, tomate, limón, pepinillo"],["Hígado de pollo",13,"Hígado de pollo, papas, ajo, granadina"],
-  ["Falafel especial",10,"Croquetas de falafel con ingredientes especiales y papas fritas.",null,null,PICK(1,true)],["Kibbe frito",11,"Sándwich de kibbe frito acompañado de papas fritas."]]],
+  ["Sándwich falafel especial",10,"Croquetas de falafel con ingredientes especiales y papas fritas.",null,null,{...PICK(1,true), items: EXTRAS_SH.filter(x => x !== "Falafel")}],["Kibbe frito",11,"Sándwich de kibbe frito acompañado de papas fritas."]]],
  ["Brochetas y Parrillas","",[
   ["Brochetas El Amir",65,"2 pinchos de pollo, 3 de kafta, 2 de lomito, 8 alas, 8 makanek, vegetales a la brasa, papas y pan"],
   ["Brocheta de kafta",20,"Pinchos de carne molida sazonada a la brasa."],["Brocheta de pollo",21,"Pinchos de pechuga de pollo marinada a la brasa.",null,EXTRA_SIDES],["Brocheta de lomito",24,"Pinchos de lomito tierno a la brasa."],["Brocheta mixta",24],
@@ -101,7 +101,7 @@ const MENU = [
   ["Chocolate Dubai",8,"Chocolate al estilo Dubai con pistacho."],
   ["Pie de limón",8,"Pie con crema de limón y merengue."],["Pie de parchita",8,"Pie cremoso de parchita."],["Quesillo",8,"Flan venezolano de leche y caramelo."],["Torta de chocolate",8,"Torta de chocolate."]]],
  ["Batidos y Yogurt","",[
-  ["Batido de fresa",4,"",OPT_BAT],["Batido de melón",4,"",OPT_BAT],["Batido de piña",4,"",OPT_BAT],["Batido de melocotón",4,"",OPT_BAT],["Batido de guanábana",4,"",OPT_BAT],["Batido de lechosa",4,"",OPT_BAT],
+  ["Batido de fresa",4,"",OPT_BAT],["Batido de melón",4],["Batido de piña",4,"",OPT_BAT],["Batido de melocotón",4,"",OPT_BAT],["Batido de guanábana",4,"",OPT_BAT],["Batido de lechosa",4,"",OPT_BAT],
   ["Batido de parchita",4,"",OPT_BAT],["Batido de mora",4,"",OPT_BAT],["Limonada",4],["Limonada con hierbabuena",4],["Merengada de frutas",6],
   ["Yogurt con hierbabuena",6],["Yogurt con frutas",6]]],
  ["Bebidas","",[
@@ -109,7 +109,10 @@ const MENU = [
   ["Refresco 1L",3,"Refresco variado en botella de 1 litro."],["Refresco 1.5L",4],["Sparkling",3],["Soda",3],["Agua de manzana",2,"Agua gasificada sabor manzana."]]],
  ["Licores y Cócteles","Solo mayores de edad",[
   ["Cerveza nacional",1.5],["Cerveza importada",5],["Copa de vino",5],["Botella de anís",30],
-  ["Botella de whisky 8 años",45],["Botella de whisky 12 años",60],["Botella de whisky 18 años",115]]]
+  ["Botella de whisky 8 años",45],["Botella de whisky 12 años",60],["Botella de whisky 15 años",115],
+  ["Botella de ron Cacique",40],["Botella de ron Carúpano",60],["Botella de ron Diplomático",40],["Botella de ron Pampero",40],["Botella de ron S. Teresa",55],
+  ["Botella de vino tinto",20],["Botella de vino rosado",20],["Botella de vino blanco",20],
+  ["Jarra de sangría (4 personas)",25],["Jarra de sangría (6 personas)",40]]]
 ];
 const DRINK_CATS = ["Batidos y Yogurt","Bebidas","Licores y Cócteles"];
 /* Envases por plato: [nombre, envases, categoría opcional]. Cada envase = $1 por unidad, se suma al total del pedido.
@@ -149,7 +152,7 @@ const EXTRAS_POR_PLATO = [
   /* brochetas: solo se les pueden agregar pinchos */
   [/^Brocheta/, ADD("pollo","kafta","lomito")],
   /* shawarmas: sin adicionales, solo quitar ingredientes (gratis) */
-  [/^Shawarma/, {label:"¿Quitamos algo?", items:[["Sin lechuga",0],["Sin tomate",0],["Sin cebolla",0],["Sin pepinillo",0],["Sin perejil",0],["Sin salsa de ajo",0],["Sin vegetales",0],["Sin nabo",0]]}]
+  [/^Shawarma/, {label:"¿Quitamos algo?", items:[["Sin lechuga",0],["Sin tomate",0],["Sin cebolla",0],["Sin pepinillo",0],["Sin perejil",0],["Sin vegetales",0],["Sin nabo",0]]}]
 ];
 /* Para quitarle los adicionales a un plato concreto: añade su nombre a NO_EXTRAS. */
 const NO_EXTRAS_SANDWICH = ["Fajita","Philadelphia","Tawook","Camarón","Lomito","Kebab","Makanek","Hígado de pollo","Kibbe frito","Salsa de ajo"];   /* solo en Shawarmas y Sándwiches (Camarón y Makanek existen también en otras categorías) */
@@ -199,7 +202,11 @@ const PHOTOS_OFF = {
   "licores-y-cocteles--copa-de-vino": "img/drinks/vino.jpg",
   "licores-y-cocteles--botella-de-whisky-8-anos": "img/drinks/whisky.jpg",
   "licores-y-cocteles--botella-de-whisky-12-anos": "img/drinks/whisky.jpg",
-  "licores-y-cocteles--botella-de-whisky-18-anos": "img/drinks/whisky.jpg",
+  "licores-y-cocteles--botella-de-whisky-15-anos": "img/drinks/whisky.jpg",
+  "licores-y-cocteles--botella-de-ron-cacique": "img/drinks/cacique-ron.jpg",
+  "licores-y-cocteles--botella-de-vino-tinto": "img/drinks/vino.jpg",
+  "licores-y-cocteles--botella-de-vino-rosado": "img/drinks/vino.jpg",
+  "licores-y-cocteles--botella-de-vino-blanco": "img/drinks/vino.jpg",
   "entradas-arabes--tabaquitos-de-uva": "img/tabaquitos-uva",
   "entradas-arabes--tabaquitos-de-repollo": "img/tabaquitos-repollo-480",
   "entradas-mediterraneas--carpaccio-de-lomito": "img/carpaccio-480",
@@ -228,7 +235,7 @@ const PHOTOS_OFF = {
   "shawarmas-y-sandwiches--shawarma-super-especial": "img/pya/shawarmas-y-sandwiches--shawarma-super-especial.jpg",
   "shawarmas-y-sandwiches--shawarma-especial-abierto": "img/pya/shawarmas-y-sandwiches--shawarma-especial-abierto.jpg",
   "shawarmas-y-sandwiches--shawarma-super-especial-abierto": "img/pya/shawarmas-y-sandwiches--shawarma-super-especial-abierto.jpg",
-  "shawarmas-y-sandwiches--falafel-especial": "img/pya/shawarmas-y-sandwiches--falafel-especial.jpg",
+  "shawarmas-y-sandwiches--sandwich-falafel-especial": "img/pya/shawarmas-y-sandwiches--falafel-especial.jpg",
   "shawarmas-y-sandwiches--tawook": "img/pya/shawarmas-y-sandwiches--tawook.jpg",
   "shawarmas-y-sandwiches--lomito": "img/pya/shawarmas-y-sandwiches--lomito.jpg",
   "shawarmas-y-sandwiches--fajita": "img/pya/shawarmas-y-sandwiches--fajita.jpg",

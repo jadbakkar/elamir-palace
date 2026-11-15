@@ -37,7 +37,7 @@
       "rv.hours": "Tiempo estimado de estadía", "rv.min": "min",
       "rv.datePh": "Elige la fecha", "rv.cal.label": "Elige la fecha", "rv.cal.prev": "Mes anterior", "rv.cal.next": "Mes siguiente",
       "rv.cal.closed": "Cerrado", "rv.cal.noTimes": "Sin horas disponibles hoy",
-      "rv.zoom": "Ampliar foto", "rv.zoom.close": "Cerrar", "rv.zoom.in": "Acercar", "rv.zoom.out": "Alejar",
+      "rv.zoom": "Ampliar foto", "rv.zoom.btn": "Ampliar", "rv.zoom.close": "Cerrar", "rv.zoom.in": "Acercar", "rv.zoom.out": "Alejar",
       "rv.zoom.hint": "Pellizca o toca dos veces para acercar. Toca una mesa para elegirla.",
       "rv.quote": "¿Quieres un presupuesto?", "rv.quote.no": "No", "rv.quote.yes": "Sí",
       "rv.quote.hint": "Si dices sí, vas al menú a elegir tus platos. Al terminar vuelves aquí y presionas Reservar.",
@@ -59,7 +59,9 @@
       "rv.group.t": "¿Grupo grande o celebración?",
       "rv.group.p": "Para más de 8 personas o un evento, escribe directo a la sucursal y lo organizamos contigo.",
       "rv.group.btn": "Reserva para tu grupo",
-      "rv.big.t": "¿Son más de 8? Arma el presupuesto de tu grupo aquí",
+      "rv.big.t": "Arma aquí el presupuesto de tu evento o grupo",
+      "rv.type": "Tipo de reserva", "rv.type.normal": "Reserva normal", "rv.type.event": "Reserva para evento especial",
+      "rv.type.hint": "Ej.: cena navideña, cumpleaños, presupuestos",
       "rv.done.t": "Solicitud lista", "rv.done.p": "Envía el mensaje en WhatsApp. {branch} te confirma la mesa por el chat.",
       "rv.done.edit": "Cambiar datos",
       "rv.backHome": "Volver al inicio", "rv.menuPdf": "Carta en PDF", "rv.top": "Volver arriba"
@@ -80,7 +82,7 @@
       "rv.hours": "Estimated length of stay", "rv.min": "min",
       "rv.datePh": "Choose a date", "rv.cal.label": "Choose a date", "rv.cal.prev": "Previous month", "rv.cal.next": "Next month",
       "rv.cal.closed": "Closed", "rv.cal.noTimes": "No times left today",
-      "rv.zoom": "Enlarge photo", "rv.zoom.close": "Close", "rv.zoom.in": "Zoom in", "rv.zoom.out": "Zoom out",
+      "rv.zoom": "Enlarge photo", "rv.zoom.btn": "Zoom", "rv.zoom.close": "Close", "rv.zoom.in": "Zoom in", "rv.zoom.out": "Zoom out",
       "rv.zoom.hint": "Pinch or double-tap to zoom. Tap a table to pick it.",
       "rv.quote": "Would you like a quote?", "rv.quote.no": "No", "rv.quote.yes": "Yes",
       "rv.quote.hint": "If you say yes, you pick your dishes on the menu. When you're done you come back here and press Book.",
@@ -102,7 +104,9 @@
       "rv.group.t": "Large group or celebration?",
       "rv.group.p": "For more than 8 guests or an event, message the restaurant directly and we will plan it with you.",
       "rv.group.btn": "Book for your group",
-      "rv.big.t": "More than 8 guests? Build your group's quote here",
+      "rv.big.t": "Build your event or group quote here",
+      "rv.type": "Booking type", "rv.type.normal": "Regular booking", "rv.type.event": "Special event booking",
+      "rv.type.hint": "E.g.: Christmas dinner, birthday, quotes",
       "rv.done.t": "Request ready", "rv.done.p": "Send the message in WhatsApp. {branch} will confirm your table in the chat.",
       "rv.done.edit": "Change details",
       "rv.backHome": "Back to home", "rv.menuPdf": "Menu (PDF)", "rv.top": "Back to top"
@@ -123,7 +127,7 @@
       "rv.hours": "مدة الإقامة المتوقعة", "rv.min": "د",
       "rv.datePh": "اختر التاريخ", "rv.cal.label": "اختر التاريخ", "rv.cal.prev": "الشهر السابق", "rv.cal.next": "الشهر التالي",
       "rv.cal.closed": "مغلق", "rv.cal.noTimes": "لا توجد أوقات متاحة اليوم",
-      "rv.zoom": "تكبير الصورة", "rv.zoom.close": "إغلاق", "rv.zoom.in": "تكبير", "rv.zoom.out": "تصغير",
+      "rv.zoom": "تكبير الصورة", "rv.zoom.btn": "تكبير", "rv.zoom.close": "إغلاق", "rv.zoom.in": "تكبير", "rv.zoom.out": "تصغير",
       "rv.zoom.hint": "اضغط بإصبعين أو انقر مرتين للتكبير. اضغط على طاولة لاختيارها.",
       "rv.quote": "هل تريد عرض سعر؟", "rv.quote.no": "لا", "rv.quote.yes": "نعم",
       "rv.quote.hint": "إذا اخترت نعم تنتقل إلى القائمة لاختيار أطباقك. عند الانتهاء تعود إلى هنا وتضغط احجز.",
@@ -145,7 +149,9 @@
       "rv.group.t": "مجموعة كبيرة أو مناسبة؟",
       "rv.group.p": "لأكثر من 8 أشخاص أو لمناسبة خاصة، راسل الفرع مباشرة وسنرتبها معك.",
       "rv.group.btn": "احجز لمجموعتك",
-      "rv.big.t": "أكثر من 8 أشخاص؟ أعدّ عرض سعر مجموعتك هنا",
+      "rv.big.t": "أعدّ عرض سعر مناسبتك أو مجموعتك هنا",
+      "rv.type": "نوع الحجز", "rv.type.normal": "حجز عادي", "rv.type.event": "حجز لمناسبة خاصة",
+      "rv.type.hint": "مثال: عشاء رأس السنة، عيد ميلاد، عروض أسعار",
       "rv.done.t": "الطلب جاهز", "rv.done.p": "أرسل الرسالة عبر واتساب، وسيؤكد لك فرع {branch} الطاولة عبر المحادثة.",
       "rv.done.edit": "تعديل البيانات",
       "rv.backHome": "العودة إلى الرئيسية", "rv.menuPdf": "القائمة (PDF)", "rv.top": "العودة إلى الأعلى"
@@ -321,11 +327,6 @@
       box.appendChild(b);
     });
     slide.appendChild(img); slide.appendChild(box);
-    if (!large) {
-      var z = doc.createElement("button"); z.type = "button"; z.className = "rv-zoom"; z.setAttribute("aria-label", I.t("rv.zoom"));
-      z.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21M10.5 7.5v6M7.5 10.5h6"/></svg>';
-      slide.appendChild(z);
-    }
     return slide;
   }
   function renderPlan() {
@@ -347,13 +348,35 @@
   function showPlan() { plansReady.then(renderPlan); }
   /* picking a floor must not scroll the page: the radios are visually hidden, so focusing one on click made the browser
      scroll to wherever it sits ("centering" the cards). Cancelling the mousedown skips that focus; the click still selects the floor. */
-  [].forEach.call(doc.querySelectorAll(".rv-area"), function (l) { l.addEventListener("mousedown", function (e) { e.preventDefault(); }); });
+  [].forEach.call(doc.querySelectorAll(".rv-area, .rv-any label"), function (l) { l.addEventListener("mousedown", function (e) { e.preventDefault(); }); });
+  /* a floor card cut off at the edge of the sideways row is centered in that row (only the row moves, never the page) */
+  var areaRow = doc.querySelector(".rv-areas");
+  areaRow.addEventListener("click", function (e) {
+    var l = e.target.closest ? e.target.closest(".rv-area") : null;
+    if (!l) return;
+    /* after the browser has checked the radio (it focuses it, which can nudge the row), so the centering is the last word */
+    setTimeout(function () {
+      var rr = areaRow.getBoundingClientRect(), r = l.getBoundingClientRect();
+      if (r.left < rr.left - 1 || r.right > rr.right + 1) areaRow.scrollTo({ left: Math.max(0, areaRow.scrollLeft + (r.left - rr.left) - (areaRow.clientWidth - r.width) / 2), behavior: "smooth" });
+    }, 0);
+  });
   function pickDot(b) { table = table === b.textContent ? "" : b.textContent; paintTable(); }
   $("#planSwipe").addEventListener("click", function (e) {
-    var b = e.target.closest ? e.target.closest(".rv-dot") : null;
-    if (b) { pickDot(b); return; }
-    var slide = e.target.closest ? e.target.closest(".rv-slide") : null; /* a tap on the photo (or its zoom button) opens the viewer */
-    if (slide) openViewer([].indexOf.call($("#planSwipe").children, slide), slide.querySelector(".rv-zoom"));
+    /* a table number on the small photo is not picked here: like any other spot on the photo, it opens the zoom viewer, where tables are picked */
+    var slide = e.target.closest ? e.target.closest(".rv-slide") : null;
+    if (!slide) return;
+    /* a photo that is cut off at the edge (partly visible) is centered first; a tap on a fully visible photo (or its zoom button) opens the viewer */
+    var row = $("#planSwipe"), rr = row.getBoundingClientRect(), sr = slide.getBoundingClientRect();
+    if (sr.left < rr.left - 1 || sr.right > rr.right + 1) {
+      row.scrollTo({ left: Math.max(0, row.scrollLeft + (sr.left - rr.left) - (row.clientWidth - sr.width) / 2), behavior: "smooth" });
+      return;
+    }
+    openViewer([].indexOf.call(row.children, slide), $("#planZoom"));
+  });
+  /* the zoom button under the photos opens the photo currently on screen */
+  $("#planZoom").addEventListener("click", function () {
+    var row = $("#planSwipe");
+    openViewer(row.clientWidth ? Math.round(row.scrollLeft / row.clientWidth) : 0, this);
   });
 
   /* ---------- zoom viewer ----------
@@ -597,9 +620,6 @@
     showPlan();
   }
   form.addEventListener("change", function (e) { if (e.target.name === "branch") { check("branch"); paintErrs(); syncBranch(); } });
-  /* "Más de 8": offer the group page (its own quote builder) right under the Personas field */
-  function paintBig() { var b = $("#bigBox"); if (b) b.hidden = F.people.value !== "+8"; }
-  form.addEventListener("change", function (e) { if (e.target.name === "people") paintBig(); });
   /* ---------- "¿Quieres un presupuesto?" (last question of the form) ----------
      "No" (default) = the normal reservation, sent with the Reservar button. "Sí" stays locked until every field is valid, and choosing
      it IS the submit: the reservation is saved (sessionStorage "amir-presupuesto") and the guest goes to the menu; pedir.js prefills
@@ -672,7 +692,19 @@
   $("#picksEdit").addEventListener("click", startQuote);
   /* tapping the locked "Sí" shows what is missing instead of doing nothing */
   $("#qYes").nextElementSibling.addEventListener("click", function () { if ($("#qYes").disabled) flagMissing(); });
-  window.addEventListener("pageshow", function () { quoteOff(); syncBranch(); paintQuote(); paintBig(); }); /* Back button: keep "Sí" only if they have dishes, re-apply the restored branch */
+  /* "Evento especial": the form under the switch becomes the group reservation form (grupos/?embed=1), no new page */
+  function paintKind() {
+    var k = document.querySelector('input[name="kind"]:checked'), ev = !!k && k.value === "event", g = $("#groupEmbed");
+    $("#normalFields").hidden = ev; g.hidden = !ev;
+    if (ev && !g.firstChild) { var f = document.createElement("iframe"); f.src = "grupos/?embed=1&lang=" + (["es", "en", "ar"].indexOf(document.documentElement.lang) > -1 ? document.documentElement.lang : "es"); f.title = "Reserva para tu grupo"; g.appendChild(f); }
+  }
+  form.addEventListener("change", function (e) { if (e.target.name === "kind") paintKind(); });
+  paintKind();
+  window.addEventListener("message", function (e) { /* the group form reports its height */
+    var d = e.data, f = $("#groupEmbed iframe");
+    if (d && d.type === "amir-grupos-h" && f && e.source === f.contentWindow && e.origin === location.origin) f.style.height = (d.h + 8) + "px";
+  });
+  window.addEventListener("pageshow", function () { quoteOff(); syncBranch(); paintQuote(); }); /* Back button: keep "Sí" only if they have dishes, re-apply the restored branch */
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -698,7 +730,7 @@
     done.focus({ preventScroll: true }); done.scrollIntoView({ block: "start" });
   });
   $("#doneEdit").addEventListener("click", function () { done.hidden = true; form.hidden = false; calBtn.focus(); });
-  doc.addEventListener("langchange", function () { [].forEach.call(doc.querySelectorAll(".rv-zoom"), function (b) { b.setAttribute("aria-label", I.t("rv.zoom")); }); paintDate(); if (calIsOpen) renderCal(); paintQuote(); fillDurations(); paintErrs(); hours(); paintTable(); paintDone(); });
+  doc.addEventListener("langchange", function () { paintDate(); if (calIsOpen) renderCal(); paintQuote(); fillDurations(); paintErrs(); hours(); paintTable(); paintDone(); });
 
   /* ---------- start: today if there is still a time to offer, otherwise tomorrow ---------- */
   var t0 = now().iso, s0 = slots(t0);
@@ -707,7 +739,7 @@
   paintDate();
   I.apply(doc);
   fillDurations(); hours();
-  restoreForm(); quoteOff(); paintQuote(); paintBig(); /* back from the menu: everything as they left it, plus their dishes */
+  restoreForm(); quoteOff(); paintQuote(); /* back from the menu: everything as they left it, plus their dishes */
   (function landOnQuote() { /* "reservar.html#presupuesto" (the menu's Listo): show the question with their dishes, and hold it there while the page settles */
     if (location.hash !== "#presupuesto" || !picks) return;
     var touched = false, t0 = Date.now();

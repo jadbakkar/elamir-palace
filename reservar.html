@@ -42,7 +42,7 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
 <link rel="stylesheet" href="assets/v7/pedir-v7.css?v=454ffb55">
 <link rel="stylesheet" href="assets/v7/pedir-decor.css?v=faf9c792">
 <link rel="stylesheet" href="assets/v8/pedir-ds.css?v=06c396a0">
-<link rel="stylesheet" href="assets/reservar/reservar.css?v=7f206e4a">
+<link rel="stylesheet" href="assets/reservar/reservar.css?v=evento6">
 <!-- in <head>, not deferred: its pagereveal listener must exist before the first render (page transition from the homepage) -->
 <script src="assets/v4/polish.js?v=1b1cdac6"></script>
 </head>
@@ -93,6 +93,18 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
         <p class="err-b" id="eBranch" role="alert"></p>
       </div>
 
+      <!-- booking type: "evento especial" should swap the form below for the group reservation form (no new page) -->
+      <div class="rv-g" id="typeG" role="radiogroup" aria-labelledby="typeL">
+        <p class="rv-lbl" id="typeL" data-i18n="rv.type">Tipo de reserva</p>
+        <div class="seg">
+          <input type="radio" name="kind" id="kNormal" value="normal" checked><label for="kNormal" data-i18n="rv.type.normal">Reserva normal</label>
+          <input type="radio" name="kind" id="kEvent" value="event"><label for="kEvent" data-i18n="rv.type.event">Reserva para evento especial</label>
+        </div>
+        <p class="rv-hint" data-i18n="rv.type.hint">Ej.: cena navideña, cumpleaños, presupuestos</p>
+      </div>
+
+      <!-- "Reserva normal": everything below the switch. "Evento especial" hides it and shows the group form in its place (reservar.js paintKind) -->
+      <div id="normalFields">
       <!-- seating area: a preference sent in the WhatsApp message (the branch confirms it) -->
       <div class="rv-g" id="areaG" role="radiogroup" aria-labelledby="areaL" aria-describedby="areaH">
         <p class="rv-lbl" id="areaL" data-i18n="rv.area">¿Dónde prefieres sentarte?</p>
@@ -101,8 +113,9 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
           <input type="radio" name="area" id="aBaja" value="baja"><label for="aBaja" class="rv-area"><img src="img/salon/baja-crop-400.webp" alt="" width="400" height="225" loading="lazy" decoding="async"><b data-i18n="rv.area.baja">Planta baja</b><span data-i18n="rv.area.bajaD">Junto a la barra</span></label>
           <input type="radio" name="area" id="aAlta" value="alta"><label for="aAlta" class="rv-area"><img src="img/salon/alta-pano-400.webp" alt="" width="400" height="225" loading="lazy" decoding="async"><b data-i18n="rv.area.alta">Piso superior</b><span data-i18n="rv.area.altaD">El salón grande, ideal para grupos</span></label>
           <input type="radio" name="area" id="aTerSup" value="terrazaSup"><label for="aTerSup" class="rv-area"><img src="img/salon/terraza-superior-400.webp" alt="" width="400" height="225" loading="lazy" decoding="async"><b data-i18n="rv.area.terrazaSup">Terraza superior</b><span data-i18n="rv.area.terrazaSupD">Al aire libre, en el piso de arriba</span></label>
-          <input type="radio" name="area" id="aAny" value="" checked><label for="aAny" class="rv-area rv-area--any"><i aria-hidden="true"></i><b data-i18n="rv.area.any">Donde haya sitio</b><span data-i18n="rv.area.anyD">La sucursal te ubica</span></label>
         </div>
+        <!-- "Donde haya sitio": a plain button under the floor cards (no photo card) -->
+        <div class="rv-any"><input type="radio" name="area" id="aAny" value="" checked><label for="aAny" data-i18n="rv.area.any">Donde haya sitio</label></div>
         <p class="rv-hint" id="areaH" data-i18n="rv.area.hint">Es una preferencia: la sucursal te confirma la zona según disponibilidad.</p>
       </div>
 
@@ -110,6 +123,7 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
       <div class="rv-g rv-tbl" id="tableG" hidden aria-labelledby="tableL">
         <p class="rv-lbl" id="tableL" data-i18n="rv.table">Elige tu mesa (opcional)</p>
         <div class="rv-swipe" id="planSwipe" dir="ltr"></div>
+        <button type="button" class="rv-zoom" id="planZoom"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21M10.5 7.5v6M7.5 10.5h6"/></svg><span data-i18n="rv.zoom.btn">Ampliar</span></button>
         <p class="rv-hint" id="tableH" role="status" aria-live="polite"></p>
         <button type="button" class="linkbtn" id="tableClear" data-i18n="rv.table.clear" hidden>Quitar mesa</button>
       </div>
@@ -121,11 +135,6 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
             <option value="5">5</option><option value="6">6</option><option value="7">7</option><option value="8">8</option>
             <option value="+8" data-i18n="res.more8">Más de 8</option>
           </select>
-        </div>
-        <!-- "Más de 8": offers the group page (its own quote builder), right under the Personas field; shown by reservar.js paintBig() -->
-        <div class="rv-big" id="bigBox" hidden>
-          <p data-i18n="rv.big.t">¿Son más de 8? Arma el presupuesto de tu grupo aquí</p>
-          <a class="btn btn--wine btn--sm" href="grupos/" data-i18n="rv.group.btn">Reserva para tu grupo</a>
         </div>
         <div class="f"><label for="rDateBtn" data-i18n="res.date">Fecha</label>
           <!-- our own calendar (reservar.js): the real value is the hidden ISO date, so everything else reads it as before -->
@@ -165,6 +174,9 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
         <span data-i18n="res.submit">Reservar</span>
       </button>
       <p class="rv-note" data-i18n="rv.note">Se abrirá WhatsApp con tu solicitud lista. La mesa queda reservada cuando la sucursal te confirma.</p>
+      </div>
+      <!-- "Evento especial": the group reservation form (grupos/, same quote builder), embedded here; its height is sent back by the iframe -->
+      <div class="rv-embed" id="groupEmbed" hidden></div>
     </form>
 
     <section class="rv-card rv-done" id="resDone" aria-labelledby="doneT" tabindex="-1" hidden>
@@ -195,7 +207,6 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
         <li><a href="https://wa.me/584248060218" data-br="lecheria" target="_blank" rel="noopener"><b>Lechería</b><span class="num" dir="ltr">0424-806 0218</span></a></li>
         <li><a href="https://wa.me/584127505025" data-br="plc" target="_blank" rel="noopener"><b>Puerto La Cruz</b><span class="num" dir="ltr">0412-750 5025</span></a></li>
       </ul>
-      <a class="btn btn--wine btn-block" href="grupos/" style="margin-top:14px" data-i18n="rv.group.btn">Reserva para tu grupo</a>
     </div>
   </aside>
 </main>
@@ -241,7 +252,7 @@ if(l==="ar"){var k=d.createElement("link");k.rel="stylesheet";k.setAttribute("da
 <script type="late" src="assets/v8/transition.js?v=a218c1a0"></script>
 <script type="late" src="i18n.js?v=553b89d3"></script>
 <script type="late" src="config.js?v=00856b6c"></script>
-<script type="late" src="assets/reservar/reservar.js?v=205bd1ac"></script>
+<script type="late" src="assets/reservar/reservar.js?v=evento6"></script>
 <script type="late" src="assets/chat/chat.js?v=2dfd7742"></script>
 <script>
 (function(d){var done=0;function go(){if(done)return;done=1;d.querySelectorAll("script[type=late]").forEach(function(o){var s=d.createElement("script");s.src=o.src;s.async=false;d.body.appendChild(s)})}

@@ -1,5 +1,5 @@
 EL AMIR PALACE · INFORMACIÓN PARA EL ASISTENTE
-(Archivo generado automáticamente por scripts/build-knowledge.js el 2026-11-14. No editar a mano: editar config.js / menu.js y volver a generar.)
+(Archivo generado automáticamente por scripts/build-knowledge.js el 2026-11-15. No editar a mano: editar config.js / menu.js y volver a generar.)
 
 == RESTAURANTE ==
 Nombre: El Amir Palace (en árabe: قصر الأمير)
@@ -49,7 +49,7 @@ También se puede pedir escribiendo directamente al WhatsApp de la sucursal.
 == RESERVAS DE MESA ==
 En https://www.elamirpalace.com/reservar.html hay un formulario (sucursal, personas, fecha, hora, nombre) que abre WhatsApp con la solicitud lista para enviar a la sucursal. También se puede escribir directo al WhatsApp de la sucursal. La mesa queda reservada solo cuando la sucursal confirma por el chat.
 
-== CARTA (17 secciones, 183 platos) ==
+== CARTA (17 secciones, 193 platos) ==
 Secciones (las ÚNICAS que existen): Entradas Árabes · Entradas Mediterráneas · Sopas y Cremas · Ensaladas · Platos Árabes Especiales · Medias Porciones · Shawarmas y Sándwiches · Brochetas y Parrillas · Carnes y Aves · Pescados y Mariscos · Arroces · Pastas · Hamburguesas · Postres · Batidos y Yogurt · Bebidas · Licores y Cócteles.
 Formato: Plato — precio — descripción. Debajo: lo OBLIGATORIO que el cliente debe elegir, lo opcional (quitar ingredientes, adicionales con su precio) y los envases.
 Solo existe lo que aparece en esta carta.
@@ -188,17 +188,17 @@ Solo existe lo que aparece en esta carta.
 
 --- Shawarmas y Sándwiches (Todos los sándwiches vienen con papas fritas) ---
 • Shawarma — $8 — Proteína de tu preferencia y vegetales tradicionales
-   OBLIGATORIO elegir Proteína: Pollo / Carne / Mixto | Opcional, quitar ingredientes sin costo (solo si el cliente lo pide): Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo
+   OBLIGATORIO elegir Proteína: Pollo / Carne / Mixto | Opcional, quitar ingredientes sin costo (solo si el cliente lo pide): Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin vegetales, Sin nabo
 • Shawarma especial — $10 — Con 1 ingrediente extra (tabbule, falafel, pimentones…)
-   OBLIGATORIO elegir Proteína: Pollo / Carne / Mixto | OBLIGATORIO Elige 1 extra (incluido): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo; se pueden pedir aparte, fuera del pan | Opcional, quitar ingredientes sin costo (solo si el cliente lo pide): Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo
+   OBLIGATORIO elegir Proteína: Pollo / Carne / Mixto | OBLIGATORIO Elige 1 extra (incluido): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo; se pueden pedir aparte, fuera del pan | Opcional, quitar ingredientes sin costo (solo si el cliente lo pide): Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin vegetales, Sin nabo
 • Shawarma súper especial — $12 — Con 2 ingredientes extra
-   OBLIGATORIO elegir Proteína: Pollo / Carne / Mixto | OBLIGATORIO Elige 2 extras (incluidos): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo; se pueden pedir aparte, fuera del pan | Opcional, quitar ingredientes sin costo (solo si el cliente lo pide): Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo
+   OBLIGATORIO elegir Proteína: Pollo / Carne / Mixto | OBLIGATORIO Elige 2 extras (incluidos): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo; se pueden pedir aparte, fuera del pan | Opcional, quitar ingredientes sin costo (solo si el cliente lo pide): Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin vegetales, Sin nabo
 • Shawarma abierto — $10 — Servido abierto en plato con la proteína de tu preferencia y vegetales.
-   OBLIGATORIO elegir Proteína: Pollo / Carne / Mixto | Opcional, quitar ingredientes sin costo (solo si el cliente lo pide): Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo | Envases para llevar: 1 ($1)
+   OBLIGATORIO elegir Proteína: Pollo / Carne / Mixto | Opcional, quitar ingredientes sin costo (solo si el cliente lo pide): Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin vegetales, Sin nabo | Envases para llevar: 1 ($1)
 • Shawarma especial abierto — $12 — Servido abierto en plato con vegetales tradicionales y un ingrediente especial extra.
-   OBLIGATORIO elegir Proteína: Pollo / Carne / Mixto | OBLIGATORIO Elige 1 extra (incluido): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo | Opcional, quitar ingredientes sin costo (solo si el cliente lo pide): Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo | Envases para llevar: 1 ($1)
+   OBLIGATORIO elegir Proteína: Pollo / Carne / Mixto | OBLIGATORIO Elige 1 extra (incluido): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo | Opcional, quitar ingredientes sin costo (solo si el cliente lo pide): Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin vegetales, Sin nabo | Envases para llevar: 1 ($1)
 • Shawarma súper especial abierto — $13 — Servido abierto en plato con vegetales tradicionales y dos ingredientes especiales extra.
-   OBLIGATORIO elegir Proteína: Pollo / Carne / Mixto | OBLIGATORIO Elige 2 extras (incluidos): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo | Opcional, quitar ingredientes sin costo (solo si el cliente lo pide): Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin salsa de ajo, Sin vegetales, Sin nabo | Envases para llevar: 1 ($1)
+   OBLIGATORIO elegir Proteína: Pollo / Carne / Mixto | OBLIGATORIO Elige 2 extras (incluidos): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo | Opcional, quitar ingredientes sin costo (solo si el cliente lo pide): Sin lechuga, Sin tomate, Sin cebolla, Sin pepinillo, Sin perejil, Sin vegetales, Sin nabo | Envases para llevar: 1 ($1)
 • Salsa de ajo — $1 — Porción de salsa de ajo.
 • Sándwich de falafel — $8 — Croquetas de falafel y vegetales tradicionales
 • Fajita — $14 — Salsa de aguacate, pimentón, cebolla, mozzarella, pollo
@@ -217,8 +217,8 @@ Solo existe lo que aparece en esta carta.
    Envases para llevar: 1 ($1)
 • Hígado de pollo — $13 — Hígado de pollo, papas, ajo, granadina
    Envases para llevar: 1 ($1)
-• Falafel especial — $10 — Croquetas de falafel con ingredientes especiales y papas fritas.
-   OBLIGATORIO Elige 1 extra (incluido): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Falafel, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo; se pueden pedir aparte, fuera del pan
+• Sándwich falafel especial — $10 — Croquetas de falafel con ingredientes especiales y papas fritas.
+   OBLIGATORIO Elige 1 extra (incluido): Crema de berenjena, Crema de garbanzo, Crema de pimentón, Kibbe frito, Papas fritas, Tabbule, Tabaquitos de uva, Tabaquitos de repollo; se pueden pedir aparte, fuera del pan
 • Kibbe frito — $11 — Sándwich de kibbe frito acompañado de papas fritas.
 
 --- Brochetas y Parrillas ---
@@ -367,7 +367,6 @@ Solo existe lo que aparece en esta carta.
 • Batido de fresa — $4
    OBLIGATORIO elegir Preparación: En agua / En leche
 • Batido de melón — $4
-   OBLIGATORIO elegir Preparación: En agua / En leche
 • Batido de piña — $4
    OBLIGATORIO elegir Preparación: En agua / En leche
 • Batido de melocotón — $4
@@ -406,13 +405,23 @@ Solo existe lo que aparece en esta carta.
 • Botella de anís — $30
 • Botella de whisky 8 años — $45
 • Botella de whisky 12 años — $60
-• Botella de whisky 18 años — $115
+• Botella de whisky 15 años — $115
+• Botella de ron Cacique — $40
+• Botella de ron Carúpano — $60
+• Botella de ron Diplomático — $40
+• Botella de ron Pampero — $40
+• Botella de ron S. Teresa — $55
+• Botella de vino tinto — $20
+• Botella de vino rosado — $20
+• Botella de vino blanco — $20
+• Jarra de sangría (4 personas) — $25
+• Jarra de sangría (6 personas) — $40
 
 == RESUMEN DE PRECIOS ==
 Comida más económica: Salsa de ajo $1 (Shawarmas y Sándwiches); Medio hummus $4 (Medias Porciones); Medio mutabal $4 (Medias Porciones); Media muhammara $4 (Medias Porciones); Medio falafel $5 (Medias Porciones); Papas fritas $6 (Entradas Mediterráneas)
 Comida más cara: Fideuá (4 personas) $75 (Arroces); Paella (4 personas) $75 (Arroces); Bandeja árabe (4 personas) $75 (Platos Árabes Especiales); Brochetas El Amir $65 (Brochetas y Parrillas); Bandeja árabe (3 personas) $65 (Platos Árabes Especiales)
 Bebidas más económicas: Agua mineral $1.50 (Bebidas); Cerveza nacional $1.50 (Licores y Cócteles); Nestea $2 (Bebidas); Refresco de lata $2 (Bebidas)
-Bebidas más caras: Botella de whisky 18 años $115 (Licores y Cócteles); Botella de whisky 12 años $60 (Licores y Cócteles); Botella de whisky 8 años $45 (Licores y Cócteles)
+Bebidas más caras: Botella de whisky 15 años $115 (Licores y Cócteles); Botella de ron Carúpano $60 (Licores y Cócteles); Botella de whisky 12 años $60 (Licores y Cócteles)
 
 == PREGUNTAS FRECUENTES (texto de la web) ==
 P: ¿Dónde están ubicados?

@@ -1176,7 +1176,7 @@
     ["Makanek Sandwich", "Lebanese-style sausage, garlic, tomato, lemon, pickles"], ["ساندويتش المقانق", "نقانق عربية وثوم وطماطم وليمون ومخلل"]);
   D("Hígado de pollo", "Hígado de pollo, papas, ajo, granadina",
     ["Chicken Liver Sandwich", "Chicken liver, fries, garlic, pomegranate molasses"], ["ساندويتش كبدة الدجاج", "كبدة دجاج وبطاطا وثوم ودبس الرمان"]);
-  D("Falafel especial", "Croquetas de falafel con ingredientes especiales y papas fritas.", ["Special Falafel Sandwich", "Falafel croquettes with special ingredients and French fries."], ["ساندويتش فلافل مميّز", "أقراص فلافل مع مكوّنات خاصة وبطاطا مقلية."]);
+  D("Sándwich falafel especial", "Croquetas de falafel con ingredientes especiales y papas fritas.", ["Special Falafel Sandwich", "Falafel croquettes with special ingredients and French fries."], ["ساندويتش فلافل مميّز", "أقراص فلافل مع مكوّنات خاصة وبطاطا مقلية."]);
   D("Kibbe frito", "Sándwich de kibbe frito acompañado de papas fritas.", ["Fried Kibbe Sandwich", "Fried kibbe sandwich served with French fries."], ["ساندويتش كبة مقلية", "ساندويتش كبة مقلية مع بطاطا مقلية."]);
 
   /* ---- 7. Brochetas y Parrillas ---- */
@@ -1336,7 +1336,17 @@
   D("Botella de anís", "", ["Bottle of Anís (aniseed spirit, similar to arak)", ""], ["زجاجة آنيسون (مشروب يشبه العرق)", ""]);
   D("Botella de whisky 8 años", "", ["Whisky, 8 Years (bottle)", ""], ["زجاجة ويسكي عمر 8 سنوات", ""]);
   D("Botella de whisky 12 años", "", ["Whisky, 12 Years (bottle)", ""], ["زجاجة ويسكي عمر 12 سنة", ""]);
-  D("Botella de whisky 18 años", "", ["Whisky, 18 Years (bottle)", ""], ["زجاجة ويسكي عمر 18 سنة", ""]);
+  D("Botella de whisky 15 años", "", ["Whisky, 15 Years (bottle)", ""], ["زجاجة ويسكي عمر 15 سنة", ""]);
+  D("Botella de ron Cacique", "", ["Cacique Rum (bottle)", ""], ["زجاجة رم كاسيكي", ""]);
+  D("Botella de ron Carúpano", "", ["Carúpano Rum (bottle)", ""], ["زجاجة رم كاروبانو", ""]);
+  D("Botella de ron Diplomático", "", ["Diplomático Rum (bottle)", ""], ["زجاجة رم ديبلوماتيكو", ""]);
+  D("Botella de ron Pampero", "", ["Pampero Rum (bottle)", ""], ["زجاجة رم بامبيرو", ""]);
+  D("Botella de ron S. Teresa", "", ["Santa Teresa Rum (bottle)", ""], ["زجاجة رم سانتا تيريزا", ""]);
+  D("Botella de vino tinto", "", ["Bottle of Red Wine", ""], ["زجاجة نبيذ أحمر", ""]);
+  D("Botella de vino rosado", "", ["Bottle of Rosé Wine", ""], ["زجاجة نبيذ وردي", ""]);
+  D("Botella de vino blanco", "", ["Bottle of White Wine", ""], ["زجاجة نبيذ أبيض", ""]);
+  D("Jarra de sangría (4 personas)", "", ["Sangria Pitcher (4 people)", ""], ["جرة سانغريا (4 أشخاص)", ""]);
+  D("Jarra de sangría (6 personas)", "", ["Sangria Pitcher (6 people)", ""], ["جرة سانغريا (6 أشخاص)", ""]);
 
   /* ---- aliases: short names shown on the home page cards ---- */
   A("Risotto con calabaza y calamares", "Pumpkin & Squid Risotto", "ريزوتو اليقطين والحبّار");
