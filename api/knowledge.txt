@@ -1,5 +1,5 @@
 EL AMIR PALACE · INFORMACIÓN PARA EL ASISTENTE
-(Archivo generado automáticamente por scripts/build-knowledge.js el 2026-11-15. No editar a mano: editar config.js / menu.js y volver a generar.)
+(Archivo generado automáticamente por scripts/build-knowledge.js el 2026-11-16. No editar a mano: editar config.js / menu.js y volver a generar.)
 
 == RESTAURANTE ==
 Nombre: El Amir Palace (en árabe: قصر الأمير)

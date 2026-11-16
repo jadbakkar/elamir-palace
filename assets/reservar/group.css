@@ -10,6 +10,7 @@
 }
 
 /* ---------- content ---------- */
+.gr{container-type:inline-size}
 .gr .layout{display:grid;gap:var(--s-5,20px)}
 .gr .col{display:grid;gap:var(--s-5,20px);min-width:0;align-content:start}
 .gr .gcard{display:grid;gap:14px;min-width:0;align-content:start}
@@ -90,11 +91,11 @@
 .gr .form-err{font-size:14px;color:var(--bad);margin-top:6px}
 .gr .form-err ul{padding-inline-start:18px;display:grid;gap:4px}
 
-@media (min-width:640px){
+@container (min-width:640px){
   .gr .grid2{grid-template-columns:1fr 1fr}
 }
 /* large screens: the form on the left, the live quote on the right */
-@media (min-width:960px){
+@container (min-width:960px){
   .gr .layout{grid-template-columns:minmax(0,1fr) 400px;gap:var(--s-6,24px);align-items:start}
   .gr .quote{position:sticky;top:16px}
 }
@@ -153,9 +154,9 @@
 /* print: only the branded document */
 @media print{
   @page{size:A4;margin:14mm}
-  html,body{background:#fff!important;padding:0!important}
-  body>*:not(#doc){display:none!important}
-  .doc{display:block}
+  body.grupo-printing *{visibility:hidden!important}
+  body.grupo-printing #g-doc,body.grupo-printing #g-doc *{visibility:visible!important}
+  body.grupo-printing #g-doc{position:absolute;left:0;top:0;width:100%;display:block}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 
@@ -177,5 +178,5 @@ html[dir=rtl] .gr .filter{padding:12px 40px 12px 14px;background-position:right 
 .gr .mode input:checked+.mode-card{border-color:var(--wine);box-shadow:0 0 0 1px var(--wine);background:#fff}
 .gr .mode input:checked+.mode-card::before{border-color:var(--wine);background:var(--wine);box-shadow:inset 0 0 0 3px #fff}
 .gr .mode input:focus-visible+.mode-card{outline:2px solid var(--wine);outline-offset:2px}
-@media (min-width:640px){.gr .modes{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@container (min-width:640px){.gr .modes{grid-template-columns:repeat(3,minmax(0,1fr))}}
 .gr [hidden]{display:none!important}

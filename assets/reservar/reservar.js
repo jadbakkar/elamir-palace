@@ -692,18 +692,13 @@
   $("#picksEdit").addEventListener("click", startQuote);
   /* tapping the locked "Sí" shows what is missing instead of doing nothing */
   $("#qYes").nextElementSibling.addEventListener("click", function () { if ($("#qYes").disabled) flagMissing(); });
-  /* "Evento especial": the form under the switch becomes the group reservation form (grupos/?embed=1), no new page */
+  /* "Evento especial": the form under the switch becomes the group reservation form (built into this page, group.js) */
   function paintKind() {
     var k = document.querySelector('input[name="kind"]:checked'), ev = !!k && k.value === "event", g = $("#groupEmbed");
     $("#normalFields").hidden = ev; g.hidden = !ev;
-    if (ev && !g.firstChild) { var f = document.createElement("iframe"); f.src = "grupos/?embed=1&lang=" + (["es", "en", "ar"].indexOf(document.documentElement.lang) > -1 ? document.documentElement.lang : "es"); f.title = "Reserva para tu grupo"; g.appendChild(f); }
   }
   form.addEventListener("change", function (e) { if (e.target.name === "kind") paintKind(); });
   paintKind();
-  window.addEventListener("message", function (e) { /* the group form reports its height */
-    var d = e.data, f = $("#groupEmbed iframe");
-    if (d && d.type === "amir-grupos-h" && f && e.source === f.contentWindow && e.origin === location.origin) f.style.height = (d.h + 8) + "px";
-  });
   window.addEventListener("pageshow", function () { quoteOff(); syncBranch(); paintQuote(); }); /* Back button: keep "Sí" only if they have dishes, re-apply the restored branch */
 
   form.addEventListener("submit", function (e) {

@@ -204,9 +204,9 @@ const PHOTOS_OFF = {
   "licores-y-cocteles--botella-de-whisky-12-anos": "img/drinks/whisky.jpg",
   "licores-y-cocteles--botella-de-whisky-15-anos": "img/drinks/whisky.jpg",
   "licores-y-cocteles--botella-de-ron-cacique": "img/drinks/cacique-ron.jpg",
-  "licores-y-cocteles--botella-de-vino-tinto": "img/drinks/vino.jpg",
-  "licores-y-cocteles--botella-de-vino-rosado": "img/drinks/vino.jpg",
-  "licores-y-cocteles--botella-de-vino-blanco": "img/drinks/vino.jpg",
+  "licores-y-cocteles--botella-de-vino-tinto": "img/drinks/vino-tinto.jpg",
+  "licores-y-cocteles--botella-de-vino-rosado": "img/drinks/vino-rosado.jpg",
+  "licores-y-cocteles--botella-de-vino-blanco": "img/drinks/vino-blanco.jpg",
   "entradas-arabes--tabaquitos-de-uva": "img/tabaquitos-uva",
   "entradas-arabes--tabaquitos-de-repollo": "img/tabaquitos-repollo-480",
   "entradas-mediterraneas--carpaccio-de-lomito": "img/carpaccio-480",
@@ -362,6 +362,12 @@ const PHOTOS_OFF = {
   "postres--quesillo": "img/postres/postres--quesillo.jpg",
   "postres--torta-de-chocolate": "img/postres/postres--torta-de-chocolate.jpg",
   "postres--galleta-arabe": "img/postres/postres--galleta-arabe.jpg",
-  "postres--pie-de-parchita": "img/postres/postres--pie-de-parchita.jpg"
+  "postres--pie-de-parchita": "img/postres/postres--pie-de-parchita.jpg",
+  "licores-y-cocteles--botella-de-ron-carupano": "img/drinks/ron-carupano.jpg",
+  "licores-y-cocteles--botella-de-ron-s-teresa": "img/drinks/ron-santa-teresa.jpg",
+  "licores-y-cocteles--botella-de-ron-pampero": "img/drinks/ron-pampero.jpg",
+  "licores-y-cocteles--botella-de-ron-diplomatico": "img/drinks/ron-diplomatico.jpg",
+  "licores-y-cocteles--jarra-de-sangria-4-personas": "img/drinks/sangria.jpg",
+  "licores-y-cocteles--jarra-de-sangria-6-personas": "img/drinks/sangria.jpg",
 };
 const PHOTOS = PHOTOS_OFF;

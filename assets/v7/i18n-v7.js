@@ -2,7 +2,7 @@
 (function () {
   var V7 = {
     es: {
-      "v7.nav.menu": "La carta", "v7.nav.story": "Historia", "v7.nav.branches": "Sucursales",
+      "v7.nav.menu": "La carta", "v7.nav.reserve": "Reservar", "v7.nav.story": "Historia", "v7.nav.branches": "Sucursales",
       "v7.btn.order": "Pedir", "v7.btn.menu": "Ver la carta",
       "v7.hero.t": "Sabor libanés",
       "v7.hero.l": "Cocina de familia en Lechería y Puerto La Cruz, desde 1997.",
@@ -52,7 +52,7 @@
       "meta.historia.description": "La historia de El Amir Palace, cocina libanesa de familia en Lechería y Puerto La Cruz desde 1997."
     },
     en: {
-      "v7.nav.menu": "Menu", "v7.nav.story": "Our story", "v7.nav.branches": "Locations",
+      "v7.nav.menu": "Menu", "v7.nav.reserve": "Book a table", "v7.nav.story": "Our story", "v7.nav.branches": "Locations",
       "v7.btn.order": "Order", "v7.btn.menu": "See the menu",
       "v7.hero.t": "Lebanese flavour",
       "v7.hero.l": "A family kitchen in Lechería and Puerto La Cruz, since 1997.",
@@ -102,7 +102,7 @@
       "meta.historia.description": "The story of El Amir Palace, a Lebanese family kitchen in Lechería and Puerto La Cruz since 1997."
     },
     ar: {
-      "v7.nav.menu": "القائمة", "v7.nav.story": "قصتنا", "v7.nav.branches": "الفروع",
+      "v7.nav.menu": "القائمة", "v7.nav.reserve": "احجز", "v7.nav.story": "قصتنا", "v7.nav.branches": "الفروع",
       "v7.btn.order": "اطلب", "v7.btn.menu": "تصفّح القائمة",
       "v7.hero.t": "نكهة لبنانية",
       "v7.hero.l": "مطبخ عائلي في ليتشيريا وبويرتو لا كروز منذ 1997.",

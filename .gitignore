@@ -45,4 +45,3 @@ desktop.ini
 
 # Local secrets (GEMINI_API_KEY for scripts/dev-chat.js): never commit or deploy
 .env*
-netlify-grupos/

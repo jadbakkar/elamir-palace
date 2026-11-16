@@ -1190,9 +1190,9 @@
     $("#pkDone").addEventListener("click", () => {
       let v = null; try { v = JSON.parse(sessionStorage.getItem(PKEY) || "null"); } catch (e) { /* ignore */ }
       if (v) {
-        if (grpPlates) { /* options for the guests: each different dish once (the quantity does not matter) */
-          const seen = new Set(); v.plates = [];
-          Object.keys(cart).forEach(k => { const id = parseKey(k).id; if (!seen.has(id)) { seen.add(id); v.plates.push({ id, name: dishes[id].name, ui: tr(id).name, price: dishes[id].price }); } });
+        if (grpPlates) { /* options for the guests: each different dish once, with the host's quantity of it */
+          const qtyById = {}; Object.keys(cart).forEach(k => { const id = parseKey(k).id; qtyById[id] = (qtyById[id] || 0) + cart[k]; });   /* the host's quantity of each dish (portions) goes back with it */
+          v.plates = Object.keys(qtyById).map(id => ({ id, name: dishes[id].name, ui: tr(id).name, price: dishes[id].price, qty: qtyById[id] }));
         } else if (GROUP && GMODE === "porpersona") { /* a drink for each person: the quantity is how many per person, the price is per unit */
           v.drinksPP = Object.keys(cart).map(k => ({ key: k, per: cart[k], name: lineName(k), ui: lineNameUI(k), unit: unitPrice(k) }));
         } else {
@@ -1201,6 +1201,7 @@
         }
         try { sessionStorage.setItem(PKEY, JSON.stringify(v)); } catch (e) { /* ignore */ }
       }
+      if (GROUP && window.parent !== window) { window.parent.postMessage({ type: "amir-grupo-listo" }, location.origin); return; }   /* opened as a panel on the reservation page: hand the picks back */
       location.href = GROUP && v && v.back ? v.back : "reservar.html#presupuesto";
     });
     /* the bottom-bar PEDIR button would open the checkout: here it only reminds them what to do */
