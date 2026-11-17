@@ -402,7 +402,7 @@ Solo existe lo que aparece en esta carta.
 • Cerveza nacional — $1.50
 • Cerveza importada — $5
 • Copa de vino — $5
-• Botella de anís — $30
+• Botella de anís — $50
 • Botella de whisky 8 años — $45
 • Botella de whisky 12 años — $60
 • Botella de whisky 15 años — $115
@@ -437,7 +437,7 @@ P: ¿Tienen opciones vegetarianas?
 R: Sí. Entre las entradas árabes hay hummus, mutabal, falafel, tabbule y fattoush, y la carta tiene varias ensaladas. Si tienes alguna restricción, pregúntanos por los ingredientes de cada plato.
 
 P: ¿Qué formas de pago aceptan?
-R: Aceptamos Pago móvil, efectivo en bolívares o divisas, Binance y Zinli.
+R: Aceptamos Pago móvil, efectivo en bolívares o divisas, Binance, Zinli y Zelle.
 
 P: ¿Desde cuándo existe El Amir Palace?
 R: Desde 1997. Llevamos casi tres décadas cocinando recetas libanesas y mediterráneas en Anzoátegui, hoy con sucursales en Lechería y Puerto La Cruz.

@@ -108,7 +108,7 @@ const MENU = [
   ["Agua mineral",1.5,"Agua mineral embotellada."],["Nestea",2],["Jarra de Nestea (x4)",12],["Té Lipton",3,"Té frío Lipton de limón, 500 ml."],["Gatorade",3,"Bebida hidratante deportiva."],["Refresco de lata",2,"Refresco variado en lata."],
   ["Refresco 1L",3,"Refresco variado en botella de 1 litro."],["Refresco 1.5L",4],["Sparkling",3],["Soda",3],["Agua de manzana",2,"Agua gasificada sabor manzana."]]],
  ["Licores y Cócteles","Solo mayores de edad",[
-  ["Cerveza nacional",1.5],["Cerveza importada",5],["Copa de vino",5],["Botella de anís",30],
+  ["Cerveza nacional",1.5],["Cerveza importada",5],["Copa de vino",5],["Botella de anís",50],
   ["Botella de whisky 8 años",45],["Botella de whisky 12 años",60],["Botella de whisky 15 años",115],
   ["Botella de ron Cacique",40],["Botella de ron Carúpano",60],["Botella de ron Diplomático",40],["Botella de ron Pampero",40],["Botella de ron S. Teresa",55],
   ["Botella de vino tinto",20],["Botella de vino rosado",20],["Botella de vino blanco",20],
