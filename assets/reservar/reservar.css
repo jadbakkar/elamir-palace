@@ -205,3 +205,8 @@ html[lang=ar] :is(.rv-done h2,.rv-side h2){font-family:var(--f-ar);font-weight:7
 .rv-embed{margin-top:var(--s-4)}
 .rv-embed[hidden]{display:none}
 .rv-embed iframe{display:block;width:100%;height:900px;border:0;background:transparent}
+/* special event: no big white frame around the group form (its own cards are the frame) */
+.rv-embed .gr{width:auto;margin-inline:0}
+.rv-card:has(#groupEmbed:not([hidden])){background:none;border:0;box-shadow:none;padding-inline:0}
+/* special event on phones: the chat button sits above the quote bar, not on top of its button */
+@media (max-width:767px){body:has(#groupEmbed:not([hidden])) .amc-fab,body:has(#groupEmbed:not([hidden])) .amc-teaser{--amc-bottom:calc(var(--bnav-h,64px) + 84px)}}

@@ -89,7 +89,7 @@
       "v7.br.call": "Call", "v7.br.wa": "WhatsApp", "v7.br.map": "Directions",
       "v7.br.deliv": "Delivery to Lechería, Nueva Barcelona, Barcelona, Puerto La Cruz and Guanta.",
       "v7.faq.k": "FAQ", "v7.faq.t": "Before you order",
-      "v7.ft.nav": "Explore", "v7.ft.order": "Order online", "v7.ft.t": "What are you craving today?", "v7.ft.since": "Lebanese cooking since 1997.", "v7.ft.h": "Every day from 11:30 am",
+      "v7.ft.nav": "Explore", "v7.ft.order": "Order online", "v7.ft.t": "What are you craving today?", "v7.ft.since": "Lebanese cuisine since 1997.", "v7.ft.h": "Every day from 11:30 am",
       "v7.ab.t": "Since 1997", "v7.ab.l": "The story of a Lebanese family kitchen in Anzoátegui.",
       "v7.ab.k1": "1997", "v7.ab.h1": "The house",
       "v7.ab.p1": "El Amir Palace opened in 1997 with a simple idea: cook the family's Lebanese recipes the way they are cooked at home. Dips, kibbe, stuffed vine leaves and the charcoal grill are still the heart of the menu.",

@@ -8,7 +8,7 @@
    ===================================================================== */
 const OPT_SH = {label:"Proteína", choices:["Pollo","Carne","Mixto"]};
 const OPT_ARROZ = {label:"Proteína", choices:["Pollo","Cordero"]};
-const OPT_BAT = {label:"Preparación", choices:["En agua","En leche"]};
+const OPT_BAT = {label:"Azúcar", choices:["Sin azúcar","Azúcar medio","Azúcar normal"]};
 /* Shawarma especial / súper especial: el cliente elige 1 o 2 extras incluidos (6º dato del plato); aparte = puede pedirlos fuera del pan */
 const EXTRAS_SH = ["Crema de berenjena","Crema de garbanzo","Crema de pimentón","Falafel","Kibbe frito","Papas fritas","Tabbule","Tabaquitos de uva","Tabaquitos de repollo"];
 const PICK = (n, aparte) => ({label: n > 1 ? "Elige 2 extras" : "Elige 1 extra", n, items: EXTRAS_SH, aparte: !!aparte});
@@ -101,7 +101,7 @@ const MENU = [
   ["Chocolate Dubai",8,"Chocolate al estilo Dubai con pistacho."],
   ["Pie de limón",8,"Pie con crema de limón y merengue."],["Pie de parchita",8,"Pie cremoso de parchita."],["Quesillo",8,"Flan venezolano de leche y caramelo."],["Torta de chocolate",8,"Torta de chocolate."]]],
  ["Batidos y Yogurt","",[
-  ["Batido de fresa",4,"",OPT_BAT],["Batido de melón",4],["Batido de piña",4,"",OPT_BAT],["Batido de melocotón",4,"",OPT_BAT],["Batido de guanábana",4,"",OPT_BAT],["Batido de lechosa",4,"",OPT_BAT],
+  ["Batido de fresa",4,"",OPT_BAT],["Batido de melón",4,"",OPT_BAT],["Batido de piña",4,"",OPT_BAT],["Batido de melocotón",4,"",OPT_BAT],["Batido de guanábana",4,"",OPT_BAT],["Batido de lechosa",4,"",OPT_BAT],
   ["Batido de parchita",4,"",OPT_BAT],["Batido de mora",4,"",OPT_BAT],["Limonada",4],["Limonada con hierbabuena",4],["Merengada de frutas",6],
   ["Yogurt con hierbabuena",6],["Yogurt con frutas",6]]],
  ["Bebidas","",[

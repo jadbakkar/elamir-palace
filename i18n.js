@@ -72,7 +72,7 @@
     /* brand + language switcher */
     "brand.name": "El Amir Palace",
     "brand.arName": "قصر الأمير",
-    "brand.cuisine": "Cocina libanesa y mediterránea",
+    "brand.cuisine": "Cocina libanesa desde 1997",
     "lang.label": "Idioma",
     "lang.es": "Español",
     "lang.en": "English",
@@ -403,7 +403,7 @@
 
     "brand.name": "El Amir Palace",
     "brand.arName": "قصر الأمير",
-    "brand.cuisine": "Lebanese & Mediterranean cuisine",
+    "brand.cuisine": "Lebanese cuisine since 1997",
     "lang.label": "Language",
     "lang.es": "Español",
     "lang.en": "English",
@@ -675,7 +675,7 @@
 
     "brand.name": "El Amir Palace",
     "brand.arName": "قصر الأمير",
-    "brand.cuisine": "مطبخ لبناني ومتوسطي",
+    "brand.cuisine": "مطبخ لبناني منذ 1997",
     "lang.label": "اللغة",
     "lang.es": "Español",
     "lang.en": "English",
@@ -981,6 +981,10 @@
   O("Preparación", "Preparation", "طريقة التحضير");
   O("En agua", "Made with water", "بالماء");
   O("En leche", "Made with milk", "بالحليب");
+  O("Azúcar", "Sugar", "السكر");
+  O("Sin azúcar", "No sugar", "بدون سكر");
+  O("Azúcar medio", "Medium sugar", "سكر متوسط");
+  O("Azúcar normal", "Regular sugar", "سكر عادي");
   O("Agrega un acompañante", "Add a side", "أضف طبقاً جانبياً");
   O("Adicionales", "Add-ons", "إضافات");
   O("¿Quitamos algo?", "Leave anything out?", "هل نزيل شيئاً؟");
