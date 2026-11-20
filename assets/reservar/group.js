@@ -284,6 +284,7 @@
     var E = function (k, v) { return T(k, v, "es"); }, U = function (n) { return usd(n, "es"); };
     var L2 = ["*Reserva de grupo - El Amir Palace*", "",
       "Sucursal: " + $("#g-branch").value];
+    if (c.mode !== "carta5" && c.priced) L2.splice(1, 0, "*Total: " + U(c.total) + "*");   /* the total first too, so a long message still shows it up front */
     if (areaText("es")) L2.push("Zona: " + areaText("es"));
     L2.push("Nombre: " + $("#g-name").value.trim(), "C.I / RIF: " + normDocid($("#g-docid").value), "Teléfono: " + $("#g-phone").value.trim(),
       "Fecha: " + fmtDate($("#g-date").value, "es"), "Hora: " + timeText("es"), "Tiempo de estadía: " + stayText("es"), "Personas: " + c.N, "Modalidad: " + modeName(c.mode, "es"));
