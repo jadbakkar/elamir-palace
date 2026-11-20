@@ -1202,6 +1202,8 @@
         if (grpPlates) { /* options for the guests: each different dish once, with the host's quantity of it */
           const qtyById = {}; Object.keys(cart).forEach(k => { const id = parseKey(k).id; qtyById[id] = (qtyById[id] || 0) + cart[k]; });   /* the host's quantity of each dish (portions) goes back with it */
           v.plates = Object.keys(qtyById).map(id => ({ id, name: dishes[id].name, ui: tr(id).name, price: dishes[id].price, qty: qtyById[id] }));
+          /* the same picks line by line, with the option, sides and paid extras: what a la carta charges, and what comes back selected next time */
+          v.plateLines = Object.keys(cart).map(k => ({ key: k, id: parseKey(k).id, qty: cart[k], name: lineName(k), ui: lineNameUI(k), price: dishes[parseKey(k).id].price, unit: unitPrice(k) }));
         } else if (GROUP && GMODE === "porpersona") { /* a drink for each person: the quantity is how many per person, the price is per unit */
           v.drinksPP = Object.keys(cart).map(k => ({ key: k, per: cart[k], name: lineName(k), ui: lineNameUI(k), unit: unitPrice(k) }));
         } else {

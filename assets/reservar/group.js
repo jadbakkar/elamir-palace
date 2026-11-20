@@ -25,6 +25,7 @@
   var ORDER = (ITEMS[FEATURED] ? [ITEMS[FEATURED]] : []).concat(MENU.filter(function (d) { return d.id !== FEATURED; }));
 
   var plates = [];                  /* [{ id, name (Spanish), ui, price }]: the dishes the guests can order, chosen on the order page */
+  var plateLines = null;            /* [{ key, id, qty, name (Spanish, with option/extras), ui, price (base), unit (with extras) }]: the same plates line by line, from the order page; null once the list is edited here */
   var drinks = [];                  /* [{ qty, name (Spanish), ui, total }]: drinks and bottles by quantity, chosen on the order page */
   /* the form never leaves the page: its picks come back through the picker panel (no pending state) */
   var drinksPP = [];                /* [{ key, per, name (Spanish), ui, unit }]: a drink for each person, chosen on the order page (per = how many per person) */
@@ -158,11 +159,13 @@
   /* the plates and the drinks are chosen on the order page, which sends the host back here ("Listo") */
   function go(where) {
     var b = isC(mode()) ? null : num($("#g-budgetPP"), 0.01, 5000, false);   /* a la carta: no budget, so every dish is offered */
-    var data = { form: formState(), plates: plates, dishes: drinks, drinksPP: drinksPP, sub: 0, back: location.pathname + "#" + where };
+    var data = { form: formState(), plates: plates, plateLines: plateLines, dishes: drinks, drinksPP: drinksPP, sub: 0, back: location.pathname + "#" + where };
     try {
       sessionStorage.setItem(STORE, JSON.stringify(data));
       if (where === "platos") { /* the plates already chosen come selected */
-        var pre = {}; plates.forEach(function (p) { if (!b || p.price <= b) pre[p.id] = p.qty || 1; });
+        var pre = {};   /* the exact lines when we have them (a shawarma keeps its protein and sides), else one per dish */
+        if (plateLines) plateLines.forEach(function (l) { if (!b || l.price <= b) pre[l.key] = l.qty; });
+        else plates.forEach(function (p) { if (!b || p.price <= b) pre[p.id] = p.qty || 1; });
         localStorage.setItem(CART_P, JSON.stringify(pre));
       } else if (where === "porpersona") { /* the drinks already chosen come selected, with their quantity per person */
         var pp = {}; drinksPP.forEach(function (d) { pp[d.key] = d.per; });
@@ -197,11 +200,21 @@
       var plate = ITEMS[FEATURED];
       lines.push({ t: "pk", name: plate.name, per: 1, n: N, qty: N, unit: plate.price, amount: r2(N * plate.price) });
       base = r2(N * plate.price);
-    } else {   /* a la carta: no price up front; the dishes the host picked are what the guests choose from */
+    } else if (m === "carta") {   /* a la carta, chosen from the menu: the host orders each dish with its quantity, so it is priced like any order */
+      (plateLines || plates.map(function (p) { return { name: p.name, qty: p.qty || 1, unit: p.price }; })).forEach(function (p) {
+        var amt = r2(p.qty * p.unit);
+        lines.push({ t: "c", name: p.name, qty: p.qty, unit: p.unit, amount: amt });
+        base = r2(base + amt);
+      });
+      if (!plates.length) errs.push(T("g.err.noopt"));
+      else {
+        var qSum = plates.reduce(function (s, p) { return s + (p.qty || 1); }, 0);
+        if (N && qSum !== N) warn.push(T("g.warn.qtyN", { q: qSum, n: N }));
+      }
+    } else {   /* a la carta · 3 to 5 dishes: no price up front; the dishes the host picked are what the guests choose from */
       priced = false;
       opts = plates.map(function (p) { return { id: p.id, name: p.name, price: p.price, kind: "plato", qty: p.qty || 1 }; });
-      if (m === "carta5") { if (opts.length < 3 || opts.length > 5) errs.push(T("g.err.cartaCount")); }
-      else if (!opts.length) errs.push(T("g.err.noopt"));
+      if (opts.length < 3 || opts.length > 5) errs.push(T("g.err.cartaCount"));
     }
 
     /* a drink for each person (optional, picked on the order page): each one times the number of guests */
@@ -225,6 +238,7 @@
   function lineDetail(l, lang) {
     if (l.t === "pp") return T("g.line.ppd", { amount: usd(l.unit, lang), n: l.qty }, lang);
     if (l.t === "pk") return T("g.line.pk", { per: l.per, n: l.n }, lang) + " · " + usd(l.unit, lang);
+    if (l.t === "c") return l.qty + " × " + usd(l.unit, lang);
     return T("g.line.tbl", { q: l.qty, unit: usd(l.unit, lang) }, lang);
   }
   function modeName(m, lang) { return T("g.mode." + m + ".t", null, lang); }
@@ -251,7 +265,7 @@
       }).join("") : isC(c.mode) ? "" : '<li class="empty">' + esc(T("g.noLines")) + "</li>");
     $("#g-qOpts").innerHTML = c.opts.length ? "<h3>" + esc(T("g.opts", { n: c.opts.length })) + "</h3><ul class=\"q-opts\">" +
       c.opts.map(function (o) { return "<li><span>" + esc(dn(o.name) + qtyTxt(o)) + "</span><b>" + esc(usd(o.price * (o.qty || 1))) + "</b></li>"; }).join("") + "</ul>" : "";
-    if (isC(c.mode)) $("#g-qTot").innerHTML = "";
+    if (c.mode === "carta5") $("#g-qTot").innerHTML = "";
     else if (!c.priced) $("#g-qTot").innerHTML = '<p class="q-none">' + esc(T("g.needTotal")) + "</p>";
     else {
       $("#g-qTot").innerHTML = '<dl class="q-tot">' +
@@ -284,7 +298,7 @@
       L2.push("", "*Platos que pueden elegir los invitados (" + names.length + ")*",
         shown.join(", ") + (shown.length < names.length ? " … y " + (names.length - shown.length) + " más (lista completa en el presupuesto adjunto)" : ""));
     };
-    if (isC(c.mode)) {
+    if (c.mode === "carta5") {
       if (ex.length) { L2.push("", "*Botellas y bebidas para la mesa (por unidad, no por persona)*"); ex.forEach(function (l) { L2.push("- " + l.name + ": " + l.qty + " × " + U(l.unit) + " = " + U(l.amount)); }); }
       optsBlock();
       L2.push("", "Presupuesto sujeto a confirmación del restaurante.");
@@ -292,7 +306,8 @@
     }
     var pers = function (l) { return "- " + l.name + ": " + E("g.line.pk", { per: l.per, n: l.n }) + " = " + U(l.amount); };
     var main = c.lines.filter(function (l) { return l.t === "pp" || (l.t === "pk" && !l.drink); }), dr = c.lines.filter(function (l) { return l.drink; });
-    if (c.mode === "presupuesto") L2.push("", "*Presupuesto por persona*", E("g.line.ppd", { amount: U(c.b), n: c.N }) + ": " + U(main[0].amount));
+    if (c.mode === "carta") { L2.push("", "*Platos*"); c.lines.filter(function (l) { return l.t === "c"; }).forEach(function (l) { L2.push("- " + l.name + ": " + l.qty + " × " + U(l.unit) + " = " + U(l.amount)); }); }
+    else if (c.mode === "presupuesto") L2.push("", "*Presupuesto por persona*", E("g.line.ppd", { amount: U(c.b), n: c.N }) + ": " + U(main[0].amount));
     else { L2.push("", "*Plato navideño para todos*"); main.forEach(function (l) { L2.push(pers(l)); }); }
     if (dr.length) { L2.push("", "*Bebida para cada persona*"); dr.forEach(function (l) { L2.push(pers(l)); }); }
     if (ex.length) { L2.push("", "*Botellas y bebidas para la mesa (por unidad, no por persona)*"); ex.forEach(function (l) { L2.push("- " + l.name + ": " + l.qty + " × " + U(l.unit) + " = " + U(l.amount)); }); }
@@ -398,6 +413,7 @@
   ROOT.addEventListener("input", function (e) {
     var cp = e.target.getAttribute && e.target.getAttribute("data-cp");   /* a la carta: a dish ticked or unticked */
     if (cp) {
+      plateLines = null;   /* the list changed here: the order page's lines no longer match it */
       plates = plates.filter(function (p) { return p.id !== cp; });
       if (e.target.checked && ITEMS[cp] && plates.length < CARTA_MAX) plates.push(plateOf(ITEMS[cp]));
     }
@@ -530,6 +546,7 @@
     if (picker) { picker.remove(); picker = null; }
     var v = readStore(); if (!v) return;
     plates = Array.isArray(v.plates) ? v.plates.filter(function (p) { return p && p.id; }) : [];
+    plateLines = Array.isArray(v.plateLines) ? v.plateLines.filter(function (l) { return l && l.key && l.qty > 0 && l.unit >= 0; }) : null;
     drinks = Array.isArray(v.dishes) ? v.dishes.filter(function (d) { return d && d.qty > 0; }) : [];
     drinksPP = Array.isArray(v.drinksPP) ? v.drinksPP.filter(function (d) { return d && d.per > 0 && d.unit > 0; }) : [];
     update();
