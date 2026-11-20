@@ -21,6 +21,8 @@
   function ctl(id, d, q, I, pop) {
     const name = I.dish(d.name, d.desc, d.cat).name;
     if (d.opts || d.extras || d.pick) {
+      /* already in the order: − takes one off (the last line added), + still opens the options */
+      if (q) return `<span class="step${pop ? " pop" : ""}"><button type="button" data-dm="1" aria-label="${esc(I.t("dish.removeOne", { name }))}">${MINUS}</button><b aria-hidden="true">${q}</b><span class="sr">${esc(I.t("dish.inOrder", { qty: q }))}</span><button type="button" data-opt="1" aria-haspopup="dialog" aria-label="${esc(I.t("dish.chooseOptionsQty", { name, qty: q }))}">${PLUS}</button></span>`;
       return `<button type="button" class="add" data-opt="1" aria-haspopup="dialog" aria-label="${esc(q ? I.t("dish.chooseOptionsQty", { name, qty: q }) : I.t("dish.chooseOptions", { name }))}">${PLUS}${q ? `<i class="bd" aria-hidden="true">${q}</i>` : ""}</button>`;
     }
     if (!q) return `<button type="button" class="add" data-d="1" aria-label="${esc(I.t("dish.add", { name }))}">${PLUS}</button>`;
@@ -570,6 +572,13 @@
     if (li && b.classList.contains("dish-go")) { openOptions(li.dataset.id); return; }
     if (li && b.closest(".ctl")) {
       const id = li.dataset.id;
+      if (b.hasAttribute("data-dm")) { /* dish with options: take one off its most recently added line */
+        const ks = Object.keys(cart).filter(k => parseKey(k).id === id), k = ks[ks.length - 1];
+        if (k) change(k, -1);
+        const nb = li.querySelector(".ctl [data-dm]") || li.querySelector(".ctl button");
+        if (nb) nb.focus({ preventScroll: true });
+        return;
+      }
       if (b.hasAttribute("data-opt")) { openOptions(id, false, true); return; }
       const d = +b.dataset.d, wasAdd = !cart[id];
       change(id, d);
