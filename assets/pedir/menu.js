@@ -315,6 +315,9 @@ const PHOTOS_OFF = {
   /* fotos nuevas del cliente (img/pya, convertidas a 640×480 + -th 240×180) */
   "entradas-arabes--kibbe-crudo": "img/pya/entradas-arabes--kibbe-crudo.jpg",
   "entradas-arabes--kibbe-frito": "img/pya/entradas-arabes--kibbe-frito.jpg",
+  "entradas-arabes--racion-de-pan": "img/pya/entradas-arabes--racion-de-pan.jpg",
+  "entradas-arabes--pan-frito": "img/pya/entradas-arabes--pan-frito.jpg",
+  "entradas-arabes--pan-tostado": "img/pya/entradas-arabes--pan-tostado.jpg",
   "shawarmas-y-sandwiches--kebab": "img/pya/shawarmas-y-sandwiches--kebab.jpg",
   "shawarmas-y-sandwiches--makanek": "img/pya/shawarmas-y-sandwiches--makanek.jpg",
   "shawarmas-y-sandwiches--kibbe-frito": "img/pya/shawarmas-y-sandwiches--kibbe-frito.jpg",
