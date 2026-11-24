@@ -1,5 +1,5 @@
 EL AMIR PALACE · INFORMACIÓN PARA EL ASISTENTE
-(Archivo generado automáticamente por scripts/build-knowledge.js el 2026-11-16. No editar a mano: editar config.js / menu.js y volver a generar.)
+(Archivo generado automáticamente por scripts/build-knowledge.js el 2026-11-24. No editar a mano: editar config.js / menu.js y volver a generar.)
 
 == RESTAURANTE ==
 Nombre: El Amir Palace (en árabe: قصر الأمير)
@@ -49,7 +49,7 @@ También se puede pedir escribiendo directamente al WhatsApp de la sucursal.
 == RESERVAS DE MESA ==
 En https://www.elamirpalace.com/reservar.html hay un formulario (sucursal, personas, fecha, hora, nombre) que abre WhatsApp con la solicitud lista para enviar a la sucursal. También se puede escribir directo al WhatsApp de la sucursal. La mesa queda reservada solo cuando la sucursal confirma por el chat.
 
-== CARTA (17 secciones, 193 platos) ==
+== CARTA (17 secciones, 196 platos) ==
 Secciones (las ÚNICAS que existen): Entradas Árabes · Entradas Mediterráneas · Sopas y Cremas · Ensaladas · Platos Árabes Especiales · Medias Porciones · Shawarmas y Sándwiches · Brochetas y Parrillas · Carnes y Aves · Pescados y Mariscos · Arroces · Pastas · Hamburguesas · Postres · Batidos y Yogurt · Bebidas · Licores y Cócteles.
 Formato: Plato — precio — descripción. Debajo: lo OBLIGATORIO que el cliente debe elegir, lo opcional (quitar ingredientes, adicionales con su precio) y los envases.
 Solo existe lo que aparece en esta carta.
@@ -88,6 +88,12 @@ Solo existe lo que aparece en esta carta.
 • Tabaquitos de repollo — $12 — Hojas de repollo rellenas de arroz y carne sazonada.
    Envases para llevar: 1 ($1)
 • Tabaquitos mixtos — $12 — Combinación de tabaquitos de uva y repollo.
+   Envases para llevar: 1 ($1)
+• Ración de pan — $1
+   Envases para llevar: 1 ($1)
+• Pan frito — $1
+   Envases para llevar: 1 ($1)
+• Pan tostado — $1
    Envases para llevar: 1 ($1)
 
 --- Entradas Mediterráneas ---
@@ -365,20 +371,21 @@ Solo existe lo que aparece en esta carta.
 
 --- Batidos y Yogurt ---
 • Batido de fresa — $4
-   OBLIGATORIO elegir Preparación: En agua / En leche
+   OBLIGATORIO elegir Azúcar: Sin azúcar / Azúcar medio / Azúcar normal
 • Batido de melón — $4
+   OBLIGATORIO elegir Azúcar: Sin azúcar / Azúcar medio / Azúcar normal
 • Batido de piña — $4
-   OBLIGATORIO elegir Preparación: En agua / En leche
+   OBLIGATORIO elegir Azúcar: Sin azúcar / Azúcar medio / Azúcar normal
 • Batido de melocotón — $4
-   OBLIGATORIO elegir Preparación: En agua / En leche
+   OBLIGATORIO elegir Azúcar: Sin azúcar / Azúcar medio / Azúcar normal
 • Batido de guanábana — $4
-   OBLIGATORIO elegir Preparación: En agua / En leche
+   OBLIGATORIO elegir Azúcar: Sin azúcar / Azúcar medio / Azúcar normal
 • Batido de lechosa — $4
-   OBLIGATORIO elegir Preparación: En agua / En leche
+   OBLIGATORIO elegir Azúcar: Sin azúcar / Azúcar medio / Azúcar normal
 • Batido de parchita — $4
-   OBLIGATORIO elegir Preparación: En agua / En leche
+   OBLIGATORIO elegir Azúcar: Sin azúcar / Azúcar medio / Azúcar normal
 • Batido de mora — $4
-   OBLIGATORIO elegir Preparación: En agua / En leche
+   OBLIGATORIO elegir Azúcar: Sin azúcar / Azúcar medio / Azúcar normal
 • Limonada — $4
 • Limonada con hierbabuena — $4
 • Merengada de frutas — $6
@@ -418,7 +425,7 @@ Solo existe lo que aparece en esta carta.
 • Jarra de sangría (6 personas) — $40
 
 == RESUMEN DE PRECIOS ==
-Comida más económica: Salsa de ajo $1 (Shawarmas y Sándwiches); Medio hummus $4 (Medias Porciones); Medio mutabal $4 (Medias Porciones); Media muhammara $4 (Medias Porciones); Medio falafel $5 (Medias Porciones); Papas fritas $6 (Entradas Mediterráneas)
+Comida más económica: Ración de pan $1 (Entradas Árabes); Pan frito $1 (Entradas Árabes); Pan tostado $1 (Entradas Árabes); Salsa de ajo $1 (Shawarmas y Sándwiches); Medio hummus $4 (Medias Porciones); Medio mutabal $4 (Medias Porciones)
 Comida más cara: Fideuá (4 personas) $75 (Arroces); Paella (4 personas) $75 (Arroces); Bandeja árabe (4 personas) $75 (Platos Árabes Especiales); Brochetas El Amir $65 (Brochetas y Parrillas); Bandeja árabe (3 personas) $65 (Platos Árabes Especiales)
 Bebidas más económicas: Agua mineral $1.50 (Bebidas); Cerveza nacional $1.50 (Licores y Cócteles); Nestea $2 (Bebidas); Refresco de lata $2 (Bebidas)
 Bebidas más caras: Botella de whisky 15 años $115 (Licores y Cócteles); Botella de ron Carúpano $60 (Licores y Cócteles); Botella de whisky 12 años $60 (Licores y Cócteles)
@@ -440,7 +447,7 @@ P: ¿Qué formas de pago aceptan?
 R: Aceptamos Pago móvil, efectivo en bolívares o divisas, Binance, Zinli y Zelle.
 
 P: ¿Desde cuándo existe El Amir Palace?
-R: Desde 1997. Llevamos casi tres décadas cocinando recetas libanesas y mediterráneas en Anzoátegui, hoy con sucursales en Lechería y Puerto La Cruz.
+R: Desde 1997. Llevamos casi tres décadas cocinando recetas libanesas en Anzoátegui, hoy con sucursales en Lechería y Puerto La Cruz.
 
 P: ¿Qué platos recomiendan para compartir?
 R: La bandeja árabe, para 2, 3 o 4 personas, las brochetas El Amir y la parrilla mixta. Para empezar, hummus, kibbe y tabaquitos al centro de la mesa.

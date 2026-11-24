@@ -29,7 +29,8 @@ const MENU = [
   ["Hummus",8,"Crema de garbanzos"],["Mutabal",8,"Crema de berenjenas"],["Muhammara",8,"Crema de pimentón"],["Labne",8,"Crema de yogurt"],
   ["Cremas mixtas",11,"Selección especial de cremas de la casa."],["Makanek",11,"Salchicha árabe"],["Basterma",11,"Carne curada"],["Sawda Djaj",11,"Hígado de pollo"],
   ["Garbanzo con lomito",15,"Garbanzos acompañados con jugoso lomito."],["Kibbe crudo",12],["Kibbe frito",12],["Kibbe horneado",13,"Kibbe horneado con especias tradicionales."],["Falafel",8,"Croquetas crujientes de garbanzo con especias."],["Falafel especial",10,"Falafel servido con toques y acompañantes especiales de la casa."],
-  ["Tabaquitos de uva",12,"Hojas de uva rellenas de arroz y carne sazonada."],["Tabaquitos de repollo",12,"Hojas de repollo rellenas de arroz y carne sazonada."],["Tabaquitos mixtos",12,"Combinación de tabaquitos de uva y repollo."]]],
+  ["Tabaquitos de uva",12,"Hojas de uva rellenas de arroz y carne sazonada."],["Tabaquitos de repollo",12,"Hojas de repollo rellenas de arroz y carne sazonada."],["Tabaquitos mixtos",12,"Combinación de tabaquitos de uva y repollo."],
+  ["Ración de pan",1],["Pan frito",1],["Pan tostado",1]]],
  ["Entradas Mediterráneas","",[
   ["Carpaccio de lomito",17,"Láminas de lomito con especias, confit de cherry, rúgula, champiñones, parmesano, sal ahumada y pesto"],
   ["Ceviche de camarón",17,"Con crema de ají amarillo y toques cítricos, casabitos tostados y chips de plátano"],
