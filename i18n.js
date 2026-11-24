@@ -1047,6 +1047,9 @@
   D("Tabaquitos de uva", "Hojas de uva rellenas de arroz y carne sazonada.", ["Stuffed Grape Leaves (Tabaquitos)", "Grape leaves stuffed with rice and seasoned meat."], ["ورق عنب", "ورق عنب محشو بالأرز واللحم المتبّل."]);
   D("Tabaquitos de repollo", "Hojas de repollo rellenas de arroz y carne sazonada.", ["Stuffed Cabbage Rolls (Tabaquitos)", "Cabbage leaves stuffed with rice and seasoned meat."], ["ملفوف محشي", "ورق ملفوف محشو بالأرز واللحم المتبّل."]);
   D("Tabaquitos mixtos", "Combinación de tabaquitos de uva y repollo.", ["Mixed Stuffed Rolls (Tabaquitos)", "A mix of stuffed grape leaves and cabbage rolls."], ["لفائف محشية مشكّلة", "تشكيلة من ورق العنب والملفوف المحشي."]);
+  D("Ración de pan", "", ["Portion of Bread", ""], ["حصة خبز", ""]);
+  D("Pan frito", "", ["Fried Bread", ""], ["خبز مقلي", ""]);
+  D("Pan tostado", "", ["Toasted Bread", ""], ["خبز محمّص", ""]);
 
   /* ---- 2. Entradas Mediterráneas ---- */
   C("Entradas Mediterráneas", "Mediterranean Starters", "مقبلات متوسطية");
